@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<books>
+  <book name="c#" isActived="true">
+    <bookProperty property="name" value="c#" />
+    <bookProperty property="publish" value="1985" />
+  </book>
+  <book name="c++" isActived="true">
+    <bookProperty property="name" value="C++" />
+  </book>
+</books>

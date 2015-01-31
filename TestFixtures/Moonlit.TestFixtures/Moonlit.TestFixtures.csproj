@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{923990DF-2196-48E6-AA68-A5B9452594B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Moonlit.TestFixtures</RootNamespace>
+    <AssemblyName>Moonlit.TestFixtures</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\support files\Test.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arithmetic\Sort.cs" />
+    <Compile Include="AssemblyDescriptor_Test.cs" />
+    <Compile Include="AttachDataAttributeTest.cs" />
+    <Compile Include="Buffer_Test.cs" />
+    <Compile Include="Arithmetic\Fibonacci.cs" />
+    <Compile Include="Configuration\ParserTest.cs" />
+    <Compile Include="Configuration\ValueArgument_Test.cs" />
+    <Compile Include="Data\Design\Entity\CSharpMigratorGeneratorDbMigratorTestFixture.cs" />
+    <Compile Include="Data\Design\Entity\DbMigratorTestFixture.cs" />
+    <Compile Include="Data\Design\Entity\MigrationFacadeFixture.cs" />
+    <Compile Include="Data\Design\Entity\MockData\Cat.cs" />
+    <Compile Include="Data\Design\Entity\MockData\DbContextV1.cs" />
+    <Compile Include="Data\Design\Entity\MockData\Dog.cs" />
+    <Compile Include="Data\Design\Entity\MockData\Person.cs" />
+    <Compile Include="Data\Design\Entity\ModelMetadataParserFixture.cs" />
+    <Compile Include="Data\Models\Person.cs" />
+    <Compile Include="Data\Models\TestDbContext.cs" />
+    <Compile Include="Data\TestHelper.cs" />
+    <Compile Include="Data\XmlDataSourceFixture.cs" />
+    <Compile Include="DictionaryHelper_Test.cs" />
+    <Compile Include="DynamicDictionaryMapperTest.cs" />
+    <Compile Include="Helpers\ByteExtensions_Test.cs" />
+    <Compile Include="Helpers\StringHelperTest.cs" />
+    <Compile Include="Helpers\UriBuilderExtensions_Test.cs" />
+    <Compile Include="Linq\Expressions\DynamicMethodExecutorTest.cs" />
+    <Compile Include="IO\ProtocolAdapter_Test.cs" />
+    <Compile Include="Mef\MefResolvorFixture.cs" />
+    <Compile Include="Modularity\ModuleCatalogTest.cs" />
+    <Compile Include="ObjectTranslators\DictionaryTranslator_Test.cs" />
+    <Compile Include="ObjectTranslators\ObjectTranslatorTest.cs" />
+    <Compile Include="Reflection\Emit\GeneratedObject_Test.cs" />
+    <Compile Include="PatternDesign\Observable_Test.cs" />
+    <Compile Include="PatternDesign\Singleton_Test.cs" />
+    <Compile Include="Diagnostics\Profier_Test.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ObjectTranslators\ReaderTranslator_Test.cs" />
+    <Compile Include="Reflection\ProxyTest.cs" />
+    <Compile Include="Services\Spelling\SpellingExtensionsTest.cs" />
+    <Compile Include="SymmetricAlgorithmExtensionsTest.cs" />
+    <Compile Include="Text\WordEnumeratorTest.cs" />
+    <Compile Include="TypeResolver_Test.cs" />
+    <Compile Include="XmlComparerTest.cs" />
+    <Compile Include="Xml\XmlMergeTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuthoringTests.txt" />
+    <EmbeddedResource Include="Xml\Xmls\merge2.xml" />
+    <EmbeddedResource Include="Xml\Xmls\merge1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TypeMappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\moonlit\Moonlit.csproj">
+      <Project>{318A3070-6896-4E82-B52B-7A1959156DF1}</Project>
+      <Name>Moonlit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EmbeddedResource Include="Data\Resources\Moonlit.Data.Fixtures.Person.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

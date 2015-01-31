@@ -1,0 +1,273 @@
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Moonlit.Text
+{
+    public class IndentWriter : TextWriter
+    {
+        private readonly int _indent;
+        private readonly TextWriter _writer;
+
+        private int _indentCount;
+
+        public IndentWriter(TextWriter writer, int indent = 4)
+        {
+            _writer = writer;
+            _indent = indent;
+        }
+
+        public override Encoding Encoding
+        {
+            get { return _writer.Encoding; }
+        }
+
+        public IDisposable BeginIndent()
+        {
+            return new IndentWriterGaurd(this);
+        }
+
+        public override void Write(string format, params object[] arg)
+        {
+            _writer.Write(CreateIndent());
+
+            _writer.Write(format, arg);
+        }
+
+        public override void WriteLine()
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine();
+        }
+
+        private string CreateIndent()
+        {
+            return new string(' ', _indent * _indentCount);
+        }
+
+        public override void WriteLine(string format, params object[] arg)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(format, arg);
+        }
+
+        public override void WriteLine(string format, object arg0)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(format, arg0);
+        }
+
+        public override void WriteLine(string format, object arg0, object arg1)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(format, arg0, arg1);
+        }
+
+        public override void WriteLine(string format, object arg0, object arg1, object arg2)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(format, arg0, arg1, arg2);
+        }
+        public override void Close()
+        {
+            _writer.Close();
+        }
+        public override void Write(int value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Flush()
+        {
+            _writer.Flush();
+        }
+
+        public override Task FlushAsync()
+        {
+            return _writer.FlushAsync();
+        }
+
+        public override void WriteLine(string value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override IFormatProvider FormatProvider
+        {
+            get { return _writer.FormatProvider; }
+        }
+        public override void Write(bool value)
+        {
+            _writer.Write(CreateIndent());
+
+            _writer.Write(value);
+        }
+        public override void Write(char value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(char[] buffer)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(buffer);  
+        }
+
+        public override void Write(decimal value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(double value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(char[] buffer, int index, int count)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(buffer, index, count);
+        }
+        public override void Write(float value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(long value)
+        { 
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(object value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(string format, object arg0)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(format, arg0);
+        }
+        public override void Write(string format, object arg0, object arg1)
+        {
+            _writer.Write(CreateIndent());
+            _writer.Write(format, arg0, arg1);
+        }
+        public override void Write(string format, object arg0, object arg1, object arg2)
+        {
+            _writer.Write(CreateIndent());
+            _writer.Write(format, arg0, arg1, arg2);
+        }
+        public override void Write(string value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(uint value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void Write(ulong value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.Write(value);
+        }
+        public override void WriteLine(bool value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(ulong value)
+        {
+
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(char value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(char[] buffer)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(buffer);
+        }
+        public override void WriteLine(char[] buffer, int index, int count)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(buffer, index, count);
+        }
+        public override void WriteLine(decimal value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(double value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(float value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(int value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(long value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(uint value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        public override void WriteLine(object value)
+        {
+            _writer.Write(CreateIndent());
+            _writer.WriteLine(value);
+        }
+        
+        #region Nested type: IndentWriterGaurd
+
+        private class IndentWriterGaurd : IDisposable
+        {
+            private readonly IndentWriter _indentWriter;
+
+            public IndentWriterGaurd(IndentWriter indentWriter)
+            {
+                _indentWriter = indentWriter;
+                _indentWriter._indentCount++;
+            }
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                _indentWriter._indentCount--;
+            }
+
+            #endregion
+        }
+
+        #endregion
+    }
+}

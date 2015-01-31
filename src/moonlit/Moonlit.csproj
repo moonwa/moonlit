@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{318A3070-6896-4E82-B52B-7A1959156DF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Moonlit</RootNamespace>
+    <AssemblyName>Moonlit</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\support files\Moonlit.pfx</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\debug\Moonlit.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>1591 3003</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\release\</OutputPath>
+    <BuildPackage>true</BuildPackage>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'stage|AnyCPU'">
+    <OutputPath>bin\stage\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveDirectory\ActiveDirectoryElement.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectoryElements.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectoryManager.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectoryModule.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectorySection.cs" />
+    <Compile Include="ActiveDirectory\ActiveDirectoryEntry.cs" />
+    <Compile Include="ActiveDirectory\DefaultUserElement.cs" />
+    <Compile Include="AppDomainResolvor.cs" />
+    <Compile Include="Arithmetic\ConsecutiveAnalyzer.cs" />
+    <Compile Include="AttachDataAttribute.cs" />
+    <Compile Include="Caching\CachedObject.cs" />
+    <Compile Include="Caching\CacheManagerExtensions.cs" />
+    <Compile Include="Collections\IgnorableDictionary.cs" />
+    <Compile Include="Data\DbDataReaderExtensions.cs" />
+    <Compile Include="Data\IDatabase.cs" />
+    <Compile Include="Data\Migrations\ColumnBuilder.cs" />
+    <Compile Include="Data\Migrations\ColumnModel.cs" />
+    <Compile Include="Data\Migrations\DbMigration.cs" />
+    <Compile Include="Data\Migrations\DbMigrator.cs" />
+    <Compile Include="Data\Migrations\Entity\CSharpMigratorsCodeGenerator.cs" />
+    <Compile Include="Data\Migrations\Entity\EmptyCodeGenerator.cs" />
+    <Compile Include="Data\Migrations\Entity\MigrationFacade.cs" />
+    <Compile Include="Data\Migrations\Entity\MigratorsCodeGenerator.cs" />
+    <Compile Include="Data\Migrations\Entity\ModelMetadata.cs" />
+    <Compile Include="Data\Migrations\Entity\ModelMetadataParser.cs" />
+    <Compile Include="Data\Migrations\Entity\PropertyMetadata.cs" />
+    <Compile Include="Data\Migrations\MigrateDatabaseInitializer.cs" />
+    <Compile Include="Data\Migrations\Migrators\AddColumnDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\AddPrimaryKeyDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\AlterColumnDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\CreateIndexDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\CreateTableDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\DropColumnDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\DropIndexDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\DropPrimaryKeyDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\DropTableDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\MigrationStatement.cs" />
+    <Compile Include="Data\Migrations\Migrators\RenameColumnDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\RenameTableDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\SqlDbMigrator.cs" />
+    <Compile Include="Data\Migrations\Migrators\TableBuilder.cs" />
+    <Compile Include="Data\Migrations\ModuleMigration.cs" />
+    <Compile Include="Data\Migrations\PrimitiveTypeName.cs" />
+    <Compile Include="DictionaryObject.cs" />
+    <Compile Include="DirectoryServices\Base\HttpAction.cs" />
+    <Compile Include="DirectoryServices\IIS\ApplicationPool.cs" />
+    <Compile Include="DirectoryServices\IIS\AppPoolIdentityTypes.cs" />
+    <Compile Include="DirectoryServices\IIS\AuthFlag.cs" />
+    <Compile Include="DirectoryServices\IIS\EntryDebugger.cs" />
+    <Compile Include="DirectoryServices\IIS\Enumerator.cs" />
+    <Compile Include="DirectoryServices\IIS\IISDirectoryEntry.cs" />
+    <Compile Include="DirectoryServices\IIS\IISRoot.cs" />
+    <Compile Include="DirectoryServices\IIS\KeyType.cs" />
+    <Compile Include="DirectoryServices\IIS\ScriptMap.cs" />
+    <Compile Include="DirectoryServices\IIS\ServerBinding.cs" />
+    <Compile Include="DirectoryServices\IIS\ServerBindings.cs" />
+    <Compile Include="DirectoryServices\IIS\WebServerTypes.cs" />
+    <Compile Include="DirectoryServices\IIS\WebSite.cs" />
+    <Compile Include="DirectoryServices\IIS\WebSiteType.cs" />
+    <Compile Include="DirectoryServices\IIS\WebVirtualDir.cs" />
+    <Compile Include="DomainTypeResolver.cs" />
+    <Compile Include="HierarchicalTextValuePair.cs" />
+    <Compile Include="ITypeResolvor.cs" />
+    <Compile Include="IValue.cs" />
+    <Compile Include="Linq\DefaultMetadateAnalyzer.cs" />
+    <Compile Include="Linq\ColumnMetadate.cs" />
+    <Compile Include="Linq\DynamicDictionaryMapper.cs" />
+    <Compile Include="Linq\IMetadateAnalyzer.cs" />
+    <Compile Include="ActivatorDependencyResolver.cs" />
+    <Compile Include="Locker.cs" />
+    <Compile Include="Media\Mpeg\ID3V1.cs" />
+    <Compile Include="Media\Mpeg\ID3V2.cs" />
+    <Compile Include="Media\Mpeg\MpegChannelMode.cs" />
+    <Compile Include="Media\Mpeg\MpegEmphasis.cs" />
+    <Compile Include="Media\Mpeg\MpegGenre.cs" />
+    <Compile Include="Media\Mpeg\MpegInfo.cs" />
+    <Compile Include="Media\Mpeg\MpegLayer.cs" />
+    <Compile Include="Media\Mpeg\MpegModeEx.cs" />
+    <Compile Include="Media\Mpeg\MpegTagHeader.cs" />
+    <Compile Include="Media\Mpeg\MpegVersion.cs" />
+    <Compile Include="Media\Subtitle\ISubtitle.cs" />
+    <Compile Include="Media\Subtitle\SrtSubtitle.cs" />
+    <Compile Include="Media\Subtitle\SubtitleCollection.cs" />
+    <Compile Include="Media\Subtitle\SubtitleItem.cs" />
+    <Compile Include="Media\Wave\WAVFile.cs" />
+    <Compile Include="Media\Wave\WAVFileExceptions.cs" />
+    <Compile Include="Media\Wave\WAVFormat.cs" />
+    <Compile Include="Mef\MefDependencyResolver.cs" />
+    <Compile Include="Modularity\Module.cs" />
+    <Compile Include="Buffer.cs" />
+    <Compile Include="Caching\CacheAttribute.cs" />
+    <Compile Include="Caching\CacheQueryAttribute.cs" />
+    <Compile Include="Caching\CacheRefreshAttribute.cs" />
+    <Compile Include="Caching\MemoryCacheManager.cs" />
+    <Compile Include="Collections\LazyList.cs" />
+    <Compile Include="Configuration\AssemblyAliasElement.cs" />
+    <Compile Include="Configuration\AssemblyAliasElementCollection.cs" />
+    <Compile Include="Configuration\ModuleElement.cs" />
+    <Compile Include="Configuration\MoonlitSectionGroup.cs" />
+    <Compile Include="Configuration\TypeAliasElement.cs" />
+    <Compile Include="Configuration\TypeAliasElementCollection.cs" />
+    <Compile Include="Configuration\TypeResolverSection.cs" />
+    <Compile Include="DiscriminatorAttribute.cs" />
+    <Compile Include="EntityAccessor.cs" />
+    <Compile Include="CodeDom\CodeExprs.cs" />
+    <Compile Include="Collections\DynamicQueryable.cs" />
+    <Compile Include="Collections\EnumerableHelper.cs" />
+    <Compile Include="Collections\SynchDictionary.cs" />
+    <Compile Include="EnumHelper.cs" />
+    <Compile Include="Net\Bits\Interop.cs" />
+    <Compile Include="Net\CookieHelper.cs" />
+    <Compile Include="Net\Extensions\HttpWebRequestExtensions.cs" />
+    <Compile Include="Net\MessageNetworkItem.cs" />
+    <Compile Include="Net\ProtocolAdapter.cs" />
+    <Compile Include="Net\Reactor.cs" />
+    <Compile Include="Net\ReactorHandler.cs" />
+    <Compile Include="Net\Web\Callback.cs" />
+    <Compile Include="Net\Web\CallOperation.cs" />
+    <Compile Include="Net\Web\Error.cs" />
+    <Compile Include="Net\Web\HttpWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Net\Web\IWebContainer.cs" />
+    <Compile Include="Net\Web\IWebMessageFormatter.cs" />
+    <Compile Include="Net\Web\JsonWebMessageFormatter.cs" />
+    <Compile Include="Net\Web\WebCall.cs" />
+    <Compile Include="Net\Web\WebCallRequest.cs" />
+    <Compile Include="Net\Web\WebContainer.cs" />
+    <Compile Include="Net\Web\WebParameter.cs" />
+    <Compile Include="Net\Web\WebParameterType.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\DictionaryObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\ArrayObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\BooleanObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\ByteObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectReaders\ClassObjectReader.cs" />
+    <Compile Include="ObjectConverts\ObjectReaders\CompositeObjectReaderFactory.cs" />
+    <Compile Include="ObjectConverts\ConvertArgs.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\DateTimeObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\DecimalObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\DefaultObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectReaders\DefaultObjectReader.cs" />
+    <Compile Include="ObjectConverts\ObjectReaders\DictionaryObjectReader.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\DoubleObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\EnumObjectConverter.cs" />
+    <Compile Include="ObjectConverts\FieldNotFoundException.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\Int16ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\Int32ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\Int64ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\IObjectReader.cs" />
+    <Compile Include="ObjectConverts\IObjectReaderFactory.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\ListObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableBooleanObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableByteObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableDateTimeObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableDecimalObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableDoubleObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableInt16ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableInt32ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableInt64ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\NullableSingleObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverter.cs" />
+    <Compile Include="ObjectConverts\PropertyConversion.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\SingleObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\StringObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\StructObjectConverter.cs" />
+    <Compile Include="ObjectConverts\ObjectConverters\CreationDictionaryObjectConverter.cs" />
+    <Compile Include="ObjectConverts\TypeConversion.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyError.cs" />
+    <Compile Include="PropertyErrors.cs" />
+    <Compile Include="PropertyErrorsException.cs" />
+    <Compile Include="Exports\Excel.cs" />
+    <Compile Include="Exports\OpenXmls\StringTemplateEngine.cs" />
+    <Compile Include="ByteArrayHelper.cs" />
+    <Compile Include="DateTimeHelper.cs" />
+    <Compile Include="DictionaryHelper.cs" />
+    <Compile Include="Caching\ICacheManager.cs" />
+    <Compile Include="IntegerHelper.cs" />
+    <Compile Include="IO\DictionaryXmlSource.cs" />
+    <Compile Include="IO\DirectoryHelper.cs" />
+    <Compile Include="IO\FileSystemInfoHelper.cs" />
+    <Compile Include="IO\StreamCopy.cs" />
+    <Compile Include="IO\StreamExtension.cs" />
+    <Compile Include="IO\ZipStorer.cs" />
+    <Compile Include="IPagedRequest.cs" />
+    <Compile Include="IPageOfList.cs" />
+    <Compile Include="IPageOfList`1.cs" />
+    <Compile Include="Linq\Expressions\DynamicMethodExecutor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Linq\Expressions\DynamicPropertyAccessorCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Linq\Expressions\DynamicPropertyGetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Linq\Expressions\ExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Linq\Expressions\Extensions\ExpressionExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Linq\QueryableHelper.cs" />
+    <Compile Include="LocalizableString.cs" />
+    <Compile Include="Reflection\EmptyProxyFactory.cs" />
+    <Compile Include="IQueryRequest.cs" />
+    <Compile Include="Diagnostics\NotificationTracker.cs" />
+    <Compile Include="I18n\CulturedResource.cs" />
+    <Compile Include="I18n\DirectoryResourceManagerFactory.cs" />
+    <Compile Include="I18n\TypedResourceManagerFactory.cs" />
+    <Compile Include="I18n\IResourceManagerFactory.cs" />
+    <Compile Include="I18n\IResourceSource.cs" />
+    <Compile Include="I18n\Resource.cs" />
+    <Compile Include="I18n\ResourceManager.cs" />
+    <Compile Include="I18n\DirectoryResourceSource.cs" />
+    <Compile Include="I18n\ResourcePathResolver.cs" />
+    <Compile Include="TextValuePair.cs" />
+    <Compile Include="TypeResolverBase.cs" />
+    <Compile Include="UriBuilderHelper.cs" />
+    <Compile Include="Guards\SupportInitializeGuard.cs" />
+    <Compile Include="IdNamePair.cs" />
+    <Compile Include="Modularity\IModule.cs" />
+    <Compile Include="IDependencyResolver.cs" />
+    <Compile Include="IteratorScope.cs" />
+    <Compile Include="IXmlSource.cs" />
+    <Compile Include="PageOfList.cs" />
+    <Compile Include="RandomHelper.cs" />
+    <Compile Include="ObjectConverts\IObjectConverter.cs" />
+    <Compile Include="Reflection\XmlObjectTranslater.cs" />
+    <Compile Include="Runtime\Serialization\StringSerializer.cs" />
+    <Compile Include="Security\RsaExtensions.cs" />
+    <Compile Include="Services\Spelling\ISpelling.cs" />
+    <Compile Include="DependencyResolverHelper.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="PropertyChangeTracker.cs" />
+    <Compile Include="Collections\ReaderWriterCache.cs" />
+    <Compile Include="Configuration\ConsoleParameter\Parameter.cs" />
+    <Compile Include="Configuration\ConsoleParameter\ParseEnumerator.cs" />
+    <Compile Include="Configuration\ConsoleParameter\CommandPrefix.cs" />
+    <Compile Include="Configuration\ConsoleParameter\ComplexPrefix.cs" />
+    <Compile Include="Configuration\ConsoleParameter\DefinitionParameter.cs" />
+    <Compile Include="Configuration\ConsoleParameter\ParseBase.cs" />
+    <Compile Include="Configuration\ConsoleParameter\EnumParameter.cs" />
+    <Compile Include="Configuration\ConsoleParameter\HelpParameter.cs" />
+    <Compile Include="Configuration\ConsoleParameter\IParameterEntity.cs" />
+    <Compile Include="Configuration\ConsoleParameter\IParseEnumerator.cs" />
+    <Compile Include="Configuration\ConsoleParameter\IParseEntity.cs" />
+    <Compile Include="Configuration\ConsoleParameter\LongOrSplitPrefix.cs" />
+    <Compile Include="Configuration\ConsoleParameter\LongPrefix.cs" />
+    <Compile Include="Configuration\ConsoleParameter\OptionArgumentEntityCollection.cs" />
+    <Compile Include="Configuration\ConsoleParameter\Parser.cs" />
+    <Compile Include="Configuration\ConsoleParameter\ShortPrefix.cs" />
+    <Compile Include="Configuration\ConsoleParameter\SplitPrefix.cs" />
+    <Compile Include="Configuration\ConsoleParameter\TargetArgument.cs" />
+    <Compile Include="Configuration\ConsoleParameter\ValueParameter.cs" />
+    <Compile Include="DescriptionAttribute.cs" />
+    <Compile Include="Diagnostics\ActionHelper.cs" />
+    <Compile Include="Diagnostics\CodeTimer.cs" />
+    <Compile Include="Diagnostics\ObjectDumper.cs" />
+    <Compile Include="Diagnostics\Process.Extesion.cs" />
+    <Compile Include="Diagnostics\Profiler.cs" />
+    <Compile Include="Diagnostics\Validator.cs" />
+    <Compile Include="DisposableBase.cs" />
+    <Compile Include="Drawing\Thumbnail.cs" />
+    <Compile Include="PatternDesign\Decorator\DecoratorBuilder.cs" />
+    <Compile Include="PatternDesign\Decorator\IMemberInfoFactory.cs" />
+    <Compile Include="PatternDesign\Decorator\InterfaceDecoratorBuilder.cs" />
+    <Compile Include="PatternDesign\Decorator\MemberMethodInfoFactory.cs" />
+    <Compile Include="PatternDesign\Observer.cs" />
+    <Compile Include="PatternDesign\Singleton.cs" />
+    <Compile Include="PatternDesign\SingletonProcess.cs" />
+    <Compile Include="Reflection\Emit\GeneratedObject.cs" />
+    <Compile Include="ObjectConverts\ObjectReaders\DataReaderObjectReader.cs" />
+    <Compile Include="Reflection\Eval.cs" />
+    <Compile Include="Reflection\Extentions\StringExtension.cs" />
+    <Compile Include="Collections\Tree.cs" />
+    <Compile Include="Diagnostics\Trace.cs" />
+    <Compile Include="Collections\MessageBlock.cs" />
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="Arithmetic\DigitExtensions.cs" />
+    <Compile Include="Arithmetic\Fibonacci.cs" />
+    <Compile Include="Arithmetic\Sort\ISort.cs" />
+    <Compile Include="Arithmetic\Sort\QuickSort.cs" />
+    <Compile Include="ProcessChangeEventHandler.cs" />
+    <Compile Include="Security\Cryptography\MoveChar.cs" />
+    <Compile Include="Security\SymmetricAlgorithmExtensions.cs" />
+    <Compile Include="Services\Spelling\Spelling.cs" />
+    <Compile Include="Services\Spelling\SpellingExtensions.cs" />
+    <Compile Include="Text\EncodingHeader.cs" />
+    <Compile Include="StringHelper.cs" />
+    <Compile Include="Text\Extensions\StringListExtension.cs" />
+    <Compile Include="Text\FileSystemNameHelper.cs" />
+    <Compile Include="Text\IndentWriter.cs" />
+    <Compile Include="Text\WordEnumerator.cs" />
+    <Compile Include="Text\WordSpliter.cs" />
+    <Compile Include="StringConverter.cs" />
+    <Compile Include="Threading\SingleThreadTaskScheduler.cs" />
+    <Compile Include="UniqueAttribute.cs" />
+    <Compile Include="Validations\EmailAttribute.cs" />
+    <Compile Include="Validations\MobileAttribute.cs" />
+    <Compile Include="VersionAttribute.cs" />
+    <Compile Include="Reflection\AssemblyExtension.cs" />
+    <Compile Include="Reflection\EnumDescriptor.cs" />
+    <Compile Include="Reflection\TypeExtension.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="Wcf\CultureExtensions\CultureBehaviorElement.cs" />
+    <Compile Include="Wcf\CultureExtensions\CultureCallContextInitializer.cs" />
+    <Compile Include="Wcf\CultureExtensions\CultureEndpointBehavior.cs" />
+    <Compile Include="Wcf\CultureExtensions\CultureMessageInspector.cs" />
+    <Compile Include="Wcf\CultureExtensions\CultureName.cs" />
+    <Compile Include="Wcf\DependencyResolverExtensions\DependencyResolverBehavior.cs" />
+    <Compile Include="Wcf\DependencyResolverExtensions\DependencyResolverBehaviorElement.cs" />
+    <Compile Include="Wcf\DependencyResolverExtensions\DependencyResolverContainerFactory.cs" />
+    <Compile Include="Wcf\DependencyResolverExtensions\DependencyResolverInstanceProvider.cs" />
+    <Compile Include="Wcf\FaultExtensions\ExceptionHandlingBehavior.cs" />
+    <Compile Include="Wcf\FaultExtensions\ExceptionHandlingMessageInspector.cs" />
+    <Compile Include="Wcf\FaultExtensions\FaultBehaviorElement.cs" />
+    <Compile Include="Wcf\FaultExtensions\ServiceErrorHandler.cs" />
+    <Compile Include="Wcf\FaultExtensions\ServiceExceptionDetail.cs" />
+    <Compile Include="Wcf\ProxyBase.cs" />
+    <Compile Include="Wcf\ProxyClientBase.cs" />
+    <Compile Include="Windows\ConsoleEx.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\DesktopIni\ShellClassInfo.cs" />
+    <Compile Include="Xml\XmlComparer.cs" />
+    <Compile Include="Xml\ResourceXmlSource.cs" />
+    <Compile Include="Xml\XmlDatabase.cs" />
+    <Compile Include="Xml\XmlMerge.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Wcf\read me.txt" />
+    <None Include="App.config" />
+    <None Include="Arithmetic\readme.txt" />
+    <Content Include="typefacet.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Moonlit.nuspec" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rules>
+  <Rule TypeName="DataMemberAttributeIsRequiredForPropertyOfDataContractRule" Category="Moonlit" CheckId="CA001">
+    <Name>The DataMember Attribute is required for Property of DataContract Class </Name>
+    <Description> The DataMember Attribute is required for Property of DataContract Class</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.moon.wa</Url>
+    <Resolution> The Property {0}::{1} has to add DataMember Attribute </Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="DataContractAttributeIsRequiredForParameterOfOperationContractRule" Category="Moonlit" CheckId="CA002">
+    <Name>The DataContract Attribute is required for Parameters of OperationContract Method </Name>
+    <Description> The DataContract Attribute is required for Parameters of OperationContract Method</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.moon.wa</Url>
+    <Resolution> The Parameter {0} has to add DataContract Attribute </Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="DataContractAttributeIsRequiredForReturnTypeOfOperationContractRule" Category="Moonlit" CheckId="CA003">
+    <Name>The DataContract Attribute is required for Return Type of OperationContract Method </Name>
+    <Description>The DataContract Attribute is required for Return Type of OperationContract Method</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.moon.wa</Url>
+    <Resolution> The Type {0} has to add DataContract Attribute </Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="DataContractAttributeIsRequiredForPropertyOfDataContractRule" Category="Moonlit" CheckId="CA004">
+    <Name>The DataContract Attribute is required for Property Type of DataContract </Name>
+    <Description>The DataContract Attribute is required for Property Type of DataContract Type</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.moon.wa</Url>
+    <Resolution> The Type {0} has to add DataContract Attribute </Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="OperationContractAttributeIsRequiredForMethodOfServiceContractRule" Category="Moonlit" CheckId="CA005">
+    <Name>The OperationContract Attribute is required for Method Type of ServiceContract Type </Name>
+    <Description>The OperationContract Attribute is required for Method Type of ServiceContract Type</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.moon.wa</Url>
+    <Resolution> The Method {0} has to add OperationContract Attribute </Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="MethodHasToBeVirtualForOperationContractSvcRule" Category="Moonlit" CheckId="CA006">
+    <Name>The Method has to be virtual for ServiceContract Svc</Name>
+    <Description>The Method has to be virtual for ServiceContract Svc</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.moon.wa</Url>
+    <Resolution> The Method {0} has to be virtual</Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+</Rules>

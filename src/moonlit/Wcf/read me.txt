@@ -1,0 +1,81 @@
+﻿// DependencyResolvorExtensions
+1. 服务器端添加
+	a. 添加配置
+	<system.serviceModel>
+		<extensions>
+			<behaviorExtensions>
+				<add name="unityBehavior" type="Moonlit.Wcf.DependencyResolvorExtensions.DependencyResolvorBehaviorElement, Moonlit.Wcf"/>
+			</behav	iorExtensions>
+		</extensions>
+		<behaviors>
+			<serviceBehaviors>
+				<behavior name="defaultBehavior">
+					<unityBehavior/>
+				</behavior> 
+			</serviceBehaviors>
+		</behaviors>
+	</system.serviceModel>
+	b. 指定 service 的 serviceBehavior
+		<service behaviorConfiguration="defaultBehavior" ... />
+
+
+// CultureExtensions
+
+1. 服务器端添加
+	a. 添加配置
+	<system.serviceModel>
+		<extensions>
+			<behaviorExtensions>
+				<add name="cultureBehavior" type="Moonlit.Wcf.DependencyResolvorExtensions.CultureBehaviorElementMoonlit.Wcf"/>
+			</behav	iorExtensions>
+		</extensions>
+		<behaviors>
+			<endpointBehaviors>
+				<behavior name="defaultBehavior">
+					<cultureBehavior/>
+				</behavior>
+			</endpointBehaviors>
+		</behaviors>
+	</system.serviceModel>
+	b. 指定 service 的 serviceBehavior
+		<service ... >
+			<endpoint behaviorConfiguration="defaultBehavior"
+		</service>
+2. 客户端添加
+	a. 添加配置
+	<system.serviceModel>
+		<extensions>
+			<behaviorExtensions>
+				<add name="cultureBehavior" type="Moonlit.Wcf.DependencyResolvorExtensions.CultureBehaviorElement, Moonlit.Wcf"/>
+			</behav	iorExtensions>
+		</extensions>
+		<behaviors>
+			<endpointBehaviors>
+				<behavior name="defaultBehavior">
+					<cultureBehavior/>
+				</behavior>
+			</endpointBehaviors>
+		</behaviors>
+	</system.serviceModel>
+	b. 指定 endpoint
+		<endpoint behaviorConfiguration="defaultBehavior"
+
+// FaultExtensions
+1. 服务器端添加
+	a. 添加配置
+	<system.serviceModel>
+		<extensions>
+			<behaviorExtensions>
+				<add name="faultBehavior" type="Moonlit.Wcf.DependencyResolvorExtensions.FaultBehaviorElement, Moonlit.Wcf"/>
+			</behav	iorExtensions>
+		</extensions>
+		<behaviors>
+			<serviceBehaviors>
+				<behavior name="faultBehavior">
+					<unityBehavior/>
+				</behavior> 
+			</serviceBehaviors>
+		</behaviors>
+	</system.serviceModel>
+	b. 指定 service 的 serviceBehavior
+		<service behaviorConfiguration="defaultBehavior" ... />

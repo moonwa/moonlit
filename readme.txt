@@ -1,0 +1,1 @@
+sn -i companyname.pfx VS_KEY_3E185446540E7F7A
