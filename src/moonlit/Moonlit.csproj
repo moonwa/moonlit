@@ -109,13 +109,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveDirectory\ActiveDirectoryElement.cs" />
-    <Compile Include="ActiveDirectory\ActiveDirectoryElements.cs" />
-    <Compile Include="ActiveDirectory\ActiveDirectoryManager.cs" />
-    <Compile Include="ActiveDirectory\ActiveDirectoryModule.cs" />
-    <Compile Include="ActiveDirectory\ActiveDirectorySection.cs" />
-    <Compile Include="ActiveDirectory\ActiveDirectoryEntry.cs" />
-    <Compile Include="ActiveDirectory\DefaultUserElement.cs" />
     <Compile Include="AppDomainResolvor.cs" />
     <Compile Include="Arithmetic\ConsecutiveAnalyzer.cs" />
     <Compile Include="AttachDataAttribute.cs" />
