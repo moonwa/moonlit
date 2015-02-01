@@ -12,8 +12,7 @@
     <AssemblyName>Moonlit</AssemblyName>
     <StartupObject>
     </StartupObject>
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\support files\Moonlit.pfx</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly> 
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
