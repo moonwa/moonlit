@@ -41,44 +41,44 @@ namespace Moonlit.Diagnostics
         public static void Write(object element, int depth, TextWriter log)
         {
             ObjectDumper dumper = new ObjectDumper(depth);
-            dumper.writer = log;
+            dumper._writer = log;
             dumper.WriteObject(null, element);
         }
 
-        TextWriter writer;
-        int pos;
-        int level;
-        int depth;
+        TextWriter _writer;
+        int _pos;
+        int _level;
+        readonly int _depth;
 
         private ObjectDumper(int depth)
         {
-            this.depth = depth;
+            this._depth = depth;
         }
 
         private void Write(string s)
         {
             if (s != null)
             {
-                writer.Write(s);
-                pos += s.Length;
+                _writer.Write(s);
+                _pos += s.Length;
             }
         }
 
         private void WriteIndent()
         {
-            for (int i = 0; i < level; i++) writer.Write("  ");
+            for (int i = 0; i < _level; i++) _writer.Write("  ");
         }
 
         private void WriteLine()
         {
-            writer.WriteLine();
-            pos = 0;
+            _writer.WriteLine();
+            _pos = 0;
         }
 
         private void WriteTab()
         {
             Write("  ");
-            while (pos % 8 != 0) Write(" ");
+            while (_pos % 8 != 0) Write(" ");
         }
 
         private void WriteObject(string prefix, object element)
@@ -103,11 +103,11 @@ namespace Moonlit.Diagnostics
                             Write(prefix);
                             Write("...");
                             WriteLine();
-                            if (level < depth)
+                            if (_level < _depth)
                             {
-                                level++;
+                                _level++;
                                 WriteObject(prefix, item);
-                                level--;
+                                _level--;
                             }
                         }
                         else
@@ -157,7 +157,7 @@ namespace Moonlit.Diagnostics
                         }
                     }
                     if (propWritten) WriteLine();
-                    if (level < depth)
+                    if (_level < _depth)
                     {
                         foreach (MemberInfo m in members)
                         {
@@ -171,9 +171,9 @@ namespace Moonlit.Diagnostics
                                     object value = f != null ? f.GetValue(element) : p.GetValue(element, null);
                                     if (value != null)
                                     {
-                                        level++;
+                                        _level++;
                                         WriteObject(m.Name + ": ", value);
-                                        level--;
+                                        _level--;
                                     }
                                 }
                             }

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Moonlit.CodeDom
 {
-    public static class CodeExprs
+    public static class CodeDomainHelper
     {
-        public static CodePropertyReferenceExpression Property(object target, params string[] properties)
+        public static CodePropertyReferenceExpression PropertyReference(object target, params string[] properties)
         {
             CodeExpression targetExpr = ToExpression(target);
             CodePropertyReferenceExpression property = null;
@@ -19,7 +19,7 @@ namespace Moonlit.CodeDom
             }
             return property;
         }
-        public static CodeFieldReferenceExpression Field(object target, params string[] fields)
+        public static CodeFieldReferenceExpression FieldReference(object target, params string[] fields)
         {
             CodeExpression targetExpr = ToExpression(target);
             CodeFieldReferenceExpression field = null;
@@ -52,17 +52,17 @@ namespace Moonlit.CodeDom
             get { return new CodePrimitiveExpression(null); }
         }
 
-        public static CodeMethodInvokeExpression CallTarget(object target, string methodName, params object[] parameters)
+        public static CodeMethodInvokeExpression MethodInvoke(object target, string methodName, params object[] parameters)
         {
             CodeMethodReferenceExpression method = new CodeMethodReferenceExpression(ToExpression(target), methodName);
             return new CodeMethodInvokeExpression(method, ToExpressions(parameters));
         }
-        public static CodeMethodInvokeExpression CallTarget(object target, string methodName, CodeTypeReference[] types, params object[] parameters)
+        public static CodeMethodInvokeExpression MethodInvoke(object target, string methodName, CodeTypeReference[] types, params object[] parameters)
         {
             CodeMethodReferenceExpression method = new CodeMethodReferenceExpression(ToExpression(target), methodName, types);
             return new CodeMethodInvokeExpression(method, ToExpressions(parameters));
         }
-        public static CodeMethodInvokeExpression Call(CodeMethodReferenceExpression method, params object[] parameters)
+        public static CodeMethodInvokeExpression MethodInvoke(CodeMethodReferenceExpression method, params object[] parameters)
         {
             return new CodeMethodInvokeExpression(method, ToExpressions(parameters));
         }
@@ -108,12 +108,12 @@ namespace Moonlit.CodeDom
             return new CodeTypeReferenceExpression(type);
         }
 
-        public static CodeExpression Field(string fieldName)
+        public static CodeExpression FieldReference(string fieldName)
         {
-            return Field(This, fieldName);
+            return FieldReference(This, fieldName);
         }
 
-        public static CodeExpression Field(object target, string fieldName)
+        public static CodeExpression FieldReference(object target, string fieldName)
         {
             return new CodeFieldReferenceExpression(ToExpression(target), fieldName);
         }
@@ -166,7 +166,7 @@ namespace Moonlit.CodeDom
             List<CodeAttributeArgument> args = new List<CodeAttributeArgument>();
             foreach (var parameter in parameters)
             {
-                args.Add(new CodeAttributeArgument(CodeExprs.ToExpression(parameter)));
+                args.Add(new CodeAttributeArgument(CodeDomainHelper.ToExpression(parameter)));
             }
             return new CodeAttributeDeclaration(new CodeTypeReference(attrType), args.ToArray());
         }
@@ -186,7 +186,7 @@ namespace Moonlit.CodeDom
             CodeMemberField field = new CodeMemberField(propertyType, "_" + propertyName);
             CodeMemberProperty property = new CodeMemberProperty();
 
-            var fieldRef = new CodeFieldReferenceExpression(CodeExprs.This, "_" + propertyName);
+            var fieldRef = new CodeFieldReferenceExpression(CodeDomainHelper.This, "_" + propertyName);
             var valueRef = new CodeArgumentReferenceExpression("value");
 
             property.Name = propertyName;

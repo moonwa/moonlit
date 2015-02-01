@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Moonlit.Diagnostics;
 
 namespace Moonlit.Configuration.ConsoleParameter
@@ -43,12 +44,18 @@ namespace Moonlit.Configuration.ConsoleParameter
         public string Current
         {
             get {
-                Validator.Validate<Exception>(!this.End, "不可在编历结束后访问当前元素");
+                if (this.End)
+                {
+                    throw new ValidationException("不可在编历结束后访问当前元素");
+                }
                 return _current; 
             }
             set
             {
-                Validator.Validate<Exception>(!this.End, "不可在编历结束后访问当前元素");
+                if (this.End)
+                {
+                    throw new ValidationException("不可在编历结束后访问当前元素");
+                }
                 _current = value;
             }
         }

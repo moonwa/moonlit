@@ -134,7 +134,7 @@ namespace Moonlit.TestFixtures.ObjectTranslators
         public void MapUnexistPropertyException_Test()
         {
             ObjectConverter objectConverter = new ObjectConverter();
-            objectConverter.RegisterConverter(1, new CreationDictionaryObjectConverter("xtype", new DomainTypeResolver()));
+            objectConverter.RegisterConverter(1, new CreationDictionaryObjectConverter("xtype", new DomainTypeResolver(true)));
 
             Dictionary<string, object> dt = new Dictionary<string, object>();
             dt.Add("Name", "QQ");
@@ -149,7 +149,7 @@ namespace Moonlit.TestFixtures.ObjectTranslators
         public void DictionObject_Test()
         {
             ObjectConverter objectConverter = new ObjectConverter();
-            objectConverter.RegisterConverter(1, new CreationDictionaryObjectConverter("xtype", new DomainTypeResolver()));
+            objectConverter.RegisterConverter(1, new CreationDictionaryObjectConverter("xtype", new DomainTypeResolver(true)));
 
             Dictionary<string, object> routeValue = new Dictionary<string, object>();
             routeValue["Name"] = "A";
@@ -169,7 +169,7 @@ namespace Moonlit.TestFixtures.ObjectTranslators
         public void ComplexObject_Test()
         {
             ObjectConverter objectConverter = new ObjectConverter();
-            objectConverter.RegisterConverter(1, new CreationDictionaryObjectConverter("xtype", new DomainTypeResolver()));
+            objectConverter.RegisterConverter(1, new CreationDictionaryObjectConverter("xtype", new DomainTypeResolver(true)));
 
             Dictionary<string, object> Peter = new Dictionary<string, object>();
             Peter["Name"] = "Peter";

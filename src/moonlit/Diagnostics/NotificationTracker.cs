@@ -6,17 +6,27 @@ using System.ComponentModel;
 
 namespace Moonlit.Diagnostics
 {
+    /// <summary>
+    /// track the properties changed for INotifyPropertyChanged
+    /// </summary>
+    /// <example>
+    /// INotifyPropertyChanged changed;
+    /// var tracker = new NotificationTracker(changed);
+    /// tracker.ChangedProperties
+    /// </example>
     public class NotificationTracker
-    {
-        private INotifyPropertyChanged changer;
-        private System.Collections.Generic.List<string> notifications = new List<string>();
+    { 
+        private readonly List<string> _notifications = new List<string>();
 
         public NotificationTracker(INotifyPropertyChanged changer)
-        {
-            this.changer = changer;
-            changer.PropertyChanged += (o, e) => { this.notifications.Add(e.PropertyName); };
+        { 
+            changer.PropertyChanged += (o, e) => { this._notifications.Add(e.PropertyName); };
         }
 
+        public static void A()
+        {
+             
+        }
         /// <summary>
         /// Returns the changed properties in order fired.
         /// </summary>
@@ -26,12 +36,12 @@ namespace Moonlit.Diagnostics
         /// </remarks>
         public string[] ChangedProperties
         {
-            get { return this.notifications.ToArray(); }
+            get { return this._notifications.ToArray(); }
         }
 
         public void Reset()
         {
-            this.notifications.Clear();
+            this._notifications.Clear();
         }
     }
 }

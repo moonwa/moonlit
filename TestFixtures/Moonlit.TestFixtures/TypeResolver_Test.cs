@@ -54,24 +54,25 @@ namespace Moonlit.TestFixtures
         [TestMethod()]
         public void ResolveType_Test()
         {
-            DomainTypeResolver resolver = new DomainTypeResolver();
-            Assert.IsNull(resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0, culture=neutral", false));
-            Assert.IsNull(resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0", false));
-            Assert.IsNull(resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures", false));
+            DomainTypeResolver resolver = new DomainTypeResolver(false);
+            DomainTypeResolver ignoreCaseResolver = new DomainTypeResolver(true);
+            Assert.IsNull(resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0, culture=neutral"));
+            Assert.IsNull(resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0"));
+            Assert.IsNull(resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures"));
 
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0, culture=neutral", true));
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0", true));
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures", true));
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, Moonlit.TestFixtures, Version=1.0.0.0, Culture=neutral", false));
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, Moonlit.TestFixtures, Version=1.0.0.0", false));
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, Moonlit.TestFixtures", false));
+            Assert.AreEqual(typeof(DemoClass), ignoreCaseResolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0, culture=neutral"));
+            Assert.AreEqual(typeof(DemoClass), ignoreCaseResolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures, version=1.0.0.0"));
+            Assert.AreEqual(typeof(DemoClass), ignoreCaseResolver.ResolveType("moonlit.testfixtures.democlass, moonlit.testfixtures"));
+            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, Moonlit.TestFixtures, Version=1.0.0.0, Culture=neutral"));
+            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, Moonlit.TestFixtures, Version=1.0.0.0"));
+            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, Moonlit.TestFixtures"));
 
 
         }
         [TestMethod()]
         public void DumplicateAdd_Test()
         {
-            DomainTypeResolver resolver = new DomainTypeResolver();
+            DomainTypeResolver resolver = new DomainTypeResolver(true);
 
             resolver.AddTypeAlias("int", typeof(Int64));
             resolver.AddTypeAlias("int", typeof(Int32));
@@ -79,29 +80,30 @@ namespace Moonlit.TestFixtures
         [TestMethod()]
         public void AddAssemblyAlias_Test()
         {
-            DomainTypeResolver resolver = new DomainTypeResolver();
+            DomainTypeResolver resolver = new DomainTypeResolver(true);
 
             resolver.AddAssemblyAlias("test", "Moonlit.TestFixtures, Version=1.0.0.0, Culture=neutral");
-            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, test", true));
+            Assert.AreEqual(typeof(DemoClass), resolver.ResolveType("Moonlit.TestFixtures.DemoClass, test"));
         }
         [TestMethod()]
         public void AddTypeAlias_Test()
         {
-            DomainTypeResolver resolver = new DomainTypeResolver();
+            DomainTypeResolver resolver = new DomainTypeResolver(false);
+            DomainTypeResolver ignoreCaseResolver = new DomainTypeResolver(true);
 
             resolver.AddAssemblyAlias("test", "Moonlit.TestFixtures, Version=1.0.0.0, Culture=neutral");
             resolver.AddTypeAlias("int", typeof(Int32));
-            Assert.AreEqual(typeof(Int32), resolver.ResolveType("int", true));
-            Assert.AreEqual(typeof(Int32), resolver.ResolveType("Int", true));
-            Assert.IsNull(resolver.ResolveType("Int", false));
+            Assert.AreEqual(typeof(Int32), ignoreCaseResolver.ResolveType("int"));
+            Assert.AreEqual(typeof(Int32), ignoreCaseResolver.ResolveType("Int"));
+            Assert.IsNull(resolver.ResolveType("Int"));
         }
         [TestMethod()]
         public void DomainTypeResolver_Test()
         {
-            DomainTypeResolver resolver = new DomainTypeResolver();
-            Assert.AreEqual(typeof(object), resolver.ResolveType("object", true));
-            Assert.AreEqual(typeof(Int32), resolver.ResolveType("int", true));
-            Assert.AreEqual(typeof(object[]), resolver.ResolveType("object[]", true));
+            DomainTypeResolver resolver = new DomainTypeResolver(true);
+            Assert.AreEqual(typeof(object), resolver.ResolveType("object"));
+            Assert.AreEqual(typeof(Int32), resolver.ResolveType("int"));
+            Assert.AreEqual(typeof(object[]), resolver.ResolveType("object[]"));
         }
 
     }

@@ -31,8 +31,8 @@ namespace Moonlit.Collections
             return default(TResult);
         }
 
-        private static readonly SynchDictionary<string, Func<IEnumerable, IEnumerable>> OrderByActions
-            = new SynchDictionary<string, Func<IEnumerable, IEnumerable>>();
+        private static readonly Dictionary<string, Func<IEnumerable, IEnumerable>> OrderByActions
+            = new Dictionary<string, Func<IEnumerable, IEnumerable>>();
 
         public static IEnumerable OrderBy(this IEnumerable items, string orderby)
         {

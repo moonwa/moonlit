@@ -5,7 +5,7 @@ namespace Moonlit
 {
     public interface ITypeResolvor
     {
-        Type ResolveType(string typeName, bool ignoreCase);
+        Type ResolveType(string typeName);
         void AddTypeAlias(string name, Type type);
     }
 }

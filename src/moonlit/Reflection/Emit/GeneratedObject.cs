@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -43,14 +44,10 @@ namespace Moonlit.Reflection.Emit
             if (DefaultConstructor == null)
             {
                 var constructor = InnerType.GetConstructor(new Type[0]);
-                Validator.Validate(constructor != null, string.Format("类型 {0} 没有指定默认的构造函数", InnerType.AssemblyQualifiedName));
-
-                //var builder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("a.dll"), AssemblyBuilderAccess.RunAndSave);
-                //var moduleBuilder = builder.DefineDynamicModule("a", "a.dll");
-                //var typeBuilder = moduleBuilder.DefineType("MyClass", TypeAttributes.Public);
-
-                //MethodBuilder methodBuilder = typeBuilder.DefineMethod(
-                //    "tom", MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, null, new Type[0]);
+                if (constructor == null)
+                {
+                    throw new ValidationException(string.Format("类型 {0} 没有指定默认的构造函数", InnerType.AssemblyQualifiedName));
+                }
 
                 DynamicMethod methodBuilder = new DynamicMethod(InnerType.FullName + "_DefaultConstructor",
                     MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard,

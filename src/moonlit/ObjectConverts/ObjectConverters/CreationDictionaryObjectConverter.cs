@@ -25,7 +25,7 @@ namespace Moonlit.ObjectConverts.ObjectConverters
                 string xtype = di.GetValue(_typeName, (string)null);
                 if (xtype != null)
                 {
-                    diType = _typeResolvor.ResolveType(xtype, true);
+                    diType = _typeResolvor.ResolveType(xtype);
 
                     if (diType == null)
                     {

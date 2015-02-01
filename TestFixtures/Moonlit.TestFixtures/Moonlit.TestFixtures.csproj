@@ -82,16 +82,11 @@
     <Compile Include="Arithmetic\Fibonacci.cs" />
     <Compile Include="Configuration\ParserTest.cs" />
     <Compile Include="Configuration\ValueArgument_Test.cs" />
-    <Compile Include="Data\Design\Entity\CSharpMigratorGeneratorDbMigratorTestFixture.cs" />
-    <Compile Include="Data\Design\Entity\DbMigratorTestFixture.cs" />
-    <Compile Include="Data\Design\Entity\MigrationFacadeFixture.cs" />
     <Compile Include="Data\Design\Entity\MockData\Cat.cs" />
     <Compile Include="Data\Design\Entity\MockData\DbContextV1.cs" />
     <Compile Include="Data\Design\Entity\MockData\Dog.cs" />
     <Compile Include="Data\Design\Entity\MockData\Person.cs" />
-    <Compile Include="Data\Design\Entity\ModelMetadataParserFixture.cs" />
     <Compile Include="Data\Models\Person.cs" />
-    <Compile Include="Data\Models\TestDbContext.cs" />
     <Compile Include="Data\TestHelper.cs" />
     <Compile Include="Data\XmlDataSourceFixture.cs" />
     <Compile Include="DictionaryHelper_Test.cs" />
@@ -129,9 +124,7 @@
     <EmbeddedResource Include="Xml\Xmls\merge2.xml" />
     <EmbeddedResource Include="Xml\Xmls\merge1.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TypeMappers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\src\moonlit\Moonlit.csproj">
       <Project>{318A3070-6896-4E82-B52B-7A1959156DF1}</Project>

@@ -12,7 +12,7 @@ namespace Moonlit.Diagnostics
     public static class ProcessExtension
     {
         /// <summary>
-        /// 获取另一个正在运行的实例
+        /// 获取同一进程的另一个正在运行的实例
         /// </summary>
         /// <param name="currentProcess"></param>
         /// <returns></returns>
@@ -30,13 +30,11 @@ namespace Moonlit.Diagnostics
 
                 return ps.ToList();
             }
-            else
-            {
-                throw new InvalidOperationException(string.Format("无法找到进程{0}主模块", currentProcess.Id));
-            }
+            throw new InvalidOperationException(string.Format("无法找到进程{0}主模块", currentProcess.Id));
         }
+
         /// <summary>
-        /// 判断当前进程是否拖管代码
+        /// 判断某进程是否拖管代码
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>

@@ -1,6 +1,4 @@
 using System.Data.Entity;
-using Moonlit.Data;
-using Moonlit.Data.Migrations;
 
 namespace AssemblyV1
 {

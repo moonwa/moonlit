@@ -6,12 +6,22 @@ namespace Moonlit
 {
     public abstract class TypeResolverBase : ITypeResolvor
     {
-        private readonly IgnoreCaseableDictionary<Type> _types = new IgnoreCaseableDictionary<Type>();
+        private readonly bool _ignoreCase;
+        private readonly Dictionary<string, Type> _types;
         private readonly Dictionary<string, string> _assemblyMaps
             = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-        public TypeResolverBase()
+        protected TypeResolverBase(bool ignoreCase)
         {
+            _ignoreCase = ignoreCase;
+            if (ignoreCase)
+            {
+                _types = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+            }
+            else
+            {
+                _types = new Dictionary<string, Type>( );
+            }
             AddTypeAlias("object", typeof(object));
 
             AddTypeAlias("string", typeof(string));
@@ -34,7 +44,7 @@ namespace Moonlit
             AddTypeAlias("bool?", typeof(bool?));
             AddTypeAlias("decimal?", typeof(decimal?));
         }
-        public Type ResolveType(string typeName, bool ignoreCase)
+        public Type ResolveType(string typeName)
         {
             if (typeName == null) throw new ArgumentNullException("typeName");
 
@@ -42,19 +52,19 @@ namespace Moonlit
 
             Type type;
 
-            if (_types.TryGetValue(typeName, ignoreCase, out type))
+            if (_types.TryGetValue(typeName, out type))
             {
                 return type;
             }
             if (typeName.EndsWith("[]"))
             {
-                type = System.Array.CreateInstance(ResolveType(typeName.Substring(0, typeName.Length - 2), ignoreCase), 0).GetType();
+                type = System.Array.CreateInstance(ResolveType(typeName.Substring(0, typeName.Length - 2)), 0).GetType();
                 AddTypeAlias(typeName, type);
                 return type;
             }
 
             typeName = GetFullTypeName(typeName);
-            type = Type.GetType(typeName, false, ignoreCase) ?? ResolveTypeCore(typeName, ignoreCase);
+            type = Type.GetType(typeName, false, _ignoreCase) ?? ResolveTypeCore(typeName, _ignoreCase);
             if (type != null)
             {
                 AddTypeAlias(typeName, type);

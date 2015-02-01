@@ -21,10 +21,10 @@
         /// </summary>
         public Profiler()
         {
-            _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            _timer.Elapsed += OnTimer;
         }
 
-        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void OnTimer(object sender, System.Timers.ElapsedEventArgs e)
         {
             lock (this)
             {
@@ -38,6 +38,11 @@
         public void Start()
         {
             _timer.Start();
+        }
+        public void Stop()
+        {
+            _timer.Stop();
+            _currentFps = 0;
         }
         /// <summary>
         /// 记录

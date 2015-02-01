@@ -114,7 +114,10 @@ namespace Moonlit
         {
             if ( type != typeof( string ) )
             {
-                Validator.Validate( !string.IsNullOrEmpty( arg ), "参数 arg 不可为空" );
+                if (string.IsNullOrEmpty(arg))
+                {
+                    throw new ArgumentNullException("arg");
+                }
             }
             if ( _Converters.ContainsKey( type ) )
             {
