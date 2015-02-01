@@ -1,22 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
+using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using Castle.DynamicProxy;
 using Moonlit.CastleExtensions.Properties;
 
-namespace Moonlit.Data
+namespace Moonlit.CastleExtensions.DataServices
 {
-    public class ProcedureService 
+    public class ProcedureService
     {
+        private readonly string _connectionString;
+        private readonly DbProviderFactory _providerFactory;
         Dictionary<Type, object> _type2proxy = new Dictionary<Type, object>();
         Castle.DynamicProxy.ProxyGenerator _generator = new Castle.DynamicProxy.ProxyGenerator();
-        private IDatabase _database;
 
-        public ProcedureService(IDatabase database)
+        public ProcedureService(string connectionString, DbProviderFactory providerFactory)
         {
-            _database = database;
+            _connectionString = connectionString;
+            _providerFactory = providerFactory;
         }
+
+        public ProcedureService(string connectionStringName)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName];
+            _connectionString = connectionString.ConnectionString;
+            _providerFactory = DbProviderFactories.GetFactory(connectionString.ProviderName);
+        }
+
         public IT Create<IT>()
         {
             return (IT)Create(typeof(IT));
@@ -25,7 +36,7 @@ namespace Moonlit.Data
         {
             if (!_type2proxy.ContainsKey(type))
             {
-                object proxy = _generator.CreateClassProxy(typeof(object), new Type[] { type }, new ProcedureInterceptor(_database));
+                object proxy = _generator.CreateClassProxy(typeof(object), new Type[] { type }, new ProcedureInterceptor(_providerFactory));
                 _type2proxy.Add(type, proxy);
             }
             return _type2proxy[type];
@@ -33,30 +44,34 @@ namespace Moonlit.Data
 
         class ProcedureInterceptor : IInterceptor
         {
-            IDatabase _database;
-            public ProcedureInterceptor(IDatabase database)
+            private readonly DbProviderFactory _providerFactory;
+
+            public ProcedureInterceptor(DbProviderFactory providerFactory)
             {
-                _database = database;
+                _providerFactory = providerFactory;
             }
 
             #region IInterceptor 成员
 
             public void Intercept(IInvocation invocation)
             {
-                var conn = _database.Connection;
+                var conn = _providerFactory.CreateConnection();
                 DbCommand cmd = conn.CreateCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = invocation.Method.Name;
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var arg in invocation.Method.GetParameters())
                 {
-                    var param = cmd.Parameters.Add(_database.CreateParameter(arg.Name, invocation.Arguments[0]));
+                    var dbParameter = _providerFactory.CreateParameter();
+                    dbParameter.ParameterName = arg.Name;
+                    dbParameter.Value = invocation.Arguments[0];
+                    cmd.Parameters.Add(dbParameter);
                 }
                 if (invocation.Method.ReturnType == typeof(int) || invocation.Method.ReturnType == typeof(void))
                     invocation.ReturnValue = cmd.ExecuteNonQuery();
                 if (invocation.Method.ReturnType == typeof(DataTable))
                 {
-                    var adapter = _database.CreateDataAdapter();
+                    var adapter = _providerFactory.CreateDataAdapter();
                     adapter.SelectCommand = cmd;
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
