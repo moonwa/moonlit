@@ -144,7 +144,6 @@
     <Compile Include="Media\Wave\WAVFileExceptions.cs" />
     <Compile Include="Media\Wave\WAVFormat.cs" />
     <Compile Include="Mef\MefDependencyResolver.cs" />
-    <Compile Include="Modularity\Module.cs" />
     <Compile Include="Buffer.cs" />
     <Compile Include="Caching\CacheAttribute.cs" />
     <Compile Include="Caching\CacheQueryAttribute.cs" />
@@ -240,7 +239,6 @@
     <Compile Include="IO\FileSystemInfoHelper.cs" />
     <Compile Include="IO\StreamCopy.cs" />
     <Compile Include="IO\StreamExtension.cs" />
-    <Compile Include="IO\ZipStorer.cs" />
     <Compile Include="IPagedRequest.cs" />
     <Compile Include="IPageOfList.cs" />
     <Compile Include="IPageOfList`1.cs" />
@@ -278,7 +276,6 @@
     <Compile Include="UriBuilderHelper.cs" />
     <Compile Include="Guards\SupportInitializeGuard.cs" />
     <Compile Include="IdNamePair.cs" />
-    <Compile Include="Modularity\IModule.cs" />
     <Compile Include="IDependencyResolver.cs" />
     <Compile Include="IteratorScope.cs" />
     <Compile Include="IXmlSource.cs" />
@@ -290,7 +287,6 @@
     <Compile Include="Security\RsaExtensions.cs" />
     <Compile Include="Services\Spelling\ISpelling.cs" />
     <Compile Include="DependencyResolverHelper.cs" />
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="PropertyChangeTracker.cs" />
     <Compile Include="Collections\ReaderWriterCache.cs" />
     <Compile Include="Configuration\ConsoleParameter\Parameter.cs" />

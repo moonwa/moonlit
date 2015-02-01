@@ -97,7 +97,6 @@
     <Compile Include="Linq\Expressions\DynamicMethodExecutorTest.cs" />
     <Compile Include="IO\ProtocolAdapter_Test.cs" />
     <Compile Include="Mef\MefResolvorFixture.cs" />
-    <Compile Include="Modularity\ModuleCatalogTest.cs" />
     <Compile Include="ObjectTranslators\DictionaryTranslator_Test.cs" />
     <Compile Include="ObjectTranslators\ObjectTranslatorTest.cs" />
     <Compile Include="Reflection\Emit\GeneratedObject_Test.cs" />
