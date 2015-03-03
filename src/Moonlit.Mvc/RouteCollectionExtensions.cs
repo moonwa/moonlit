@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -24,6 +23,12 @@ namespace Moonlit.Mvc
         {
             foreach (Assembly referencedAssembly in assemblies)
             {
+                var areaAttr = referencedAssembly.GetCustomAttribute<AreaAttribute>();
+                if (areaAttr == null)
+                {
+                    continue;
+                }
+
                 foreach (var exportedType in referencedAssembly.GetExportedTypes())
                 {
                     var methodInfos = exportedType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
@@ -32,15 +37,18 @@ namespace Moonlit.Mvc
                         var requestMappingAttr = methodInfo.GetCustomAttribute<RequestMappingAttribute>(false);
                         if (requestMappingAttr != null)
                         {
-                            route.MapRoute(requestMappingAttr.Name,
+                            var route1 = route.MapRoute(requestMappingAttr.Name,
                                 requestMappingAttr.Url ?? "",
                                 defaults:
                                     new
                                     {
                                         controller = exportedType.Name.Replace("Controller", ""),
-                                        action = methodInfo.Name
-                                    }
+                                        action = methodInfo.Name,
+                                        
+                                    },
+                                    namespaces: new[] { exportedType.Namespace }
                                 );
+                            route1.DataTokens["area"] = areaAttr.Area;
                         }
                     }
                 }
