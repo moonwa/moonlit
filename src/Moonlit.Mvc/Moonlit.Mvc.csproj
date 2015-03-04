@@ -84,6 +84,7 @@
     <Compile Include="AreaAttribute.cs" />
     <Compile Include="ILocalizer.cs" />
     <Compile Include="LocalizedModelMetadataProvider.cs" />
+    <Compile Include="MoonlitController.cs" />
     <Compile Include="RequestContextHelper.cs" />
     <Compile Include="RequestMapping.cs" />
     <Compile Include="RequestMappingAttribute.cs" />

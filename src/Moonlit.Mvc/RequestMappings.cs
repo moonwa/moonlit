@@ -46,8 +46,7 @@ namespace Moonlit.Mvc
                                 );
                             route1.DataTokens["area"] = areaAttr.Area;
                             _requestMappings.Add(new RequestMapping()
-                            {
-                                Url = requestMappingAttr.Url,
+                            { 
                                 Name = requestMappingAttr.Name
                             });
                         }
