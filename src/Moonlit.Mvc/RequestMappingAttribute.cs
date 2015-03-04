@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
-    public class RequestMappingAttribute : Attribute
+    public class RequestMappingAttribute : ActionFilterAttribute
     {
         public string Name { get; set; }
         public string Url { get; set; }
@@ -29,24 +26,11 @@ namespace Moonlit.Mvc
             Url = url;
         }
 
-    }
-
-    public class TagBuilderRender : IDisposable
-    {
-        private readonly TagBuilder _tagBuilder;
-        private readonly TextWriter _textWriter;
-
-        public TagBuilderRender(TagBuilder tagBuilder, TextWriter textWriter)
+        internal const string RequestMappingKey = "__RequestMappingKey";
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            _tagBuilder = tagBuilder;
-            _textWriter = textWriter;
-            textWriter.Write(tagBuilder.ToString(TagRenderMode.StartTag));
-        }
-
-        public void Dispose()
-        {
-            _textWriter.Write(_tagBuilder.ToString(TagRenderMode.EndTag));
+            filterContext.RequestContext.HttpContext.Items[RequestMappingKey] = filterContext.RequestContext.GetRequestMappings().GetRequestMapping(this.Name);
+            base.OnActionExecuting(filterContext);
         }
     }
-     
 }

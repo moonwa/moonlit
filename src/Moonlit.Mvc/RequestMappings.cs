@@ -1,25 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Compilation;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
-    public class RequestRoutes
+    public class RequestMappings
     {
-        private List<RouteItem> _routes = new List<RouteItem>();
+        private readonly List<RequestMapping> _requestMappings = new List<RequestMapping>();
         public void MapRequestMappings(RouteCollection route)
         {
             var referencedAssemblies = BuildManager.GetReferencedAssemblies();
             MapRequestMappings(route, referencedAssemblies.Cast<Assembly>());
         }
-
-        public static void MapRequestMappings(RouteCollection route, IEnumerable<Assembly> assemblies)
+        public void MapRequestMappings(RouteCollection route, IEnumerable<Assembly> assemblies)
         {
             foreach (Assembly referencedAssembly in assemblies)
             {
@@ -44,19 +40,34 @@ namespace Moonlit.Mvc
                                     {
                                         controller = exportedType.Name.Replace("Controller", ""),
                                         action = methodInfo.Name,
-                                        
+
                                     },
-                                    namespaces: new[] { exportedType.Namespace }
+                                namespaces: new[] { exportedType.Namespace }
                                 );
                             route1.DataTokens["area"] = areaAttr.Area;
+                            _requestMappings.Add(new RequestMapping()
+                            {
+                                Url = requestMappingAttr.Url,
+                                Name = requestMappingAttr.Name
+                            });
                         }
                     }
                 }
             }
         }
-    }
 
-    public class RouteItem
-    {
+        /// <summary>
+        /// 获取指定的 <see cref="RequestMapping"/>
+        /// </summary>
+        /// <param name="mappingName"></param>
+        /// <returns></returns>
+        public RequestMapping GetRequestMapping(string mappingName)
+        {
+            if (string.IsNullOrEmpty(mappingName))
+            {
+                return null;
+            }
+            return this._requestMappings.FirstOrDefault(x => string.Equals(mappingName, x.Name));
+        }
     }
 }
