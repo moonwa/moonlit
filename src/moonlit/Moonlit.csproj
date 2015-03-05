@@ -268,7 +268,6 @@
     <Compile Include="Linq\QueryableHelper.cs" />
     <Compile Include="LocalizableString.cs" />
     <Compile Include="Reflection\EmptyProxyFactory.cs" />
-    <Compile Include="IQueryRequest.cs" />
     <Compile Include="Diagnostics\NotificationTracker.cs" />
     <Compile Include="I18n\CulturedResource.cs" />
     <Compile Include="I18n\DirectoryResourceManagerFactory.cs" />

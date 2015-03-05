@@ -33,6 +33,32 @@ namespace Moonlit.Linq
                 return items;
             }
         }
+        public static IPageOfList<T> ToPaged<T>(this IQueryable<T> query, IPagedRequest request)
+        {
+            PageOfList<T> items = new PageOfList<T>();
+            items.ItemCount = query.Count();
+            if (request.PageSize == 0)
+            {
+                items.Items = query.ToList();
+                items.PageIndex = request.PageIndex;
+                items.PageSize = request.PageSize;
+                items.PageCount = 1;
+                return items;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(request.OrderBy))
+                    throw new Exception("OrderBy first before paging");
+                query = DynamicQueryable.OrderBy(query, request.OrderBy.Replace("+", " ").Replace(":", " "));
+
+                var start = (request.PageIndex - 1) * request.PageSize;
+                items.Items = query.Skip(start).Take(request.PageSize).ToList() ;
+                items.PageIndex = request.PageIndex;
+                items.PageSize = request.PageSize;
+                items.PageCount = PageOfList<T>.GetPageCount(items.ItemCount, items.PageSize);
+                return items;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
