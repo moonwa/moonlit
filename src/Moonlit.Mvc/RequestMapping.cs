@@ -6,9 +6,8 @@ namespace Moonlit.Mvc
     public class RequestMapping
     {
         internal string Name { get; set; }
-        public string MakeUrl(object routeData)
-        {
-            UrlHelper urlHelper = new UrlHelper();
+        public string MakeUrl(UrlHelper urlHelper, object routeData)
+        { 
             return urlHelper.RouteUrl(this.Name, HtmlHelper.AnonymousObjectToHtmlAttributes(routeData));
         }
     }

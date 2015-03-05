@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using System.Web.Mvc; 
+using Moonlit.Caching;
+using Newtonsoft.Json;
 
 namespace Moonlit.Mvc
-{ 
+{
     public abstract class MoonlitController : Controller
     {
         protected ActionResult RedirectToRequestMapping(string mappingName, object routeValues)
         {
             var mapping = this.ControllerContext.RequestContext.GetRequestMappings().GetRequestMapping(mappingName);
-            if (mapping== null)
+            if (mapping == null)
             {
                 throw new Exception("Not found request mapping " + mappingName);
             }
@@ -20,7 +22,9 @@ namespace Moonlit.Mvc
         }
         protected ActionResult RedirectToRequestMapping(RequestMapping requestMapping, object routeValues)
         {
-            return Redirect(requestMapping.MakeUrl(routeValues));
+
+            return Redirect(requestMapping.MakeUrl(this.Url, routeValues));
         }
     }
+
 }

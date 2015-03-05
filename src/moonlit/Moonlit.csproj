@@ -80,6 +80,9 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="csredis">
+      <HintPath>..\..\packages\csredis.3.2.1\lib\net40\csredis.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
@@ -89,6 +92,10 @@
       <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -114,6 +121,7 @@
     <Compile Include="AttachDataAttribute.cs" />
     <Compile Include="Caching\CachedObject.cs" />
     <Compile Include="Caching\CacheManagerExtensions.cs" />
+    <Compile Include="Caching\RedisCacheManager.cs" />
     <Compile Include="Data\DbDataReaderExtensions.cs" />
     <Compile Include="DictionaryObject.cs" />
     <Compile Include="DomainTypeResolver.cs" />
