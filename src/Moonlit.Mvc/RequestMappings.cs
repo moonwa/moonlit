@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
@@ -66,7 +67,7 @@ namespace Moonlit.Mvc
             {
                 return null;
             }
-            return this._requestMappings.FirstOrDefault(x => string.Equals(mappingName, x.Name));
+            return this._requestMappings.FirstOrDefault(x => string.Equals(mappingName, x.Name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

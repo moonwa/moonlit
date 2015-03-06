@@ -1,8 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
+    [DebuggerDisplay("{Name}")]
     public class RequestMapping
     {
         internal string Name { get; set; }
