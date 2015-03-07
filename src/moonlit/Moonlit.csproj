@@ -126,6 +126,7 @@
     <Compile Include="DictionaryObject.cs" />
     <Compile Include="DomainTypeResolver.cs" />
     <Compile Include="HierarchicalTextValuePair.cs" />
+    <Compile Include="IFlash.cs" />
     <Compile Include="ITypeResolvor.cs" />
     <Compile Include="IValue.cs" />
     <Compile Include="Linq\DefaultMetadateAnalyzer.cs" />

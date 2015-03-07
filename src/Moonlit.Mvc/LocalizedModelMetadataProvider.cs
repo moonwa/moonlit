@@ -32,7 +32,7 @@ namespace Moonlit.Mvc
             var lang = Thread.CurrentThread.CurrentUICulture.Name;
             metadata.Watermark = _localizer.GetString(metadata.Watermark, metadata.Watermark, lang);
             metadata.DisplayName = _localizer.GetString(metadata.DisplayName, metadata.DisplayName, lang);
-            metadata.DisplayName = _localizer.GetString(metadata.ShortDisplayName, metadata.ShortDisplayName, lang);
+            metadata.ShortDisplayName = _localizer.GetString(metadata.ShortDisplayName, metadata.ShortDisplayName, lang);
             return metadata;
         }
 

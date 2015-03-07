@@ -55,7 +55,7 @@ namespace Moonlit.Caching
             }
         }
 
-        public Task SetAsync(string key, object value, TimeSpan? expiredTime)
+        public async Task SetAsync(string key, object value, TimeSpan? expiredTime)
         {
             key = BuildKey(key);
             using (var connection = MakeConnection())
@@ -63,7 +63,7 @@ namespace Moonlit.Caching
                 var text = JsonConvert.SerializeObject(value);
                 expiredTime = expiredTime ?? TimeSpan.FromMinutes(5);
                 var bytes = Encoding.UTF8.GetBytes(text);
-                return connection.SetAsync(key, Convert.ToBase64String(bytes), expiredTime.Value);
+                await connection.SetAsync(key, Convert.ToBase64String(bytes), expiredTime.Value).ConfigureAwait(false);
             }
         }
 
