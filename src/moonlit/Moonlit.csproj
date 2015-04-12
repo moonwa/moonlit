@@ -292,7 +292,7 @@
     <Compile Include="ObjectConverts\IObjectConverter.cs" />
     <Compile Include="Reflection\XmlObjectTranslater.cs" />
     <Compile Include="Runtime\Serialization\StringSerializer.cs" />
-    <Compile Include="Security\RsaExtensions.cs" />
+    <Compile Include="Security\RsaHelper.cs" />
     <Compile Include="Services\Spelling\ISpelling.cs" />
     <Compile Include="DependencyResolverHelper.cs" />
     <Compile Include="PropertyChangeTracker.cs" />
@@ -420,11 +420,9 @@
     <None Include="Wcf\read me.txt" />
     <None Include="App.config" />
     <None Include="Arithmetic\readme.txt" />
-    <Content Include="typefacet.xsd">
+    <None Include="Moonlit.nuspec">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="Moonlit.nuspec" />
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

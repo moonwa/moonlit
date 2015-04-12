@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,20 @@ namespace Moonlit
             return source.Substring(posLeft, posRight - posLeft);
         }
 
+        /// <summary>
+        /// hex string to bytes
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static byte[] HexStringToBytes(this string source)
+        {
+            var key = new List<byte>();
+            for (int i = 0; i < source.Length; i += 2)
+            {
+                key.Add(byte.Parse(source.Substring(i, 2), NumberStyles.HexNumber));
+            }
+            return key.ToArray();
+        }
 
         /// <summary>
         /// split <paramref name="text"/> with <paramref name="splitWorld"/>
