@@ -36,11 +36,13 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -85,11 +87,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaAttribute.cs" />
+    <Compile Include="FormActionAttribute.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="ICssClass.cs" />
+    <Compile Include="MvcAttribute.cs" />
     <Compile Include="Html\Checked.cs" />
     <Compile Include="ILocalizer.cs" />
     <Compile Include="LocalizedModelMetadataProvider.cs" />
     <Compile Include="MoonlitController.cs" />
+    <Compile Include="MoonlitMvcRegister.cs" />
     <Compile Include="RequestContextHelper.cs" />
     <Compile Include="RequestMapping.cs" />
     <Compile Include="RequestMappingAttribute.cs" />
@@ -98,9 +104,16 @@
     <Compile Include="RequestMappingsAttribute.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="TagBuilderRender.cs" />
+    <Compile Include="TemplateResult.cs" />
+    <Compile Include="Templates\AdministrationSimpleListTemplate.cs" />
+    <Compile Include="Control.cs" />
+    <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="TagControl.cs" />
+    <Compile Include="TextBox.cs" />
     <Compile Include="Url\UrlHelperHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Moonlit.Mvc.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -20,22 +20,33 @@ namespace Moonlit.Mvc
         {
             foreach (Assembly referencedAssembly in assemblies)
             {
-                var areaAttr = referencedAssembly.GetCustomAttribute<AreaAttribute>();
-                if (areaAttr == null)
+                var mvcAttr = referencedAssembly.GetCustomAttribute<MvcAttribute>();
+                if (mvcAttr == null)
                 {
                     continue;
                 }
 
                 foreach (var exportedType in referencedAssembly.GetExportedTypes())
                 {
+                    var typeAttr = exportedType.GetCustomAttribute<RequestMappingAttribute>(true);
+                    if (typeAttr != null && string.IsNullOrWhiteSpace(typeAttr.Url))
+                    {
+                        throw new Exception("the requestMappintAttribute on controller have to with url");
+                    }
+
                     var methodInfos = exportedType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
                     foreach (var methodInfo in methodInfos)
                     {
                         var requestMappingAttr = methodInfo.GetCustomAttribute<RequestMappingAttribute>(false);
                         if (requestMappingAttr != null)
                         {
+                            var url = requestMappingAttr.Url ?? "";
+                            if (typeAttr != null)
+                            {
+                                url = typeAttr.Url + "/" + url;
+                            }
                             var route1 = route.MapRoute(requestMappingAttr.Name,
-                                requestMappingAttr.Url ?? "",
+                                url,
                                 defaults:
                                     new
                                     {
@@ -45,9 +56,12 @@ namespace Moonlit.Mvc
                                     },
                                 namespaces: new[] { exportedType.Namespace }
                                 );
-                            route1.DataTokens["area"] = areaAttr.Area;
+                            if (mvcAttr.Module != null)
+                            {
+                                route1.DataTokens["area"] = mvcAttr.Module;
+                            }
                             _requestMappings.Add(new RequestMapping()
-                            { 
+                            {
                                 Name = requestMappingAttr.Name
                             });
                         }

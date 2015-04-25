@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Moonlit.UpdateAndRestarter</id>
+    <version>0.1</version>
+    <title>Moonlit UpdateAndRestarter</title>
+    <authors>moon.wa</authors>
+    <owners>moon.wa</owners>
+    <!--<licenseUrl></licenseUrl>-->
+    <projectUrl>https://github.com/moonwa/moonlit</projectUrl>
+    <iconUrl>https://dl.dropboxusercontent.com/u/85378428/projects/moonlit/nuget-icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>update application and restart it</description>
+    <releaseNotes>update application and restart it.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+</package>

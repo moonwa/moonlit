@@ -1,0 +1,24 @@
+﻿<Window x:Class="Moonlit.UpdateAndRestarterPoxy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:updateAndRestarterPoxy="clr-namespace:Moonlit.UpdateAndRestarterPoxy"
+        
+        Title="Updater" Height="160" Width="500" ResizeMode="NoResize">
+    <Window.DataContext>
+        <updateAndRestarterPoxy:MainWindowModel ></updateAndRestarterPoxy:MainWindowModel>   
+    </Window.DataContext>
+    <Border Margin="8">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Status}"></TextBlock>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Command="{Binding UpdateCommand}" Content="{Binding UpdateCommand.Text}"></Button>
+                <Button Command="{Binding DoneCommand}" Content="{Binding DoneCommand.Text}"></Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

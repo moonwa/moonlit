@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/Templates/layout_administration.cshtml";
+}
+@model Moonlit.Mvc.Templates.AdministrationSimpleListTemplate
+@using (Html.BeginForm(
+     "Index", "AdministrationSimpleListTemplate",
+     FormMethod.Post,
+     new {enctype = "multipart/form-data"}
+     ))
+ {
+     <div class="form-horizontal">
+         @foreach (var criterion in Model.Criteria)
+         {
+            <div class="row">
+                <div class="col-sm-@criterion.Width">
+                    <div class="row">
+                        <div class="form-group">
+                            @criterion.RenderLabel()
+                            <div class="col-sm-9">
+                                @criterion.Editor.Render()
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+         }
+         <div class="row">
+             <div class="btn-group">
+                 @foreach (Moonlit.Mvc.Control button in Model.GlobalButtons)
+                 { 
+                     @button.Render();
+                 }
+             </div>
+         </div>
+@*        <div class="row">*@
+@*            @Html.Partial("Pager", Model.AdminUsers)*@
+@*        </div>*@
+        <div class="row">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Loin Name</th>
+                    <th>User Name</th>
+                    <th>Is Super</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach (var adminUser in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox"/></td>
+                            <td>Login Name</td>
+                            <td>User Name</td>
+                            <td>Is Super</td>
+                            <td>Status</td>
+                            <td><button class="btn btn-default btn-xs">编辑</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+         <div class="row">
+             <div class="btn-group">
+                 @foreach (Moonlit.Mvc.Control button in Model.RecordButtons)
+                 {
+                     @button.Render();
+                 }
+             </div>
+         </div>
+     </div>
+ }
