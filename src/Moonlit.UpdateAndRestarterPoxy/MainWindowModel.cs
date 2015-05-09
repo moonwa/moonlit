@@ -98,9 +98,60 @@ namespace Moonlit.UpdateAndRestarterPoxy
         {
             this.Status = "Download files completed. \r\n Clean files Completed.\r\n Extracting files";
             ZipArchive zip = new ZipArchive(new MemoryStream(buffer));
-            zip.ExtractToDirectory(App.UpdatePath);
-        }
+            var tmpFolder = Path.GetTempFileName() + "_extra";
 
+            zip.ExtractToDirectory(tmpFolder);
+
+            foreach (var fse in new DirectoryInfo(tmpFolder).GetFileSystemInfos())
+            {
+                var target = Path.Combine(App.UpdatePath, fse.Name);
+                if (File.Exists(target) || Directory.Exists(target))
+                {
+                    continue;
+                }
+
+                FileInfo fi = fse as FileInfo;
+                if (fi != null)
+                {
+                    fi.CopyTo(target, true);
+                }
+
+                DirectoryInfo di = fse as DirectoryInfo;
+                if (di != null)
+                {
+                    CopyTo(di, target,  true);
+                }
+            }
+        }
+        public static void CopyTo(DirectoryInfo di, string to,   bool recursive)
+        {
+            Ensure(to);
+            foreach (var fileInfo in di.GetFiles( ))
+            {
+                var destFile = Path.Combine(to, fileInfo.Name);
+                if (File.Exists(destFile))
+                {
+                    FileInfo fi = new FileInfo(destFile);
+                    RemoveAttribute(fi, FileAttributes.ReadOnly);
+                    RemoveAttribute(fi, FileAttributes.System);
+                }
+                fileInfo.CopyTo(destFile, true);
+            }
+            if (recursive)
+                foreach (DirectoryInfo child in di.GetDirectories())
+                {
+                    CopyTo(child, Path.Combine(to, child.Name),  recursive);
+                }
+        }
+        public static void RemoveAttribute(FileInfo fi, FileAttributes attributes)
+        {
+            fi.Attributes = (FileAttributes)((ulong)fi.Attributes & (0xFFFFFFFF ^ (ulong)attributes));
+        }
+        public static void Ensure(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
         private void CleanFiles()
         {
             this.Status = "Download files completed. \r\n Cleaning files.";

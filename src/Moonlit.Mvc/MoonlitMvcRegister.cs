@@ -16,13 +16,11 @@ namespace Moonlit.Mvc
         {
             _routes = routes;
         }
-
-        private RequestMappings mappings;
+         
         public void Register( )
         { 
-            mappings = new RequestMappings(); 
-            mappings.MapRequestMappings(_routes);
-            GlobalFilters.Filters.Add(new RequestMappingsAttribute(mappings));
+            RequestMappings.Current.MapRequestMappings(_routes);
+            GlobalFilters.Filters.Add(new MoonlitMvcAttribute(RequestMappings.Current));
         }
         
     }

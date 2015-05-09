@@ -57,7 +57,9 @@ namespace Moonlit
         public object GetProperty(object instance, string propertyName)
         {
             if (_getters.ContainsKey(propertyName))
+            {
                 return _getters[propertyName].Execute(instance);
+            }
             throw new ArgumentOutOfRangeException(propertyName + " not existing!");
         }
 

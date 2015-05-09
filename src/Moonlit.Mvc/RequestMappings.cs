@@ -16,6 +16,14 @@ namespace Moonlit.Mvc
             var referencedAssemblies = BuildManager.GetReferencedAssemblies();
             MapRequestMappings(route, referencedAssemblies.Cast<Assembly>());
         }
+
+        static RequestMappings()
+        {
+            Current = new RequestMappings();
+        }
+
+        public static RequestMappings Current { get; private set; }
+
         public void MapRequestMappings(RouteCollection route, IEnumerable<Assembly> assemblies)
         {
             foreach (Assembly referencedAssembly in assemblies)

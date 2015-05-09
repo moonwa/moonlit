@@ -26,10 +26,22 @@ namespace Moonlit.Mvc
             Url = url;
         }
 
-        internal const string RequestMappingKey = "__RequestMappingKey";
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            filterContext.RequestContext.HttpContext.Items[RequestMappingKey] = filterContext.RequestContext.GetRequestMappings().GetRequestMapping(this.Name);
+            var attrs = filterContext.ActionDescriptor.GetCustomAttributes(typeof(MoonlitMvcAttribute), true);
+            if (attrs.Length > 0)
+            {
+                MoonlitMvcAttribute attr = (MoonlitMvcAttribute)attrs[0];
+                var requestMapping = RequestMappings.Current.GetRequestMapping(this.Name);
+                foreach (var parameterDescriptor in filterContext.ActionDescriptor.GetParameters())
+                {
+                    if (parameterDescriptor.ParameterType == typeof(RequestMapping))
+                    {
+                        filterContext.ActionParameters[parameterDescriptor.ParameterName] = requestMapping;
+                    }
+                }
+            }
+
             base.OnActionExecuting(filterContext);
         }
     }

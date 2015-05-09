@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Text;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
@@ -6,9 +9,10 @@ namespace Moonlit.Mvc
     {
         public int? MaxLength { get; set; }
         public string PlaceHolder { get; set; }
-        protected override TagBuilder CreateTagBuilder()
+        protected override TagBuilder CreateTagBuilder(HtmlHelper htmlHelper)
         {
             TagBuilder tagBuilder = new TagBuilder("input");
+            tagBuilder.AddCssClass("form-control");
             if (MaxLength != null)
             {
                 tagBuilder.Attributes["maxlength"] = this.MaxLength.ToString();
@@ -17,31 +21,10 @@ namespace Moonlit.Mvc
             {
                 tagBuilder.Attributes["placeholder"] = this.PlaceHolder.Trim();
             }
+            var s = htmlHelper.GetModelStateValue(Name, typeof(string));
+            tagBuilder.Attributes["value"] = s as string;
             return tagBuilder;
         }
-    }
 
-    public class Table
-    {
-        public Column[] Columns { get; set; }
-    }
-
-    public class Column
-    {
-        public ColumnHeader Header { get; set; }
-        public ColumnCell Cell { get; set; }
-    }
-
-    public class ColumnCell
-    {
-    }
-
-    public abstract class ColumnHeader
-    {
-        public string Sort { get; set; }
-    }
-    public class TextColumnHeader : ColumnHeader
-    {
-        public string Text { get; set; }
     }
 }

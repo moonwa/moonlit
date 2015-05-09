@@ -16,12 +16,11 @@ namespace Moonlit.Mvc
         {
             _template = template;
             this.ViewName = template.ViewName;
-            this.ViewData.Model = template;
         }
 
         public override void ExecuteResult(ControllerContext context)
         {
-
+            this.ViewData.Model = _template;
             _template.OnReadyRender(context);
             base.ExecuteResult(context);
         }

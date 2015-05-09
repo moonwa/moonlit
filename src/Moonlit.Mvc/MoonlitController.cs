@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Moonlit.Caching;
+using Moonlit.Mvc.Templates;
 using Newtonsoft.Json;
 
 namespace Moonlit.Mvc
@@ -15,7 +15,6 @@ namespace Moonlit.Mvc
         public IFlash Flash { get; set; }
 
         public ILocalizer Localizer { get; set; }
-
 
 
         public void SetFlash(string text)
@@ -34,9 +33,9 @@ namespace Moonlit.Mvc
         {
             return Localize(text, text);
         }
-        protected ActionResult RedirectToRequestMapping(string mappingName, object routeValues)
+        protected ActionResult RedirectToRequestMapping(RequestMappings requestMappings, string mappingName, object routeValues)
         {
-            var mapping = this.ControllerContext.RequestContext.GetRequestMappings().GetRequestMapping(mappingName);
+            var mapping = requestMappings.GetRequestMapping(mappingName);
             if (mapping == null)
             {
                 throw new Exception("Not found request mapping " + mappingName);
@@ -48,6 +47,15 @@ namespace Moonlit.Mvc
 
             return Redirect(requestMapping.MakeUrl(this.Url, routeValues));
         }
-    }
 
+        protected ActionResult Template(ITemplate template)
+        {
+            return new TemplateResult(template)
+            {
+                ViewData = ViewData,
+                TempData = TempData,
+                ViewEngineCollection = ViewEngineCollection
+            };
+        }
+    }
 }

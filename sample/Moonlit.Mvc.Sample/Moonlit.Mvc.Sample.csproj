@@ -135,12 +135,6 @@
     <Content Include="Content\Default\Css\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
-    <Content Include="Content\Default\Js\site.js">
-      <DependentUpon>site.coffee</DependentUpon>
-    </Content>
-    <Content Include="Content\Default\Js\site.min.js">
-      <DependentUpon>site.js</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -152,10 +146,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\Default\Css\site.less" />
-    <Content Include="Content\Default\Js\site.coffee" />
-    <Content Include="Content\Default\Js\site.min.js.map">
-      <DependentUpon>site.min.js</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -190,6 +180,7 @@
     <Content Include="Views\Shared\Templates\layout_html.cshtml" />
     <Content Include="Views\Shared\Templates\layout_administration.cshtml" />
     <Content Include="Views\Shared\Templates\Pager.cshtml" />
+    <Content Include="Views\Shared\Pager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

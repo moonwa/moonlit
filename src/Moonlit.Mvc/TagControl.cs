@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
-    public abstract class TagControl : Control, ICssClass
+    public abstract class TagControl : Control 
     {
         public string CssClass { get; set; }
         protected TagControl()
@@ -13,10 +13,10 @@ namespace Moonlit.Mvc
         }
         public Dictionary<string, object> DataAttributes { get; set; }
 
-        protected abstract TagBuilder CreateTagBuilder();
-        public override IHtmlString Render()
+        protected abstract TagBuilder CreateTagBuilder(HtmlHelper htmlHelper);
+        public override IHtmlString Render(HtmlHelper htmlHelper)
         {
-            TagBuilder tagBuilder = CreateTagBuilder();
+            TagBuilder tagBuilder = CreateTagBuilder(htmlHelper);
             foreach (var dataAttribute in this.DataAttributes)
             {
                 if (dataAttribute.Value != null)
