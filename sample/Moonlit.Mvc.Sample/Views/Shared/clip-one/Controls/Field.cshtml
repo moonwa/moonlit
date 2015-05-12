@@ -1,0 +1,15 @@
+﻿@using Moonlit.Mvc.Html
+@model Moonlit.Mvc.Controls.Field
+@{
+    ViewBag.Title = "Field";
+}
+
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="form-field-1">
+        @Model.Label
+    </label>
+    <div class="col-sm-@(Model.Width - 2)">
+        @Html.Render(Model.Control)
+    </div>
+</div>
+

@@ -1,0 +1,6 @@
+﻿@model Moonlit.Mvc.Controls.TextBox
+@{
+    ViewBag.Title = "TextBox";
+}
+
+<input class="form-control" type="text" name="@Model.Name" id="@Model.Id" value="@Model.Value" @Model.RenderAttributes() />

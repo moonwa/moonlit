@@ -15,7 +15,7 @@ namespace Moonlit.Mvc
         public TemplateResult(ITemplate template)
         {
             _template = template;
-            this.ViewName = template.ViewName;
+            this.ViewName = MoonlitContext.Current.Theme + "/" + template.ViewName;
         }
 
         public override void ExecuteResult(ControllerContext context)

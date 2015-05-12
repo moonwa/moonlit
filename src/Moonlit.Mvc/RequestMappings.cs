@@ -8,6 +8,60 @@ using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
+    public class Themes
+    {
+        private Dictionary<string, Theme> _themes = new Dictionary<string, Theme>();
+        private Theme _defaultTheme;
+        public void Register(Theme theme)
+        {
+            _themes[theme.Name] = theme;
+        }
+        public void RegisterDefault(Theme theme)
+        {
+            _defaultTheme = theme;
+        }
+
+        public Theme GetTheme(string name)
+        {
+            if (name == null)
+            {
+                return _defaultTheme;
+            }
+            return _themes[name];
+        }
+
+        static Themes()
+        {
+            Current = new Themes();
+        }
+        public static Themes Current { get; private set; }
+    }
+
+    public abstract class Theme
+    { 
+        public override string ToString()
+        {
+            return Name;
+        }
+        private Dictionary<Type, string> _control2Templates = new Dictionary<Type, string>();
+
+        public void RegisterControl(Type controlType, string template)
+        {
+            _control2Templates[controlType] = template;
+        }
+
+        public string ResolveControl(Type controlType)
+        {
+            string template;
+            if (_control2Templates.TryGetValue(controlType, out template))
+            {
+                return template;
+            }
+            return null;
+        }
+        protected internal abstract void PreRequest(MoonlitContext context, RequestContext requestContext);
+        public abstract string Name { get; }
+    }
     public class RequestMappings
     {
         private readonly List<RequestMapping> _requestMappings = new List<RequestMapping>();

@@ -1,0 +1,82 @@
+﻿@using Moonlit.Mvc
+@using Moonlit.Mvc.Controls
+@using Moonlit.Mvc.Html
+@model Moonlit.Mvc.Controls.Table
+@{
+    MoonlitContext.Current.RegisterStyleLink("plugin:datatable-bootstrap", new StyleLink
+    {
+        Href = Url.Content("~/assets/clip-one/plugins/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")
+    });
+}
+@functions
+{
+    string DirectionToClass(ColumnDirection direction)
+    {
+        switch (direction)
+        {
+            case ColumnDirection.Left:
+                return "";
+            case ColumnDirection.Center:
+                return "center";
+            case ColumnDirection.Right:
+                return "right";
+            default:
+                throw new ArgumentOutOfRangeException("direction", direction, "不支持的对齐方式");
+        }
+    }
+    string SortDirectionToClass(SortDirection? direction)
+    {
+        if (direction == null)
+        {
+            return "sorting";
+        }
+        switch (direction)
+        {
+            case SortDirection.Ascending:
+                return "sorting_asc";
+            case SortDirection.Descending:
+                return "sorting_desc";
+            default:
+                throw new ArgumentOutOfRangeException("direction", direction, "不支持的对齐方式");
+        }
+    }
+}
+<table class="table dataTable  table-condensed table-hover" id="sample-table-3">
+    <thead>
+        <tr>
+            @foreach (var column in Model.Columns)
+            {
+                string cssClass = DirectionToClass(column.Direction);
+                string onclick = "";
+                if (column.IsSortable)
+                {
+                    onclick = "onclick=\"submit_with_action(this, '', 'Sort', '" + column.SortExpress + "')\"";
+                    cssClass += " " + SortDirectionToClass(column.SortDirection);
+                }
+                <th class="@cssClass" @Html.Raw(onclick)>
+                    @column.Header
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+    <tbody>
+        @foreach (var item in Model.DataSource)
+        {
+            <tr>
+                @foreach (var column in Model.Columns)
+                {
+                    <td class="@DirectionToClass(column.Direction)">
+                        @if (column.CellTemplate != null)
+                        {
+                            @Html.Render(column.CellTemplate(new RowBoundItem()
+                            {
+                                Target = item
+                            }))
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

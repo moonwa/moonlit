@@ -1,0 +1,7 @@
+﻿@using Moonlit.Mvc.Html
+@model Moonlit.Mvc.Controls.ControlCollection
+@foreach (var control in Model.Controls)
+{
+    @Html.Render(control)
+}
+

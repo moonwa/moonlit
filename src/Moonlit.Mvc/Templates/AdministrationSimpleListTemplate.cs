@@ -6,6 +6,7 @@ using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using Moonlit.Mvc.Controls;
 
 namespace Moonlit.Mvc.Templates
 {
@@ -26,10 +27,11 @@ namespace Moonlit.Mvc.Templates
         }
         public void OnReadyRender(ControllerContext context)
         {
-            foreach (var criterion in Criteria)
+            foreach (var criterion in this.Criteria)
             {
-                criterion.ReadyRender();
+                criterion.OnReadyRender(context);
             }
+            Table.DataSource = GetData();
         }
 
         public Field[] Criteria { get; set; }
@@ -55,14 +57,14 @@ namespace Moonlit.Mvc.Templates
             }
             return items;
         }
-        public PaginationInfo GetPaginationInfo()
+        public Pager GetPager()
         {
             var totalCount = _queryable.Count();
 
             var pageIndex = Convert.ToInt32(GetValueWithDefault(DefaultPageIndex.ToString(), "pageIndex"));
             var pageSize = Convert.ToInt32(GetValueWithDefault(DefaultPageSize.ToString(), "pageSize"));
             if (pageIndex <= 0 || pageSize <= 0) return null;
-            return new PaginationInfo
+            return new Pager
             {
                 ItemCount = totalCount,
                 OrderBy = GetValueWithDefault(DefaultSort, "sort"),
@@ -77,77 +79,9 @@ namespace Moonlit.Mvc.Templates
             var sortValue = _controllerContext.Controller.ValueProvider.GetValue(key);
             if (sortValue != null)
             {
-                sort = sortValue.AttemptedValue ;
+                sort = sortValue.AttemptedValue;
             }
             return sort;
         }
-    }
-
-    public class Field
-    {
-        public string Label { get; set; }
-        public string FieldName { get; set; }
-        public Control Editor { get; set; }
-        public int Width { get; set; }
-
-        public void ReadyRender()
-        {
-            this.Editor.Name = this.FieldName;
-        }
-
-        public IHtmlString Render(HtmlHelper htmlHelper)
-        {
-            TagBuilder labelBuilder = new TagBuilder("label");
-            labelBuilder.AddCssClass("label");
-            labelBuilder.Attributes["for"] = FieldName;
-            labelBuilder.InnerHtml = Label;
-
-            return MvcHtmlString.Create(labelBuilder.ToString(TagRenderMode.Normal) + this.Editor.Render(htmlHelper));
-        }
-    }
-    public class Link : TagControl, IClickable
-    {
-        public string Url { get; set; }
-        public string Text { get; set; }
-        protected override TagBuilder CreateTagBuilder(HtmlHelper htmlHelper)
-        {
-            TagBuilder builder = new TagBuilder("a");
-            builder.AddCssClass("btn btn-default");
-            if (Url != null)
-            {
-                builder.Attributes["href"] = Url;
-            }
-            builder.InnerHtml = Text;
-            return builder;
-        }
-    }
-
-    public interface IClickable
-    {
-    }
-
-    public class FormActionButton : TagControl, IClickable
-    {
-        public string ActionName { get; set; }
-        public string Text { get; set; }
-
-        protected override TagBuilder CreateTagBuilder(HtmlHelper htmlHelper)
-        {
-            TagBuilder builder = new TagBuilder("button");
-            builder.AddCssClass("btn btn-default");
-            builder.Attributes["type"] = "Submit";
-            builder.Attributes["form_action"] = ActionName;
-            builder.InnerHtml = Text;
-            return builder;
-        }
-    }
-
-    public class PaginationInfo
-    {
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
-        public int PageCount { get; set; }
-        public int ItemCount { get; set; }
-        public string OrderBy { get; set; }
     }
 }

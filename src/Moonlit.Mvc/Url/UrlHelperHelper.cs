@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace Moonlit.Mvc.Url
 {
     public static class UrlHelperHelper
-    {
+    { 
         public static string RouteUrl(this UrlHelper urlHelper, RequestMapping requestMapping, object routeValues)
         {
             return requestMapping.MakeUrl(urlHelper, routeValues);

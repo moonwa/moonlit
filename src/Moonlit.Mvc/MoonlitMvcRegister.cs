@@ -20,7 +20,7 @@ namespace Moonlit.Mvc
         public void Register( )
         { 
             RequestMappings.Current.MapRequestMappings(_routes);
-            GlobalFilters.Filters.Add(new MoonlitMvcAttribute(RequestMappings.Current));
+            GlobalFilters.Filters.Add(new MoonlitMvcAttribute(RequestMappings.Current, Themes.Current));
         }
         
     }
