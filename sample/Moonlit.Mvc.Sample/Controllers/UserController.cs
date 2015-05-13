@@ -11,9 +11,8 @@ namespace Moonlit.Mvc.Sample.Controllers
 {
     [RequestMapping(Url = "User")]
     public class UserController : MoonlitController
-    {
+    { 
         [RequestMapping(Name = "list")]
-        // GET: User
         public ActionResult Index(UserListQueryModel model)
         {
             var datasources = GetDataSources();
@@ -23,6 +22,8 @@ namespace Moonlit.Mvc.Sample.Controllers
             }
             var template = new AdministrationSimpleListTemplate(this.ControllerContext, datasources)
             {
+                Title = "用户列表",
+                Description = "管理系统中所有用户",
                 Criteria = new[]
                 {
                     new Field
@@ -34,6 +35,16 @@ namespace Moonlit.Mvc.Sample.Controllers
                         {
                             MaxLength = 12,
                             Value = model.UserName
+                        }
+                    },
+                    new Field
+                    {
+                        Width = 6,
+                        Label = "用户名",
+                        FieldName = "UserName2",
+                        Control = new TextBox()
+                        {
+                            MaxLength = 12,
                         }
                     }
                 },
@@ -132,7 +143,4 @@ namespace Moonlit.Mvc.Sample.Controllers
             return queryable;
         }
     }
-
-
-   
 }

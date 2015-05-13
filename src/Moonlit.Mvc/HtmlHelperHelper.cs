@@ -32,5 +32,31 @@ namespace Moonlit.Mvc
             }
             return null;
         }
+        public static bool HasError(this HtmlHelper helper, string key)
+        {
+            ModelState modelState;
+            if (helper.ViewData.ModelState.TryGetValue(key, out modelState))
+            {
+
+                if (modelState.Errors != null && modelState.Errors.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static string GetError(this HtmlHelper helper, string key)
+        {
+            ModelState modelState;
+            if (helper.ViewData.ModelState.TryGetValue(key, out modelState))
+            {
+
+                if (modelState.Errors != null && modelState.Errors.Count > 0)
+                {
+                    return modelState.Errors[0].ErrorMessage;
+                }
+            }
+            return string.Empty;
+        }
     }
 }

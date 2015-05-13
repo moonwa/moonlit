@@ -11,11 +11,11 @@ using Moonlit.Mvc.Controls;
 namespace Moonlit.Mvc.Templates
 {
 
-    public class AdministrationSimpleListTemplate : ITemplate
+    public class AdministrationSimpleListTemplate : Template
     {
         private readonly ControllerContext _controllerContext;
         private readonly IQueryable _queryable;
-        public string ViewName { get { return "templates/administration/SimpleList"; } }
+        public override string ViewName { get { return "templates/administration/SimpleList"; } }
 
         public AdministrationSimpleListTemplate(ControllerContext controllerContext, IQueryable queryable)
         {
@@ -25,7 +25,7 @@ namespace Moonlit.Mvc.Templates
             GlobalButtons = new IClickable[0];
             RecordButtons = new IClickable[0];
         }
-        public void OnReadyRender(ControllerContext context)
+        public override void OnReadyRender(ControllerContext context)
         {
             foreach (var criterion in this.Criteria)
             {

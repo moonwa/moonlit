@@ -11,17 +11,28 @@ namespace Moonlit.Mvc
     public class MoonlitMvcRegister
     {
         private readonly RouteCollection _routes;
+        private IDependencyResolver _dependencyResolver = null;
 
         public MoonlitMvcRegister(RouteCollection routes)
         {
             _routes = routes;
         }
-         
-        public void Register( )
-        { 
+
+        public void Register()
+        {
             RequestMappings.Current.MapRequestMappings(_routes);
-            GlobalFilters.Filters.Add(new MoonlitMvcAttribute(RequestMappings.Current, Themes.Current));
+            var attribute = new MoonlitMvcAttribute(RequestMappings.Current, Themes.Current);
+            if (_dependencyResolver != null)
+            {
+                attribute.DependencyResolver = _dependencyResolver;
+            }
+            GlobalFilters.Filters.Add(attribute);
         }
-        
+
+        public MoonlitMvcRegister SetDependencyResolvor(IDependencyResolver dependencyResolver)
+        {
+            _dependencyResolver = dependencyResolver;
+            return this;
+        }
     }
 }

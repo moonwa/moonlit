@@ -13,6 +13,8 @@ namespace Moonlit.Mvc
             _themes = themes;
         }
 
+        internal IDependencyResolver DependencyResolver { get; set; }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var moonlitContext = MoonlitContext.Current;
@@ -50,7 +52,7 @@ namespace Moonlit.Mvc
 
             moonlitContext.Theme = _themes.GetTheme(null);
             moonlitContext.Theme.PreRequest(moonlitContext, filterContext.RequestContext);
-
+            moonlitContext.DependencyResolver = DependencyResolver;
             base.OnActionExecuting(filterContext);
         }
     }

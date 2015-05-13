@@ -1,7 +1,15 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using System.Web.Compilation;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Autofac;
+using Autofac.Integration.Mvc;
+using Moonlit.Caching;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Templates;
 
@@ -15,13 +23,69 @@ namespace Moonlit.Mvc.Sample
             var clipOneTheme = new ClipOneTheme();
             Themes.Current.Register(clipOneTheme);
             Themes.Current.RegisterDefault(clipOneTheme);
-            new MoonlitMvcRegister(RouteTable.Routes).Register();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var builder = new ContainerBuilder();
+            builder.RegisterType<SessionCachingFlash>().As<IFlash>().SingleInstance();
+            builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().SingleInstance();
+
+
+            var controllerAssemblies = new[] { typeof(MvcApplication).Assembly };
+            builder.RegisterControllers(controllerAssemblies).PropertiesAutowired();
+            // OPTIONAL: Register model binders that require DI.
+            builder.RegisterModelBinders(controllerAssemblies);
+            builder.RegisterModelBinderProvider();
+
+            // OPTIONAL: Register web abstractions like HttpContextBase.
+            builder.RegisterModule<AutofacWebTypesModule>();
+
+            // OPTIONAL: Enable property injection in view pages.
+            builder.RegisterSource(new ViewRegistrationSource());
+
+            // OPTIONAL: Enable property injection into action filters.
+            builder.RegisterFilterProvider();
+
+            // Set the dependency resolver to be Autofac.
+            var container = builder.Build();
+            new MoonlitMvcRegister(RouteTable.Routes).SetDependencyResolvor(new AutofacMoonlitDependencyResolver(container)).Register();
+
+            //            ModelMetadataProviders.Current = new LocalizedModelMetadataProvider(ModelMetadataProviders.Current, container.Resolve<ILocalizer>());
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+    }
+
+    public class AutofacMoonlitDependencyResolver : IDependencyResolver
+    {
+        private readonly IContainer _container;
+
+        public AutofacMoonlitDependencyResolver(IContainer container)
+        {
+            _container = container;
+        }
+
+        public object Resolve(Type serviceType)
+        {
+            return _container.Resolve(serviceType);
+        }
+
+        public object Resolve(Type serviceType, string key)
+        {
+            return _container.ResolveNamed(key, serviceType);
+        }
+
+        public IEnumerable<object> ResolveAll(Type serviceType)
+        {
+            //            return _container.Resolve<IEnumerable<serviceType>>()
+            throw new NotSupportedException();
+        }
+
+        public void Release(object service)
+        {
 
         }
     }
+
     public class ClipOneTheme : Theme
     {
         public ClipOneTheme()
@@ -36,6 +100,7 @@ namespace Moonlit.Mvc.Sample
             this.RegisterControl(typeof(Panel), ThemeName + "/Controls/Panel");
             this.RegisterControl(typeof(Table), ThemeName + "/Controls/Table");
             this.RegisterControl(typeof(Literal), ThemeName + "/Controls/Literal");
+            this.RegisterControl(typeof(DropdownList), ThemeName + "/Controls/DropdownList");
         }
         private const string ThemeName = "clip-one";
         protected override void PreRequest(MoonlitContext context, RequestContext requestContext)

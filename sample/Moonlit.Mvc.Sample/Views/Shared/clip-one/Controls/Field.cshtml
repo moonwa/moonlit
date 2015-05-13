@@ -1,15 +1,26 @@
-﻿@using Moonlit.Mvc.Html
+﻿@using Moonlit.Mvc
+@using Moonlit.Mvc.Html
 @model Moonlit.Mvc.Controls.Field
 @{
     ViewBag.Title = "Field";
+    String fieldCssClass = ""; 
+    if (Html.HasError(Model.FieldName))
+    {
+        fieldCssClass += " has-error";
+    } 
 }
 
-<div class="form-group">
+<div class="form-group @fieldCssClass">
     <label class="col-sm-2 control-label" for="form-field-1">
         @Model.Label
     </label>
     <div class="col-sm-@(Model.Width - 2)">
         @Html.Render(Model.Control)
+        @if (Html.HasError(Model.FieldName))
+        {
+            <span class="help-block">@Html.GetError(Model.FieldName)</span>
+        }
+         
     </div>
 </div>
 

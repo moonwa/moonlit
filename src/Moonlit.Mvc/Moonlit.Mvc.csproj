@@ -113,6 +113,7 @@
     <Compile Include="Controls\Table.cs" />
     <Compile Include="TagBuilderRender.cs" />
     <Compile Include="TemplateResult.cs" />
+    <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleListTemplate.cs" />
     <Compile Include="Control.cs" />
     <Compile Include="Templates\ITemplate.cs" />

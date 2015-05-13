@@ -10,29 +10,40 @@ using Newtonsoft.Json;
 
 namespace Moonlit.Mvc
 {
+    public class FlashMessage
+    {
+        public string Text { get; set; }
+        public FlashMessageType MessageType { get; set; }
+    }
+
+    public enum FlashMessageType
+    {
+        Message, Warning, Error, Success
+    }
+
     public abstract class MoonlitController : Controller
     {
         public IFlash Flash { get; set; }
 
-        public ILocalizer Localizer { get; set; }
+//        public ILocalizer Localizer { get; set; }
 
 
-        public void SetFlash(string text)
+        public void SetFlash(object target)
         {
-            Flash.Set(text);
+            Flash.Set(target);
         }
-        public async Task SetFlashAsync(string text)
+        public async Task SetFlashAsync(object target)
         {
-            await Flash.SetAsync(text).ConfigureAwait(false);
+            await Flash.SetAsync(target).ConfigureAwait(false);
         }
-        public string Localize(string text, string defaultValue)
-        {
-            return Localizer.GetString(text, defaultValue, Thread.CurrentThread.CurrentUICulture.Name);
-        }
-        public string Localize(string text)
-        {
-            return Localize(text, text);
-        }
+//        public string Localize(string text, string defaultValue)
+//        {
+//            return Localizer.GetString(text, defaultValue, Thread.CurrentThread.CurrentUICulture.Name);
+//        }
+//        public string Localize(string text)
+//        {
+//            return Localize(text, text);
+//        }
         protected ActionResult RedirectToRequestMapping(RequestMappings requestMappings, string mappingName, object routeValues)
         {
             var mapping = requestMappings.GetRequestMapping(mappingName);

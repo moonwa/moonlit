@@ -1,12 +1,12 @@
 ﻿@{
     Layout = null;
-} 
+}
 
 
 
-@using Moonlit.Mvc; 
-@using Moonlit.Mvc.Url; 
-
+@using Moonlit.Mvc;
+@using Moonlit.Mvc.Url;
+@model Moonlit.Mvc.Templates.ITemplate
 
 
 
@@ -34,7 +34,7 @@
     <!-- start: MAIN CSS -->
     @MoonlitContext.Current.RenderCss(Url)
 
-    <!-- end: MAIN CSS --> 
+    <!-- end: MAIN CSS -->
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <!-- end: HEAD -->
@@ -438,7 +438,7 @@
                     <li class="active open">
                         <a href="index.html">
                             <i class="clip-home-3"></i>
-                            <span class="title"> Dashboard </span><span class="selected"></span>
+                            <span class="title"> @Model.Title </span><span class="selected"></span>
                         </a>
                     </li>
                     <li>
@@ -1073,13 +1073,49 @@
                             </li>
                         </ol>
                         <div class="page-header">
-                            <h1>Dashboard <small>overview &amp; stats </small></h1>
+                            <h1>@Model.Title <small>@Model.Description </small></h1>
                         </div>
                         <!-- end: PAGE TITLE & BREADCRUMB -->
                     </div>
                 </div>
                 <!-- end: PAGE HEADER -->
                 <!-- start: PAGE CONTENT -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        @{
+                            var messageType = "success";
+                            var messageIcon = "check-circle";
+                            FlashMessage msg = (FlashMessage)MoonlitContext.Current.Flash.Get(typeof(FlashMessage));
+                            if (msg != null)
+                            {
+                                switch (msg.MessageType)
+                                {
+                                    case FlashMessageType.Message:
+                                    case FlashMessageType.Success:
+                                        messageType = "success";
+                                        messageIcon = "check-circle";
+                                        break;
+                                    case FlashMessageType.Warning:
+                                        messageType = "warning";
+                                        messageIcon = "exclamation-triangle";
+                                        break;
+                                    case FlashMessageType.Error:
+                                        messageType = "danger";
+                                        messageIcon = "times-circle";
+                                        break;
+                                }
+
+                                <div class="alert alert-@messageType">
+                                    <button data-dismiss="alert" class="close">
+                                        ×
+                                    </button>
+                                    <i class="fa fa-@messageIcon"></i>
+                                    @msg.Text
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
                 @RenderBody()
                 <!-- end: PAGE CONTENT-->
             </div>
@@ -1453,37 +1489,44 @@
             </div>
         </div>
     </div>
-<!-- start: MAIN JAVASCRIPTS -->
+    <!-- start: MAIN JAVASCRIPTS -->
     @MoonlitContext.Current.RenderScripts(Url)
     <!--[if lt IE 9]>
-@*    <script src="@Url.Asset("plugins/respond.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/excanvas.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script type="text/javascript" src="@Url.Asset("plugins/jQuery-lib/1.10.2/jquery.min.js", MoonlitContext.Current.Theme)"></script>*@
-    <![endif]-->
+    @*    <script src="@Url.Asset("plugins/respond.min.js", MoonlitContext.Current.Theme)"></script>*@
+    @*    <script src="@Url.Asset("plugins/excanvas.min.js", MoonlitContext.Current.Theme)"></script>*@
+    @*    <script type="text/javascript" src="@Url.Asset("plugins/jQuery-lib/1.10.2/jquery.min.js", MoonlitContext.Current.Theme)"></script>*@
+        <![endif]-->
     <!--[if gte IE 9]><!-->
-@*    <script src="@Url.Asset("plugins/jQuery-lib/2.0.3/jquery.min.js", MoonlitContext.Current.Theme)"></script>*@
+    @*    <script src="@Url.Asset("plugins/jQuery-lib/2.0.3/jquery.min.js", MoonlitContext.Current.Theme)"></script>*@
     <!--<![endif]-->
-@*    <script src="@Url.Asset("plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/bootstrap/js/bootstrap.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/blockUI/jquery.blockUI.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/iCheck/jquery.icheck.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/perfect-scrollbar/src/jquery.mousewheel.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/perfect-scrollbar/src/perfect-scrollbar.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/less/less-1.5.0.min.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/jquery-cookie/jquery.cookie.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js", MoonlitContext.Current.Theme)"></script>*@
-@*    <script src="@Url.Asset("js/main.js", MoonlitContext.Current.Theme)"></script>*@
-    <!-- end: MAIN JAVASCRIPTS -->
-   
-    <script>
-        jQuery(document).ready(function () {
-            Main.init();
-            Index.init();
-        });
-    </script>
-    @MoonlitContext.Current.RenderScripts(Url)
+@*    <script src="@Url
+        <!--<![endif]-->
+        @*    <script src="@U.Asset("plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js", MoonlitContext.Current.Theme)"></script>*@
+            @*    <script src="@Url.Asset("plugins/bootstrap/js/bootstrap.min.js", MoonlitContext.Current.Theme)"></script>*@
+                @*    <script src="@Url.Asset("plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js", MoonlitContext.Current.Theme)"></script>*@
+                    @*    <script src="@Url.Asset("plugins/blockUI/jquery.blockUI.js", MoonlitContext.Current.Theme)"></script>*@
+                        @*    <script src="@Url.Asset("plugins/iCheck/jquery.icheck.min.js", MoonlitContext.Current.Theme)"></script>*@
+                            @*    <script src="@Url.Asset("plugins/perfect-scrollbar/src/jquery.mousewheel.js", MoonlitContext.Current.Theme)"></script>*@
+                                @*    <script src="@Url.Asset("plugins/perfect-scrollbar/src/perfect-scrollbar.js", MoonlitContext.Current.Theme)"></script>*@
+                                    @*    <script src="@Url.Asset("plugins/less/less-1.5.0.min.js", MoonlitContext.Current.Theme)"></script>*@
+                                        @*    <script src="@Url.Asset("plugins/jquery-cookie/jquery.cookie.js", MoonlitContext.Current.Theme)"></script>*@
+                                            @*    <script src="@Url.Asset("plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js", MoonlitContext.Current.Theme)"></script>*@
+                                                @*    <script src="@Url.Asset("js/main.js", MoonlitContext.Current.Theme)"></script>*@
+                                                    <!-- end: MAIN JAVASCRIPTS -->
 
-</body>
-<!-- end: BODY -->
-</html>
+                                                      <scrip
+                                                    t>
+                                                    jQuery(document).r
+                                                    eady(functi
+
+                                                    <script>
+                                                        jQuery(document).ready(function () {
+                                                            Main.init();
+                                                            Index.init();
+                                                        });
+                                                    </script>
+                                                    @MoonlitContext.Current.RenderScripts(Url)
+
+                                                </body>
+                                                <!-- end: BODY -->
+                                            </html>

@@ -8,6 +8,7 @@ namespace Moonlit.Mvc.Controls
         public string FieldName { get; set; }
         public Control Control { get; set; }
         public int Width { get; set; }
+        public string Description { get; set; }
 
         public void OnReadyRender(ControllerContext context)
         {

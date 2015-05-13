@@ -48,7 +48,7 @@ namespace Moonlit.Mvc
 
             if (!string.IsNullOrWhiteSpace(Src))
             {
-                tagBuilder.Attributes["src"] = Src ;
+                tagBuilder.Attributes["src"] = Src;
             }
 
             if (!string.IsNullOrWhiteSpace(Content))
@@ -177,6 +177,13 @@ namespace Moonlit.Mvc
             }
             return MvcHtmlString.Create(buffer.ToString());
         }
+
+        public IFlash Flash
+        {
+            get { return DependencyResolver.Resolve<IFlash>(); }
+        }
+
+        internal IDependencyResolver DependencyResolver { get; set; }
     }
 
 
