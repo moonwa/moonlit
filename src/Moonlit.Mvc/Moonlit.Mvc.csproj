@@ -87,9 +87,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authenticate.cs" />
     <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ControlCollection.cs" />
+    <Compile Include="Controls\DropdownList.cs" />
     <Compile Include="Controls\Panel.cs" />
+    <Compile Include="Controls\PasswordBox.cs" />
+    <Compile Include="Controls\SelectListItem.cs" />
+    <Compile Include="DependencyAttribute.cs" />
+    <Compile Include="FlashMessage.cs" />
+    <Compile Include="FlashMessageType.cs" />
     <Compile Include="Html\Control.cs" />
     <Compile Include="Controls\Field.cs" />
     <Compile Include="Controls\IClickable.cs" />
@@ -97,6 +105,7 @@
     <Compile Include="Controls\Pager.cs" />
     <Compile Include="FormActionAttribute.cs" />
     <Compile Include="HtmlHelperHelper.cs" />
+    <Compile Include="MoonlitAuthorizeAttribute.cs" />
     <Compile Include="MoonlitContext.cs" />
     <Compile Include="MvcAttribute.cs" />
     <Compile Include="Html\Checked.cs" />
@@ -108,16 +117,24 @@
     <Compile Include="RequestMappingAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMappings.cs" />
-    <Compile Include="MoonlitMvcAttribute.cs" />
+    <Compile Include="RequestMappingsAttribute.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
+    <Compile Include="SiteMapAttribute.cs" />
+    <Compile Include="SiteMapNodeAttribute.cs" />
+    <Compile Include="SiteMaps.cs" />
     <Compile Include="TagBuilderRender.cs" />
     <Compile Include="TemplateResult.cs" />
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleListTemplate.cs" />
     <Compile Include="Control.cs" />
-    <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\Template.cs" />
     <Compile Include="Controls\TextBox.cs" />
+    <Compile Include="Templates\SimpleBoxTemplate.cs" />
+    <Compile Include="Site.cs" />
+    <Compile Include="Theme.cs" />
+    <Compile Include="ThemeAttribute.cs" />
+    <Compile Include="Themes.cs" />
     <Compile Include="Url\UrlHelperHelper.cs" />
   </ItemGroup>
   <ItemGroup>

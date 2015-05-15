@@ -10,9 +10,10 @@ using Moonlit.Mvc.Templates;
 namespace Moonlit.Mvc.Sample.Controllers
 {
     [RequestMapping(Url = "User")]
-    public class UserController : MoonlitController
-    { 
-        [RequestMapping(Name = "list")]
+//    [Authorize]
+    public class UserController : MyController
+    {
+        [RequestMapping(Name = "Users")]
         public ActionResult Index(UserListQueryModel model)
         {
             var datasources = GetDataSources();

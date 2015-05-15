@@ -6,9 +6,7 @@
 
 @using Moonlit.Mvc;
 @using Moonlit.Mvc.Url;
-@model Moonlit.Mvc.Templates.ITemplate
-
-
+@model Moonlit.Mvc.Templates.Template
 
 
 
@@ -21,7 +19,7 @@
 <!--<![endif]-->
 <!-- start: HEAD -->
 <head>
-    <title>Clip-One - Responsive Admin Template</title>
+    <title>@Model.Title - @Model.Site.Title</title>
     <!-- start: META -->
     <meta charset="utf-8" />
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
@@ -51,8 +49,8 @@
                 </button>
                 <!-- end: RESPONSIVE MENU TOGGLER -->
                 <!-- start: LOGO -->
-                <a class="navbar-brand" href="index.html">
-                    CLIP<i class="clip-clip"></i>ONE
+                <a class="navbar-brand" href="/">
+                    @Model.Site.Title
                 </a>
                 <!-- end: LOGO -->
             </div>
@@ -1489,44 +1487,15 @@
             </div>
         </div>
     </div>
-    <!-- start: MAIN JAVASCRIPTS -->
-    @MoonlitContext.Current.RenderScripts(Url)
-    <!--[if lt IE 9]>
-    @*    <script src="@Url.Asset("plugins/respond.min.js", MoonlitContext.Current.Theme)"></script>*@
-    @*    <script src="@Url.Asset("plugins/excanvas.min.js", MoonlitContext.Current.Theme)"></script>*@
-    @*    <script type="text/javascript" src="@Url.Asset("plugins/jQuery-lib/1.10.2/jquery.min.js", MoonlitContext.Current.Theme)"></script>*@
-        <![endif]-->
-    <!--[if gte IE 9]><!-->
-    @*    <script src="@Url.Asset("plugins/jQuery-lib/2.0.3/jquery.min.js", MoonlitContext.Current.Theme)"></script>*@
-    <!--<![endif]-->
-@*    <script src="@Url
-        <!--<![endif]-->
-        @*    <script src="@U.Asset("plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js", MoonlitContext.Current.Theme)"></script>*@
-            @*    <script src="@Url.Asset("plugins/bootstrap/js/bootstrap.min.js", MoonlitContext.Current.Theme)"></script>*@
-                @*    <script src="@Url.Asset("plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js", MoonlitContext.Current.Theme)"></script>*@
-                    @*    <script src="@Url.Asset("plugins/blockUI/jquery.blockUI.js", MoonlitContext.Current.Theme)"></script>*@
-                        @*    <script src="@Url.Asset("plugins/iCheck/jquery.icheck.min.js", MoonlitContext.Current.Theme)"></script>*@
-                            @*    <script src="@Url.Asset("plugins/perfect-scrollbar/src/jquery.mousewheel.js", MoonlitContext.Current.Theme)"></script>*@
-                                @*    <script src="@Url.Asset("plugins/perfect-scrollbar/src/perfect-scrollbar.js", MoonlitContext.Current.Theme)"></script>*@
-                                    @*    <script src="@Url.Asset("plugins/less/less-1.5.0.min.js", MoonlitContext.Current.Theme)"></script>*@
-                                        @*    <script src="@Url.Asset("plugins/jquery-cookie/jquery.cookie.js", MoonlitContext.Current.Theme)"></script>*@
-                                            @*    <script src="@Url.Asset("plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js", MoonlitContext.Current.Theme)"></script>*@
-                                                @*    <script src="@Url.Asset("js/main.js", MoonlitContext.Current.Theme)"></script>*@
-                                                    <!-- end: MAIN JAVASCRIPTS -->
+    <!-- start: MAIN JAVASCRIPTS --> 
 
-                                                      <scrip
-                                                    t>
-                                                    jQuery(document).r
-                                                    eady(functi
+        @MoonlitContext.Current.RenderScripts(Url)
+        <script> 
+            jQuery(document).ready(function () {
+                Main.init();
+                Index.init();
+            });
+        </script>
 
-                                                    <script>
-                                                        jQuery(document).ready(function () {
-                                                            Main.init();
-                                                            Index.init();
-                                                        });
-                                                    </script>
-                                                    @MoonlitContext.Current.RenderScripts(Url)
-
-                                                </body>
-                                                <!-- end: BODY -->
-                                            </html>
+    </body>
+</html>

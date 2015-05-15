@@ -10,48 +10,41 @@ namespace Moonlit.Mvc
 {
     public class SessionCachingFlash : IFlash
     {
-        private const string CacheKeyPrefix = "CacheFlash::";
         private readonly ICacheManager _cacheManager;
 
         public SessionCachingFlash(ICacheManager cacheManager)
         {
-            _cacheManager = cacheManager;
+            _cacheManager = cacheManager.GetPrefixCacheManager("CacheFlash::");
         }
 
         public void Set(object target)
         {
-            var key = CacheKeyPrefix + HttpContext.Current.Session.SessionID;
-            _cacheManager.Set(key, target, TimeSpan.FromSeconds(60));
+            _cacheManager.Set(HttpContext.Current.Session.SessionID, target, TimeSpan.FromSeconds(60));
         }
 
         public void Remove()
         {
-            var key = CacheKeyPrefix + HttpContext.Current.Session.SessionID;
-            _cacheManager.Remove(key);
+            _cacheManager.Remove(HttpContext.Current.Session.SessionID);
         }
 
         public object Get(Type type)
         {
-            var key = CacheKeyPrefix + HttpContext.Current.Session.SessionID;
-            return _cacheManager.Get(key, type);
+            return _cacheManager.Get(HttpContext.Current.Session.SessionID, type);
         }
 
         public async Task SetAsync(object target)
         {
-            var key = CacheKeyPrefix + HttpContext.Current.Session.SessionID;
-            await _cacheManager.SetAsync(key, target, TimeSpan.FromSeconds(60)).ConfigureAwait(false);
+            await _cacheManager.SetAsync(HttpContext.Current.Session.SessionID, target, TimeSpan.FromSeconds(60)).ConfigureAwait(false);
         }
 
         public Task<Object> GetAsync(Type type)
         {
-            var key = CacheKeyPrefix + HttpContext.Current.Session.SessionID;
-            return _cacheManager.GetAsync(key, type);
+            return _cacheManager.GetAsync(HttpContext.Current.Session.SessionID, type);
         }
 
         public Task RemoveAsync()
         {
-            var key = CacheKeyPrefix + HttpContext.Current.Session.SessionID;
-            return _cacheManager.RemoveAsync(key);
+            return _cacheManager.RemoveAsync(HttpContext.Current.Session.SessionID);
         }
     }
 }

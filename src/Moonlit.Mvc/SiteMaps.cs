@@ -1,31 +1,48 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
-    public class RequestMappings
+    public class SiteMaps
     {
-        private readonly List<RequestMapping> _requestMappings = new List<RequestMapping>();
-
-        static RequestMappings()
+        private readonly List<SiteMap> _siteMaps = new List<SiteMap>();
+        private SiteMap _defaultSiteMap;
+        static SiteMaps()
         {
-            Current = new RequestMappings();
+            Current = new SiteMaps();
         }
 
-        public static RequestMappings Current { get; private set; }
-        public void MapRequestMappings(RouteCollection routes)
+        public static SiteMaps Current { get; private set; }
+
+        public IEnumerable<SiteMap> Items
+        {
+            get { return _siteMaps.AsReadOnly(); }
+        }
+
+        public void MapSiteMaps()
         {
             var referencedAssemblies = BuildManager.GetReferencedAssemblies();
-            MapRequestMappings(routes, referencedAssemblies.Cast<Assembly>());
+            MapRequestMappings(referencedAssemblies.Cast<Assembly>());
         }
 
-        public void MapRequestMappings(RouteCollection routes, IEnumerable<Assembly> assemblies)
+        public void MapRequestMappings(IEnumerable<Assembly> assemblies)
         {
+            foreach (Assembly referencedAssembly in assemblies)
+            {
+                var mvcAttr = referencedAssembly.GetCustomAttribute<MvcAttribute>();
+                if (mvcAttr == null)
+                {
+                    continue;
+                }
+                var siteMapAttr = referencedAssembly.GetCustomAttribute<SiteMapAttribute>();
+                _defaultSiteMap = _defaultSiteMap ?? siteMapAttr.CreateSiteMap();
+            }
+
             foreach (Assembly referencedAssembly in assemblies)
             {
                 var mvcAttr = referencedAssembly.GetCustomAttribute<MvcAttribute>();
@@ -36,7 +53,7 @@ namespace Moonlit.Mvc
 
                 foreach (var exportedType in referencedAssembly.GetExportedTypes())
                 {
-                    var typeAttr = exportedType.GetCustomAttribute<RequestMappingAttribute>(true);
+                    var typeAttr = exportedType.GetCustomAttribute<SiteMapNodeAttribute>(true);
                     if (typeAttr != null && string.IsNullOrWhiteSpace(typeAttr.Url))
                     {
                         throw new Exception("the requestMappintAttribute on controller have to with url");
@@ -68,7 +85,7 @@ namespace Moonlit.Mvc
                             {
                                 route.DataTokens["area"] = mvcAttr.Module;
                             }
-                            _requestMappings.Add(new RequestMapping()
+                            _siteMaps.Add(new RequestMapping()
                             {
                                 Name = requestMappingAttr.Name
                             });
@@ -78,30 +95,6 @@ namespace Moonlit.Mvc
             }
         }
 
-        /// <summary>
-        /// 获取指定的 <see cref="RequestMapping"/>
-        /// </summary>
-        /// <param name="mappingName"></param>
-        /// <returns></returns>
-        public RequestMapping GetRequestMapping(string mappingName)
-        {
-            if (string.IsNullOrEmpty(mappingName))
-            {
-                return null;
-            }
-            return this._requestMappings.FirstOrDefault(x => string.Equals(mappingName, x.Name, StringComparison.OrdinalIgnoreCase));
-        }
-    }
 
-    public class SiteMapNode
-    {
-
-    }
-
-    public class SiteMap
-    {
-        public string Text { get; set; }
-        public string Name { get; set; }
-        public bool IsDefault { get; set; }
     }
 }

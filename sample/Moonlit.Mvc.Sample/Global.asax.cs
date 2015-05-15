@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Compilation;
 using System.Web.Mvc;
@@ -29,6 +30,8 @@ namespace Moonlit.Mvc.Sample
             var builder = new ContainerBuilder();
             builder.RegisterType<SessionCachingFlash>().As<IFlash>().SingleInstance();
             builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().SingleInstance();
+            builder.RegisterType<TestAuthenticateProvider>().As<IAuthenticateProvider>();
+            builder.RegisterType<Authenticate>().AsSelf();
 
 
             var controllerAssemblies = new[] { typeof(MvcApplication).Assembly };
@@ -48,11 +51,49 @@ namespace Moonlit.Mvc.Sample
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
-            new MoonlitMvcRegister(RouteTable.Routes).SetDependencyResolvor(new AutofacMoonlitDependencyResolver(container)).Register();
+            new MoonlitMvcRegister().AutoRegister(new AutofacMoonlitDependencyResolver(container));
 
             //            ModelMetadataProviders.Current = new LocalizedModelMetadataProvider(ModelMetadataProviders.Current, container.Resolve<ILocalizer>());
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
+    }
+
+    public class TestAuthenticateProvider : IAuthenticateProvider
+    {
+        public IUserPrincipal GetUserPrincipal(string name)
+        {
+            return new TestUserPrincipal(name);
+        }
+    }
+
+    public class TestUserPrincipal : IUserPrincipal
+    {
+        private readonly string _name;
+
+        public TestUserPrincipal(string name)
+        {
+            _name = name;
+            this.Privileges = new string[] { "edit" };
+        }
+
+        public bool IsInRole(string role)
+        {
+            if (Privileges == null)
+            {
+                return false;
+            }
+            return Privileges.Any(x => string.Equals(x, role, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public IIdentity Identity
+        {
+            get
+            {
+                return new GenericIdentity(this._name);
+            }
+        }
+
+        public string[] Privileges { get; set; }
     }
 
     public class AutofacMoonlitDependencyResolver : IDependencyResolver
@@ -90,7 +131,9 @@ namespace Moonlit.Mvc.Sample
     {
         public ClipOneTheme()
         {
+            this.RegisterControl(typeof(List), ThemeName + "/Controls/List");
             this.RegisterControl(typeof(TextBox), ThemeName + "/Controls/TextBox");
+            this.RegisterControl(typeof(PasswordBox), ThemeName + "/Controls/PasswordBox");
             this.RegisterControl(typeof(Button), ThemeName + "/Controls/Button");
             this.RegisterControl(typeof(Field), ThemeName + "/Controls/Field");
             this.RegisterControl(typeof(Link), ThemeName + "/Controls/Link");
@@ -101,6 +144,7 @@ namespace Moonlit.Mvc.Sample
             this.RegisterControl(typeof(Table), ThemeName + "/Controls/Table");
             this.RegisterControl(typeof(Literal), ThemeName + "/Controls/Literal");
             this.RegisterControl(typeof(DropdownList), ThemeName + "/Controls/DropdownList");
+            this.RegisterControl(typeof(CheckBox), ThemeName + "/Controls/CheckBox");
         }
         private const string ThemeName = "clip-one";
         protected override void PreRequest(MoonlitContext context, RequestContext requestContext)

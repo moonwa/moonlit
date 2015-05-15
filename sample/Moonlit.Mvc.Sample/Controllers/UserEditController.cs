@@ -8,13 +8,14 @@ using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 
 namespace Moonlit.Mvc.Sample.Controllers
 {
+    //    [Authorize(Roles = "edit")]
     [RequestMapping(Url = "User/Create")]
-    public class UserCreateController : MoonlitController
+    public class UserCreateController : MyController
     {
         public UserCreateController()
         {
-            
         }
+        [SiteMapNodeAttribute("User/Create")]
         [RequestMapping(Name = "CreateUser")]
         [HttpGet]
         // GET: User
@@ -56,8 +57,7 @@ namespace Moonlit.Mvc.Sample.Controllers
                                     Value = Gender.Female,
                                     IsSelected = false,
                                 }
-                            },
-                            Value = model.Gender
+                            }
                         }
                     }
                 },

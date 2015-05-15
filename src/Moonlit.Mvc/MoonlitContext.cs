@@ -184,6 +184,7 @@ namespace Moonlit.Mvc
         }
 
         internal IDependencyResolver DependencyResolver { get; set; }
+        public SiteMaps SiteMaps { get; set; }
     }
 
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -28,10 +27,10 @@ namespace Moonlit.Mvc
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var attrs = filterContext.ActionDescriptor.GetCustomAttributes(typeof(MoonlitMvcAttribute), true);
+            var attrs = filterContext.ActionDescriptor.GetCustomAttributes(typeof(RequestMappingsAttribute), true);
             if (attrs.Length > 0)
             {
-                MoonlitMvcAttribute attr = (MoonlitMvcAttribute)attrs[0];
+                RequestMappingsAttribute attr = (RequestMappingsAttribute)attrs[0];
                 var requestMapping = RequestMappings.Current.GetRequestMapping(this.Name);
                 foreach (var parameterDescriptor in filterContext.ActionDescriptor.GetParameters())
                 {

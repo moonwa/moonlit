@@ -2,21 +2,25 @@
 
 namespace Moonlit.Mvc.Controls
 {
-    public class TextBox : Editor
+    public class TextBox : Control
     {
         public int? MaxLength { get; set; }
         public string PlaceHolder { get; set; }
+        public string Value { get; set; }
+        public string Icon { get; set; }
     }
-    public class DropdownList : Editor
+    public class List : Control
     {
-        public string PlaceHolder { get; set; }
-        public IList<SelectListItem> Items { get; set; }
+        public List()
+        {
+            this.Items = new List<Control>();
+        }
+        public IList<Control> Items { get; set; }
+        public ListStyle Style { get; set; }
     }
 
-    public class SelectListItem
+    public enum ListStyle
     {
-        public string Text { get; set; }
-        public object Value { get; set; }
-        public bool IsSelected { get; set; }
+        Unstyled
     }
 }

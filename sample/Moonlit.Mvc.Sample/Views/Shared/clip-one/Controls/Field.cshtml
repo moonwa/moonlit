@@ -3,24 +3,28 @@
 @model Moonlit.Mvc.Controls.Field
 @{
     ViewBag.Title = "Field";
-    String fieldCssClass = ""; 
+    String fieldCssClass = "";
     if (Html.HasError(Model.FieldName))
     {
         fieldCssClass += " has-error";
-    } 
+    }
+    var controlWidth = string.IsNullOrWhiteSpace(Model.Label) ? Model.Width : (Model.Width - 2);
 }
 
 <div class="form-group @fieldCssClass">
-    <label class="col-sm-2 control-label" for="form-field-1">
-        @Model.Label
-    </label>
-    <div class="col-sm-@(Model.Width - 2)">
+    @if (!string.IsNullOrWhiteSpace(Model.Label))
+    {
+        <label class="col-sm-2 control-label" for="@Model.FieldName">
+            @Model.Label
+        </label>
+    }
+    <div class="col-sm-@controlWidth">
         @Html.Render(Model.Control)
         @if (Html.HasError(Model.FieldName))
         {
             <span class="help-block">@Html.GetError(Model.FieldName)</span>
         }
-         
+
     </div>
 </div>
 

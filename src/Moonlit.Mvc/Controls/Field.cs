@@ -4,6 +4,10 @@ namespace Moonlit.Mvc.Controls
 {
     public class Field : Control
     {
+        public Field()
+        {
+            Width = 12;
+        }
         public string Label { get; set; }
         public string FieldName { get; set; }
         public Control Control { get; set; }

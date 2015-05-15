@@ -10,9 +10,9 @@ namespace Moonlit.Mvc
 
     public class TemplateResult : ViewResult
     {
-        private readonly ITemplate _template;
+        private readonly Template _template;
 
-        public TemplateResult(ITemplate template)
+        public TemplateResult(Template template)
         {
             _template = template;
             this.ViewName = MoonlitContext.Current.Theme + "/" + template.ViewName;

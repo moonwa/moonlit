@@ -2,18 +2,15 @@
 
 namespace Moonlit.Mvc
 {
-    public class MoonlitMvcAttribute : ActionFilterAttribute
+    public class RequestMappingsAttribute : ActionFilterAttribute
     {
         private readonly RequestMappings _requestMappings;
-        private readonly Themes _themes;
 
-        public MoonlitMvcAttribute(RequestMappings requestMappings, Themes themes)
+        public RequestMappingsAttribute(RequestMappings requestMappings)
         {
             _requestMappings = requestMappings;
-            _themes = themes;
         }
 
-        internal IDependencyResolver DependencyResolver { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -50,9 +47,6 @@ namespace Moonlit.Mvc
                 }
             }
 
-            moonlitContext.Theme = _themes.GetTheme(null);
-            moonlitContext.Theme.PreRequest(moonlitContext, filterContext.RequestContext);
-            moonlitContext.DependencyResolver = DependencyResolver;
             base.OnActionExecuting(filterContext);
         }
     }

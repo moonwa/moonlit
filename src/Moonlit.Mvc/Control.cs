@@ -6,10 +6,6 @@ using Moonlit.Mvc.Controls;
 
 namespace Moonlit.Mvc 
 {
-    public abstract class Editor : Control
-    {
-        public object Value { get; set; }
-    }
     public abstract class Control
     {
         public string Name { get; set; }

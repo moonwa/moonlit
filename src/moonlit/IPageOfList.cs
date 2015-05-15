@@ -2,7 +2,7 @@
 
 namespace Moonlit
 {
-    public interface IPageOfList : IEnumerable
+    public interface IPageOfList  
     {
         int PageIndex { get; set; }
         int PageSize { get; set; }

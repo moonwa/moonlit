@@ -48,15 +48,5 @@ namespace Moonlit
 
         [DataMember]
         public List<T> Items { get; set; }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
     }
 }

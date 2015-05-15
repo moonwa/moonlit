@@ -1,6 +1,16 @@
 ﻿@model Moonlit.Mvc.Controls.TextBox
-@{
-    ViewBag.Title = "TextBox";
+ 
+@if (string.IsNullOrWhiteSpace(Model.Icon))
+{
+    <input class="form-control" type="text" name="@Model.Name" id="@Model.Id" value="@Model.Value" @Model.RenderAttributes() />
 }
-
-<input class="form-control" type="text" name="@Model.Name" id="@Model.Id" value="@Model.Value" @Model.RenderAttributes() />
+else
+{
+    <span class="input-icon">
+        <input class="form-control" type="text" name="@Model.Name" id="@Model.Id" value="@Model.Value" @Model.RenderAttributes() />
+        <i class="fa fa-@Model.Icon"></i>
+@*        <a class="forgot" href="#">*@
+@*            I forgot my password*@
+@*        </a>*@
+    </span>
+}

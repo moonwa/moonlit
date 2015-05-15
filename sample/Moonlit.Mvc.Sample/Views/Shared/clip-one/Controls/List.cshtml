@@ -1,0 +1,16 @@
+﻿@using Moonlit.Mvc.Controls
+@using Moonlit.Mvc.Html
+@model Moonlit.Mvc.Controls.List
+
+@switch (Model.Style)
+{
+    case ListStyle.Unstyled:
+        <ul class="list-unstyled">
+            @foreach (var control in Model.Items)
+            {
+                <li>@Html.Render(control)</li>
+            }
+        </ul>
+        break;
+}
+ 
