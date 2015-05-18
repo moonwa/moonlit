@@ -8,12 +8,13 @@ using Moonlit.Mvc.Sample.Models;
 using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample.Controllers
-{
-    [RequestMapping(Url = "User")]
-//    [Authorize]
+{ 
+    //    [Authorize]
     public class UserController : MyController
     {
-        [RequestMapping(Name = "Users")]
+        private const string RequestUrl = "User";
+        [RequestMapping("Users",  RequestUrl)]
+        [SiteMapNodeAttribute("Users", Text = "用户管理", Parent = "BasicData")]
         public ActionResult Index(UserListQueryModel model)
         {
             var datasources = GetDataSources();

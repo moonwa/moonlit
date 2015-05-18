@@ -9,14 +9,15 @@ using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 namespace Moonlit.Mvc.Sample.Controllers
 {
     //    [Authorize(Roles = "edit")]
-    [RequestMapping(Url = "User/Create")]
+
     public class UserCreateController : MyController
     {
+        private const string RequestUrl = "User/Create";
         public UserCreateController()
         {
         }
-        [SiteMapNodeAttribute("User/Create")]
-        [RequestMapping(Name = "CreateUser")]
+        [SiteMapNode ("User/Create", Parent = "Users", IsHidden=true)]
+        [RequestMapping("CreateUser", RequestUrl)]
         [HttpGet]
         // GET: User
         public ActionResult Index(User model)
@@ -72,7 +73,7 @@ namespace Moonlit.Mvc.Sample.Controllers
             };
             return Template(template);
         }
-        [RequestMapping(Name = "CreateUser_Save")]
+        [RequestMapping("CreateUser_Save", RequestUrl)]
         [HttpPost]
         [ActionName("Index")]
         // GET: User

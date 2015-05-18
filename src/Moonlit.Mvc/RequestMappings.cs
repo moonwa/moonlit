@@ -70,7 +70,7 @@ namespace Moonlit.Mvc
                             }
                             _requestMappings.Add(new RequestMapping()
                             {
-                                Name = requestMappingAttr.Name
+                                Name = requestMappingAttr.Name,
                             });
                         }
                     }
@@ -91,17 +91,5 @@ namespace Moonlit.Mvc
             }
             return this._requestMappings.FirstOrDefault(x => string.Equals(mappingName, x.Name, StringComparison.OrdinalIgnoreCase));
         }
-    }
-
-    public class SiteMapNode
-    {
-
-    }
-
-    public class SiteMap
-    {
-        public string Text { get; set; }
-        public string Name { get; set; }
-        public bool IsDefault { get; set; }
     }
 }

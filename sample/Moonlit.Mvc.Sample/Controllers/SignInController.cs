@@ -7,9 +7,9 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample.Controllers
 {
-    [RequestMapping(Url = "SignIn")]
     public class SignInController : MyController
     {
+        private const string RequestUrl = "SignIn";
         private readonly Authenticate _authenticate;
 
         public SignInController(Authenticate authenticate)
@@ -17,14 +17,14 @@ namespace Moonlit.Mvc.Sample.Controllers
             _authenticate = authenticate;
         }
 
-        [RequestMapping(Name = "SignIn")]
+        [RequestMapping(  "SignIn",   RequestUrl)]
         public ActionResult Index(RequestMappings requestMappings)
         {
             SignInModel model = new SignInModel();
             return RenderTemplate(model, requestMappings);
         }
         [ActionName("Index")]
-        [RequestMapping(Name = "SignIn_Save")]
+        [RequestMapping(  "SignIn_Save",   RequestUrl)]
         [HttpPost]
         public ActionResult Save(SignInModel model, RequestMappings requestMappings)
         {

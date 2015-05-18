@@ -1,23 +1,16 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
+    [AttributeUsage(AttributeTargets.Method , AllowMultiple = true, Inherited = false)]
     public class RequestMappingAttribute : ActionFilterAttribute
     {
         public string Name { get; set; }
         public string Url { get; set; }
-
-        public RequestMappingAttribute()
-        {
-
-        }
-        public RequestMappingAttribute(string name)
-        {
-            Name = name;
-        }
 
         public RequestMappingAttribute(string name, string url)
         {

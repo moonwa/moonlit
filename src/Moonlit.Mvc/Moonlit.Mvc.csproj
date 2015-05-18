@@ -121,6 +121,7 @@
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
     <Compile Include="SiteMapAttribute.cs" />
+    <Compile Include="SiteMapNode.cs" />
     <Compile Include="SiteMapNodeAttribute.cs" />
     <Compile Include="SiteMaps.cs" />
     <Compile Include="TagBuilderRender.cs" />

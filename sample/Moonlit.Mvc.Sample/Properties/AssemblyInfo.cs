@@ -22,7 +22,9 @@ using Moonlit.Mvc;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("31b313c5-baa3-4a63-a3c1-e02794a99054")]
-[assembly: Mvc( )]
+[assembly: Mvc()]
+[assembly: SiteMap("Main", IsDefault = true)]
+[assembly: SiteMapNode("BasicData", Text = "基础数据维护")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -22,7 +22,7 @@ namespace Moonlit.Mvc
         {
             SiteMaps.Current.MapSiteMaps();
 
-            GlobalFilters.Filters.Add(new SiteMapRegistrationAttribute());
+            GlobalFilters.Filters.Add(new SiteMapsAttribute(SiteMaps.Current));
             return this;
         }
 
@@ -52,37 +52,23 @@ namespace Moonlit.Mvc
             this.EnableDependencyResolver(dependencyResolver)
                 .EnableAuthenticate(authenticate, authenticateProvider)
                 .EnableRequestMapping(RouteTable.Routes)
+                .EnableSiteMap()
                 .EnableTheme(Themes.Current);
         }
     }
 
-    public class SiteMapRegistrationAttribute : ActionFilterAttribute
+    public class SiteMapsAttribute : ActionFilterAttribute
     {
         private readonly SiteMaps _siteMaps;
 
-        public SiteMapRegistrationAttribute(SiteMaps siteMaps)
+        public SiteMapsAttribute(SiteMaps siteMaps)
         {
             _siteMaps = siteMaps;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            SiteMaps siteMaps = new SiteMaps();
-            foreach (var orgSiteMap in _siteMaps.Items)
-            {
-                var siteMap = new SiteMap
-                {
-                    Name = orgSiteMap.Name,
-                    Text = orgSiteMap.Text,
-                    IsDefault = orgSiteMap.IsDefault,
-                };
-
-                foreach (SiteMapNode orgSiteMapNode in siteMap.Nodes)
-                {
-                    
-                }
-            }
-            MoonlitContext.Current.SiteMaps = 
+            MoonlitContext.Current.SiteMaps = _siteMaps.Clone(filterContext.HttpContext.User);
             base.OnActionExecuting(filterContext);
         }
     }
