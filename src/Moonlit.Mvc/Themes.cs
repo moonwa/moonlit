@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
@@ -6,6 +7,12 @@ namespace Moonlit.Mvc
     {
         private Dictionary<string, Theme> _themes = new Dictionary<string, Theme>();
         private Theme _defaultTheme;
+
+        public void Register()
+        {
+            var attribute = new ThemeAttribute(this);
+            GlobalFilters.Filters.Add(attribute);
+        }
         public void Register(Theme theme)
         {
             _themes[theme.Name] = theme;

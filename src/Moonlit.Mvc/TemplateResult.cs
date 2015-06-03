@@ -15,11 +15,13 @@ namespace Moonlit.Mvc
         public TemplateResult(Template template)
         {
             _template = template;
-            this.ViewName = MoonlitContext.Current.Theme + "/" + template.ViewName;
         }
 
         public override void ExecuteResult(ControllerContext context)
         {
+            var model = this.Model as IMoonlitModel;
+
+            this.ViewName = model.GetObject<Theme>().Name + "/" + _template.ViewName;
             this.ViewData.Model = _template;
             _template.OnReadyRender(context);
             base.ExecuteResult(context);

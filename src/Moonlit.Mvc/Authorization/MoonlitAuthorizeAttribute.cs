@@ -1,23 +1,42 @@
 using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 
-namespace Moonlit.Mvc
+namespace Moonlit.Mvc.Authorization
 {
-    public class AuthenticationManager
+    public class UserAttribute : ActionFilterAttribute
     {
-        public static AuthenticationManager Current { get; private set; }
+        private readonly IActionResultModelResolver _resultModelResolver;
 
-        static AuthenticationManager()
+        public UserAttribute(IActionResultModelResolver resultModelResolver)
         {
-            Current = new AuthenticationManager();
+            _resultModelResolver = resultModelResolver;
         }
 
-        public void Register(Authenticate authenticate, IAuthenticateProvider authenticateProvider)
+        public UserAttribute()
+            : this(ActionResultModelResolver.Current)
         {
-            var attribute = new MoonlitAuthorizeAttribute(authenticate, authenticateProvider);
-            GlobalFilters.Filters.Add(attribute);
+
+        }
+
+
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            var model = _resultModelResolver.ResolveModel(filterContext) as IUserModel;
+            if (model != null)
+            {
+                model.User = filterContext.HttpContext.User;
+            }
+            base.OnActionExecuted(filterContext);
         }
     }
+
+    public interface IUserModel
+    {
+        IPrincipal User { set; }
+    }
+
     public class MoonlitAuthorizeAttribute : AuthorizeAttribute
     {
         private readonly Authenticate _authenticate;
@@ -36,7 +55,7 @@ namespace Moonlit.Mvc
                 var session = _authenticate.GetSession();
                 if (session != null)
                 {
-                    var user = _authenticateProvider.GetUserPrincipal(session.UserName);
+                    IUserPrincipal user = _authenticateProvider.GetUserPrincipal(session.UserName);
 
                     if (user != null)
                     {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Sample.Models;
+using Moonlit.Mvc.Sitemap;
 using Moonlit.Mvc.Templates;
 using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 
@@ -16,11 +17,17 @@ namespace Moonlit.Mvc.Sample.Controllers
         public UserCreateController()
         {
         }
-        [SiteMapNode ("User/Create", Parent = "Users", IsHidden=true)]
+        [SitemapNode(RequestUrl, Parent = "Users", IsHidden = true)]
         [RequestMapping("CreateUser", RequestUrl)]
         [HttpGet]
         // GET: User
-        public ActionResult Index(User model)
+        public ActionResult Index()
+        {
+            User model = new User();
+            return Render(model);
+        }
+
+        private ActionResult Render(User model)
         {
             var template = new AdministrationSimpleEditTemplate(this.ControllerContext, model)
             {
@@ -73,6 +80,7 @@ namespace Moonlit.Mvc.Sample.Controllers
             };
             return Template(template);
         }
+
         [RequestMapping("CreateUser_Save", RequestUrl)]
         [HttpPost]
         [ActionName("Index")]
@@ -87,7 +95,7 @@ namespace Moonlit.Mvc.Sample.Controllers
                     MessageType = FlashMessageType.Success
                 });
             }
-            return Index(model);
+            return Render(model);
         }
     }
 }

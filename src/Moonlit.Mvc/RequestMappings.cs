@@ -18,13 +18,13 @@ namespace Moonlit.Mvc
         }
 
         public static RequestMappings Current { get; private set; }
-        public void MapRequestMappings(RouteCollection routes)
+        public void Register(RouteCollection routes)
         {
             var referencedAssemblies = BuildManager.GetReferencedAssemblies();
-            MapRequestMappings(routes, referencedAssemblies.Cast<Assembly>());
+            Register(routes, referencedAssemblies.Cast<Assembly>());
         }
 
-        public void MapRequestMappings(RouteCollection routes, IEnumerable<Assembly> assemblies)
+        public void Register(RouteCollection routes, IEnumerable<Assembly> assemblies)
         {
             foreach (Assembly referencedAssembly in assemblies)
             {
@@ -76,6 +76,9 @@ namespace Moonlit.Mvc
                     }
                 }
             }
+
+            var attribute = new RequestMappingsAttribute(this);
+            GlobalFilters.Filters.Add(attribute);
         }
 
         /// <summary>

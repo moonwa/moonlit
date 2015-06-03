@@ -12,6 +12,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Moonlit.Caching;
 using Moonlit.Mvc.Controls;
+using Moonlit.Mvc.Sitemap;
 using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample
@@ -51,9 +52,12 @@ namespace Moonlit.Mvc.Sample
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
-            new MoonlitMvcRegister().AutoRegister(new AutofacMoonlitDependencyResolver(container));
 
-            //            ModelMetadataProviders.Current = new LocalizedModelMetadataProvider(ModelMetadataProviders.Current, container.Resolve<ILocalizer>());
+
+            Sitemaps.Current.Register();
+            RequestMappings.Current.Register(RouteTable.Routes);
+            Themes.Current.Register();
+            AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestAuthenticateProvider());
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }

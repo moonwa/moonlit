@@ -12,16 +12,20 @@ namespace Moonlit.Mvc.Html
 {
     public static class RenderExtensions
     {
-
         public static IHtmlString Render(this HtmlHelper html, Control control)
         {
-            var theme = MoonlitContext.Current.Theme;
-            var template = theme.ResolveControl(control.GetType());
-            if (string.IsNullOrEmpty(template))
+            var model = html.ViewData.Model as IMoonlitModel;
+            if (model != null)
             {
-                return MvcHtmlString.Create("there is no template for control " + control.GetType().FullName);
+                var theme = model.GetObject<Theme>();
+                var template = theme.ResolveControl(control.GetType());
+                if (string.IsNullOrEmpty(template))
+                {
+                    return MvcHtmlString.Create("there is no template for control " + control.GetType().FullName);
+                }
+                return html.Partial(template, control);
             }
-            return html.Partial(template, control);
+            return MvcHtmlString.Empty;
         }
     }
 }

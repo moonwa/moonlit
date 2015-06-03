@@ -2,7 +2,7 @@
 
 namespace Moonlit.Mvc
 {
-    public class ThemeAttribute : ActionFilterAttribute
+    public class ThemeAttribute : MoonlitActionFilterAttribute
     {
         private readonly Themes _themes;
 
@@ -11,14 +11,16 @@ namespace Moonlit.Mvc
             _themes = themes;
         }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var moonlitContext = MoonlitContext.Current;
-
-            moonlitContext.Theme = _themes.GetTheme(null);
-            moonlitContext.Theme.PreRequest(moonlitContext, filterContext.RequestContext);
-
-            base.OnActionExecuting(filterContext);
+            var model = ResolveModel(filterContext) as IMoonlitModel;
+            if (model != null)
+            {
+                var theme = _themes.GetTheme(null);
+//                theme.PreRequest(moonlitContext, filterContext.RequestContext);
+//                model.SetObject(theme);
+            }
+            base.OnActionExecuted(filterContext);
         }
     }
 }

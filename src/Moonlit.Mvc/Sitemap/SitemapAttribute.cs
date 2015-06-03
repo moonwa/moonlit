@@ -1,23 +1,23 @@
 using System;
 
-namespace Moonlit.Mvc
+namespace Moonlit.Mvc.Sitemap
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
-    public class SiteMapAttribute : Attribute
+    public class SitemapAttribute : Attribute
     {
         public string Name { get; set; }
         public string Text { get; set; }
 
-        public SiteMapAttribute(string name)
+        public SitemapAttribute(string name)
         {
             Name = name;
         }
 
         public bool IsDefault { get; set; }
 
-        public SiteMapNode CreateSiteMap()
+        public SitemapNode CreateSiteMap()
         {
-            return new SiteMapNode
+            return new SitemapNode
             {
                 Text = Text,
                 Name = Name,

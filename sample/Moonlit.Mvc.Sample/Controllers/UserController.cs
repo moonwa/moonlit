@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Sample.Models;
+using Moonlit.Mvc.Sitemap;
 using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample.Controllers
@@ -14,7 +15,7 @@ namespace Moonlit.Mvc.Sample.Controllers
     {
         private const string RequestUrl = "User";
         [RequestMapping("Users",  RequestUrl)]
-        [SiteMapNodeAttribute("Users", Text = "用户管理", Parent = "BasicData")]
+        [SitemapNode("Users", Text = "用户管理", Parent = "BasicData")]
         public ActionResult Index(UserListQueryModel model)
         {
             var datasources = GetDataSources();

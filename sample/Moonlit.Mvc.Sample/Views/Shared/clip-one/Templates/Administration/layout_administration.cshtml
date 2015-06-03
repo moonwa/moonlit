@@ -2,10 +2,28 @@
     Layout = null;
 }
 
+@functions{
 
+    private string MakeNodeCss(SiteMapNode node)
+    {
+        string css = "";
+        if (node.InCurrent)
+        {
+
+            css += "open active";
+        }
+        if (node.IsCurrent)
+        {
+            css += "active";
+        }
+        return css;
+    }
+
+}
 
 @using Moonlit.Mvc;
 @using Moonlit.Mvc.Url;
+@using SiteMapNode = Moonlit.Mvc.Sitemap.SitemapNode
 @model Moonlit.Mvc.Templates.Template
 
 
@@ -422,7 +440,7 @@
     <!-- end: HEADER -->
     <!-- start: MAIN CONTAINER -->
     @{
-        var sitemaps = MoonlitContext.Current.SiteMaps;
+        var sitemaps = MoonlitContext.Current.Sitemaps;
     }
     <div class="main-container">
         <div class="navbar-content">
@@ -438,17 +456,17 @@
                 <ul class="main-navigation-menu"> 
                     @foreach (var node in sitemaps.DefaultSiteMap.Nodes)
                     {
-                        <li class=" @(node.InCurrent ? "open active" : "")  @(node.IsCurrent ? "active" : "") ">
+                        <li class="@MakeNodeCss(node)">
                             <a href=" javascript:void(0)">
                             <i class="clip-screen"></i>
                             <span class="title"> @node.Text </span>
-                            @if (node.VisibleNodes.Count() > 0)
+                            @if (node.VisibleNodes.Any())
                             {
                                 <i class="icon-arrow"></i>
                             }
                             <span class="selected"></span>
                             </a>
-                            @if (node.VisibleNodes.Count() > 0)
+                            @if (node.VisibleNodes.Any())
                             {
                                 <ul class="sub-menu">
                                     @foreach (var childNode in node.VisibleNodes)
@@ -629,7 +647,7 @@
                                     Home
                                 </a>
                             </li>
-                             @foreach (var node in MoonlitContext.Current.SiteMaps.Breadcrumb)
+                             @foreach (var node in MoonlitContext.Current.Sitemaps.Breadcrumb)
                              {
                                 <li class="  ">
                                     @if (node.IsCurrent)
