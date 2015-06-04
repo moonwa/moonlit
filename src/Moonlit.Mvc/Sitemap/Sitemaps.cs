@@ -11,7 +11,7 @@ namespace Moonlit.Mvc.Sitemap
     public class Sitemaps
     {
         private readonly List<SitemapNode> _siteMaps = new List<SitemapNode>();
-        private SitemapNode _defaultSiteMap;
+        public SitemapNode DefaultSiteMap { get; private set; }
 
         static Sitemaps()
         {
@@ -28,7 +28,7 @@ namespace Moonlit.Mvc.Sitemap
         public SitemapNode CurrentNode { get; set; }
         public List<SitemapNode> Breadcrumb { get; set; }
 
-        public void Register()
+        public void Enable()
         {
             var referencedAssemblies = BuildManager.GetReferencedAssemblies();
             Register(referencedAssemblies.Cast<Assembly>());
@@ -69,7 +69,7 @@ namespace Moonlit.Mvc.Sitemap
 
         private SitemapNode FindRootSiteMap(string siteMapName)
         {
-            return string.IsNullOrEmpty(siteMapName) ? _defaultSiteMap : _siteMaps.FirstOrDefault(x => string.Equals(siteMapName, x.Name));
+            return string.IsNullOrEmpty(siteMapName) ? DefaultSiteMap : _siteMaps.FirstOrDefault(x => string.Equals(siteMapName, x.Name));
         }
 
         private SitemapNode FindSitemapNode(string nodeName, SitemapNode node)
@@ -109,7 +109,7 @@ namespace Moonlit.Mvc.Sitemap
                         Icon = SitemapNodeAttr.Icon,
                         Parent = SitemapNodeAttr.Parent,
                         Url = SitemapNodeAttr.Url,
-                        SiteMap = SitemapNodeAttr.SiteMap ?? _defaultSiteMap.Name,
+                        SiteMap = SitemapNodeAttr.SiteMap ?? DefaultSiteMap.Name,
                         Name = SitemapNodeAttr.Name,
                     });
                 }
@@ -132,7 +132,7 @@ namespace Moonlit.Mvc.Sitemap
                                     Icon = SitemapNodeAttr.Icon,
                                     Parent = SitemapNodeAttr.Parent,
                                     Url = url,
-                                    SiteMap = SitemapNodeAttr.SiteMap ?? _defaultSiteMap.Name,
+                                    SiteMap = SitemapNodeAttr.SiteMap ?? DefaultSiteMap.Name,
                                     Name = SitemapNodeAttr.Name ?? requestMappingAttr.Name,
                                 };
                                 SitemapNodes.Add(SitemapNode);
@@ -157,10 +157,10 @@ namespace Moonlit.Mvc.Sitemap
                 foreach (var siteMapAttr in siteMapAttrs)
                 {
                     var siteMap = siteMapAttr.CreateSiteMap();
-                    _defaultSiteMap = _defaultSiteMap ?? siteMap;
+                    DefaultSiteMap = DefaultSiteMap ?? siteMap;
                     if (siteMapAttr.IsDefault)
                     {
-                        _defaultSiteMap = siteMap;
+                        DefaultSiteMap = siteMap;
                     }
                     _siteMaps.Add(siteMap);
                 }
@@ -174,9 +174,9 @@ namespace Moonlit.Mvc.Sitemap
             {
                 var clonedSitemapNode = Clone(user, SitemapNode);
                 other._siteMaps.Add(clonedSitemapNode);
-                if (SitemapNode == _defaultSiteMap)
+                if (SitemapNode == DefaultSiteMap)
                 {
-                    other._defaultSiteMap = clonedSitemapNode;
+                    other.DefaultSiteMap = clonedSitemapNode;
                 }
             }
             return other;

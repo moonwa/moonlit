@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Moonlit.Mvc.Templates;
+using Moonlit.Mvc.Themes;
 
 namespace Moonlit.Mvc.Html
 {
@@ -14,18 +15,14 @@ namespace Moonlit.Mvc.Html
     {
         public static IHtmlString Render(this HtmlHelper html, Control control)
         {
-            var model = html.ViewData.Model as IMoonlitModel;
-            if (model != null)
+            var theme = new HttpContextWrapper(HttpContext.Current).GetObject<Theme>();
+            var template = theme.ResolveControl(control.GetType());
+            if (string.IsNullOrEmpty(template))
             {
-                var theme = model.GetObject<Theme>();
-                var template = theme.ResolveControl(control.GetType());
-                if (string.IsNullOrEmpty(template))
-                {
-                    return MvcHtmlString.Create("there is no template for control " + control.GetType().FullName);
-                }
-                return html.Partial(template, control);
+                return MvcHtmlString.Create("there is no template for control " + control.GetType().FullName);
             }
-            return MvcHtmlString.Empty;
+            return html.Partial(template, control);
+
         }
     }
 }

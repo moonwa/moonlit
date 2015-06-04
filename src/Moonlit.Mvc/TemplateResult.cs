@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Moonlit.Mvc.Templates;
+using Moonlit.Mvc.Themes;
 
 namespace Moonlit.Mvc
 {
@@ -12,17 +13,16 @@ namespace Moonlit.Mvc
     {
         private readonly Template _template;
 
-        public TemplateResult(Template template)
+        public TemplateResult(Template template, ViewDataDictionary viewData)
         {
             _template = template;
+            viewData.Model = _template;
+            this.ViewData = viewData;
         }
 
         public override void ExecuteResult(ControllerContext context)
         {
-            var model = this.Model as IMoonlitModel;
-
-            this.ViewName = model.GetObject<Theme>().Name + "/" + _template.ViewName;
-            this.ViewData.Model = _template;
+            this.ViewName = context.HttpContext.GetObject<Theme>().Name + "/" + _template.ViewName;
             _template.OnReadyRender(context);
             base.ExecuteResult(context);
         }

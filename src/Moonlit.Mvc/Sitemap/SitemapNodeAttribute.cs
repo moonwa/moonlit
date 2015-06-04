@@ -5,7 +5,7 @@ using System.Web.Mvc;
 namespace Moonlit.Mvc.Sitemap
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
-    public class SitemapNodeAttribute : MoonlitActionFilterAttribute
+    public class SitemapNodeAttribute : ActionFilterAttribute
     {
         public string Name { get; set; }
         public string Parent { get; set; }
@@ -19,29 +19,27 @@ namespace Moonlit.Mvc.Sitemap
         public SitemapNodeAttribute(string name)
         {
             Name = name;
+            Order = 2;
         }
 
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            var model = ResolveModel(filterContext) as IMoonlitModel;
-            if (model != null)
-            {
-                var sitemaps = model.GetObject<Sitemaps>();
-                var node = sitemaps.FindSitemapNode(Name, this.SiteMap);
-                node.IsCurrent = true;
-                sitemaps.CurrentNode = node;
+            var sitemaps = filterContext.HttpContext.GetObject<Sitemaps>();
+            var node = sitemaps.FindSitemapNode(Name, this.SiteMap);
+            node.IsCurrent = true;
+            sitemaps.CurrentNode = node;
 
-                List<SitemapNode> nodes = new List<SitemapNode>();
-                do
-                {
-                    nodes.Add(node);
-                    node.InCurrent = true;
-                    node = node.ParentNode;
-                } while (node.ParentNode != null);  // ignore the root node
-                nodes.Reverse();
-                sitemaps.Breadcrumb = nodes;
-                base.OnActionExecuted(filterContext);
-            }
+            List<SitemapNode> nodes = new List<SitemapNode>();
+            do
+            {
+                nodes.Add(node);
+                node.InCurrent = true;
+                node = node.ParentNode;
+            } while (node.ParentNode != null);  // ignore the root node
+            nodes.Reverse();
+            sitemaps.Breadcrumb = nodes;
+            base.OnResultExecuting(filterContext);
         }
+
     }
 }

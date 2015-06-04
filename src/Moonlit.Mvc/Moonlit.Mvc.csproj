@@ -99,7 +99,6 @@
     <Compile Include="FlashMessageType.cs" />
     <Compile Include="Flash\Flash.cs" />
     <Compile Include="Flash\FlashAttribute.cs" />
-    <Compile Include="Flash\IFlashModel.cs" />
     <Compile Include="Html\Control.cs" />
     <Compile Include="Controls\Field.cs" />
     <Compile Include="Controls\IClickable.cs" />
@@ -107,13 +106,11 @@
     <Compile Include="Controls\Pager.cs" />
     <Compile Include="FormActionAttribute.cs" />
     <Compile Include="HtmlHelperHelper.cs" />
+    <Compile Include="HttpContextBaseHelper.cs" />
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
-    <Compile Include="IMoonlitModel.cs" />
     <Compile Include="MoonlitAuthorizeAttribute.cs" />
-    <Compile Include="MoonlitContext.cs" />
-    <Compile Include="MoonlitModelHelper.cs" />
     <Compile Include="MvcAttribute.cs" />
     <Compile Include="Html\Checked.cs" />
     <Compile Include="ILocalizer.cs" />
@@ -124,10 +121,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMappings.cs" />
     <Compile Include="RequestMappingsAttribute.cs" />
-    <Compile Include="Script.cs" />
+    <Compile Include="Scripts\Script.cs" />
+    <Compile Include="Scripts\ScriptAttribute.cs" />
+    <Compile Include="Scripts\Scripts.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
-    <Compile Include="MoonlitActionFilterAttribute.cs" />
     <Compile Include="Sitemap\Sitemaps.cs" />
     <Compile Include="Sitemap\SitemapAttribute.cs" />
     <Compile Include="Sitemap\SitemapNode.cs" />
@@ -136,6 +134,8 @@
     <Compile Include="StyleLink.cs" />
     <Compile Include="StyleLinkHelper.cs" />
     <Compile Include="StyleLinkMedia.cs" />
+    <Compile Include="Styles\StylesAttribute.cs" />
+    <Compile Include="Styles\Styles.cs" />
     <Compile Include="TagBuilderRender.cs" />
     <Compile Include="TemplateResult.cs" />
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
@@ -145,9 +145,9 @@
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Templates\SimpleBoxTemplate.cs" />
     <Compile Include="Site.cs" />
-    <Compile Include="Theme.cs" />
-    <Compile Include="ThemeAttribute.cs" />
-    <Compile Include="Themes.cs" />
+    <Compile Include="Themes\Theme.cs" />
+    <Compile Include="Themes\ThemeAttribute.cs" />
+    <Compile Include="Themes\Themes.cs" />
     <Compile Include="Url\UrlHelperHelper.cs" />
   </ItemGroup>
   <ItemGroup>

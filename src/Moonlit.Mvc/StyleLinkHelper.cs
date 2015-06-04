@@ -4,7 +4,7 @@ namespace Moonlit.Mvc
 {
     public static class StyleLinkHelper
     {
-        public static string Link(this UrlHelper url, Theme theme, StyleLink link)
+        public static string Link(this UrlHelper url,   StyleLink link)
         {
             TagBuilder tagBuilder = new TagBuilder("link");
             tagBuilder.Attributes["rel"] = "stylesheet";

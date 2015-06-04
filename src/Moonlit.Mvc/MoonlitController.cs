@@ -49,11 +49,10 @@ namespace Moonlit.Mvc
 
         protected virtual ActionResult Template(Template template)
         {
-            return new TemplateResult(template)
+            return new TemplateResult(template, ViewData)
             {
-                ViewData = ViewData,
                 TempData = TempData,
-                ViewEngineCollection = ViewEngineCollection
+                ViewEngineCollection = ViewEngineCollection,
             };
         }
     }

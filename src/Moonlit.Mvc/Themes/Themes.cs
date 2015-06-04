@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Moonlit.Mvc
+namespace Moonlit.Mvc.Themes
 {
     public class Themes
     {

@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 
-namespace Moonlit.Mvc
+namespace Moonlit.Mvc.Scripts
 {
     public class Script
     {
@@ -8,7 +8,7 @@ namespace Moonlit.Mvc
         public string Src { get; set; }
         public string Id { get; set; }
         public IeVersionCriteria Criteria { get; set; }
-        public string ToString(UrlHelper url, Theme theme)
+        public string ToString(UrlHelper url)
         {
             TagBuilder tagBuilder = new TagBuilder("script");
 

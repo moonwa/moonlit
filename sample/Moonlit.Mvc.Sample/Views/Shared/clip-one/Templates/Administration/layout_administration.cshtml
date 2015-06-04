@@ -22,6 +22,7 @@
 }
 
 @using Moonlit.Mvc;
+@using Moonlit.Mvc.Sitemap
 @using Moonlit.Mvc.Url;
 @using SiteMapNode = Moonlit.Mvc.Sitemap.SitemapNode
 @model Moonlit.Mvc.Templates.Template
@@ -48,7 +49,7 @@
     <meta content="" name="author" />
     <!-- end: META -->
     <!-- start: MAIN CSS -->
-    @MoonlitContext.Current.RenderCss(Url)
+    @(Context.GetObject<Moonlit.Mvc.Styles.Styles>().RenderCss(Url))
 
     <!-- end: MAIN CSS -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -440,7 +441,7 @@
     <!-- end: HEADER -->
     <!-- start: MAIN CONTAINER -->
     @{
-        var sitemaps = MoonlitContext.Current.Sitemaps;
+        var sitemaps = Context.GetObject<Moonlit.Mvc.Sitemap.Sitemaps>();
     }
     <div class="main-container">
         <div class="navbar-content">
@@ -453,18 +454,18 @@
                 </div>
                 <!-- end: MAIN MENU TOGGLER BUTTON -->
                 <!-- start: MAIN NAVIGATION MENU -->
-                <ul class="main-navigation-menu"> 
+                <ul class="main-navigation-menu">
                     @foreach (var node in sitemaps.DefaultSiteMap.Nodes)
                     {
                         <li class="@MakeNodeCss(node)">
                             <a href=" javascript:void(0)">
-                            <i class="clip-screen"></i>
-                            <span class="title"> @node.Text </span>
-                            @if (node.VisibleNodes.Any())
-                            {
-                                <i class="icon-arrow"></i>
-                            }
-                            <span class="selected"></span>
+                                <i class="clip-screen"></i>
+                                <span class="title"> @node.Text </span>
+                                @if (node.VisibleNodes.Any())
+                                {
+                                    <i class="icon-arrow"></i>
+                                }
+                                <span class="selected"></span>
                             </a>
                             @if (node.VisibleNodes.Any())
                             {
@@ -481,7 +482,7 @@
                             }
                         </li>
                     }
-                         
+
                 </ul>
                 <!-- end: MAIN NAVIGATION MENU -->
             </div>
@@ -647,8 +648,8 @@
                                     Home
                                 </a>
                             </li>
-                             @foreach (var node in MoonlitContext.Current.Sitemaps.Breadcrumb)
-                             {
+                            @foreach (var node in sitemaps.Breadcrumb)
+                            {
                                 <li class="  ">
                                     @if (node.IsCurrent)
                                     {
@@ -659,7 +660,7 @@
                                         <a href="@node.Url">@node.Text</a>
                                     }
                                 </li>
-                             } 
+                            }
                             <li class="search-box">
                                 <form class="sidebar-search">
                                     <div class="form-group">
@@ -684,7 +685,7 @@
                         @{
                             var messageType = "success";
                             var messageIcon = "check-circle";
-                            FlashMessage msg = (FlashMessage)MoonlitContext.Current.Flash.Get(typeof(FlashMessage));
+                            FlashMessage msg = (FlashMessage)Context.GetObject<Moonlit.IFlash>().Get(typeof(FlashMessage));
                             if (msg != null)
                             {
                                 switch (msg.MessageType)
@@ -1088,15 +1089,14 @@
             </div>
         </div>
     </div>
-    <!-- start: MAIN JAVASCRIPTS --> 
+    <!-- start: MAIN JAVASCRIPTS -->
+    @(Context.GetObject<Moonlit.Mvc.Scripts.Scripts>().RenderScripts(Url))
+    <script>
+    jQuery(document).ready(function () {
+        Main.init();
+        Index.init();
+    });
+    </script>
 
-        @MoonlitContext.Current.RenderScripts(Url)
-        <script> 
-            jQuery(document).ready(function () {
-                Main.init();
-                Index.init();
-            });
-        </script>
-
-    </body>
+</body>
 </html>

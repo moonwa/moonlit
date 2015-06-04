@@ -2,28 +2,26 @@
 
 namespace Moonlit.Mvc.Sitemap
 {
-    public class SitemapsAttribute : MoonlitActionFilterAttribute
+    public class SitemapsAttribute : ActionFilterAttribute
     {
         private readonly Sitemaps _sitemaps;
 
         public SitemapsAttribute(Sitemaps sitemaps)
         {
             _sitemaps = sitemaps;
+            Order = 1;
         }
 
         public SitemapsAttribute()
             : this(Sitemaps.Current)
         {
         }
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
+
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            var model = ResolveModel(filterContext);
-            IMoonlitModel sitemapModel = model as IMoonlitModel;
-            if (sitemapModel != null)
-            {
-                sitemapModel.SetObject(_sitemaps.Clone(filterContext.HttpContext.User));
-            }
-            base.OnActionExecuted(filterContext);
-        }
+            filterContext.HttpContext.SetObject(_sitemaps.Clone(filterContext.HttpContext.User));
+            
+            base.OnResultExecuting(filterContext);
+        } 
     }
 }

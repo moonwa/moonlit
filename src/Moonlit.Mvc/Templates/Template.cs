@@ -1,9 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Moonlit.Mvc.Templates
-{ 
+{
 
-    public abstract class Template  
+    public abstract class Template 
     {
         protected Template()
         {
@@ -18,5 +19,6 @@ namespace Moonlit.Mvc.Templates
         {
 
         }
+       
     }
 }

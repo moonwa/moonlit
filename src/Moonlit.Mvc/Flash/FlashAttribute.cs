@@ -6,28 +6,13 @@ using Moonlit.Mvc.Sitemap;
 namespace Moonlit.Mvc.Flash
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
-    public class FlashAttribute : MoonlitActionFilterAttribute
-    {
-        private readonly IFlash _flash;
+    public class FlashAttribute : ActionFilterAttribute
+    { 
 
-        public FlashAttribute()
-            : this(Flash.Current)
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-
-        }
-        public FlashAttribute(IFlash flash)
-        {
-            _flash = flash;
-        }
-
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            var model = ResolveModel(filterContext) as IFlashModel;
-            if (model != null)
-            {
-                model.Flash = _flash;
-                base.OnActionExecuted(filterContext);
-            }
+            filterContext.HttpContext.SetObject(DependencyResolver.Current.GetService<IFlash>());
+            base.OnResultExecuting(filterContext);
         }
     }
 }
