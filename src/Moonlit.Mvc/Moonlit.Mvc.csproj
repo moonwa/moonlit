@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authenticate.cs" />
+    <Compile Include="AuthenticationManager.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ControlCollection.cs" />
@@ -97,8 +98,6 @@
     <Compile Include="Controls\SelectListItem.cs" />
     <Compile Include="FlashMessage.cs" />
     <Compile Include="FlashMessageType.cs" />
-    <Compile Include="Flash\Flash.cs" />
-    <Compile Include="Flash\FlashAttribute.cs" />
     <Compile Include="Html\Control.cs" />
     <Compile Include="Controls\Field.cs" />
     <Compile Include="Controls\IClickable.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Controls\Pager.cs" />
     <Compile Include="FormActionAttribute.cs" />
     <Compile Include="HtmlHelperHelper.cs" />
-    <Compile Include="HttpContextBaseHelper.cs" />
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
@@ -122,20 +120,19 @@
     <Compile Include="RequestMappings.cs" />
     <Compile Include="RequestMappingsAttribute.cs" />
     <Compile Include="Scripts\Script.cs" />
-    <Compile Include="Scripts\ScriptAttribute.cs" />
     <Compile Include="Scripts\Scripts.cs" />
+    <Compile Include="Scripts\ScriptsLoader.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
     <Compile Include="Sitemap\Sitemaps.cs" />
     <Compile Include="Sitemap\SitemapAttribute.cs" />
     <Compile Include="Sitemap\SitemapNode.cs" />
     <Compile Include="Sitemap\SitemapNodeAttribute.cs" />
-    <Compile Include="Sitemap\SitemapsAttribute.cs" />
     <Compile Include="StyleLink.cs" />
     <Compile Include="StyleLinkHelper.cs" />
     <Compile Include="StyleLinkMedia.cs" />
-    <Compile Include="Styles\StylesAttribute.cs" />
     <Compile Include="Styles\Styles.cs" />
+    <Compile Include="Styles\StylesLoader.cs" />
     <Compile Include="TagBuilderRender.cs" />
     <Compile Include="TemplateResult.cs" />
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
@@ -145,6 +142,7 @@
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Templates\SimpleBoxTemplate.cs" />
     <Compile Include="Site.cs" />
+    <Compile Include="Themes\IThemeLoader.cs" />
     <Compile Include="Themes\Theme.cs" />
     <Compile Include="Themes\ThemeAttribute.cs" />
     <Compile Include="Themes\Themes.cs" />

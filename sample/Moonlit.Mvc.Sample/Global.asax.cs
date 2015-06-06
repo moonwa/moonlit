@@ -14,6 +14,7 @@ using Moonlit.Caching;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Scripts;
 using Moonlit.Mvc.Sitemap;
+using Moonlit.Mvc.Styles;
 using Moonlit.Mvc.Templates;
 using Moonlit.Mvc.Themes;
 
@@ -50,19 +51,19 @@ namespace Moonlit.Mvc.Sample
             builder.RegisterFilterProvider();
 
             // Set the dependency resolver to be Autofac.
-            var container = builder.Build();
 
 
             var clipOneTheme = new ClipOneTheme();
-            Themes.Themes.Current.Register(clipOneTheme);
-            Themes.Themes.Current.RegisterDefault(clipOneTheme);
-            Sitemaps.Current.Enable();
+            Themes.Themes themes = new Themes.Themes();
+            themes.Register(clipOneTheme);
+            builder.Register(context => new DefaultThemeLoader("clip-one", themes)).As<IThemeLoader>().InstancePerRequest();
 
+            builder.RegisterType<ScriptsLoader>().As<ScriptsLoader>().InstancePerRequest();
+            builder.RegisterType<StylesLoader>().As<StylesLoader>().InstancePerRequest();
+            builder.RegisterType<ReflectionSitemapsLoader>().As<SitemapsLoader>().InstancePerRequest();
+
+            var container = builder.Build();
             RequestMappings.Current.Register(RouteTable.Routes);
-            Themes.Themes.Current.Register();
-            Scripts.Scripts.Enable();
-            Styles.Styles.Enable();
-            Flash.Flash.Register();
             AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestAuthenticateProvider());
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
@@ -160,8 +161,8 @@ namespace Moonlit.Mvc.Sample
         protected override void PreRequest(RequestContext requestContext)
         {
             UrlHelper url = new UrlHelper(requestContext);
-            var styles = requestContext.HttpContext.GetObject<Styles.Styles>();
-            var scripts = requestContext.HttpContext.GetObject<Scripts.Scripts>();
+            var styles = DependencyResolver.Current.GetService<Styles.StylesLoader>().Styles;
+            var scripts = DependencyResolver.Current.GetService<Scripts.ScriptsLoader>().Scripts;
             if (styles != null)
             {
                 styles.RegisterStyleLink("plugins:bootstrap", new StyleLink() { Href = url.Content("~/assets/" + ThemeName + "/plugins/bootstrap/css/bootstrap.min.css") });

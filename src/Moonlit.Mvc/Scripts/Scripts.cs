@@ -11,10 +11,19 @@ namespace Moonlit.Mvc.Scripts
     public class Scripts
     {
         private readonly Dictionary<string, Script> _scripts = new Dictionary<string, Script>(StringComparer.OrdinalIgnoreCase);
-        public static void Enable()
+        public static Scripts Current
         {
-            GlobalFilters.Filters.Add(new ScriptAttribute());
+            get
+            {
+                var loader = DependencyResolver.Current.GetService<ScriptsLoader>();
+                if (loader == null)
+                {
+                    return null;
+                }
+                return loader.Scripts;
+            }
         }
+
         public void RegisterScript(string name, Script script)
         {
             _scripts[name] = script;

@@ -11,27 +11,27 @@ namespace Moonlit
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        object Get( Type type);
+        object Get(Type type);
 
         /// <summary>
         ///     get a item from cache by key
         /// </summary>
         /// <param name="value"></param>
-        void Set(  object value);
+        void Set(object value);
 
         /// <summary>
         ///     remove a item from cache by key
         /// </summary>
         /// <param name="key">the key of item</param>
         /// <returns></returns>
-        void Remove( );
+        void Remove();
 
         /// <summary>
         ///     set a item into cache
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        Task SetAsync( object value);
+        Task SetAsync(object value);
 
         /// <summary>
         ///     get a item from cache by key
@@ -44,7 +44,7 @@ namespace Moonlit
         ///     remove a item from cache by key
         /// </summary>
         /// <returns></returns>
-        Task RemoveAsync( );
+        Task RemoveAsync();
     }
 
 }

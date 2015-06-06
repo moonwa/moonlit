@@ -11,7 +11,18 @@ namespace Moonlit.Mvc.Styles
     public class Styles
     {
         private readonly Dictionary<string, StyleLink> _styleLinks = new Dictionary<string, StyleLink>(StringComparer.OrdinalIgnoreCase);
-
+        public static Styles Current
+        {
+            get
+            {
+                var loader = DependencyResolver.Current.GetService<StylesLoader>();
+                if (loader == null)
+                {
+                    return null;
+                }
+                return loader.Styles;
+            }
+        }
         public void RegisterStyleLink(string name, StyleLink style)
         {
             _styleLinks[name] = style;
@@ -26,10 +37,6 @@ namespace Moonlit.Mvc.Styles
                 buffer.Append(url.Link(link.Value));
             }
             return MvcHtmlString.Create(buffer.ToString());
-        }
-        public static void Enable()
-        {
-            GlobalFilters.Filters.Add(new StylesAttribute());
-        }
+        } 
     }
 }

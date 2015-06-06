@@ -15,7 +15,7 @@ namespace Moonlit.Mvc.Html
     {
         public static IHtmlString Render(this HtmlHelper html, Control control)
         {
-            var theme = new HttpContextWrapper(HttpContext.Current).GetObject<Theme>();
+            var theme = DependencyResolver.Current.GetService<IThemeLoader>().Theme;
             var template = theme.ResolveControl(control.GetType());
             if (string.IsNullOrEmpty(template))
             {

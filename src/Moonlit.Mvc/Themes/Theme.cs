@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Scripts;
 
@@ -31,10 +32,10 @@ namespace Moonlit.Mvc.Themes
 
         protected internal virtual void PreRequest(RequestContext requestContext)
         {
-            var scripts = requestContext.HttpContext.GetObject<Scripts.Scripts>();
+            var scripts = DependencyResolver.Current.GetService<ScriptsLoader>();
             if (scripts != null)
             {
-                scripts.RegisterScript("submit_with_action", new Script
+                scripts.Scripts.RegisterScript("submit_with_action", new Script
                    {
                        Content = @"submit_with_action = function(sender, formAction, name, value) {
                               var button, form;

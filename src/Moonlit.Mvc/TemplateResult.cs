@@ -22,7 +22,8 @@ namespace Moonlit.Mvc
 
         public override void ExecuteResult(ControllerContext context)
         {
-            this.ViewName = context.HttpContext.GetObject<Theme>().Name + "/" + _template.ViewName;
+            var theme = DependencyResolver.Current.GetService<IThemeLoader>().Theme;
+            this.ViewName = theme.Name + "/" + _template.ViewName;
             _template.OnReadyRender(context);
             base.ExecuteResult(context);
         }

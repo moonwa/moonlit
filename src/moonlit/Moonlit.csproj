@@ -121,6 +121,7 @@
     <Compile Include="Data\DbDataReaderExtensions.cs" />
     <Compile Include="DictionaryObject.cs" />
     <Compile Include="DomainTypeResolver.cs" />
+    <Compile Include="Extensions\FlashExtensions.cs" />
     <Compile Include="HierarchicalTextValuePair.cs" />
     <Compile Include="IFlash.cs" />
     <Compile Include="ITypeResolvor.cs" />

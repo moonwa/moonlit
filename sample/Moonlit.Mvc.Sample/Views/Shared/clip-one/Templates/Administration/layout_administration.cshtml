@@ -49,7 +49,7 @@
     <meta content="" name="author" />
     <!-- end: META -->
     <!-- start: MAIN CSS -->
-    @(Context.GetObject<Moonlit.Mvc.Styles.Styles>().RenderCss(Url))
+    @Moonlit.Mvc.Styles.Styles.Current.RenderCss(Url)
 
     <!-- end: MAIN CSS -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -441,7 +441,7 @@
     <!-- end: HEADER -->
     <!-- start: MAIN CONTAINER -->
     @{
-        var sitemaps = Context.GetObject<Moonlit.Mvc.Sitemap.Sitemaps>();
+        var sitemaps = Moonlit.Mvc.Sitemap.Sitemaps.Current;
     }
     <div class="main-container">
         <div class="navbar-content">
@@ -685,7 +685,7 @@
                         @{
                             var messageType = "success";
                             var messageIcon = "check-circle";
-                            FlashMessage msg = (FlashMessage)Context.GetObject<Moonlit.IFlash>().Get(typeof(FlashMessage));
+                            FlashMessage msg = FlashMessage.Current;
                             if (msg != null)
                             {
                                 switch (msg.MessageType)
@@ -1090,7 +1090,7 @@
         </div>
     </div>
     <!-- start: MAIN JAVASCRIPTS -->
-    @(Context.GetObject<Moonlit.Mvc.Scripts.Scripts>().RenderScripts(Url))
+    @Moonlit.Mvc.Scripts.Scripts.Current.RenderScripts(Url)
     <script>
     jQuery(document).ready(function () {
         Main.init();

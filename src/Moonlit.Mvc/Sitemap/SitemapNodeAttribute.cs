@@ -24,7 +24,7 @@ namespace Moonlit.Mvc.Sitemap
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            var sitemaps = filterContext.HttpContext.GetObject<Sitemaps>();
+            var sitemaps = Sitemaps.Current;
             var node = sitemaps.FindSitemapNode(Name, this.SiteMap);
             node.IsCurrent = true;
             sitemaps.CurrentNode = node;
