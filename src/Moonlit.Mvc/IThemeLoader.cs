@@ -1,4 +1,4 @@
-namespace Moonlit.Mvc.Themes
+namespace Moonlit.Mvc
 {
     public class DefaultThemeLoader : IThemeLoader
     {

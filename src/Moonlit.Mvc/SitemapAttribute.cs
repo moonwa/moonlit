@@ -1,6 +1,6 @@
 using System;
 
-namespace Moonlit.Mvc.Sitemap
+namespace Moonlit.Mvc
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
     public class SitemapAttribute : Attribute

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Sample.Models;
-using Moonlit.Mvc.Sitemap;
 using Moonlit.Mvc.Templates;
 using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 

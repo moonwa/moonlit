@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Moonlit.Mvc.Sitemap
+namespace Moonlit.Mvc
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
     public class SitemapNodeAttribute : ActionFilterAttribute

@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Sample.Models;
-using Moonlit.Mvc.Sitemap;
 using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample.Controllers

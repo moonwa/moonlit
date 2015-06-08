@@ -268,15 +268,6 @@
     <Compile Include="LocalizableString.cs" />
     <Compile Include="Reflection\EmptyProxyFactory.cs" />
     <Compile Include="Diagnostics\NotificationTracker.cs" />
-    <Compile Include="I18n\CulturedResource.cs" />
-    <Compile Include="I18n\DirectoryResourceManagerFactory.cs" />
-    <Compile Include="I18n\TypedResourceManagerFactory.cs" />
-    <Compile Include="I18n\IResourceManagerFactory.cs" />
-    <Compile Include="I18n\IResourceSource.cs" />
-    <Compile Include="I18n\Resource.cs" />
-    <Compile Include="I18n\ResourceManager.cs" />
-    <Compile Include="I18n\DirectoryResourceSource.cs" />
-    <Compile Include="I18n\ResourcePathResolver.cs" />
     <Compile Include="TextValuePair.cs" />
     <Compile Include="TypeResolverBase.cs" />
     <Compile Include="UriBuilderHelper.cs" />

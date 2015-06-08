@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Moonlit.Mvc.Templates;
-using Moonlit.Mvc.Themes;
 
 namespace Moonlit.Mvc
 {

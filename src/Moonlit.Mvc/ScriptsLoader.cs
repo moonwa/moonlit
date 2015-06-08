@@ -1,4 +1,4 @@
-﻿namespace Moonlit.Mvc.Scripts
+﻿namespace Moonlit.Mvc
 {
     public class ScriptsLoader
     {

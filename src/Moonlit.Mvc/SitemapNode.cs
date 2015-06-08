@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Moonlit.Mvc.Sitemap
+namespace Moonlit.Mvc
 {
     [DebuggerDisplay("{Name}: {Text}")]
     public class SitemapNode
@@ -16,7 +16,7 @@ namespace Moonlit.Mvc.Sitemap
         public List<SitemapNode> Nodes { get; set; }
         public IEnumerable<SitemapNode> VisibleNodes { get { return this.Nodes.Where(x => !x.IsHidden); } }
         /// <summary>
-        /// ÊÇ·ñÒþ²Ø£¬Èç¹ûÊÇÒþ²Ø£¬Ôò²»ÏÔÊ¾ÔÚ²Ëµ¥Ïî£¬µ«¸Ã½Úµã»¹ÊÇ»á±»×·×Ù
+        /// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ú²Ëµï¿½ï¿½î£¬ï¿½ï¿½ï¿½Ã½Úµã»¹ï¿½Ç»á±»×·ï¿½ï¿½
         /// </summary>
         public bool IsHidden { get; set; }
 

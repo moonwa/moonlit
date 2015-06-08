@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Compilation;
 using System.Web.Mvc;
 
-namespace Moonlit.Mvc.Sitemap
+namespace Moonlit.Mvc
 {
     public class ReflectionSitemapsLoader : SitemapsLoader
     {

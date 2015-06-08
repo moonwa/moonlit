@@ -12,11 +12,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Moonlit.Caching;
 using Moonlit.Mvc.Controls;
-using Moonlit.Mvc.Scripts;
-using Moonlit.Mvc.Sitemap;
-using Moonlit.Mvc.Styles;
 using Moonlit.Mvc.Templates;
-using Moonlit.Mvc.Themes;
 
 namespace Moonlit.Mvc.Sample
 {
@@ -54,18 +50,43 @@ namespace Moonlit.Mvc.Sample
 
 
             var clipOneTheme = new ClipOneTheme();
-            Themes.Themes themes = new Themes.Themes();
+            Themes themes = new Themes();
             themes.Register(clipOneTheme);
             builder.Register(context => new DefaultThemeLoader("clip-one", themes)).As<IThemeLoader>().InstancePerRequest();
 
             builder.RegisterType<ScriptsLoader>().As<ScriptsLoader>().InstancePerRequest();
             builder.RegisterType<StylesLoader>().As<StylesLoader>().InstancePerRequest();
             builder.RegisterType<ReflectionSitemapsLoader>().As<SitemapsLoader>().InstancePerRequest();
+            builder.RegisterType<MyTaskLoader>().As<ITaskLoader>().InstancePerRequest();
 
             var container = builder.Build();
             RequestMappings.Current.Register(RouteTable.Routes);
             AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestAuthenticateProvider());
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+    }
+
+    public class MyTaskLoader : ITaskLoader
+    {
+        private Tasks _tasks;
+        public Tasks Tasks
+        {
+            get
+            {
+                if (_tasks == null)
+                {
+                    _tasks = new Tasks(new List<TaskItem>
+                    {
+                        new TaskItem {Text = "Staff Meeting", ATime = DateTime.Today},
+                        new TaskItem {Text = "New frontend layout", ATime = DateTime.Today, Status = TaskStatus.Completed},
+                        new TaskItem {Text = "Hire developers", ATime = DateTime.Today.AddDays(1)},
+                        new TaskItem {Text = "Staff Meeting", ATime = DateTime.Today.AddDays(1)},
+                        new TaskItem {Text = "New frontend layout", ATime = DateTime.Today.AddDays(4)},
+                        new TaskItem {Text = "New frontend layout", ATime = DateTime.Today.AddDays(13)},
+                    });
+                }
+                return _tasks;
+            }
         }
     }
 
@@ -161,8 +182,8 @@ namespace Moonlit.Mvc.Sample
         protected override void PreRequest(RequestContext requestContext)
         {
             UrlHelper url = new UrlHelper(requestContext);
-            var styles = DependencyResolver.Current.GetService<Styles.StylesLoader>().Styles;
-            var scripts = DependencyResolver.Current.GetService<Scripts.ScriptsLoader>().Scripts;
+            var styles = DependencyResolver.Current.GetService<StylesLoader>().Styles;
+            var scripts = DependencyResolver.Current.GetService<ScriptsLoader>().Scripts;
             if (styles != null)
             {
                 styles.RegisterStyleLink("plugins:bootstrap", new StyleLink() { Href = url.Content("~/assets/" + ThemeName + "/plugins/bootstrap/css/bootstrap.min.css") });

@@ -22,9 +22,10 @@
 }
 
 @using Moonlit.Mvc;
-@using Moonlit.Mvc.Sitemap
 @using Moonlit.Mvc.Url;
-@using SiteMapNode = Moonlit.Mvc.Sitemap.SitemapNode
+@using Scripts = Moonlit.Mvc.Scripts
+@using SiteMapNode = Moonlit.Mvc.SitemapNode
+@using Styles = Moonlit.Mvc.Styles
 @model Moonlit.Mvc.Templates.Template
 
 
@@ -49,7 +50,7 @@
     <meta content="" name="author" />
     <!-- end: META -->
     <!-- start: MAIN CSS -->
-    @Moonlit.Mvc.Styles.Styles.Current.RenderCss(Url)
+    @Styles.Current.RenderCss(Url)
 
     <!-- end: MAIN CSS -->
     <link rel="shortcut icon" href="favicon.ico" />
@@ -76,106 +77,55 @@
             <div class="navbar-tools">
                 <!-- start: TOP NAVIGATION MENU -->
                 <ul class="nav navbar-right">
-                    <!-- start: TO-DO DROPDOWN -->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
-                            <i class="clip-list-5"></i>
-                            <span class="badge"> 12</span>
-                        </a>
-                        <ul class="dropdown-menu todo">
-                            <li>
-                                <span class="dropdown-menu-title"> You have 12 pending tasks</span>
-                            </li>
-                            <li>
-                                <div class="drop-down-wrapper">
-                                    <ul>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc" style="opacity: 1; text-decoration: none;">Staff Meeting</span>
-                                                <span class="label label-danger" style="opacity: 1;"> today</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc" style="opacity: 1; text-decoration: none;"> New frontend layout</span>
-                                                <span class="label label-danger" style="opacity: 1;"> today</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc"> Hire developers</span>
-                                                <span class="label label-warning"> tommorow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc">Staff Meeting</span>
-                                                <span class="label label-warning"> tommorow</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc"> New frontend layout</span>
-                                                <span class="label label-success"> this week</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc"> Hire developers</span>
-                                                <span class="label label-success"> this week</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc"> New frontend layout</span>
-                                                <span class="label label-info"> this month</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc"> Hire developers</span>
-                                                <span class="label label-info"> this month</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc" style="opacity: 1; text-decoration: none;">Staff Meeting</span>
-                                                <span class="label label-danger" style="opacity: 1;"> today</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc" style="opacity: 1; text-decoration: none;"> New frontend layout</span>
-                                                <span class="label label-danger" style="opacity: 1;"> today</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="todo-actions" href="javascript:void(0)">
-                                                <i class="fa fa-square-o"></i>
-                                                <span class="desc"> Hire developers</span>
-                                                <span class="label label-warning"> tommorow</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="view-all">
-                                <a href="javascript:void(0)">
-                                    See all tasks <i class="fa fa-arrow-circle-o-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                <!-- start: TO-DO DROPDOWN -->
+                    @if (Tasks.Current != null)
+                    {
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+                                <i class="clip-list-5"></i>
+                                <span class="badge"> @Tasks.Current.Count</span>
+                            </a>
+                            <ul class="dropdown-menu todo">
+                                <li>
+                                    <span class="dropdown-menu-title"> @string.Format("你有 {0} 条消费", Tasks.Current.Count))</span>
+                                </li>
+                                <!-- label-danger label-warning label-info label-success -->
+                                <li>
+                                    <div class="drop-down-wrapper">
+                                        <ul>
+                                            @foreach (var task in Tasks.Current.Items)
+                                            {
+                                                <li>
+                                                    @switch (task.Status)
+                                                    {
+                                                        case TaskStatus.Completed:
+                                                            <a class="todo-actions" href="javascript:void(0)">
+                                                                <i class="fa fa-check-square-o"></i>
+                                                                <span class="desc" style="opacity: 0.25; text-decoration: line-through;">@task.Text</span>
+                                                                <span class="label label-danger" style="opacity: 1;">@task.ATime.ToString("yyyy-MM-dd")</span>
+                                                            </a>
+                                                            break;
+                                                        default:
+                                                            <a class="todo-actions" href="javascript:void(0)">
+                                                                <i class="fa fa-square-o"></i>
+                                                                <span class="desc" style="opacity: 1; text-decoration: none;">@task.Text</span>
+                                                                <span class="label label-danger" style="opacity: 1;">@task.ATime.ToString("yyyy-MM-dd")</span>
+                                                            </a>
+                                                            break;
+                                                    }
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="view-all">
+                                    <a href="javascript:void(0)">
+                                        See all tasks <i class="fa fa-arrow-circle-o-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                     <!-- end: TO-DO DROPDOWN-->
                     <!-- start: NOTIFICATION DROPDOWN -->
                     <li class="dropdown">
@@ -441,7 +391,7 @@
     <!-- end: HEADER -->
     <!-- start: MAIN CONTAINER -->
     @{
-        var sitemaps = Moonlit.Mvc.Sitemap.Sitemaps.Current;
+        var sitemaps = Sitemaps.Current;
     }
     <div class="main-container">
         <div class="navbar-content">
@@ -1090,7 +1040,7 @@
         </div>
     </div>
     <!-- start: MAIN JAVASCRIPTS -->
-    @Moonlit.Mvc.Scripts.Scripts.Current.RenderScripts(Url)
+    @Scripts.Current.RenderScripts(Url)
     <script>
     jQuery(document).ready(function () {
         Main.init();

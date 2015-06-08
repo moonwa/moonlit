@@ -1,4 +1,4 @@
-﻿namespace Moonlit.Mvc.Templates
+﻿namespace Moonlit.Mvc
 {
     public class Site
     {

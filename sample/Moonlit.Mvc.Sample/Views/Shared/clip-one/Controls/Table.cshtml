@@ -1,9 +1,10 @@
 ﻿@using Moonlit.Mvc
 @using Moonlit.Mvc.Controls
 @using Moonlit.Mvc.Html
+@using Styles = Moonlit.Mvc.Styles
 @model Moonlit.Mvc.Controls.Table
 @{
-    Moonlit.Mvc.Styles.Styles.Current.RegisterStyleLink("plugin:datatable-bootstrap", new StyleLink
+    Styles.Current.RegisterStyleLink("plugin:datatable-bootstrap", new StyleLink
     {
         Href = Url.Content("~/assets/clip-one/plugins/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css")
     });

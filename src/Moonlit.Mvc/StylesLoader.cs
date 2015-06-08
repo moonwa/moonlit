@@ -1,4 +1,4 @@
-﻿namespace Moonlit.Mvc.Styles
+﻿namespace Moonlit.Mvc
 {
     public class StylesLoader
     {
