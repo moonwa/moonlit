@@ -22,7 +22,7 @@ namespace Moonlit.Mvc.Sample.Controllers
             {
                 datasources = datasources.Where(x => x.UserName.Contains(model.UserName));
             }
-            var template = new AdministrationSimpleListTemplate(this.ControllerContext, datasources)
+            var template = new AdministrationSimpleListTemplate(datasources)
             {
                 Title = "用户列表",
                 Description = "管理系统中所有用户",

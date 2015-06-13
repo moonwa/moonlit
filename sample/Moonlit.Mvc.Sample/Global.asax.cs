@@ -11,6 +11,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Moonlit.Caching;
+using Moonlit.Mvc.Sample.Controllers;
 using Moonlit.Mvc.Sample.Models;
 using Moonlit.Mvc.Templates;
 
@@ -58,10 +59,10 @@ namespace Moonlit.Mvc.Sample
             builder.RegisterType<MyTaskLoader>().As<ITaskLoader>();
             builder.RegisterType<MyNoticeLoader>().As<INoticeLoader>();
             builder.RegisterType<MyMessageLoader>().As<IMessageLoader>();
+            builder.RegisterType<TestUserLoader>().As<IUserLoader>();
 
-            var container = builder.Build();
             RequestMappings.Current.Register(RouteTable.Routes);
-            AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestUserLoader());
+            var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }

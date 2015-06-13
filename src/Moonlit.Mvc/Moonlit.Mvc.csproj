@@ -88,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authenticate.cs" />
-    <Compile Include="AuthenticationManager.cs" />
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ControlCollection.cs" />
@@ -96,6 +95,7 @@
     <Compile Include="Controls\Panel.cs" />
     <Compile Include="Controls\PasswordBox.cs" />
     <Compile Include="Controls\SelectListItem.cs" />
+    <Compile Include="DefaultThemeLoader.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="FlashMessage.cs" />
@@ -152,7 +152,6 @@
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Templates\SimpleBoxTemplate.cs" />
-    <Compile Include="Site.cs" />
     <Compile Include="IThemeLoader.cs" />
     <Compile Include="Theme.cs" />
     <Compile Include="ThemeAttribute.cs" />

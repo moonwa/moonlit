@@ -129,7 +129,6 @@
     <Compile Include="ClipOneTheme.cs" />
     <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
-    <Compile Include="Controllers\SimpleHelper.cs" />
     <Compile Include="Controllers\UserEditController.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\ModelHelper.cs" />

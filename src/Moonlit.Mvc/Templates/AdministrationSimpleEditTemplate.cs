@@ -9,14 +9,16 @@ namespace Moonlit.Mvc.Templates
 {
     public class AdministrationSimpleEditTemplate : Template
     {
-        private readonly ControllerContext _controllerContext;
-        private readonly object _model;
+        public object Model { get; set; }
         public override string ViewName { get { return "templates/administration/SimpleEdit"; } }
 
-        public AdministrationSimpleEditTemplate(ControllerContext controllerContext, object model)
+        public AdministrationSimpleEditTemplate(object model)
+            : this()
         {
-            _controllerContext = controllerContext;
-            _model = model;
+            Model = model;
+        }
+        public AdministrationSimpleEditTemplate()
+        {
             Fields = new Field[0];
             Buttons = new IClickable[0];
         }

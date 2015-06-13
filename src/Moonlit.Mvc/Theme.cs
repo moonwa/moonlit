@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -28,6 +29,25 @@ namespace Moonlit.Mvc
             return null;
         }
 
+        public static Theme Current
+        {
+            get
+            {
+                var theme = HttpContext.Current.GetObject<Theme>();
+                if (theme != null)
+                {
+                    return theme;
+                }
+                var themeLoader = DependencyResolver.Current.GetService<IThemeLoader>(false);
+                if (themeLoader == null)
+                {
+                    return null;
+                }
+                theme = themeLoader.Load();
+                HttpContext.Current.SetObject(theme);
+                return theme;
+            }
+        }
         protected internal virtual void PreRequest(RequestContext requestContext)
         {
             var scripts = Scripts.Current;

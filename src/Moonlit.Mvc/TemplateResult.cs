@@ -7,7 +7,6 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc
 {
-
     public class TemplateResult : ViewResult
     {
         private readonly Template _template;
@@ -21,7 +20,11 @@ namespace Moonlit.Mvc
 
         public override void ExecuteResult(ControllerContext context)
         {
-            var theme = DependencyResolver.Current.GetService<IThemeLoader>().Theme;
+            var theme = Theme.Current;
+            if (theme == null)
+            {
+                throw new Exception("请启用主题");
+            }
             this.ViewName = theme.Name + "/" + _template.ViewName;
             _template.OnReadyRender(context);
             base.ExecuteResult(context);

@@ -28,7 +28,7 @@ namespace Moonlit.Mvc.Sample.Controllers
 
         private ActionResult Render(Models.User model)
         {
-            var template = new AdministrationSimpleEditTemplate(this.ControllerContext, model)
+            var template = new AdministrationSimpleEditTemplate(model)
             {
                 Fields = new[]
                 {

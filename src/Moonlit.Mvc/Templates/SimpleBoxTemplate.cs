@@ -9,13 +9,10 @@ namespace Moonlit.Mvc.Templates
 {
     public class SimpleBoxTemplate : Template
     { 
-
-        private readonly ControllerContext _controllerContext;
         public override string ViewName { get { return "templates/SimpleBox"; } }
 
-        public SimpleBoxTemplate(ControllerContext controllerContext)
+        public SimpleBoxTemplate( )
         {
-            _controllerContext = controllerContext;
             Fields = new Field[0];
             Buttons = new IClickable[0];
         }

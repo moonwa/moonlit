@@ -45,7 +45,7 @@ namespace Moonlit.Mvc.Sample.Controllers
 
         private ActionResult RenderTemplate(SignInModel model, RequestMappings requestMappings)
         {
-            var template = new SimpleBoxTemplate(this.ControllerContext)
+            var template = new SimpleBoxTemplate
             {
                 Site = SimpleHelper.CreateSite(),
                 Title = "用户登录",

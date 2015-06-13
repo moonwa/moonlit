@@ -13,14 +13,18 @@ namespace Moonlit.Mvc.Templates
 
     public class AdministrationSimpleListTemplate : Template
     {
-        private readonly ControllerContext _controllerContext;
-        private readonly IQueryable _queryable;
+        public IQueryable Queryable { get; set; }
         public override string ViewName { get { return "templates/administration/SimpleList"; } }
 
-        public AdministrationSimpleListTemplate(ControllerContext controllerContext, IQueryable queryable)
+        public AdministrationSimpleListTemplate()
+            : this(null)
         {
-            _controllerContext = controllerContext;
-            _queryable = queryable;
+
+        }
+        public AdministrationSimpleListTemplate(IQueryable queryable)
+        {
+            Queryable = queryable;
+
             Criteria = new Field[0];
             GlobalButtons = new IClickable[0];
             RecordButtons = new IClickable[0];
@@ -31,7 +35,7 @@ namespace Moonlit.Mvc.Templates
             {
                 criterion.OnReadyRender(context);
             }
-            Table.DataSource = GetData();
+            Table.DataSource = GetData(context);
         }
 
         public Field[] Criteria { get; set; }
@@ -41,42 +45,42 @@ namespace Moonlit.Mvc.Templates
         public int DefaultPageIndex { get; set; }
         public int DefaultPageSize { get; set; }
         public string DefaultSort { get; set; }
-        public IEnumerable GetData()
+        public IEnumerable GetData(ControllerContext controllerContext)
         {
-            var items = _queryable;
-            var sort = GetValueWithDefault(DefaultSort, "sort");
+            var items = Queryable;
+            var sort = GetValueWithDefault(DefaultSort, "sort", controllerContext);
             if (!string.IsNullOrWhiteSpace(sort))
             {
                 items = items.OrderBy(sort);
             }
-            var pageSize = Convert.ToInt32(GetValueWithDefault(DefaultPageSize.ToString(), "pageSize"));
-            var pageIndex = Convert.ToInt32(GetValueWithDefault(DefaultPageIndex.ToString(), "pageIndex"));
+            var pageSize = Convert.ToInt32(GetValueWithDefault(DefaultPageSize.ToString(), "pageSize", controllerContext));
+            var pageIndex = Convert.ToInt32(GetValueWithDefault(DefaultPageIndex.ToString(), "pageIndex", controllerContext));
             if (pageSize > 0 && pageIndex > 0)
             {
                 items = items.Skip((pageIndex - 1) * pageSize).Take(pageSize);
             }
             return items;
         }
-        public Pager GetPager()
+        public Pager GetPager(ControllerContext controllerContext)
         {
-            var totalCount = _queryable.Count();
+            var totalCount = Queryable.Count();
 
-            var pageIndex = Convert.ToInt32(GetValueWithDefault(DefaultPageIndex.ToString(), "pageIndex"));
-            var pageSize = Convert.ToInt32(GetValueWithDefault(DefaultPageSize.ToString(), "pageSize"));
+            var pageIndex = Convert.ToInt32(GetValueWithDefault(DefaultPageIndex.ToString(), "pageIndex", controllerContext));
+            var pageSize = Convert.ToInt32(GetValueWithDefault(DefaultPageSize.ToString(), "pageSize", controllerContext));
             if (pageIndex <= 0 || pageSize <= 0) return null;
             return new Pager
             {
                 ItemCount = totalCount,
-                OrderBy = GetValueWithDefault(DefaultSort, "sort"),
+                OrderBy = GetValueWithDefault(DefaultSort, "sort", controllerContext),
                 PageCount = pageSize == 0 ? 1 : (int)Math.Ceiling(totalCount / (double)pageSize),
                 PageSize = pageSize,
                 PageIndex = pageIndex,
             };
         }
-        private string GetValueWithDefault(string defaultValue, string key)
+        private string GetValueWithDefault(string defaultValue, string key, ControllerContext controllerContext)
         {
             string sort = defaultValue;
-            var sortValue = _controllerContext.Controller.ValueProvider.GetValue(key);
+            var sortValue = controllerContext.Controller.ValueProvider.GetValue(key);
             if (sortValue != null)
             {
                 sort = sortValue.AttemptedValue;
