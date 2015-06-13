@@ -13,12 +13,7 @@ namespace Moonlit.Mvc
         {
             get
             {
-                var loader = DependencyResolver.Current.GetService<ScriptsLoader>();
-                if (loader == null)
-                {
-                    return null;
-                }
-                return loader.Scripts;
+                return HttpContext.Current.GetObject<Scripts>(true);
             }
         }
 

@@ -54,8 +54,6 @@ namespace Moonlit.Mvc.Sample
             themes.Register(clipOneTheme);
             builder.Register(context => new DefaultThemeLoader("clip-one", themes)).As<IThemeLoader>().InstancePerRequest();
 
-            builder.RegisterType<ScriptsLoader>().As<ScriptsLoader>().InstancePerRequest();
-            builder.RegisterType<StylesLoader>().As<StylesLoader>().InstancePerRequest();
             builder.RegisterType<ReflectionSitemapsLoader>().As<SitemapsLoader>().InstancePerRequest();
             builder.RegisterType<MyTaskLoader>().As<ITaskLoader>().InstancePerRequest();
 
@@ -182,8 +180,8 @@ namespace Moonlit.Mvc.Sample
         protected override void PreRequest(RequestContext requestContext)
         {
             UrlHelper url = new UrlHelper(requestContext);
-            var styles = DependencyResolver.Current.GetService<StylesLoader>().Styles;
-            var scripts = DependencyResolver.Current.GetService<ScriptsLoader>().Scripts;
+            var styles = Styles.Current;
+            var scripts = Scripts.Current;
             if (styles != null)
             {
                 styles.RegisterStyleLink("plugins:bootstrap", new StyleLink() { Href = url.Content("~/assets/" + ThemeName + "/plugins/bootstrap/css/bootstrap.min.css") });

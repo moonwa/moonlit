@@ -30,10 +30,10 @@ namespace Moonlit.Mvc
 
         protected internal virtual void PreRequest(RequestContext requestContext)
         {
-            var scripts = DependencyResolver.Current.GetService<ScriptsLoader>();
+            var scripts = Scripts.Current;
             if (scripts != null)
             {
-                scripts.Scripts.RegisterScript("submit_with_action", new Script
+                scripts.RegisterScript("submit_with_action", new Script
                    {
                        Content = @"submit_with_action = function(sender, formAction, name, value) {
                               var button, form;

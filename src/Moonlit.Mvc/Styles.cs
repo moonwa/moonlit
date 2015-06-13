@@ -11,15 +11,7 @@ namespace Moonlit.Mvc
         private readonly Dictionary<string, StyleLink> _styleLinks = new Dictionary<string, StyleLink>(StringComparer.OrdinalIgnoreCase);
         public static Styles Current
         {
-            get
-            {
-                var loader = DependencyResolver.Current.GetService<StylesLoader>();
-                if (loader == null)
-                {
-                    return null;
-                }
-                return loader.Styles;
-            }
+            get { return HttpContext.Current.GetObject<Styles>(true); }
         }
         public void RegisterStyleLink(string name, StyleLink style)
         {
@@ -35,6 +27,6 @@ namespace Moonlit.Mvc
                 buffer.Append(url.Link(link.Value));
             }
             return MvcHtmlString.Create(buffer.ToString());
-        } 
+        }
     }
 }

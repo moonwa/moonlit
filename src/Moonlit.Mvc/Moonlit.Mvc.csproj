@@ -96,6 +96,7 @@
     <Compile Include="Controls\Panel.cs" />
     <Compile Include="Controls\PasswordBox.cs" />
     <Compile Include="Controls\SelectListItem.cs" />
+    <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="FlashMessage.cs" />
     <Compile Include="FlashMessageType.cs" />
     <Compile Include="Html\Control.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="RequestMappingsAttribute.cs" />
     <Compile Include="Script.cs" />
     <Compile Include="Scripts.cs" />
-    <Compile Include="ScriptsLoader.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
     <Compile Include="Sitemaps.cs" />
@@ -133,7 +133,6 @@
     <Compile Include="StyleLinkHelper.cs" />
     <Compile Include="StyleLinkMedia.cs" />
     <Compile Include="Styles.cs" />
-    <Compile Include="StylesLoader.cs" />
     <Compile Include="TagBuilderRender.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Tasks.cs" />
