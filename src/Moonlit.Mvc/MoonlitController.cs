@@ -13,8 +13,7 @@ namespace Moonlit.Mvc
     public abstract class MoonlitController : Controller
     {
         public IFlash Flash { get; set; }
-
-        public ILocalizer Localizer { get; set; }
+         
 
         public void SetFlash(object target)
         {
@@ -24,14 +23,7 @@ namespace Moonlit.Mvc
         {
             await Flash.SetAsync(target).ConfigureAwait(false);
         }
-        public string Localize(string text, string defaultValue)
-        {
-            return Localizer.GetString(text, defaultValue, Thread.CurrentThread.CurrentUICulture.Name);
-        }
-        public string Localize(string text)
-        {
-            return Localize(text, text);
-        }
+      
         protected ActionResult RedirectToRequestMapping(RequestMappings requestMappings, string mappingName, object routeValues)
         {
             var mapping = requestMappings.GetRequestMapping(mappingName);

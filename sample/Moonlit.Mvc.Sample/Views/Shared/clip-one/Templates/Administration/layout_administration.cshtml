@@ -76,7 +76,7 @@
             <div class="navbar-tools">
                 <!-- start: TOP NAVIGATION MENU -->
                 <ul class="nav navbar-right">
-                <!-- start: TO-DO DROPDOWN -->
+                    <!-- start: TO-DO DROPDOWN -->
                     @if (Tasks.Current != null)
                     {
                         <li class="dropdown">
@@ -105,11 +105,11 @@
                                                             </a>
                                                             break;
                                                         default:
-                                                            <a class="todo-actions" href="javascript:void(0)">
-                                                                <i class="fa fa-square-o"></i>
-                                                                <span class="desc" style="opacity: 1; text-decoration: none;">@task.Content</span>
-                                                                <span class="label label-danger" style="opacity: 1;">@task.ExpiredTime.ToString("yyyy-MM-dd")</span>
-                                                            </a>
+                                                        <a class="todo-actions" href="javascript:void(0)">
+                                                            <i class="fa fa-square-o"></i>
+                                                            <span class="desc" style="opacity: 1; text-decoration: none;">@task.Content</span>
+                                                            <span class="label label-danger" style="opacity: 1;">@task.ExpiredTime.ToString("yyyy-MM-dd")</span>
+                                                        </a>
                                                             break;
                                                     }
                                                 </li>
@@ -130,7 +130,7 @@
                     @if (Notices.Current != null)
                     {
                         <li class="dropdown">
-                            
+
                             <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
                                 <i class="clip-notification-2"></i>
                                 <span class="badge"> @Notices.Current.Count</span>
@@ -142,7 +142,7 @@
                                 <li>
                                     <div class="drop-down-wrapper">
                                         <ul>
-                                          
+
                                             @foreach (var notice in Notices.Current.Items)
                                             {
                                                 <li>
@@ -164,10 +164,11 @@
                             </ul>
                         </li>
                     }
-                        
+
                     <!-- end: NOTIFICATION DROPDOWN -->
-                <!-- start: MESSAGE DROPDOWN -->
-                    @if (Messages.Current != null) {
+                    <!-- start: MESSAGE DROPDOWN -->
+                    @if (Messages.Current != null)
+                    {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
                                 <i class="clip-bubble-3"></i>
@@ -210,45 +211,35 @@
                     }
                     <!-- end: MESSAGE DROPDOWN -->
                     <!-- start: USER DROPDOWN -->
-                    <li class="dropdown current-user">
-                        <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
-                            <img src="assets/images/avatar-1-small.jpg" class="circle-img" alt="">
-                            <span class="username">Peter Clark</span>
-                            <i class="clip-chevron-down"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="pages_user_profile.html">
-                                    <i class="clip-user-2"></i>
-                                    &nbsp;My Profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="pages_calendar.html">
-                                    <i class="clip-calendar"></i>
-                                    &nbsp;My Calendar
-                                </a>
-                            <li>
-                                <a href="pages_messages.html">
-                                    <i class="clip-bubble-4"></i>
-                                    &nbsp;My Messages (3)
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="utility_lock_screen.html">
-                                    <i class="clip-locked"></i>
-                                    &nbsp;Lock Screen
-                                </a>
-                            </li>
-                            <li>
-                                <a href="login_example1.html">
-                                    <i class="clip-exit"></i>
-                                    &nbsp;Log Out
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if (User != null && User.Identity.IsAuthenticated)
+                    {
+                        var user = User.Identity as IUser;
+
+                        <li class="dropdown current-user">
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+                                <img src="@user.Avatar" class="circle-img" alt="">
+                                <span class="username">@user.Name</span>
+                                <i class="clip-chevron-down"></i>
+                            </a>
+                            @if (Sitemaps.Current != null && Sitemaps.Current.GetSiteMap("profile")!=null)
+                            {
+                                <ul class="dropdown-menu">
+
+                                    @foreach (var siteMapNode in Sitemaps.Current.GetSiteMap("profile").VisibleNodes)
+                                    {
+                                        <li>
+                                            <a href="@siteMapNode.Url">
+                                                <i class="clip-user-2"></i>
+                                                &nbsp;@siteMapNode.Text
+                                            </a>
+                                        </li>
+                                    }
+@*                                    <li class="divider"></li>*@
+                                </ul>
+                            }
+                        </li>
+                    }
+
                     <!-- end: USER DROPDOWN -->
                     <!-- start: PAGE SIDEBAR TOGGLE -->
                     <li>
@@ -276,38 +267,39 @@
                     <i class="clip-chevron-right"></i>
                 </div>
                 <!-- end: MAIN MENU TOGGLER BUTTON -->
-                @if (sitemaps != null) { 
+                @if (sitemaps != null)
+                {
                 <!-- start: MAIN NAVIGATION MENU -->
-                <ul class="main-navigation-menu">
-                    @foreach (var node in sitemaps.DefaultSiteMap.Nodes)
-                    {
-                        <li class="@MakeNodeCss(node)">
-                            <a href=" javascript:void(0)">
-                                <i class="clip-screen"></i>
-                                <span class="title"> @node.Text </span>
+                    <ul class="main-navigation-menu">
+                        @foreach (var node in sitemaps.DefaultSiteMap.Nodes)
+                        {
+                            <li class="@MakeNodeCss(node)">
+                                <a href=" javascript:void(0)">
+                                    <i class="clip-screen"></i>
+                                    <span class="title"> @node.Text </span>
+                                    @if (node.VisibleNodes.Any())
+                                    {
+                                        <i class="icon-arrow"></i>
+                                    }
+                                    <span class="selected"></span>
+                                </a>
                                 @if (node.VisibleNodes.Any())
                                 {
-                                    <i class="icon-arrow"></i>
+                                    <ul class="sub-menu">
+                                        @foreach (var childNode in node.VisibleNodes)
+                                        {
+                                            <li class="@(node.IsCurrent || node.InCurrent ? "active" : "") ">
+                                                <a href="@childNode.Url">
+                                                    <span class="title"> @childNode.Text </span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
                                 }
-                                <span class="selected"></span>
-                            </a>
-                            @if (node.VisibleNodes.Any())
-                            {
-                                <ul class="sub-menu">
-                                    @foreach (var childNode in node.VisibleNodes)
-                                    {
-                                        <li class="@(node.IsCurrent || node.InCurrent ? "active" : "") ">
-                                            <a href="@childNode.Url">
-                                                <span class="title"> @childNode.Text </span>
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            }
-                        </li>
-                    }
+                            </li>
+                        }
 
-                </ul>
+                    </ul>
                     <!-- end: MAIN NAVIGATION MENU -->
                 }
             </div>
@@ -920,10 +912,10 @@
     <!-- start: MAIN JAVASCRIPTS -->
     @Scripts.Current.RenderScripts(Url)
     <script>
-    jQuery(document).ready(function () {
-        Main.init();
-        Index.init();
-    });
+        jQuery(document).ready(function () {
+            Main.init();
+            Index.init();
+        });
     </script>
 
 </body>

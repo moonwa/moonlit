@@ -9,12 +9,11 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample.Controllers
 {
-    using User = Moonlit.Mvc.Sample.Models.User;
-    //    [Authorize]
+    [Authorize]
     public class UserController : MyController
     {
         private const string RequestUrl = "User";
-        [RequestMapping("Users",  RequestUrl)]
+        [RequestMapping("Users", RequestUrl)]
         [SitemapNode("Users", Text = "用户管理", Parent = "BasicData")]
         public ActionResult Index(UserListQueryModel model)
         {

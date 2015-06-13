@@ -112,13 +112,13 @@
     <Compile Include="IHtmlElementCriteria.cs" />
     <Compile Include="ISitemapsLoader.cs" />
     <Compile Include="ITaskLoader.cs" />
+    <Compile Include="IUserLoader.cs" />
+    <Compile Include="IUserPrincipal.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MoonlitAuthorizeAttribute.cs" />
     <Compile Include="MvcAttribute.cs" />
     <Compile Include="Html\Checked.cs" />
-    <Compile Include="ILocalizer.cs" />
-    <Compile Include="LocalizedModelMetadataProvider.cs" />
     <Compile Include="MoonlitController.cs" />
     <Compile Include="Notice.cs" />
     <Compile Include="Notices.cs" />
@@ -132,6 +132,7 @@
     <Compile Include="Scripts.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
+    <Compile Include="SignInSession.cs" />
     <Compile Include="Sitemaps.cs" />
     <Compile Include="SitemapAttribute.cs" />
     <Compile Include="SitemapNode.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Themes.cs" />
     <Compile Include="Url\UrlHelperHelper.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

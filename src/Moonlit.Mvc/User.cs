@@ -1,8 +1,9 @@
+using System.Security.Principal;
+
 namespace Moonlit.Mvc
 {
-    public class User
+    public interface IUser : IIdentity
     {
-        public string Avatar { get; set; }
-        public string Name { get; set; }
+        string Avatar { get; }
     }
 }

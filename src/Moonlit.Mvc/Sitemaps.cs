@@ -10,6 +10,11 @@ namespace Moonlit.Mvc
     public class Sitemaps
     {
         private readonly List<SitemapNode> _siteMaps = new List<SitemapNode>();
+
+        public SitemapNode GetSiteMap(string name)
+        {
+            return _siteMaps.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
+        }
         public SitemapNode DefaultSiteMap { get; set; }
         public static Sitemaps Current
         {
@@ -31,7 +36,7 @@ namespace Moonlit.Mvc
                 }
                 return sitempas;
             }
-        } 
+        }
 
         public SitemapNode CurrentNode { get; set; }
         public List<SitemapNode> Breadcrumb { get; set; }

@@ -115,6 +115,7 @@
     <Compile Include="AppDomainResolvor.cs" />
     <Compile Include="Arithmetic\ConsecutiveAnalyzer.cs" />
     <Compile Include="AttachDataAttribute.cs" />
+    <Compile Include="CacheKeyManager.cs" />
     <Compile Include="Caching\CachedObject.cs" />
     <Compile Include="Caching\CacheManagerExtensions.cs" />
     <Compile Include="Caching\RedisCacheManager.cs" />

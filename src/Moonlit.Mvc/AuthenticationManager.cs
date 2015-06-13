@@ -11,9 +11,9 @@ namespace Moonlit.Mvc
             Current = new AuthenticationManager();
         }
 
-        public void Register(Authenticate authenticate, IAuthenticateProvider authenticateProvider)
+        public void Register(Authenticate authenticate, IUserLoader userLoader)
         {
-            var attribute = new MoonlitAuthorizeAttribute(authenticate, authenticateProvider);
+            var attribute = new MoonlitAuthorizeAttribute(authenticate, userLoader);
             GlobalFilters.Filters.Add(attribute);
         }
     }

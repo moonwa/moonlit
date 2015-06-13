@@ -17,14 +17,14 @@ namespace Moonlit.Mvc.Sample.Controllers
             _authenticate = authenticate;
         }
 
-        [RequestMapping(  "SignIn",   RequestUrl)]
+        [RequestMapping("SignIn", RequestUrl)]
         public ActionResult Index(RequestMappings requestMappings)
         {
             SignInModel model = new SignInModel();
             return RenderTemplate(model, requestMappings);
         }
         [ActionName("Index")]
-        [RequestMapping(  "SignIn_Save",   RequestUrl)]
+        [RequestMapping("SignIn_Save", RequestUrl)]
         [HttpPost]
         public ActionResult Save(SignInModel model, RequestMappings requestMappings)
         {
@@ -83,20 +83,6 @@ namespace Moonlit.Mvc.Sample.Controllers
                 Additional = new List
                 {
                     Style = ListStyle.Unstyled,
-                    //                    Items = new Control[]
-                    //                    {
-                    //                        new Control[]
-                    //                        {
-                    //                            new Literal(){
-                    //                            Text = "您是否忘记了登录密码?"}, 
-                    //                            new Link
-                    //                            {
-                    //                                Url = "#",
-                    //                                Style=  LInkStyle.Normal,
-                    //                                Text = "忘记密码"
-                    //                            }
-                    //                        }.Combine()
-                    //                    }
                 }
             };
             return Template(template);

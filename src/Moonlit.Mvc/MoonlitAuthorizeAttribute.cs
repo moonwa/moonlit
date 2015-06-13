@@ -6,12 +6,12 @@ namespace Moonlit.Mvc
     public class MoonlitAuthorizeAttribute : AuthorizeAttribute
     {
         private readonly Authenticate _authenticate;
-        private readonly IAuthenticateProvider _authenticateProvider;
+        private readonly IUserLoader _userLoader;
 
-        public MoonlitAuthorizeAttribute(Authenticate authenticate, IAuthenticateProvider authenticateProvider)
+        public MoonlitAuthorizeAttribute(Authenticate authenticate, IUserLoader userLoader)
         {
             _authenticate = authenticate;
-            _authenticateProvider = authenticateProvider;
+            _userLoader = userLoader;
         }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
@@ -21,7 +21,7 @@ namespace Moonlit.Mvc
                 var session = _authenticate.GetSession();
                 if (session != null)
                 {
-                    var user = _authenticateProvider.GetUserPrincipal(session.UserName);
+                    var user = _userLoader.GetUserPrincipal(session.UserName);
 
                     if (user != null)
                     {

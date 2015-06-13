@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,27 +8,20 @@ using Moonlit.Caching;
 
 namespace Moonlit.Mvc
 {
-    public class SignInSession
-    {
-        public string UserName { get; set; }
-        public string[] Privileges { get; set; }
-    }
     public class Authenticate
     {
-        private const string _prefix = "CacheAuthenticateService:";
         private readonly ICacheManager _cacheManager;
         private TimeSpan _expiredTime = TimeSpan.FromHours(100);
         public Authenticate(ICacheManager cacheManager)
         {
-            _cacheManager = cacheManager;
+            _cacheManager = cacheManager.GetPrefixCacheManager("Authenticate");
         }
 
         public string SetSession(SignInSession session)
         {
-
             var tokenId = Guid.NewGuid().ToString();
 
-            _cacheManager.Set(_prefix + tokenId, session, _expiredTime);
+            _cacheManager.Set(tokenId, session, _expiredTime);
             var cookie = FormsAuthentication.GetAuthCookie(session.UserName, false);
 
             cookie.Value = FormsAuthentication.Encrypt(new FormsAuthenticationTicket(1, session.UserName, DateTime.Now,
@@ -44,7 +36,7 @@ namespace Moonlit.Mvc
             {
                 return null;
             }
-            return _cacheManager.Get<SignInSession>(_prefix + tokenId);
+            return _cacheManager.Get<SignInSession>( tokenId);
         }
 
         string GetSessionId()
@@ -66,15 +58,5 @@ namespace Moonlit.Mvc
             }
             return null;
         }
-    }
-
-    public interface IAuthenticateProvider
-    {
-        IUserPrincipal GetUserPrincipal(string name);
-    }
-
-    public interface IUserPrincipal : IPrincipal
-    {
-        string[] Privileges { get; set; }
     }
 }

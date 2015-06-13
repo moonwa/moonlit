@@ -2,6 +2,6 @@
 {
     public interface ILanguageLoader
     {
-        string Get(string key, string culture);
+        string Get(string key);
     }
 }

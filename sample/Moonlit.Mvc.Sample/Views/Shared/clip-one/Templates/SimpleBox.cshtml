@@ -9,6 +9,8 @@
 @using Moonlit.Mvc.Html
 @using Moonlit.Mvc.Url;
 @using Control = Moonlit.Mvc.Control
+@using Scripts = Moonlit.Mvc.Scripts
+@using Styles = Moonlit.Mvc.Styles
 @model Moonlit.Mvc.Templates.SimpleBoxTemplate
 
 
@@ -32,7 +34,7 @@
     <meta content="moon.wa" name="author" />
     <!-- end: META -->
     <!-- start: MAIN CSS -->
-    @MoonlitContext.Current.RenderCss(Url)
+    @Styles.Current.RenderCss(Url)
 </head>
 <!-- end: HEAD -->
 <!-- start: BODY -->
@@ -52,7 +54,7 @@
             <h3>@Model.Description</h3>
             @{
                 var messageType = "success";
-                FlashMessage msg = (FlashMessage) MoonlitContext.Current.Flash.Get(typeof (FlashMessage));
+                FlashMessage msg = (FlashMessage) FlashMessage.Current;
                 if (msg != null)
                 {
                     switch (msg.MessageType)
@@ -96,7 +98,7 @@
     </div>
 }
 <!-- start: MAIN JAVASCRIPTS -->
-@MoonlitContext.Current.RenderScripts(Url)
+@Scripts.Current.RenderScripts(Url)
 <!-- end: MAIN JAVASCRIPTS -->
 <script>
     jQuery(document).ready(function() {

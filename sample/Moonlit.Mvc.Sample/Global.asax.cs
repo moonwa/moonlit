@@ -11,6 +11,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Moonlit.Caching;
+using Moonlit.Mvc.Sample.Models;
 using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample
@@ -26,7 +27,7 @@ namespace Moonlit.Mvc.Sample
             var builder = new ContainerBuilder();
             builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().SingleInstance();
             builder.RegisterType<SessionCachingFlash>().As<IFlash>();
-            builder.RegisterType<TestAuthenticateProvider>().As<IAuthenticateProvider>();
+            builder.RegisterType<TestUserLoader>().As<IUserLoader>();
             builder.RegisterType<Authenticate>().AsSelf();
 
 
@@ -54,25 +55,24 @@ namespace Moonlit.Mvc.Sample
             builder.Register(context => new DefaultThemeLoader("clip-one", themes)).As<IThemeLoader>();
 
             builder.RegisterType<ReflectionSitemapsLoader>().As<ISitemapsLoader>();
-            builder.RegisterType<MyTaskLoader>().As<ITaskLoader>() ;
+            builder.RegisterType<MyTaskLoader>().As<ITaskLoader>();
             builder.RegisterType<MyNoticeLoader>().As<INoticeLoader>();
             builder.RegisterType<MyMessageLoader>().As<IMessageLoader>();
 
             var container = builder.Build();
             RequestMappings.Current.Register(RouteTable.Routes);
-            AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestAuthenticateProvider());
+            AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestUserLoader());
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 
-    public class MyMessageLoader:IMessageLoader
+    public class MyMessageLoader : IMessageLoader
     {
         public Messages LoadMessages()
         {
             var user = new User
             {
-                Name = "Tom",
-                Avatar = "#"
+                UserName = "Tom",
             };
             return new Messages(new List<Message>
             {
@@ -86,7 +86,7 @@ namespace Moonlit.Mvc.Sample
         }
     }
 
-    public class MyNoticeLoader:INoticeLoader
+    public class MyNoticeLoader : INoticeLoader
     {
         public Notices Load()
         {
@@ -102,7 +102,7 @@ namespace Moonlit.Mvc.Sample
         }
     }
 
-    public class TestAuthenticateProvider : IAuthenticateProvider
+    public class TestUserLoader : IUserLoader
     {
         public IUserPrincipal GetUserPrincipal(string name)
         {
@@ -133,12 +133,17 @@ namespace Moonlit.Mvc.Sample
         {
             get
             {
-                return new GenericIdentity(this._name);
+                return new User()
+                {
+                    UserName = "Tom",
+                };
             }
         }
 
         public string[] Privileges { get; set; }
+        public string Avatar { get { return "#"; } }
+        public string Name { get { return this.Identity.Name; } }
     }
 
- 
+
 }
