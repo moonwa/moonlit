@@ -19,5 +19,9 @@ namespace Moonlit.Mvc
             }
             return obj;
         }
+        public static void SetObject<T>(this HttpContext httpContext, T target) 
+        {
+            httpContext.Items[typeof(T).FullName] = target; 
+        }
     }
 }

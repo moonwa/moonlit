@@ -1,142 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Security.Principal;
 using System.Web;
-using System.Web.Compilation;
 using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
-    public class ReflectionSitemapsLoader : SitemapsLoader
-    {
-        static ReflectionSitemapsLoader()
-        {
-            GlobalSitemaps = new Sitemaps();
-            Register(BuildManager.GetReferencedAssemblies().Cast<Assembly>());
-        }
-        public static void Register(IEnumerable<Assembly> assemblies)
-        {
-            assemblies = assemblies.ToList();
-            RegisterSiteMaps(assemblies);
-            var sitemapNodes = MakeSitemapNodes(assemblies);
-            int nodeCount = 0;
-            do
-            {
-                nodeCount = sitemapNodes.Count;
-                foreach (var SitemapNode in sitemapNodes.ToList())
-                {
-                    var parentNode = GlobalSitemaps.FindSitemapNode(SitemapNode.Parent, SitemapNode.SiteMap);
-                    if (parentNode != null)
-                    {
-                        parentNode.Nodes.Add(SitemapNode);
-                        sitemapNodes.Remove(SitemapNode);
-                    }
-                }
-            } while (nodeCount != sitemapNodes.Count);
-        }
-
-        private static List<SitemapNode> MakeSitemapNodes(IEnumerable<Assembly> assemblies)
-        {
-            List<SitemapNode> SitemapNodes = new List<SitemapNode>();
-            foreach (Assembly referencedAssembly in assemblies)
-            {
-                var mvcAttr = referencedAssembly.GetCustomAttribute<MvcAttribute>();
-                if (mvcAttr == null)
-                {
-                    continue;
-                }
-                foreach (var SitemapNodeAttr in referencedAssembly.GetCustomAttributes<SitemapNodeAttribute>())
-                {
-                    SitemapNodes.Add(new SitemapNode()
-                    {
-                        IsHidden = SitemapNodeAttr.IsHidden,
-                        Text = SitemapNodeAttr.Text,
-                        Icon = SitemapNodeAttr.Icon,
-                        Parent = SitemapNodeAttr.Parent,
-                        Url = SitemapNodeAttr.Url,
-                        SiteMap = SitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
-                        Name = SitemapNodeAttr.Name,
-                    });
-                }
-                foreach (var exportedType in referencedAssembly.GetExportedTypes())
-                {
-                    var methodInfos = exportedType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-                    foreach (var methodInfo in methodInfos)
-                    {
-                        var SitemapNodeAttrs = methodInfo.GetCustomAttributes<SitemapNodeAttribute>(false);
-                        foreach (var SitemapNodeAttr in SitemapNodeAttrs)
-                        {
-                            foreach (var requestMappingAttr in methodInfo.GetCustomAttributes<RequestMappingAttribute>())
-                            {
-                                var url = requestMappingAttr.Url;
-
-                                var SitemapNode = new SitemapNode
-                                {
-                                    IsHidden = SitemapNodeAttr.IsHidden,
-                                    Text = SitemapNodeAttr.Text,
-                                    Icon = SitemapNodeAttr.Icon,
-                                    Parent = SitemapNodeAttr.Parent,
-                                    Url = url,
-                                    SiteMap = SitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
-                                    Name = SitemapNodeAttr.Name ?? requestMappingAttr.Name,
-                                };
-                                SitemapNodes.Add(SitemapNode);
-                            }
-                        }
-                    }
-                }
-            }
-            return SitemapNodes;
-        }
-
-        private static void RegisterSiteMaps(IEnumerable<Assembly> assemblies)
-        {
-            foreach (Assembly referencedAssembly in assemblies)
-            {
-                var mvcAttr = referencedAssembly.GetCustomAttribute<MvcAttribute>();
-                if (mvcAttr == null)
-                {
-                    continue;
-                }
-                var siteMapAttrs = referencedAssembly.GetCustomAttributes<SitemapAttribute>();
-                foreach (var siteMapAttr in siteMapAttrs)
-                {
-                    var siteMap = siteMapAttr.CreateSiteMap();
-                    GlobalSitemaps.DefaultSiteMap = GlobalSitemaps.DefaultSiteMap ?? siteMap;
-                    if (siteMapAttr.IsDefault)
-                    {
-                        GlobalSitemaps.DefaultSiteMap = siteMap;
-                    }
-                    GlobalSitemaps.Add(siteMap);
-                }
-            }
-        }
-        private static Sitemaps GlobalSitemaps;
-
-        protected override Sitemaps Create()
-        {
-            return GlobalSitemaps;
-        }
-    }
-    public abstract class SitemapsLoader
-    {
-        private Sitemaps _current;
-
-        public Sitemaps Current
-        {
-            get
-            {
-                if (_current == null)
-                {
-                    _current = Create().Clone(HttpContext.Current.User);
-                }
-                return _current;
-            }
-        }
-        protected abstract Sitemaps Create();
-    }
     public class Sitemaps
     {
         private readonly List<SitemapNode> _siteMaps = new List<SitemapNode>();
@@ -145,12 +15,21 @@ namespace Moonlit.Mvc
         {
             get
             {
-                var loader = DependencyResolver.Current.GetService<SitemapsLoader>();
-                if (loader == null)
+                var sitempas = HttpContext.Current.GetObject<Sitemaps>(false);
+                if (sitempas == null)
                 {
-                    return null;
+                    var loader = DependencyResolver.Current.GetService<ISitemapsLoader>(false);
+                    if (loader == null)
+                    {
+                        return null;
+                    }
+
+                    sitempas = loader.Create();
+                    sitempas = sitempas.Clone(HttpContext.Current.User);
+
+                    HttpContext.Current.SetObject(sitempas);
                 }
-                return loader.Current;
+                return sitempas;
             }
         }
 

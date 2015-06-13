@@ -96,6 +96,7 @@
     <Compile Include="Controls\Panel.cs" />
     <Compile Include="Controls\PasswordBox.cs" />
     <Compile Include="Controls\SelectListItem.cs" />
+    <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="FlashMessage.cs" />
     <Compile Include="FlashMessageType.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
+    <Compile Include="ISitemapsLoader.cs" />
     <Compile Include="ITaskLoader.cs" />
     <Compile Include="MoonlitAuthorizeAttribute.cs" />
     <Compile Include="MvcAttribute.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="ILocalizer.cs" />
     <Compile Include="LocalizedModelMetadataProvider.cs" />
     <Compile Include="MoonlitController.cs" />
+    <Compile Include="ReflectionSitemapsLoader.cs" />
     <Compile Include="RequestMapping.cs" />
     <Compile Include="RequestMappingAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
