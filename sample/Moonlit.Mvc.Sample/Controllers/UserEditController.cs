@@ -22,11 +22,11 @@ namespace Moonlit.Mvc.Sample.Controllers
         // GET: User
         public ActionResult Index()
         {
-            User model = new User();
+            var model = new Models.User();
             return Render(model);
         }
 
-        private ActionResult Render(User model)
+        private ActionResult Render(Models.User model)
         {
             var template = new AdministrationSimpleEditTemplate(this.ControllerContext, model)
             {
@@ -84,7 +84,7 @@ namespace Moonlit.Mvc.Sample.Controllers
         [HttpPost]
         [ActionName("Index")]
         // GET: User
-        public ActionResult Save(User model)
+        public ActionResult Save(Models.User model)
         {
             if (ModelState.IsValid)
             {

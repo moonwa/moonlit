@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NonfoudJsonContextBuilder" xml:space="preserve">
-    <value>are you miss the json context builder? please call FacetFactory(facetFactorySet, new JsonFacetContextBuilder(source))</value>
+  <data name="FriendlyTimeInDays" xml:space="preserve">
+    <value>{0} 天内</value>
   </data>
-  <data name="NonfoudXmlContextBuilder" xml:space="preserve">
-    <value>are you miss the xml context builder? please call FacetFactory(facetFactorySet, new XmlFacetContextBuilder(source))</value>
+  <data name="FriendlyTimeInHours" xml:space="preserve">
+    <value>{0} 小时内</value>
+  </data>
+  <data name="FriendlyTimeInMonths" xml:space="preserve">
+    <value>{0} 月内</value>
+  </data>
+  <data name="FriendlyTimeInMunites" xml:space="preserve">
+    <value>{0} 分钟内</value>
   </data>
 </root>

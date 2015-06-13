@@ -25,14 +25,8 @@ namespace Moonlit.Mvc
                 return tasks;
             }
         }
-        public IEnumerable<TaskItem> Items { get; private set; }
-
-        public Tasks(IEnumerable<TaskItem> tasks)
-        {
-            var items = tasks.ToList();
-            Items = items;
-            Count = items.Count();
-        }
+        public List<TaskItem> Items { get; set; }
+        public string Url { get; set; }
 
         public int Count { get; set; }
     }

@@ -124,8 +124,10 @@
     <Compile Include="Extensions\FlashExtensions.cs" />
     <Compile Include="HierarchicalTextValuePair.cs" />
     <Compile Include="IFlash.cs" />
+    <Compile Include="ILanguageLoader.cs" />
     <Compile Include="ITypeResolvor.cs" />
     <Compile Include="IValue.cs" />
+    <Compile Include="LanguageResources.cs" />
     <Compile Include="Linq\DefaultMetadateAnalyzer.cs" />
     <Compile Include="Linq\ColumnMetadate.cs" />
     <Compile Include="Linq\DynamicDictionaryMapper.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Net\Web\WebContainer.cs" />
     <Compile Include="Net\Web\WebParameter.cs" />
     <Compile Include="Net\Web\WebParameterType.cs" />
+    <Compile Include="NullLanguageLoader.cs" />
     <Compile Include="ObjectConverts\ObjectConverters\DictionaryObjectConverter.cs" />
     <Compile Include="ObjectConverts\ObjectConverters\ArrayObjectConverter.cs" />
     <Compile Include="ObjectConverts\ObjectConverters\BooleanObjectConverter.cs" />

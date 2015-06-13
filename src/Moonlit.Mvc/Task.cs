@@ -6,13 +6,9 @@ namespace Moonlit.Mvc
 {
     public class TaskItem
     {
-        public string Text { get; set; }
-        public DateTime ATime { get; set; }
+        public string Content { get; set; }
+        public DateTime ExpiredTime { get; set; }
+        public DateTime CreationTime { get; set; }
         public TaskStatus Status { get; set; }
-    }
-
-    public enum TaskStatus
-    {
-        Init, Read, Completed
     }
 }

@@ -10,4 +10,12 @@ namespace Moonlit.Mvc
     {
         Tasks LoadTasks();
     }
+    public interface IMessageLoader
+    {
+        Messages LoadMessages();
+    }
+    public interface INoticeLoader
+    {
+        Notices Load();
+    }
 }

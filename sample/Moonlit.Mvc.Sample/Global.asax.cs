@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
@@ -54,11 +55,50 @@ namespace Moonlit.Mvc.Sample
 
             builder.RegisterType<ReflectionSitemapsLoader>().As<ISitemapsLoader>();
             builder.RegisterType<MyTaskLoader>().As<ITaskLoader>() ;
+            builder.RegisterType<MyNoticeLoader>().As<INoticeLoader>();
+            builder.RegisterType<MyMessageLoader>().As<IMessageLoader>();
 
             var container = builder.Build();
             RequestMappings.Current.Register(RouteTable.Routes);
             AuthenticationManager.Current.Register(new Authenticate(container.Resolve<ICacheManager>()), new TestAuthenticateProvider());
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+    }
+
+    public class MyMessageLoader:IMessageLoader
+    {
+        public Messages LoadMessages()
+        {
+            var user = new User
+            {
+                Name = "Tom",
+                Avatar = "#"
+            };
+            return new Messages(new List<Message>
+            {
+                new Message(){ Content = "新用户注册", Title = "Tom", User = user, CreationTime = DateTime.Now},
+                new Message(){ Content = "新用户注册", Title = "Tom", User = user,  CreationTime = DateTime.Now},
+                new Message(){ Content = "新用户注册", Title = "Tom", User = user,  CreationTime = DateTime.Now},
+                new Message(){ Content = "新用户注册", Title = "Tom", User = user,  CreationTime = DateTime.Now},
+                new Message(){ Content = "新用户注册", Title = "Tom", User = user,  CreationTime = DateTime.Now},
+                new Message(){ Content = "新用户注册", Title = "Tom", User = user,  CreationTime = DateTime.Now},
+            });
+        }
+    }
+
+    public class MyNoticeLoader:INoticeLoader
+    {
+        public Notices Load()
+        {
+            return new Notices(new List<Notice>
+            {
+                new Notice(){ Content = "新用户注册", CreationTime = DateTime.Now},
+                new Notice(){ Content = "新用户注册", CreationTime = DateTime.Now},
+                new Notice(){ Content = "新用户注册", CreationTime = DateTime.Now},
+                new Notice(){ Content = "新用户注册", CreationTime = DateTime.Now},
+                new Notice(){ Content = "新用户注册", CreationTime = DateTime.Now},
+                new Notice(){ Content = "新用户注册", CreationTime = DateTime.Now},
+            });
         }
     }
 

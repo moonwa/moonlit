@@ -8,7 +8,8 @@ using Moonlit.Mvc.Sample.Models;
 using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Sample.Controllers
-{ 
+{
+    using User = Moonlit.Mvc.Sample.Models.User;
     //    [Authorize]
     public class UserController : MyController
     {
@@ -101,41 +102,41 @@ namespace Moonlit.Mvc.Sample.Controllers
             return Template(template);
         }
 
-        private static IQueryable<User> GetDataSources()
+        private static IQueryable<Models.User> GetDataSources()
         {
             var queryable = new[]
             {
-                new User()
+                new Models.User()
                 {
                     DateOfBirth = DateTime.Parse("1980-1-1"),
                     Gender = Gender.Male,
                     UserName = "80boys"
                 },
-                new User()
+                new Models.User()
                 {
                     DateOfBirth = DateTime.Parse("1990-1-1"),
                     Gender = Gender.Male,
                     UserName = "90boys"
                 },
-                new User()
+                new Models.User()
                 {
                     DateOfBirth = DateTime.Parse("1970-1-1"),
                     Gender = Gender.Male,
                     UserName = "70boys"
                 },
-                new User()
+                new Models.User()
                 {
                     DateOfBirth = DateTime.Parse("1960-1-1"),
                     Gender = Gender.Male,
                     UserName = "60boys"
                 },
-                new User()
+                new Models.User()
                 {
                     DateOfBirth = DateTime.Parse("1950-1-1"),
                     Gender = Gender.Male,
                     UserName = "50boys"
                 },
-                new User()
+                new Models.User()
                 {
                     DateOfBirth = DateTime.Parse("1940-1-1"),
                     Gender = Gender.Male,
