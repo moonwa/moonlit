@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Moonlit.Mvc
@@ -10,12 +11,18 @@ namespace Moonlit.Mvc
         {
             get
             {
-                var loader = DependencyResolver.Current.GetService<ITaskLoader>();
-                if (loader == null)
+                Tasks tasks = HttpContext.Current.GetObject<Tasks>();
+                if (tasks == null)
                 {
-                    return null;
+                    var loader = DependencyResolver.Current.GetService<ITaskLoader>(false);
+                    if (loader == null)
+                    {
+                        return null;
+                    }
+                    tasks = loader.LoadTasks();
+                    HttpContext.Current.SetObject(tasks);
                 }
-                return loader.Tasks;
+                return tasks;
             }
         }
         public IEnumerable<TaskItem> Items { get; private set; }

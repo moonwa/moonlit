@@ -8,6 +8,6 @@ namespace Moonlit.Mvc
 {
     public interface ITaskLoader
     {
-        Tasks Tasks{ get; }
+        Tasks LoadTasks();
     }
 }

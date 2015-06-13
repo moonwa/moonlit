@@ -6,13 +6,11 @@ namespace Moonlit.Mvc.Sample
     public class MyTaskLoader : ITaskLoader
     {
         private Tasks _tasks;
-        public Tasks Tasks
+        public Tasks LoadTasks()
         {
-            get
+            if (_tasks == null)
             {
-                if (_tasks == null)
-                {
-                    _tasks = new Tasks(new List<TaskItem>
+                _tasks = new Tasks(new List<TaskItem>
                     {
                         new TaskItem {Text = "Staff Meeting", ATime = DateTime.Today},
                         new TaskItem {Text = "New frontend layout", ATime = DateTime.Today, Status = TaskStatus.Completed},
@@ -21,9 +19,8 @@ namespace Moonlit.Mvc.Sample
                         new TaskItem {Text = "New frontend layout", ATime = DateTime.Today.AddDays(4)},
                         new TaskItem {Text = "New frontend layout", ATime = DateTime.Today.AddDays(13)},
                     });
-                }
-                return _tasks;
             }
+            return _tasks;
         }
     }
 }

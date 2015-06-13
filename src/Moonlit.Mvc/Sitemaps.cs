@@ -15,7 +15,7 @@ namespace Moonlit.Mvc
         {
             get
             {
-                var sitempas = HttpContext.Current.GetObject<Sitemaps>(false);
+                var sitempas = HttpContext.Current.GetObject<Sitemaps>();
                 if (sitempas == null)
                 {
                     var loader = DependencyResolver.Current.GetService<ISitemapsLoader>(false);
@@ -31,13 +31,7 @@ namespace Moonlit.Mvc
                 }
                 return sitempas;
             }
-        }
-
-
-        public IEnumerable<SitemapNode> Items
-        {
-            get { return _siteMaps.AsReadOnly(); }
-        }
+        } 
 
         public SitemapNode CurrentNode { get; set; }
         public List<SitemapNode> Breadcrumb { get; set; }

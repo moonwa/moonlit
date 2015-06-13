@@ -13,7 +13,13 @@ namespace Moonlit.Mvc
         {
             get
             {
-                return HttpContext.Current.GetObject<Scripts>(true);
+                var styles = HttpContext.Current.GetObject<Scripts>();
+                if (styles == null)
+                {
+                    styles = new Scripts();
+                    HttpContext.Current.SetObject(styles);
+                }
+                return styles;
             }
         }
 
