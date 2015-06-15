@@ -29,7 +29,9 @@ namespace Moonlit.Mvc
 
         public object Get(Type type)
         {
-            return _cacheManager.Get(HttpContext.Current.Session.SessionID, type);
+            var obj = _cacheManager.Get(HttpContext.Current.Session.SessionID, type);
+            _cacheManager.Remove(HttpContext.Current.Session.SessionID);
+            return obj;
         }
 
         public async Task SetAsync(object target)

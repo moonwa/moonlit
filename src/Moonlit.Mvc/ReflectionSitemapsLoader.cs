@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
+using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
@@ -9,7 +11,7 @@ namespace Moonlit.Mvc
     {
         static ReflectionSitemapsLoader()
         {
-            GlobalSitemaps = new Sitemaps();
+            GlobalSitemaps = new SitemapsDefination();
             Register(BuildManager.GetReferencedAssemblies().Cast<Assembly>());
         }
         public static void Register(IEnumerable<Assembly> assemblies)
@@ -21,21 +23,26 @@ namespace Moonlit.Mvc
             do
             {
                 nodeCount = sitemapNodes.Count;
-                foreach (var SitemapNode in sitemapNodes.ToList())
+                foreach (var sitemapNode in sitemapNodes.ToList())
                 {
-                    var parentNode = GlobalSitemaps.FindSitemapNode(SitemapNode.Parent, SitemapNode.SiteMap);
+                    var parentNode = GlobalSitemaps.FindSitemapNode(sitemapNode.Parent, sitemapNode.Node.SiteMap);
                     if (parentNode != null)
                     {
-                        parentNode.Nodes.Add(SitemapNode);
-                        sitemapNodes.Remove(SitemapNode);
+                        parentNode.Nodes.Add(sitemapNode.Node);
+                        sitemapNodes.Remove(sitemapNode);
                     }
                 }
             } while (nodeCount != sitemapNodes.Count);
         }
 
-        private static List<SitemapNode> MakeSitemapNodes(IEnumerable<Assembly> assemblies)
+        class SitemapNodeDefinationWithParent
         {
-            List<SitemapNode> SitemapNodes = new List<SitemapNode>();
+            public string Parent { get; set; }
+            public SitemapNodeDefination Node { get; set; }
+        }
+        private static List<SitemapNodeDefinationWithParent> MakeSitemapNodes(IEnumerable<Assembly> assemblies)
+        {
+            List<SitemapNodeDefinationWithParent> sitemapNodes = new List<SitemapNodeDefinationWithParent>();
             foreach (Assembly referencedAssembly in assemblies)
             {
                 var mvcAttr = referencedAssembly.GetCustomAttribute<MvcAttribute>();
@@ -43,48 +50,69 @@ namespace Moonlit.Mvc
                 {
                     continue;
                 }
-                foreach (var SitemapNodeAttr in referencedAssembly.GetCustomAttributes<SitemapNodeAttribute>())
+                foreach (var sitemapNodeAttr in referencedAssembly.GetCustomAttributes<SitemapNodeAttribute>())
                 {
-                    SitemapNodes.Add(new SitemapNode()
+                    var node = new SitemapNodeDefination()
                     {
-                        IsHidden = SitemapNodeAttr.IsHidden,
-                        Text = SitemapNodeAttr.Text,
-                        Icon = SitemapNodeAttr.Icon,
-                        Parent = SitemapNodeAttr.Parent,
-                        Url = SitemapNodeAttr.Url,
-                        SiteMap = SitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
-                        Name = SitemapNodeAttr.Name,
-                    });
+                        IsHidden = sitemapNodeAttr.IsHidden,
+                        Text = sitemapNodeAttr.Text,
+                        Icon = sitemapNodeAttr.Icon,
+                        Url = new ConstUrl("#"),
+                        SiteMap = sitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
+                        Name = sitemapNodeAttr.Name,
+                    };
+
+                    sitemapNodes.Add(new SitemapNodeDefinationWithParent() { Node = node, Parent = sitemapNodeAttr.Parent });
                 }
                 foreach (var exportedType in referencedAssembly.GetExportedTypes())
                 {
                     var methodInfos = exportedType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
                     foreach (var methodInfo in methodInfos)
                     {
-                        var SitemapNodeAttrs = methodInfo.GetCustomAttributes<SitemapNodeAttribute>(false);
-                        foreach (var SitemapNodeAttr in SitemapNodeAttrs)
-                        {
-                            foreach (var requestMappingAttr in methodInfo.GetCustomAttributes<RequestMappingAttribute>())
-                            {
-                                var url = requestMappingAttr.Url;
+                        var sitemapNodeAttrs = methodInfo.GetCustomAttributes<SitemapNodeAttribute>(false);
 
-                                var SitemapNode = new SitemapNode
-                                {
-                                    IsHidden = SitemapNodeAttr.IsHidden,
-                                    Text = SitemapNodeAttr.Text,
-                                    Icon = SitemapNodeAttr.Icon,
-                                    Parent = SitemapNodeAttr.Parent,
-                                    Url = url,
-                                    SiteMap = SitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
-                                    Name = SitemapNodeAttr.Name ?? requestMappingAttr.Name,
-                                };
-                                SitemapNodes.Add(SitemapNode);
+                        foreach (var sitemapNodeAttr in sitemapNodeAttrs)
+                        {
+                            var sitemapNode = new SitemapNodeDefination
+                            {
+                                IsHidden = sitemapNodeAttr.IsHidden,
+                                Text = sitemapNodeAttr.Text,
+                                Icon = sitemapNodeAttr.Icon,
+                                SiteMap = sitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
+                            };
+
+                            var namedAttr = methodInfo.GetCustomAttributes(false).OfType<INamed>().FirstOrDefault();
+                            if (namedAttr != null)
+                            {
+                                sitemapNodeAttr.Name = namedAttr.Name;
                             }
+                            if (string.IsNullOrEmpty(sitemapNodeAttr.Name))
+                            {
+                                sitemapNodeAttr.Name = Guid.NewGuid().ToString("N");
+                            }
+                            sitemapNode.Name = sitemapNodeAttr.Name;
+
+                            var urlAttr = methodInfo.GetCustomAttributes(false).OfType<IUrl>().FirstOrDefault();
+                            if (urlAttr != null)
+                            {
+                                sitemapNode.Url = urlAttr;
+                            }
+                            else
+                            {
+                                sitemapNode.Url = new ConstUrl("#");
+                            }
+
+                            sitemapNodes.Add(new SitemapNodeDefinationWithParent()
+                            {
+                                Node = sitemapNode,
+                                Parent = sitemapNodeAttr.Parent
+                            });
+
                         }
                     }
                 }
             }
-            return SitemapNodes;
+            return sitemapNodes;
         }
 
         private static void RegisterSiteMaps(IEnumerable<Assembly> assemblies)
@@ -109,11 +137,39 @@ namespace Moonlit.Mvc
                 }
             }
         }
-        private static Sitemaps GlobalSitemaps;
+        private static SitemapsDefination GlobalSitemaps;
 
-        public Sitemaps Create()
+        public Sitemaps Create(RequestContext requestContext)
         {
-            return GlobalSitemaps;
+            Sitemaps sitemaps = new Sitemaps();
+            foreach (var siteMapDefination in GlobalSitemaps.SiteMapNodeDefinations)
+            {
+                var sitemapNode = Create(siteMapDefination, null, requestContext);
+                sitemaps.Add(sitemapNode);
+                if (siteMapDefination == GlobalSitemaps.DefaultSiteMap)
+                {
+                    sitemaps.DefaultSiteMap = sitemapNode;
+                }
+            }
+            return sitemaps;
+        }
+
+        private SitemapNode Create(SitemapNodeDefination sitemapNodeDefination, SitemapNode parent, RequestContext requestContext)
+        {
+            SitemapNode node = new SitemapNode
+            {
+                Icon = sitemapNodeDefination.Icon,
+                Name = sitemapNodeDefination.Name,
+                Parent = parent,
+                Url = sitemapNodeDefination.Url.MakeUrl(requestContext),
+                Text = sitemapNodeDefination.Text,
+                IsHidden = sitemapNodeDefination.IsHidden,
+            };
+            foreach (var childNodeDefination in sitemapNodeDefination.Nodes)
+            {
+                node.Nodes.Add(Create(childNodeDefination, node, requestContext));
+            }
+            return node;
         }
     }
 }

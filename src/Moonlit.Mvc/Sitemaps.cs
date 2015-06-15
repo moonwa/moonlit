@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Moonlit.Mvc
 {
@@ -29,8 +30,11 @@ namespace Moonlit.Mvc
                         return null;
                     }
 
-                    sitempas = loader.Create();
-                    sitempas = sitempas.Clone(HttpContext.Current.User);
+                    var httpContext = new HttpContextWrapper(HttpContext.Current);
+                    var routeData = RouteTable.Routes.GetRouteData(httpContext);
+                    var requestContext = new RequestContext(httpContext, routeData);
+                    sitempas = loader.Create(requestContext);
+                    sitempas.Filter(HttpContext.Current.User, requestContext);
 
                     HttpContext.Current.SetObject(sitempas);
                 }
@@ -40,9 +44,6 @@ namespace Moonlit.Mvc
 
         public SitemapNode CurrentNode { get; set; }
         public List<SitemapNode> Breadcrumb { get; set; }
-
-
-
 
         public SitemapNode FindSitemapNode(string nodeName, string siteMapName)
         {
@@ -78,40 +79,20 @@ namespace Moonlit.Mvc
         }
 
 
-        public Sitemaps Clone(IPrincipal user)
+        public void Filter(IPrincipal user, RequestContext requestContext)
         {
-            Sitemaps other = new Sitemaps();
-            foreach (var SitemapNode in _siteMaps)
+            foreach (var sitemapNode in _siteMaps)
             {
-                var clonedSitemapNode = Clone(user, SitemapNode);
-                other._siteMaps.Add(clonedSitemapNode);
-                if (SitemapNode == DefaultSiteMap)
-                {
-                    other.DefaultSiteMap = clonedSitemapNode;
-                }
+                Filter(user, sitemapNode, requestContext);
             }
-            return other;
         }
 
-        private SitemapNode Clone(IPrincipal user, SitemapNode SitemapNode)
+        private void Filter(IPrincipal user, SitemapNode sitemapNode, RequestContext requestContext)
         {
-            SitemapNode clonedNode = new SitemapNode
+            foreach (var child in sitemapNode.Nodes)
             {
-                Icon = SitemapNode.Icon,
-                IsHidden = SitemapNode.IsHidden,
-                Name = SitemapNode.Name,
-                Text = SitemapNode.Text,
-                Url = SitemapNode.Url,
-                Parent = SitemapNode.Parent,
-                SiteMap = SitemapNode.SiteMap,
-            };
-            foreach (var child in SitemapNode.Nodes)
-            {
-                var clonedChildren = Clone(user, child);
-                clonedChildren.ParentNode = clonedNode;
-                clonedNode.Nodes.Add(clonedChildren);
+                Filter(user, child, requestContext);
             }
-            return clonedNode;
         }
 
         public void Add(SitemapNode siteMap)

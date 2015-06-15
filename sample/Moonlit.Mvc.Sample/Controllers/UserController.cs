@@ -14,7 +14,7 @@ namespace Moonlit.Mvc.Sample.Controllers
     {
         private const string RequestUrl = "User";
         [RequestMapping("Users", RequestUrl)]
-        [SitemapNode("Users", Text = "用户管理", Parent = "BasicData")]
+        [SitemapNode(Text = "用户管理", Parent = "BasicData")]
         public ActionResult Index(UserListQueryModel model)
         {
             var datasources = GetDataSources();

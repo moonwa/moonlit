@@ -16,7 +16,7 @@ namespace Moonlit.Mvc.Sample.Controllers
         public UserCreateController()
         {
         }
-        [SitemapNode(RequestUrl, Parent = "Users", IsHidden = true)]
+        [SitemapNode(Parent = "Users", IsHidden = true)]
         [RequestMapping("CreateUser", RequestUrl)]
         [HttpGet]
         // GET: User
@@ -55,14 +55,14 @@ namespace Moonlit.Mvc.Sample.Controllers
                                 new SelectListItem
                                 {
                                     Text = "ÄÐ",
-                                    Value = Gender.Male,
-                                    IsSelected = true,
+                                    Value = Gender.Male.ToString(),
+                                    Selected = true,
                                 },
                                 new SelectListItem
                                 {
                                     Text = "Å®",
-                                    Value = Gender.Female,
-                                    IsSelected = false,
+                                    Value = Gender.Female.ToString(),
+                                    Selected = false,
                                 }
                             }
                         }

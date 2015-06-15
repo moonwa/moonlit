@@ -13,19 +13,36 @@ namespace Moonlit
             _cacheManager = cacheManager;
         }
 
+        private static object _locker = new object();
         List<string> _registeredCacheKeys = new List<string>();
         public void RegisterCacheKey(string cacheKey)
         {
-            if (_registeredCacheKeys.Any(x => string.Equals(x, cacheKey)))
+
+            if (Clone().Any(x => string.Equals(x, cacheKey)))
             {
                 return;
             }
-            _registeredCacheKeys.Add(cacheKey);
+            lock (_locker)
+            {
+                if (Clone().Any(x => string.Equals(x, cacheKey)))
+                {
+                    _registeredCacheKeys.Add(cacheKey);
+                }
+            }
         }
+
+        private List<string> Clone()
+        {
+            lock (_locker)
+            {
+                return _registeredCacheKeys.ToList();
+            }
+        }
+
 
         public void ClearCache()
         {
-            foreach (var cacheKey in _registeredCacheKeys)
+            foreach (var cacheKey in Clone())
             {
                 _cacheManager.Remove(cacheKey);
             }

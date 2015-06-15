@@ -21,7 +21,7 @@ namespace Moonlit.Mvc.Sample.Controllers
         public ActionResult Index(RequestMappings requestMappings)
         {
             SignInModel model = new SignInModel();
-            return RenderTemplate(model, requestMappings);
+            return RenderTemplate(model);
         }
         [ActionName("Index")]
         [RequestMapping("SignIn_Save", RequestUrl)]

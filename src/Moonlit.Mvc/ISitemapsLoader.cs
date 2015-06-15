@@ -1,7 +1,9 @@
+using System.Web.Routing;
+
 namespace Moonlit.Mvc
 {
     public interface ISitemapsLoader
     {
-        Sitemaps Create();
+        Sitemaps Create(RequestContext requestContext);
     }
 }

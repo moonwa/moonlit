@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Moonlit.Mvc
@@ -12,20 +13,31 @@ namespace Moonlit.Mvc
         public string Icon { get; set; }
         public string Text { get; set; }
         public string SiteMap { get; set; }
-
         public bool IsHidden { get; set; }
-        public string Url { get; set; }
 
-        public SitemapNodeAttribute(string name)
+        public SitemapNodeAttribute()
         {
-            Name = name;
             Order = 2;
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (string.IsNullOrEmpty(Name))
+            {
+                var name = filterContext.ActionDescriptor.GetCustomAttributes(false).OfType<INamed>().FirstOrDefault();
+                if (name != null)
+                {
+                    this.Name = name.Name;
+                }
+            }
+            base.OnActionExecuting(filterContext);
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
+
             var sitemaps = Sitemaps.Current;
-            if (sitemaps ==null)
+            if (sitemaps == null || string.IsNullOrEmpty(Name))
             {
                 return;
             }
@@ -38,8 +50,8 @@ namespace Moonlit.Mvc
             {
                 nodes.Add(node);
                 node.InCurrent = true;
-                node = node.ParentNode;
-            } while (node.ParentNode != null);  // ignore the root node
+                node = node.Parent;
+            } while (node != null && node.Parent != null);  // ignore the root node
             nodes.Reverse();
             sitemaps.Breadcrumb = nodes;
             base.OnResultExecuting(filterContext);

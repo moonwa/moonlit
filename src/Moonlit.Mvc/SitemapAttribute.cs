@@ -15,12 +15,13 @@ namespace Moonlit.Mvc
 
         public bool IsDefault { get; set; }
 
-        public SitemapNode CreateSiteMap()
+        public SitemapNodeDefination CreateSiteMap()
         {
-            return new SitemapNode
+            return new SitemapNodeDefination
             {
                 Text = Text,
                 Name = Name,
+                Url = new ConstUrl("#"),
             };
         }
     }
