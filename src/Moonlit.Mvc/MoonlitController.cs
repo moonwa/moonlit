@@ -13,7 +13,7 @@ namespace Moonlit.Mvc
     public abstract class MoonlitController : Controller
     {
         public IFlash Flash { get; set; }
-         
+
 
         public void SetFlash(object target)
         {
@@ -23,10 +23,10 @@ namespace Moonlit.Mvc
         {
             await Flash.SetAsync(target).ConfigureAwait(false);
         }
-      
-        protected ActionResult RedirectToRequestMapping(RequestMappings requestMappings, string mappingName, object routeValues)
+
+        protected ActionResult RedirectToRequestMapping(string mappingName, object routeValues)
         {
-            var mapping = requestMappings.GetRequestMapping(mappingName);
+            var mapping = RequestMappings.Current.GetRequestMapping(mappingName);
             if (mapping == null)
             {
                 throw new Exception("Not found request mapping " + mappingName);

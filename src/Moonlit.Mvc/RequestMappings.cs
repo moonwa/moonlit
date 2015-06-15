@@ -53,25 +53,33 @@ namespace Moonlit.Mvc
                             {
                                 url = typeAttr.Url + "/" + url;
                             }
-                            var route = routes.MapRoute(requestMappingAttr.Name,
-                                url,
-                                defaults:
-                                    new
-                                    {
-                                        controller = exportedType.Name.Replace("Controller", ""),
-                                        action = methodInfo.Name,
+                            try
+                            {
+                                var route = routes.MapRoute(requestMappingAttr.Name,
+                                                        url,
+                                                        defaults:
+                                                            new
+                                                            {
+                                                                controller = exportedType.Name.Replace("Controller", ""),
+                                                                action = methodInfo.Name,
 
-                                    },
-                                namespaces: new[] { exportedType.Namespace }
-                                );
-                            if (mvcAttr.Module != null)
-                            {
-                                route.DataTokens["area"] = mvcAttr.Module;
+                                                            },
+                                                        namespaces: new[] { exportedType.Namespace }
+                                                        );
+                                if (mvcAttr.Module != null)
+                                {
+                                    route.DataTokens["area"] = mvcAttr.Module;
+                                }
+                                _requestMappings.Add(new RequestMapping()
+                                {
+                                    Name = requestMappingAttr.Name,
+                                });
                             }
-                            _requestMappings.Add(new RequestMapping()
+                            catch (Exception ex)
                             {
-                                Name = requestMappingAttr.Name,
-                            });
+                                throw new Exception("Fail to register request mapping:" + requestMappingAttr.Name, ex);
+                            }
+                           
                         }
                     }
                 }

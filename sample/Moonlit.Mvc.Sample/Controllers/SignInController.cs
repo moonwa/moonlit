@@ -26,7 +26,7 @@ namespace Moonlit.Mvc.Sample.Controllers
         [ActionName("Index")]
         [RequestMapping("SignIn_Save", RequestUrl)]
         [HttpPost]
-        public ActionResult Save(SignInModel model, RequestMappings requestMappings)
+        public ActionResult Save(SignInModel model)
         {
             if (ModelState.IsValid)
             {
@@ -38,12 +38,12 @@ namespace Moonlit.Mvc.Sample.Controllers
                         "view"
                     }
                 });
-                return RedirectToRequestMapping(requestMappings, "Users", null);
+                return RedirectToRequestMapping("Users", null);
             }
-            return RenderTemplate(model, requestMappings);
+            return RenderTemplate(model);
         }
 
-        private ActionResult RenderTemplate(SignInModel model, RequestMappings requestMappings)
+        private ActionResult RenderTemplate(SignInModel model)
         {
             var template = new SimpleBoxTemplate
             {
