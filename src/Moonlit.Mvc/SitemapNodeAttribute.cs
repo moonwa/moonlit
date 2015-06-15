@@ -8,13 +8,28 @@ namespace Moonlit.Mvc
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
     public class SitemapNodeAttribute : ActionFilterAttribute
     {
+        private string _text;
         public string Name { get; set; }
         public string Parent { get; set; }
         public string Icon { get; set; }
-        public string Text { get; set; }
+
+        public string Text
+        {
+            get { throw new Exception("Please get text via GetText"); }
+            set { _text = value; }
+        }
+
+        public string GetText()
+        {
+            if (ResourceType != null)
+            {
+                return EntityAccessor.GetAccessor(ResourceType).GetProperty(null, _text) as string;
+            }
+            return _text;
+        }
         public string SiteMap { get; set; }
         public bool IsHidden { get; set; }
-
+        public Type ResourceType { get; set; }
         public SitemapNodeAttribute()
         {
             Order = 2;
