@@ -2,7 +2,8 @@
 {
     public class CheckBox : Control
     {
-        public bool Value { get; set; }
+        public bool Checked { get; set; }
+        public string Value { get; set; }
         public string Text { get; set; }
     }
 }
