@@ -9,7 +9,7 @@ using System.Web.Mvc.Filters;
 
 namespace Moonlit.Mvc
 {
-    public class MoonlitAuthorizationAttribute :FilterAttribute, IAuthenticationFilter
+    public class MoonlitAuthorizationAttribute : FilterAttribute, IAuthenticationFilter
     {
         private readonly Authenticate _authenticate;
         private readonly IUserLoader _userLoader;
@@ -31,24 +31,8 @@ namespace Moonlit.Mvc
                     {
                         userPrincipal.Privileges = (userPrincipal.Privileges ?? new string[0]).Intersect(session.Privileges ?? new string[0]).ToArray();
                         filterContext.HttpContext.User = userPrincipal;
-
-                        IUser user = userPrincipal.Identity as IUser;
-                        if (user != null && user.Culture != null)
-                        {
-                            try
-                            {
-                                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(user.Culture);
-                                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(user.Culture);
-                            }
-                            catch (Exception ex)
-                            {
-//                                LogHelper.WriteError("…Ë÷√”Ô—‘ ß∞‹", ex);
-                            }
-                        }
                     }
                 }
-
-
             }
         }
 
@@ -56,34 +40,34 @@ namespace Moonlit.Mvc
         {
         }
     }
-//    public class MoonlitAuthorizeAttribute : AuthorizeAttribute
-//    {
-//        private readonly Authenticate _authenticate;
-//        private readonly IUserLoader _userLoader;
-//
-//        public MoonlitAuthorizeAttribute(Authenticate authenticate, IUserLoader userLoader)
-//        {
-//            _authenticate = authenticate;
-//            _userLoader = userLoader;
-//        }
-//
-//        public override void OnAuthorization(AuthorizationContext filterContext)
-//        {
-//            if (filterContext.HttpContext.User != null)
-//            {
-//                var session = _authenticate.GetSession();
-//                if (session != null)
-//                {
-//                    var user = _userLoader.GetUserPrincipal(session.UserName);
-//
-//                    if (user != null)
-//                    {
-//                        user.Privileges = (user.Privileges ?? new string[0]).Intersect(session.Privileges ?? new string[0]).ToArray();
-//                        filterContext.HttpContext.User = user;
-//                    }
-//                }
-//            }
-//        }
-//         
-//    }
+    //    public class MoonlitAuthorizeAttribute : AuthorizeAttribute
+    //    {
+    //        private readonly Authenticate _authenticate;
+    //        private readonly IUserLoader _userLoader;
+    //
+    //        public MoonlitAuthorizeAttribute(Authenticate authenticate, IUserLoader userLoader)
+    //        {
+    //            _authenticate = authenticate;
+    //            _userLoader = userLoader;
+    //        }
+    //
+    //        public override void OnAuthorization(AuthorizationContext filterContext)
+    //        {
+    //            if (filterContext.HttpContext.User != null)
+    //            {
+    //                var session = _authenticate.GetSession();
+    //                if (session != null)
+    //                {
+    //                    var user = _userLoader.GetUserPrincipal(session.UserName);
+    //
+    //                    if (user != null)
+    //                    {
+    //                        user.Privileges = (user.Privileges ?? new string[0]).Intersect(session.Privileges ?? new string[0]).ToArray();
+    //                        filterContext.HttpContext.User = user;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //         
+    //    }
 }
