@@ -12,6 +12,7 @@ namespace Moonlit.Mvc
         public string Text { get; set; }
         public string Url { get; set; }
         public string Name { get; set; }
+        public string Group { get; set; }
         public List<SitemapNode> Nodes { get; set; }
         public IEnumerable<SitemapNode> VisibleNodes { get { return this.Nodes.Where(x => !x.IsHidden); } }
         /// <summary>
@@ -19,6 +20,7 @@ namespace Moonlit.Mvc
         public bool IsHidden { get; set; }
         public bool IsCurrent { get; set; }
         public bool InCurrent { get; set; }
+        public int Order { get; set; }
 
         public SitemapNode()
         {

@@ -10,9 +10,11 @@ namespace Moonlit.Mvc
     {
         public string Icon { get; set; }
         public Func<string> Text { get; set; }
+        public Func<string> Group { get; set; }
         public IUrl Url { get; set; }
         public string SiteMap { get; set; }
         public string Name { get; set; }
+        public int Order { get; set; }
         public List<SitemapNodeDefination> Nodes { get; set; }
         /// <summary>
         /// </summary>

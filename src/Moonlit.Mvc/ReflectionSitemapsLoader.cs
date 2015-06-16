@@ -86,7 +86,9 @@ namespace Moonlit.Mvc
             {
                 IsHidden = sitemapNodeAttr.IsHidden,
                 Text = () => sitemapNodeAttr.GetText(),
+                Group = () => sitemapNodeAttr.GetGroup(),
                 Icon = sitemapNodeAttr.Icon,
+                Order = sitemapNodeAttr.Order,
                 SiteMap = sitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
             };
 
@@ -164,12 +166,15 @@ namespace Moonlit.Mvc
                 Parent = parent,
                 Url = sitemapNodeDefination.Url.MakeUrl(requestContext),
                 Text = sitemapNodeDefination.Text(),
+                Group = sitemapNodeDefination.Group(),
+                Order = sitemapNodeDefination.Order,
                 IsHidden = sitemapNodeDefination.IsHidden,
             };
             foreach (var childNodeDefination in sitemapNodeDefination.Nodes)
             {
                 node.Nodes.Add(Create(childNodeDefination, node, requestContext));
             }
+            node.Nodes = node.Nodes.OrderBy(x => x.Order).ToList();
             return node;
         }
     }

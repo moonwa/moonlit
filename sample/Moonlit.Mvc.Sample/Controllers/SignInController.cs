@@ -26,13 +26,12 @@ namespace Moonlit.Mvc.Sample.Controllers
         [ActionName("Index")]
         [RequestMapping("SignIn_Save", RequestUrl)]
         [HttpPost]
-        public ActionResult Save(SignInModel model)
+        public ActionResult Save(string userName, SignInModel model)
         {
             if (ModelState.IsValid)
             {
-                _authenticate.SetSession(new SignInSession()
+                _authenticate.SetSession(model.UserName, new Session
                 {
-                    UserName = model.UserName,
                     Privileges = new[]
                     {
                         "view"

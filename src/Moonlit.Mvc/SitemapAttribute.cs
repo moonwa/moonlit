@@ -35,6 +35,7 @@ namespace Moonlit.Mvc
             return new SitemapNodeDefination
             {
                 Text = () => GetText(),
+                Group = () => "",
                 Name = Name,
                 Url = new ConstUrl("#"),
             };

@@ -144,7 +144,7 @@
     <Compile Include="Scripts.cs" />
     <Compile Include="SessionCachingFlash.cs" />
     <Compile Include="Controls\Table.cs" />
-    <Compile Include="SignInSession.cs" />
+    <Compile Include="Session.cs" />
     <Compile Include="SitemapNode.cs" />
     <Compile Include="Sitemaps.cs" />
     <Compile Include="SitemapAttribute.cs" />

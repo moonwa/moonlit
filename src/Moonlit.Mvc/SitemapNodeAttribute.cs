@@ -15,17 +15,40 @@ namespace Moonlit.Mvc
 
         public string Text
         {
-            get { throw new Exception("Please get text via GetText"); }
+            get { throw new Exception("Please get Text via GetText"); }
             set { _text = value; }
+        }
+
+        private string _group;
+        public string Group
+        {
+            get { throw new Exception("Please get Group via GetText"); }
+            set { _group = value; }
         }
 
         public string GetText()
         {
+            if (string.IsNullOrEmpty(_text))
+            {
+                return null;
+            }
             if (ResourceType != null)
             {
                 return EntityAccessor.GetAccessor(ResourceType).GetProperty(null, _text) as string;
             }
             return _text;
+        }
+        public string GetGroup()
+        {
+            if (string.IsNullOrEmpty(_group))
+            {
+                return null;
+            }
+            if (ResourceType != null)
+            {
+                return EntityAccessor.GetAccessor(ResourceType).GetProperty(null, _group) as string;
+            }
+            return _group;
         }
         public string SiteMap { get; set; }
         public bool IsHidden { get; set; }
