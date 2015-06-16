@@ -97,6 +97,7 @@
     <Compile Include="Controls\DropdownList.cs" />
     <Compile Include="Controls\List.cs" />
     <Compile Include="Controls\ListStyle.cs" />
+    <Compile Include="Controls\MultipleCheckList.cs" />
     <Compile Include="Controls\Panel.cs" />
     <Compile Include="Controls\PasswordBox.cs" />
     <Compile Include="Controls\SelectListItem.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
     <Compile Include="INamed.cs" />
+    <Compile Include="IPrivilegeLoader.cs" />
     <Compile Include="ISitemapsLoader.cs" />
     <Compile Include="ITaskLoader.cs" />
     <Compile Include="IUserLoader.cs" />
@@ -128,6 +130,10 @@
     <Compile Include="MoonlitController.cs" />
     <Compile Include="Notice.cs" />
     <Compile Include="Notices.cs" />
+    <Compile Include="Privilege.cs" />
+    <Compile Include="PrivilegeAttribute.cs" />
+    <Compile Include="Privileges.cs" />
+    <Compile Include="ReflectionPrivilegeLoader.cs" />
     <Compile Include="ReflectionSitemapsLoader.cs" />
     <Compile Include="RequestMapping.cs" />
     <Compile Include="RequestMappingAttribute.cs" />
