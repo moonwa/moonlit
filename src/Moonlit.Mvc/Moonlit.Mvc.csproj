@@ -101,6 +101,7 @@
     <Compile Include="Controls\Panel.cs" />
     <Compile Include="Controls\PasswordBox.cs" />
     <Compile Include="Controls\SelectListItem.cs" />
+    <Compile Include="Controls\MultiLineTextBox.cs" />
     <Compile Include="DefaultThemeLoader.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleListTemplate.cs" />
     <Compile Include="Control.cs" />
+    <Compile Include="Templates\ISite.cs" />
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Templates\SimpleBoxTemplate.cs" />
