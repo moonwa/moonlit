@@ -15,6 +15,7 @@ namespace Moonlit
 
         private static object _locker = new object();
         List<string> _registeredCacheKeys = new List<string>();
+        public IEnumerable<string> AllKeys { get { return _registeredCacheKeys.AsEnumerable(); } }
         public void RegisterCacheKey(string cacheKey)
         {
 
@@ -24,7 +25,7 @@ namespace Moonlit
             }
             lock (_locker)
             {
-                if (Clone().Any(x => string.Equals(x, cacheKey)))
+                if (!Clone().Any(x => string.Equals(x, cacheKey)))
                 {
                     _registeredCacheKeys.Add(cacheKey);
                 }

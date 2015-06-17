@@ -21,6 +21,11 @@ namespace Moonlit.Caching
                 return _cacheManager.Get(MakeKey(key), type);
             }
 
+            public bool Exist(string key)
+            {
+                return _cacheManager.Exist(MakeKey(key));
+            }
+
             private string MakeKey(string key)
             {
                 return _prefix + key;
@@ -66,6 +71,12 @@ namespace Moonlit.Caching
         /// <param name="type"></param>
         /// <returns></returns>
         object Get(string key, Type type);
+        /// <summary>
+        ///     set a item into cache
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        bool Exist(string key);
 
         /// <summary>
         ///     get a item from cache by key

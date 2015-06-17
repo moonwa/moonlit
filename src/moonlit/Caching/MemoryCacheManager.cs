@@ -61,7 +61,12 @@ namespace Moonlit.Caching
             Set(key, value, expiredTime);
             return Task.FromResult(false);
         }
-         
+
+
+        public bool Exist(string key)
+        {
+            return Get(key, typeof(object)) != null;
+        }
 
         public void Set(string key, object value, TimeSpan? expiredTime)
         {

@@ -10,6 +10,15 @@ namespace Moonlit.Caching
     {
         public string Host { get; set; }
         public int Port { get; set; }
+        public bool Exist(string key)
+        {
+            key = BuildKey(key);
+            using (var connection = MakeConnection())
+            {
+                return connection.Exists(key);
+            }
+        }
+
         public void Set(string key, object value, TimeSpan? expiredTime)
         {
             key = BuildKey(key);
