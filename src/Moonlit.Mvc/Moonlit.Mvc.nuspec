@@ -15,7 +15,7 @@
     <copyright>Copyright 2015</copyright>
     <tags>Tag1 Tag2</tags>
     <dependencies>
-      <dependency id="Moonlit" version="1.1.6.9" />
+      <dependency id="Moonlit" version="1.1.6.10" />
     </dependencies>
   </metadata>
 </package>
