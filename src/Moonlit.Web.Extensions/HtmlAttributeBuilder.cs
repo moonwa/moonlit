@@ -36,7 +36,7 @@ namespace Moonlit.Web
                 case TypeCode.Boolean:
                     return value.ToString().ToLowerInvariant();
                 case TypeCode.Object:
-                    return value.SerializeAsJson();
+                    return value.ToString();
                 case TypeCode.Char:
                 case TypeCode.SByte:
                 case TypeCode.Byte:
