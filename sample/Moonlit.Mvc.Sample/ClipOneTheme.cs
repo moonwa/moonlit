@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Sample
 {
@@ -20,7 +21,7 @@ namespace Moonlit.Mvc.Sample
             this.RegisterControl(typeof(Panel), ThemeName + "/Controls/Panel");
             this.RegisterControl(typeof(Table), ThemeName + "/Controls/Table");
             this.RegisterControl(typeof(Literal), ThemeName + "/Controls/Literal");
-            this.RegisterControl(typeof(DropdownList), ThemeName + "/Controls/DropdownList");
+            this.RegisterControl(typeof(SelectList), ThemeName + "/Controls/DropdownList");
             this.RegisterControl(typeof(CheckBox), ThemeName + "/Controls/CheckBox");
         }
         private const string ThemeName = "clip-one";

@@ -2,11 +2,11 @@
 
 namespace Moonlit.Mvc.Controls
 {
-    public class DropdownList : Control
+    public class SelectList : Control
     {
         public bool Enabled { get; set; }
 
-        public DropdownList()
+        public SelectList()
         {
             Enabled = true;
         }

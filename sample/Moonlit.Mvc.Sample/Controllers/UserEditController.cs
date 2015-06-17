@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Sample.Models;
 using Moonlit.Mvc.Templates;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 
 namespace Moonlit.Mvc.Sample.Controllers
@@ -48,7 +49,7 @@ namespace Moonlit.Mvc.Sample.Controllers
                         Width = 6,
                         Label = "ÐÔ±ð",
                         FieldName = "Gender",
-                        Control = new DropdownList()
+                        Control = new SelectList()
                         {
                             Items = new[]
                             {
