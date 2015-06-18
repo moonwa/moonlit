@@ -1,0 +1,27 @@
+﻿@using Moonlit.Mvc
+@using Moonlit.Mvc.Url
+@model Moonlit.Mvc.Controls.DatePicker
+@{
+    Scripts.Current.RegisterScript("plugins:datepicker", new Script()
+    {
+        Src = Url.Asset("clip-one/plugins/datepicker/js/bootstrap-datepicker.js")
+    });
+    Scripts.Current.RegisterScript("plugins:datepicker-startup", new Script()
+    {
+        Content = @"
+            $('.date-picker').datepicker({
+                autoclose: true
+            });"
+    });
+
+    Styles.Current.RegisterStyleLink("plugins:datepicker", new StyleLink() 
+    {
+        Href = Url.Asset("clip-one/plugins/datepicker/css/datepicker.css")
+    });
+} 
+
+<div class="input-group">
+    <input type="text" name="@Model.Name" id="@Model.Id" data-date-format="yyyy-mm-dd" data-date-viewmode="years" class="form-control date-picker" 
+           value="@(Model.Value == null ? "" : Model.Value.Value.ToString("yyyy-MM-dd"))">
+    <span class="input-group-addon"> <i class="fa fa-calendar"></i> </span>
+</div>

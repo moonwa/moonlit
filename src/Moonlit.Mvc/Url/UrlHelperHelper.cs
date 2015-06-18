@@ -8,10 +8,15 @@ using System.Web.Mvc;
 namespace Moonlit.Mvc.Url
 {
     public static class UrlHelperHelper
-    { 
+    {
         public static string RouteUrl(this UrlHelper urlHelper, RequestMapping requestMapping, object routeValues)
         {
             return requestMapping.MakeUrl(urlHelper, routeValues);
+        }
+        public static string Asset
+            (this UrlHelper urlHelper, string url)
+        {
+            return "http://121.42.41.232:8033/" + url;
         }
     }
 }

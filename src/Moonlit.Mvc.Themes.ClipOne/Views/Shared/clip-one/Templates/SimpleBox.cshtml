@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Moonlit.Mvc;
+@using Moonlit.Mvc.Controls
+@using Moonlit.Mvc.Html
+@using Moonlit.Mvc.Url;
+@using Control = Moonlit.Mvc.Control
+@using Scripts = Moonlit.Mvc.Scripts
+@using Styles = Moonlit.Mvc.Styles
+@model Moonlit.Mvc.Templates.SimpleBoxTemplate
+
+
+<!DOCTYPE html>
+<!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.4 Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- start: HEAD -->
+<head>
+    <title>@Model.Title - @Model.Site.Title</title>
+    <!-- start: META -->
+    <meta charset="utf-8" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="" name="description" />
+    <meta content="moon.wa" name="author" />
+    <!-- end: META -->
+    <!-- start: MAIN CSS -->
+    @Styles.Current.RenderCss(Url)
+</head>
+<!-- end: HEAD -->
+<!-- start: BODY -->
+<body class="login example2">
+@using (Html.BeginForm(
+    Request.RequestContext.RouteData.GetRequiredString("action"), Html.ViewContext.RouteData.GetRequiredString("controller"),
+    FormMethod.Post,
+    new {enctype = "multipart/form-data"}
+    ))
+{
+    <div class="main-login col-sm-4 col-sm-offset-4">
+        <div class="logo">
+            @Model.Site.Title
+        </div>
+        <!-- start: LOGIN BOX -->
+        <div class="box-login" style="display: block">
+            <h3>@Model.Description</h3>
+            @{
+                var messageType = "success";
+                FlashMessage msg = (FlashMessage) FlashMessage.Current;
+                if (msg != null)
+                {
+                    switch (msg.MessageType)
+                    {
+                        case FlashMessageType.Message:
+                        case FlashMessageType.Success:
+                            messageType = "success";
+                            break;
+                        case FlashMessageType.Warning:
+                            messageType = "warning";
+                            break;
+                        case FlashMessageType.Error:
+                            messageType = "danger";
+                            break;
+                    }
+                    <div class="errorHandler alert alert-@messageType no-display">
+                        <i class="fa fa-remove-sign"></i> @msg.Text
+                    </div>
+                }
+            }
+            @Html.Render(new Form()
+            {
+                Control = Model.Fields.Combine()
+            })
+            <div class="form-actions">
+                @foreach (Control button in Model.Buttons)
+                {
+                    @Html.Render(button)
+                }
+            </div>
+            <div class="new-account">
+                @Html.Render(Model.Additional)
+            </div>
+        </div>
+        <!-- end: LOGIN BOX -->
+        <!-- start: COPYRIGHT -->
+        <div class="copyright">
+            @Model.Site.CopyRight
+        </div>
+        <!-- end: COPYRIGHT -->
+    </div>
+}
+<!-- start: MAIN JAVASCRIPTS -->
+@Scripts.Current.RenderScripts(Url)
+<!-- end: MAIN JAVASCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+        Main.init();
+    });
+</script>
+</body>
+<!-- end: BODY -->
+</html>

@@ -1,0 +1,23 @@
+﻿@using System.Web.Mvc
+@using Moonlit.Mvc
+@using Moonlit.Mvc.Url
+@model Moonlit.Mvc.Controls.CheckBox
+@{ 
+    Scripts.Current.RegisterScript("plugins:icheck", new Script()
+    {
+        Src = Url.Asset("clip-one/plugins/iCheck/jquery.icheck.min.js")
+    });
+}
+@functions
+{
+    IHtmlString Selected(bool isSelected)
+    {
+        return MvcHtmlString.Create(isSelected ? "checked" : "");
+    }
+}
+<label class="checkbox-inline">
+    <input type="checkbox" name="@Model.Name" value="@Model.Value" @Selected(Model.Checked) class="grey">
+    @Model.Text
+</label>
+
+

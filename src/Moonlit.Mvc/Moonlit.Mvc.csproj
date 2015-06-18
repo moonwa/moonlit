@@ -123,6 +123,7 @@
     <Compile Include="ITaskLoader.cs" />
     <Compile Include="IUserLoader.cs" />
     <Compile Include="IUserPrincipal.cs" />
+    <Compile Include="Properties\CultureTextResources.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MoonlitAuthorizeAttribute.cs" />
@@ -178,7 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Moonlit.Mvc.nuspec" />
+    <None Include="Moonlit.Mvc.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

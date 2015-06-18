@@ -12,11 +12,9 @@ namespace Moonlit.Mvc
     public class MoonlitAuthorizationAttribute : FilterAttribute, IAuthenticationFilter
     {
         private readonly Authenticate _authenticate;
-        private readonly IUserLoader _userLoader;
-        public MoonlitAuthorizationAttribute(Authenticate authenticate, IUserLoader userLoader)
+        public MoonlitAuthorizationAttribute(Authenticate authenticate)
         {
             _authenticate = authenticate;
-            _userLoader = userLoader;
         }
         public void OnAuthentication(AuthenticationContext filterContext)
         {
@@ -25,6 +23,7 @@ namespace Moonlit.Mvc
                 var session = _authenticate.GetSession();
                 if (session != null)
                 {
+                    var _userLoader = DependencyResolver.Current.GetService<IUserLoader>();
                     var userPrincipal = _userLoader.GetUserPrincipal(session.UserName);
 
                     if (userPrincipal != null)

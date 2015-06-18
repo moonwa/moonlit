@@ -1,0 +1,25 @@
+﻿@model Moonlit.Mvc.Controls.TextBox
+@functions{
+     string Readonly(bool enabled)
+     {
+         if (enabled)
+         {
+             return "";
+         }
+         return "readonly";
+     }
+}
+@if (string.IsNullOrWhiteSpace(Model.Icon))
+{
+    <input class="form-control" type="text" name="@Model.Name" id="@Model.Id" value="@Model.Value" @Model.RenderAttributes()  @Readonly(Model.Enabled) />
+}
+else
+{
+    <span class="input-icon">
+        <input class="form-control" type="text" name="@Model.Name" id="@Model.Id" value="@Model.Value" @Model.RenderAttributes() @Readonly(Model.Enabled) />
+        <i class="fa fa-@Model.Icon"></i>
+@*        <a class="forgot" href="#">*@
+@*            I forgot my password*@
+@*        </a>*@
+    </span>
+}

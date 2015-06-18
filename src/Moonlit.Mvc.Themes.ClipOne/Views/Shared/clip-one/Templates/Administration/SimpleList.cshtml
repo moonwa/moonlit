@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "layout_administration.cshtml";
+}
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Moonlit.Mvc
+@using Moonlit.Mvc.Controls
+@using Moonlit.Mvc.Html
+@using Control = Moonlit.Mvc.Control
+@model Moonlit.Mvc.Templates.AdministrationSimpleListTemplate
+
+@using (Html.BeginForm(
+     "Index", Html.ViewContext.RouteData.GetRequiredString("controller"),
+     FormMethod.Post,
+     new { enctype = "multipart/form-data" }
+     ))
+{
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Render(new Panel()
+            {
+                Title = Model.QueryPanelTitle,
+                IsCollapsable = true,
+                IsClosable = false,
+                Name = "panelQuery",
+                Control = new Form()
+                {
+                    Type = FormType.Horizontal  ,
+                    Control  =  Model.Criteria.Combine()
+                } 
+            })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group">
+                @foreach (Moonlit.Mvc.Control button in Model.GlobalButtons)
+                {
+                    @Html.Render(button)
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Render(Model.GetPager(ViewContext))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Render(Model.Table)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group">
+                @foreach (var clickable in Model.RecordButtons)
+                {
+                    var button = (Control) clickable;
+                    @Html.Render(button)
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">&nbsp;
+        </div>
+    </div>
+
+}
+
+
+@{
+    Scripts.Current.RegisterScript("page_setup", new Script()
+    {
+        Content = @"
+        var page = JSON.parse(window.sessionStorage.page || '{}');
+
+        function savePage() {
+            window.sessionStorage.page = JSON.stringify(page);
+        }
+
+        if (!page.panelQuery) {
+            $('#panelQuery .panel-body').hide();
+            $('#panelQuery .panel-heading .panel-tools .panel-collapse').addClass('expand').removeClass('collapses');
+        }
+        else{
+            $('#panelQuery .panel-body').show();
+            $('#panelQuery .panel-heading .panel-tools .panel-collapse').addClass('collapses').removeClass('expand');
+        }
+
+        $(function () {
+            $('#panelQuery .panel-heading .collapses').on('click', function () {
+                page.panelQuery = false;
+                savePage();
+            });
+            $('#panelQuery .panel-heading .expand').on('click', function () {
+                page.panelQuery = true;
+                savePage();
+            }); 
+        }); "
+    });
+}

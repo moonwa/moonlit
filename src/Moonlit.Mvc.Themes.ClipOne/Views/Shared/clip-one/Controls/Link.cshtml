@@ -1,0 +1,15 @@
+﻿@using Moonlit.Mvc.Controls
+@model Moonlit.Mvc.Controls.Link
+@switch (Model.Style)
+{
+    case LinkStyle.Normal:
+        <a href="@Model.Url" class="">
+            @Model.Text
+        </a>
+        break;
+    case LinkStyle.Button:
+        <a href="@Model.Url" class="btn btn-primary">
+            @Model.Text
+        </a>
+        break;
+}

@@ -24,17 +24,17 @@ namespace Moonlit
             var timespan = now - time;
             if (timespan.TotalMinutes < 5)
             {
-                return string.Format(LanguageResources.FriendlyTimeInMunites, Math.Floor(timespan.TotalMinutes));
+                return string.Format(CultureTextResources.FriendlyTimeInMunites, Math.Floor(timespan.TotalMinutes));
             }
             if (timespan.TotalHours < 3)
             {
-                return string.Format(LanguageResources.FriendlyTimeInHours, Math.Floor(timespan.TotalHours));
+                return string.Format(CultureTextResources.FriendlyTimeInHours, Math.Floor(timespan.TotalHours));
             }
             if (timespan.TotalDays < 4)
             {
-                return string.Format(LanguageResources.FriendlyTimeInDays, Math.Floor(timespan.TotalDays));
+                return string.Format(CultureTextResources.FriendlyTimeInDays, Math.Floor(timespan.TotalDays));
             }
-            return string.Format(LanguageResources.FriendlyTimeInMonths);
+            return string.Format(CultureTextResources.FriendlyTimeInMonths);
         }
     }
 }
