@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Moonlit.Mvc.Maintenance.Models;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
-{  
-    [Authorize(Order = 1000)]
+{
+    [MoonlitAuthorize( )]
     public class DashboardController : MaintControllerBase
     {
         // GET: Dashboard

@@ -15,7 +15,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [Authorize(Roles = MaintModule.PrivilegeCulture, Order = 1000)]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeCulture )]
     public class DbContextController : MaintControllerBase
     {
         [RequestMapping("dbcontexts", "devtools/dbcontext")]
@@ -143,7 +143,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
         private void BuildNodeType(PropertyInfo property, StringBuilder builder)
         {
-            if (typeof(string) == property.PropertyType)
+            var attr = property.GetCustomAttribute<DbContextExportAttribute>();
+            var propertyType = property.PropertyType;
+            if (attr != null)
+            {
+                propertyType = attr.ExportAsType ?? propertyType;
+            }
+            if (typeof(string) == propertyType)
             {
                 builder.AppendLine(string.Format("            type: 'String',"));
                 var stringLength = property.GetCustomAttribute<StringLengthAttribute>();
@@ -170,43 +176,43 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                     builder.AppendLine(string.Format("            regex: {{ expr: '{0}', msg: '${{{1}}}'}},", exgularAttr.Pattern.Replace(@"\", @"\\"), exgularAttr.ErrorMessageResourceName ?? defaultRegularError));
                 }
             }
-            else if (typeof(DateTime) == property.PropertyType || typeof(DateTime?) == property.PropertyType)
+            else if (typeof(DateTime) == propertyType || typeof(DateTime?) == propertyType)
             {
                 builder.AppendLine(string.Format("            type: 'Date',"));
-                if (typeof(DateTime) == property.PropertyType ||
+                if (typeof(DateTime) == propertyType ||
                     property.GetCustomAttribute<RequiredAttribute>() != null)
                 {
                     builder.AppendLine(string.Format("            required: true,"));
                 }
             }
-            else if (typeof(Boolean) == property.PropertyType || typeof(Boolean?) == property.PropertyType)
+            else if (typeof(Boolean) == propertyType || typeof(Boolean?) == propertyType)
             {
                 builder.AppendLine(string.Format("            type: 'Boolean',"));
-                if (typeof(Boolean) == property.PropertyType ||
+                if (typeof(Boolean) == propertyType ||
                     property.GetCustomAttribute<RequiredAttribute>() != null)
                 {
                     builder.AppendLine(string.Format("            required: true,"));
                 }
             }
-            else if (typeof(int) == property.PropertyType
-                || typeof(int?) == property.PropertyType
-                || typeof(decimal) == property.PropertyType
-                || typeof(decimal?) == property.PropertyType
+            else if (typeof(int) == propertyType
+                || typeof(int?) == propertyType
+                || typeof(decimal) == propertyType
+                || typeof(decimal?) == propertyType
                 )
             {
                 builder.AppendLine(string.Format("            type: 'Number',"));
-                if (typeof(int) == property.PropertyType ||
-                    typeof(decimal) == property.PropertyType ||
-                    typeof(bool) == property.PropertyType ||
+                if (typeof(int) == propertyType ||
+                    typeof(decimal) == propertyType ||
+                    typeof(bool) == propertyType ||
                     property.GetCustomAttribute<RequiredAttribute>() != null)
                 {
                     builder.AppendLine(string.Format("            required: true,"));
                 }
             }
-            else if (property.PropertyType.ToWithoutNullableType().IsEnum)
+            else if (propertyType.ToWithoutNullableType().IsEnum)
             {
                 builder.AppendLine(string.Format("            type: 'Number',"));
-                if (!property.PropertyType.IsGenericType)
+                if (!propertyType.IsGenericType)
                 {
                     builder.AppendLine(string.Format("            required: true,"));
                 }
@@ -214,7 +220,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             else
             {
-                throw new NotSupportedException("Type: " + property.PropertyType + " is not supported.");
+                throw new NotSupportedException("Type: " + propertyType + " is not supported.");
             }
 
             builder.AppendLine(string.Format("            column: '{0}',", property.Name.ToLower()));
@@ -223,7 +229,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 builder.AppendLine(string.Format("            primaryKey: true,"));
 
-                if (typeof(int) == property.PropertyType)
+                if (typeof(int) == propertyType)
                 {
                     builder.AppendLine(string.Format("            autoIncrement: true,"));
                 }

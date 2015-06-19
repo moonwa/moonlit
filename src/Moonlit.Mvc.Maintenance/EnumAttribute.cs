@@ -5,14 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Moonlit.Mvc.Maintenance
-{
-    public class MyA : AuthorizeAttribute
-    {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
-        {
-            return httpContext.User.IsInRole(this.Roles);
-        }
-    }
+{ 
     public class EnumAttribute : Attribute, IMetadataAware
     {
         public void OnMetadataCreated(ModelMetadata metadata)

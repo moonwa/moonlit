@@ -6,5 +6,6 @@ namespace Moonlit.Mvc.Maintenance
     {
         public bool Ignore { get; set; }
         public string Name { get; set; }
+        public Type ExportAsType { get; set; }
     }
 }

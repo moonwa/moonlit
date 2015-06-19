@@ -9,7 +9,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [Authorize(Roles = MaintModule.PrivilegeRole, Order = 1000)]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeRole )]
     public class RoleController : MaintControllerBase
     {
         private readonly IPrivilegeLoader _privilegeLoader;

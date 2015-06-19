@@ -6,7 +6,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [Authorize(Roles = MaintModule.PrivilegeAdminUser, Order = 1000)]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeAdminUser )]
     public class SiteController : MaintControllerBase
     {
         private readonly ICacheManager _cacheManager;

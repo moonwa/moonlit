@@ -7,7 +7,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [Authorize()]
+    [MoonlitAuthorize()]
     public class ProfileController : MaintControllerBase
     {
         [RequestMapping("settings", "Profile/Settings")]

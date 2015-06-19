@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [Authorize(Roles = MaintModule.PrivilegeCultureText, Order = 1000)]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeCultureText )]
     public class CultureTextController : MaintControllerBase
     {
         private readonly IMaintDomainService _maintDomainService;

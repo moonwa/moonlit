@@ -2,8 +2,7 @@
 using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
-{
-    [Authorize]
+{ 
     public class SignOutController : MaintControllerBase
     {
         private readonly Authenticate _authenticate; 
