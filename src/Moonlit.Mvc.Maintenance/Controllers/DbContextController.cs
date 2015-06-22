@@ -76,7 +76,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                         builder.AppendLine(string.Format("    instanceActions: requireOptional('{0}.instances.js') || {{}},", tableType.Name.ToLower()));
 
                         builder.AppendLine("}");
-                        System.IO.File.WriteAllText(Path.Combine(zipSrcFolder, tableType.Name.ToLower() + ".js"), builder.ToString());
+                        System.IO.File.WriteAllText(Path.Combine(zipSrcFolder, tableType.Name.ToLower() + ".model.js"), builder.ToString());
                     }
                 }
                 ZipFile.CreateFromDirectory(zipSrcFolder, zipFileName);

@@ -10,14 +10,21 @@ namespace Moonlit.Mvc.Maintenance
         public void OnException(ExceptionContext filterContext)
         {
 
-            var db = DependencyResolver.Current.GetService<IMaintDbRepository>();
-            db.Add(new ExceptionLog()
+            try
             {
-                RouteData = JsonConvert.SerializeObject(filterContext.RouteData.Values),
-                Exception = filterContext.Exception.ToString(),
-                CreationTime = DateTime.Now,
-            });
-            db.SaveChanges();
+                var db = DependencyResolver.Current.GetService<IMaintDbRepository>();
+                db.Add(new ExceptionLog()
+                {
+                    RouteData = JsonConvert.SerializeObject(filterContext.RouteData.Values),
+                    Exception = filterContext.Exception.ToString(),
+                    CreationTime = DateTime.Now,
+                });
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
