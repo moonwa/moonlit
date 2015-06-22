@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Globalization;
@@ -35,7 +36,9 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 var zipFileName = zipSrcFolder + ".zip";
 
                 Directory.CreateDirectory(zipSrcFolder);
-
+                Directory.CreateDirectory(Path.Combine(zipSrcFolder, "models"));
+                Directory.CreateDirectory(Path.Combine(zipSrcFolder, "boundeds"));
+                List<Type> boundedTypes = new List<Type>();
                 foreach (var id in ids)
                 {
                     var dbContextType = Type.GetType(id);
@@ -43,7 +46,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                         .Where(x =>
                             x.PropertyType.IsGenericType &&
                             x.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>));
-
 
                     foreach (var table in tables)
                     {
@@ -59,7 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                         for (int i = 0; i < columns.Count; i++)
                         {
                             var column = columns[i];
-                            var propertyName = column.Name[0].ToString().ToLower() + column.Name.Substring(1);
+                            var propertyName = GetFieldName(column.Name);
                             builder.AppendLine(string.Format("        {0}: {{", propertyName));
                             BuildNodeType(column, builder);
                             if (i == columns.Count - 1)
@@ -70,14 +72,28 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                             {
                                 builder.AppendLine("        },");
                             }
+
+                            var propType = column.PropertyType.ToWithoutNullableType();
+                            if (propType.IsEnum)
+                            {
+                                if (!boundedTypes.Contains(propType))
+                                {
+                                    boundedTypes.Add(propType);
+                                }
+                            }
                         }
                         builder.AppendLine("    },");
                         builder.AppendLine(string.Format("    constructor: requireOptional('./{0}.ctor.js') || function(){{}},", tableType.Name.ToLower()));
                         builder.AppendLine(string.Format("    instanceActions: requireOptional('./{0}.instances.js') || {{}},", tableType.Name.ToLower()));
 
                         builder.AppendLine("}");
-                        System.IO.File.WriteAllText(Path.Combine(zipSrcFolder, tableType.Name.ToLower() + ".model.js"), builder.ToString());
+                        System.IO.File.WriteAllText(Path.Combine(zipSrcFolder, "models", tableType.Name.ToLower() + ".model.js"), builder.ToString());
                     }
+                }
+                foreach (var boundedType in boundedTypes)
+                {
+                    var text = BuildBoundedType(boundedType);
+                    System.IO.File.WriteAllText(Path.Combine(zipSrcFolder, "boundeds", boundedType.Name.ToLower() + ".js"), text);
                 }
                 ZipFile.CreateFromDirectory(zipSrcFolder, zipFileName);
                 return File(System.IO.File.ReadAllBytes(zipFileName), "application/zip", "dbcontext.zip");
@@ -85,6 +101,45 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
         }
 
+        private string BuildBoundedType(Type boundedType)
+        {
+            boundedType = boundedType.ToWithoutNullableType();
+            StringBuilder buffer = new StringBuilder();
+            buffer.Append("exports = module.exports = {");
+            string[] fields = Enum.GetNames(boundedType);
+            Array values = Enum.GetValues(boundedType);
+            for (int i = 0; i < fields.Length; i++)
+            {
+                string field = fields[i];
+                buffer.AppendFormat("    \"{0}\" : {1},", GetFieldName(field), (int)values.GetValue(i));
+                buffer.AppendLine();
+            }
+            buffer.Append("    _items: [");
+            for (int i = 0; i < fields.Length; i++)
+            {
+                string field = fields[i];
+                buffer.AppendLine("        {");
+                buffer.AppendLine(string.Format("            \"text\" : \"${{{0}.{1}}}\",", boundedType.Name, field));
+                buffer.AppendLine(string.Format("            \"name\" : \"{0}\",", GetFieldName(field)));
+                buffer.AppendLine(string.Format("            \"value\" : {0},", (int)values.GetValue(i)));
+                buffer.AppendLine(string.Format("            \"sort\" : {0}", i));
+                buffer.Append("        }");
+                if (i != fields.Length - 1)
+                {
+                    buffer.Append(",");
+                }
+                buffer.AppendLine();
+            }
+            buffer.Append("    ]");
+
+            buffer.Append("}");
+            return buffer.ToString();
+        }
+
+        string GetFieldName(string s)
+        {
+            return s[0].ToString().ToLower() + s.Substring(1);
+        }
         private void BuildNodeType(PropertyInfo property, StringBuilder builder)
         {
             if (typeof(string) == property.PropertyType)
@@ -166,6 +221,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             if (string.Equals(property.Name, property.DeclaringType.Name + "id", StringComparison.OrdinalIgnoreCase))
             {
                 builder.AppendLine(string.Format("            primaryKey: true,"));
+
+                if (typeof(int) == property.PropertyType)
+                {
+                    builder.AppendLine(string.Format("            autoIncrement: true,"));
+                }
             }
             if (property.GetCustomAttribute<DisplayAttribute>() != null)
             {
