@@ -72,8 +72,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                             }
                         }
                         builder.AppendLine("    },");
-                        builder.AppendLine(string.Format("    constructor: requireOptional('{0}.ctor.js') || function(){{}},", tableType.Name.ToLower()));
-                        builder.AppendLine(string.Format("    instanceActions: requireOptional('{0}.instances.js') || {{}},", tableType.Name.ToLower()));
+                        builder.AppendLine(string.Format("    constructor: requireOptional('./{0}.ctor.js') || function(){{}},", tableType.Name.ToLower()));
+                        builder.AppendLine(string.Format("    instanceActions: requireOptional('./{0}.instances.js') || {{}},", tableType.Name.ToLower()));
 
                         builder.AppendLine("}");
                         System.IO.File.WriteAllText(Path.Combine(zipSrcFolder, tableType.Name.ToLower() + ".model.js"), builder.ToString());
@@ -110,9 +110,9 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 var exgularAttr = property.GetCustomAttribute<RegularExpressionAttribute>();
                 if (exgularAttr != null)
                 {
-                    builder.AppendLine(string.Format("            regex: {{ expr: '{0}', msg: '${1}'}},", exgularAttr.Pattern, exgularAttr.ErrorMessageResourceName));
+                    var defaultRegularError = string.Format("{0}.{1}.regular", property.DeclaringType.Name, property.Name);
+                    builder.AppendLine(string.Format("            regex: {{ expr: '{0}', msg: '${{{1}}}'}},", exgularAttr.Pattern.Replace(@"\", @"\\"), exgularAttr.ErrorMessageResourceName ?? defaultRegularError));
                 }
-
             }
             else if (typeof(DateTime) == property.PropertyType || typeof(DateTime?) == property.PropertyType)
             {
@@ -123,12 +123,19 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                     builder.AppendLine(string.Format("            required: true,"));
                 }
             }
+            else if (typeof(Boolean) == property.PropertyType || typeof(Boolean?) == property.PropertyType)
+            {
+                builder.AppendLine(string.Format("            type: 'Boolean',"));
+                if (typeof(Boolean) == property.PropertyType ||
+                    property.GetCustomAttribute<RequiredAttribute>() != null)
+                {
+                    builder.AppendLine(string.Format("            required: true,"));
+                }
+            }
             else if (typeof(int) == property.PropertyType
                 || typeof(int?) == property.PropertyType
                 || typeof(decimal) == property.PropertyType
                 || typeof(decimal?) == property.PropertyType
-                || typeof(bool) == property.PropertyType
-                || typeof(bool?) == property.PropertyType
                 )
             {
                 builder.AppendLine(string.Format("            type: 'Number',"));
@@ -156,6 +163,10 @@ namespace Moonlit.Mvc.Maintenance.Controllers
 
             builder.AppendLine(string.Format("            column: '{0}',", property.Name.ToLower()));
 
+            if (string.Equals(property.Name, property.DeclaringType.Name + "id", StringComparison.OrdinalIgnoreCase))
+            {
+                builder.AppendLine(string.Format("            primaryKey: true,"));
+            }
             if (property.GetCustomAttribute<DisplayAttribute>() != null)
             {
                 var uiculture = Thread.CurrentThread.CurrentUICulture;
