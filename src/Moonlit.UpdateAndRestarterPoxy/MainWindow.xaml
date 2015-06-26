@@ -3,22 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:updateAndRestarterPoxy="clr-namespace:Moonlit.UpdateAndRestarterPoxy"
         
-        Title="Updater" Height="160" Width="500" ResizeMode="NoResize">
+        Title="Updater" Height="290" Width="300" ResizeMode="NoResize">
     <Window.DataContext>
-        <updateAndRestarterPoxy:MainWindowModel ></updateAndRestarterPoxy:MainWindowModel>   
+        <updateAndRestarterPoxy:MainWindowModel ></updateAndRestarterPoxy:MainWindowModel>
     </Window.DataContext>
-    <Border Margin="8">
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Status}"></TextBlock>
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button Command="{Binding UpdateCommand}" Content="{Binding UpdateCommand.Text}"></Button>
-                <Button Command="{Binding DoneCommand}" Content="{Binding DoneCommand.Text}"></Button>
+    <DockPanel Background="#eee">
+        <Border DockPanel.Dock="Top" Height="60px">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFAAAAAA" Offset="0"/>
+                    <GradientStop Color="#FF888888" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18">系统升级</TextBlock>
+        </Border>
+        <Border DockPanel.Dock="Bottom" Height="78px" Padding="8">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFA5A5A5" Offset="0"/>
+                    <GradientStop Color="#FF858585" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Center" >
+                <Button Command="{Binding UpdateCommand}" Content="{Binding UpdateCommand.Text}" Height="32" Width="170"></Button>
+                <Button Command="{Binding DoneCommand}" Content="{Binding DoneCommand.Text}"  Height="32" Width="170"></Button>
             </StackPanel>
-        </Grid>
-    </Border>
+        </Border>
+        <TextBlock DockPanel.Dock="Top" Foreground="#b0b0b0" Margin="8 0 8 0">升级进度</TextBlock>
+        <Border Background="#fff" BorderThickness="1" BorderBrush="#c9c9c9" CornerRadius="4" Margin="8">
+            <TextBlock Text="{Binding Status}" Foreground="#666" Padding="8"></TextBlock>
+        </Border>
+    </DockPanel>
+
 </Window>
