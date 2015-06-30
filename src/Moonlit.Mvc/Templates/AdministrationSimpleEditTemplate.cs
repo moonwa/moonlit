@@ -9,8 +9,7 @@ namespace Moonlit.Mvc.Templates
 {
     public class AdministrationSimpleEditTemplate : Template
     {
-        public object Model { get; set; }
-        public override string ViewName { get { return "templates/administration/SimpleEdit"; } }
+        public object Model { get; set; } 
         public string FormTitle { get; set; }
         public AdministrationSimpleEditTemplate(object model)
             : this()

@@ -13,7 +13,7 @@ namespace Moonlit.Mvc
             return Name;
         }
         private Dictionary<Type, string> _control2Templates = new Dictionary<Type, string>();
-
+ 
         public void RegisterControl(Type controlType, string template)
         {
             _control2Templates[controlType] = template;

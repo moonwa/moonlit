@@ -49,6 +49,7 @@ namespace Moonlit.Mvc.Maintenance
             builder.RegisterType<MaintModuleConfiguration>().As<IModuleConfiguration>();
             builder.RegisterType<Authenticate>().As<Authenticate>();
             builder.RegisterType<ReflectionSitemapsLoader>().As<ISitemapsLoader>();
+            builder.RegisterType<ReflectionDashboardIconLoader>().As<IDashboardIconLoader>();
             builder.Register(context => new DefaultThemeLoader(_defaultThemeName)).As<IThemeLoader>();
             builder.RegisterType<DbCultureTextLoader>().As<ILanguageLoader>();
             builder.RegisterType<MaintDbContextMaintDbRepository>().As<IMaintDbRepository>().InstancePerDependency();

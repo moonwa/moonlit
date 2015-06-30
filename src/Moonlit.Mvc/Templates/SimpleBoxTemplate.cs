@@ -9,8 +9,6 @@ namespace Moonlit.Mvc.Templates
 {
     public class SimpleBoxTemplate : Template
     { 
-        public override string ViewName { get { return "templates/SimpleBox"; } }
-
         public SimpleBoxTemplate( )
         {
             Fields = new Field[0];

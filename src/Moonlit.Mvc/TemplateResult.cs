@@ -25,7 +25,7 @@ namespace Moonlit.Mvc
             {
                 throw new Exception("请启用主题");
             }
-            this.ViewName = theme.Name + "/" + _template.ViewName;
+            this.ViewName = theme.ResolveControl(_template.GetType());
             _template.OnReadyRender(context);
             base.ExecuteResult(context);
         }

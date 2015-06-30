@@ -13,8 +13,7 @@ namespace Moonlit.Mvc.Templates
 
     public class AdministrationSimpleListTemplate : Template
     {
-        public IQueryable Queryable { get; set; }
-        public override string ViewName { get { return "templates/administration/SimpleList"; } }
+        public IQueryable Queryable { get; set; } 
         public string QueryPanelTitle { get; set; }
         public AdministrationSimpleListTemplate()
             : this(null)

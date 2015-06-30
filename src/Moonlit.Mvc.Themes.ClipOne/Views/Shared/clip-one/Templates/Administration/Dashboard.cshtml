@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "layout_administration.cshtml";
+}
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Moonlit.Mvc
+@using Moonlit.Mvc.Controls
+@using Moonlit.Mvc.Html
+@using Control = Moonlit.Mvc.Control
+@model Moonlit.Mvc.Templates.AdministrationDashboardTemplate
+
+<div class="row">
+    @foreach (var dashboardIcon in Model.DashboardIcons.Items)
+    {
+        <div class="col-sm-4">
+            <div class="core-box">
+                <div class="heading">
+                    <i class="clip-user-4 circle-icon circle-green"></i>
+                    <h2>@dashboardIcon.Text</h2>
+                </div>
+                <div class="content">
+                    @dashboardIcon.Description
+                </div>
+                <a class="view-more" href="#">
+                    更多 <i class="clip-arrow-right-2"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        &nbsp;
+    </div>
+</div>

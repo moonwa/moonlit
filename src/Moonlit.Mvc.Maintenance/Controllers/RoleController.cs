@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
 
         [RequestMapping("roles", "role")]
         [SitemapNode(Parent = "BasicData", ResourceType = typeof(CultureTextResources), Text = "RoleList")]
+        [Display(Name = "角色管理", Description = "角色管理描述，这是一段很长的描述")]
         public ActionResult Index(RoleListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));

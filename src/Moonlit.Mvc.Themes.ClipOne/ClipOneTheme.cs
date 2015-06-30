@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
+using Moonlit.Mvc.Templates;
 using Moonlit.Mvc.Url;
 using MultiSelectList = Moonlit.Mvc.Controls.MultiSelectList;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
@@ -11,6 +12,11 @@ namespace Moonlit.Mvc.ClipOne
     {
         public ClipOneTheme()
         {
+            this.RegisterControl(typeof(SimpleBoxTemplate), ThemeName + "/Templates/SimpleBox");
+            this.RegisterControl(typeof(AdministrationDashboardTemplate), ThemeName + "/templates/administration/Dashboard");
+            this.RegisterControl(typeof(AdministrationSimpleEditTemplate), ThemeName + "/templates/administration/SimpleEdit");
+            this.RegisterControl(typeof(AdministrationSimpleListTemplate), ThemeName + "/templates/administration/SimpleList");
+
             this.RegisterControl(typeof(List), ThemeName + "/Controls/List");
             this.RegisterControl(typeof(TextBox), ThemeName + "/Controls/TextBox");
             this.RegisterControl(typeof(MultiLineTextBox), ThemeName + "/Controls/MultiLineTextBox");

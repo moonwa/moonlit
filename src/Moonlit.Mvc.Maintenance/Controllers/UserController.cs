@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     {
         [RequestMapping("users", "user")]
         [SitemapNode(Parent = "BasicData", ResourceType = typeof(CultureTextResources), Text = "AdminUserList")]
+        [Display(Name = "用户管理", Description = "用户管理描述，这是一段很长的描述")]
         public ActionResult Index(AdminUserListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));

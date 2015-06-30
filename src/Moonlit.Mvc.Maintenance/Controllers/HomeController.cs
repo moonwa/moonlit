@@ -1,16 +1,18 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using Moonlit.Mvc.Maintenance.Models;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {  
-    [Authorize]
-    public class HomeController : MoonlitController
+    [Authorize(Order = 1000)]
+    public class DashboardController : MaintControllerBase
     {
-
+        // GET: Dashboard
         [RequestMapping("Home", "")]
-        public ActionResult Index()
+        [DashboardIcon]
+        public ActionResult Index(DashboardModel model)
         {
-            return RedirectToRequestMapping("users", null);
-        }
-
+            return Template(model.CreateTemplate(Request.RequestContext));
+        } 
     }
 }

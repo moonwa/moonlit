@@ -102,6 +102,9 @@
     <Compile Include="Controls\PasswordBox.cs" />
     <Compile Include="Controls\SelectListItem.cs" />
     <Compile Include="Controls\MultiLineTextBox.cs" />
+    <Compile Include="DashboardIcon.cs" />
+    <Compile Include="DashboardIconAttribute.cs" />
+    <Compile Include="DashboardIcons.cs" />
     <Compile Include="DefaultThemeLoader.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Controls\Pager.cs" />
     <Compile Include="FormActionAttribute.cs" />
     <Compile Include="HtmlHelperHelper.cs" />
+    <Compile Include="IDashboardIconLoader.cs" />
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="Privilege.cs" />
     <Compile Include="PrivilegeAttribute.cs" />
     <Compile Include="Privileges.cs" />
+    <Compile Include="ReflectionDashboardIconLoader.cs" />
     <Compile Include="ReflectionPrivilegeLoader.cs" />
     <Compile Include="ReflectionSitemapsLoader.cs" />
     <Compile Include="RequestMapping.cs" />
@@ -162,6 +167,7 @@
     <Compile Include="Tasks.cs" />
     <Compile Include="TaskStatus.cs" />
     <Compile Include="TemplateResult.cs" />
+    <Compile Include="Templates\AdministrationDashboardTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleListTemplate.cs" />
     <Compile Include="Control.cs" />

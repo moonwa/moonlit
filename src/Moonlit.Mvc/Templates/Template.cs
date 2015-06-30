@@ -8,7 +8,6 @@ namespace Moonlit.Mvc.Templates
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public abstract string ViewName { get; }
         public string PageName { get; set; }
         public ISite Site { get; set; }
 

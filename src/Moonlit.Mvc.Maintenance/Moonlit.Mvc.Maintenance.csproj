@@ -136,9 +136,10 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="CultureAttribute.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Properties\CultureTextResources.cs" />
     <Compile Include="DbCultureTextLoader.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
     <Compile Include="Domains\IMaintDbRepository.cs" />
     <Compile Include="Domains\MaintDbContextMaintDbRepository.cs" />
