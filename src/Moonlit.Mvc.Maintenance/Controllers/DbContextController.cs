@@ -61,7 +61,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                         for (int i = 0; i < columns.Count; i++)
                         {
                             var column = columns[i];
-                            var propertyName = GetFieldName(column.Name);
+                            var attr = column.GetCustomAttribute<DbContextExportAttribute>();
+                            var propertyName = attr != null && !string.IsNullOrEmpty(attr.Name) ? GetFieldName(attr.Name) : GetFieldName(column.Name);
                             builder.AppendLine(string.Format("        {0}: {{", propertyName));
                             BuildNodeType(column, builder);
                             if (i == columns.Count - 1)
