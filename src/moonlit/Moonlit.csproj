@@ -122,7 +122,8 @@
     <Compile Include="Data\DbDataReaderExtensions.cs" />
     <Compile Include="DictionaryObject.cs" />
     <Compile Include="DomainTypeResolver.cs" />
-    <Compile Include="Extensions\FlashExtensions.cs" />
+    <Compile Include="Extensions\DecimalHelper.cs" />
+    <Compile Include="Extensions\FlashHelper.cs" />
     <Compile Include="HierarchicalTextValuePair.cs" />
     <Compile Include="IFlash.cs" />
     <Compile Include="ILanguageLoader.cs" />
@@ -236,8 +237,8 @@
     <Compile Include="PropertyErrors.cs" />
     <Compile Include="PropertyErrorsException.cs" />
     <Compile Include="ByteArrayHelper.cs" />
-    <Compile Include="DateTimeHelper.cs" />
-    <Compile Include="DictionaryHelper.cs" />
+    <Compile Include="Extensions\DateTimeHelper.cs" />
+    <Compile Include="Extensions\DictionaryHelper.cs" />
     <Compile Include="Caching\ICacheManager.cs" />
     <Compile Include="IntegerHelper.cs" />
     <Compile Include="IO\DictionaryXmlSource.cs" />
@@ -269,7 +270,7 @@
     <Compile Include="Diagnostics\NotificationTracker.cs" />
     <Compile Include="TextValuePair.cs" />
     <Compile Include="TypeResolverBase.cs" />
-    <Compile Include="UriBuilderHelper.cs" />
+    <Compile Include="Extensions\UriBuilderHelper.cs" />
     <Compile Include="Guards\SupportInitializeGuard.cs" />
     <Compile Include="IdNamePair.cs" />
     <Compile Include="IDependencyResolver.cs" />
@@ -282,7 +283,7 @@
     <Compile Include="Runtime\Serialization\StringSerializer.cs" />
     <Compile Include="Security\RsaHelper.cs" />
     <Compile Include="Services\Spelling\ISpelling.cs" />
-    <Compile Include="DependencyResolverHelper.cs" />
+    <Compile Include="Extensions\DependencyResolverHelper.cs" />
     <Compile Include="PropertyChangeTracker.cs" />
     <Compile Include="Collections\ReaderWriterCache.cs" />
     <Compile Include="Configuration\ConsoleParameter\Parameter.cs" />
@@ -347,7 +348,6 @@
     <Compile Include="UniqueAttribute.cs" />
     <Compile Include="Validations\EmailAttribute.cs" />
     <Compile Include="Validations\MobileAttribute.cs" />
-    <Compile Include="VersionAttribute.cs" />
     <Compile Include="Reflection\AssemblyExtension.cs" />
     <Compile Include="Reflection\EnumDescriptor.cs" />
     <Compile Include="Reflection\TypeExtension.cs" />
