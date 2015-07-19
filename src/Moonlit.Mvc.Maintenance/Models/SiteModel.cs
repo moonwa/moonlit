@@ -34,6 +34,11 @@ namespace Moonlit.Mvc.Maintenance.Models
             get { return GetValue("DefaultCulture", 0); }
             set { SetValue("DefaultCulture", value.ToString()); }
         }
+        public int MaxSignInFailTimes
+        {
+            get { return GetValue("MaxSignInFailTimes", 5); }
+            set { SetValue("MaxSignInFailTimes", value.ToString()); }
+        }
 
         public const string VersionFirst = "0.1";
 
@@ -76,5 +81,6 @@ namespace Moonlit.Mvc.Maintenance.Models
         {
             get { return CopyRight; }
         }
+         
     }
 }

@@ -15,7 +15,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [MoonlitAuthorize(Roles = MaintModule.PrivilegeCulture )]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeCulture)]
     public class DbContextController : MaintControllerBase
     {
         [RequestMapping("dbcontexts", "devtools/dbcontext")]
@@ -149,6 +149,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 propertyType = attr.ExportAsType ?? propertyType;
             }
+
             if (typeof(string) == propertyType)
             {
                 builder.AppendLine(string.Format("            type: 'String',"));
@@ -222,8 +223,12 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 throw new NotSupportedException("Type: " + propertyType + " is not supported.");
             }
-
-            builder.AppendLine(string.Format("            column: '{0}',", property.Name.ToLower()));
+            var columnName = property.Name;
+            if (attr != null && !string.IsNullOrEmpty(attr.Name))
+            {
+                columnName = attr.Name;
+            }
+            builder.AppendLine(string.Format("            column: '{0}',", columnName.ToLower()));
 
             if (string.Equals(property.Name, property.DeclaringType.Name + "id", StringComparison.OrdinalIgnoreCase))
             {

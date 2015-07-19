@@ -54,6 +54,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var db = MaintDbContext;
             var siteModel = new SiteModel(db.SystemSettings);
             siteModel.SiteName = model.SiteName;
+            siteModel.MaxSignInFailTimes = model.MaxSignInFailTimes;
             siteModel.DefaultCulture = (int)model.DefaultCulture;
             siteModel.Save(db);
             await db.SaveChangesAsync();

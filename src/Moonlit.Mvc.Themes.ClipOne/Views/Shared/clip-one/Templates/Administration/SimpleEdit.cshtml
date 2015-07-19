@@ -9,12 +9,7 @@
 @using Control = Moonlit.Mvc.Control
 @model Moonlit.Mvc.Templates.AdministrationSimpleEditTemplate
 
-@using (Html.BeginForm(
-     Html.ViewContext.RouteData.GetRequiredString("action"), Html.ViewContext.RouteData.GetRequiredString("controller"),
-     FormMethod.Post,
-     new { enctype = "multipart/form-data" }
-     ))
-{
+<form enctype="multipart/form-data" method="POST">
     <div class="row">
         <div class="col-sm-12">
             @Html.Render(new Panel()
@@ -22,12 +17,12 @@
                 Title = Model.FormTitle,
                 IsCollapsable = true,
                 IsClosable = false,
-                  
+
                 Control = new Form()
                 {
                     Type = FormType.Horizontal  ,
                     Control  =  Model.Fields.Combine()
-                } 
+                }
             })
         </div>
     </div>
@@ -41,5 +36,4 @@
             </div>
         </div>
     </div>
-
-}
+</form>

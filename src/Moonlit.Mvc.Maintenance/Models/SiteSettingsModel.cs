@@ -24,6 +24,9 @@ namespace Moonlit.Mvc.Maintenance.Models
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
         public int? DefaultCulture { get; set; }
 
+        [Display(ResourceType = typeof(CultureTextResources), Name = "SiteMaxSignInFailTimes")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        public int MaxSignInFailTimes { get; set; }
         public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
         {
             var cultures = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem()
@@ -59,6 +62,17 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Control = new SelectList
                         {
                             Items = cultures
+                        }
+                    } , 
+                    new Field
+                    {
+                        Width = 6,
+                        Label = CultureTextResources.SiteMaxSignInFailTimes,
+                        FieldName = "MaxSignInFailedTimes",
+                        Control = new TextBox
+                        {
+                            MaxLength = 12,
+                            Value = MaxSignInFailTimes.ToString(),
                         }
                     } 
                 },

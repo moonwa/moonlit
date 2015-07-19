@@ -30,6 +30,15 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public ActionResult SignIn(SignInModel model, string returnUrl)
         {
+            var siteModel = new SiteModel(MaintDbContext.SystemSettings);
+            var cacheKey = "signin_fail_times:" + model.UserName + ":" + Request.UserHostAddress;
+
+            int count = _cacheManager.Get<int?>(cacheKey) ?? siteModel.MaxSignInFailTimes;
+            if (count == 0)
+            {
+                this.ModelState.AddModelError("UserName", "您已经失败 " + siteModel.MaxSignInFailTimes + " 次，请明天再试。");
+                return Template(model.CreateTemplate());
+            }
 
             if (!ModelState.IsValid)
             {
@@ -39,19 +48,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var adminUser = db.Users.FirstOrDefault(x => x.LoginName == model.UserName);
             if (adminUser == null)
             {
-                this.ModelState.AddModelError("UserName", "用户不存在");
+                this.ModelState.AddModelError("UserName", "用户名或密码错");
                 return Template(model.CreateTemplate());
             }
-            int count = _cacheManager.Get<int?>(HttpContext.Request.UserHostAddress + ":" + adminUser.UserName) ?? 5;
-            if (count == 0)
-            {
-                this.ModelState.AddModelError("UserName", "您已经失败 5 次，请明天再试。");
-                return Template(model.CreateTemplate());
-            }
+      
             if (adminUser.HashPassword(model.Password) != adminUser.Password)
             {
                 _cacheManager.Set(HttpContext.Request.UserHostAddress + ":" + adminUser.UserName, count - 1, TimeSpan.FromDays(1));
-                this.ModelState.AddModelError("Password", "密码错误");
+                this.ModelState.AddModelError("Password", "用户名或密码错");
                 return Template(model.CreateTemplate());
             }
             var privileges = adminUser.IsSuper ? _privilegeLoader.Load().Items.Select(x => x.Name).ToArray() : adminUser.Roles.ToList().SelectMany(x => x.GetPrivileges()).ToArray();

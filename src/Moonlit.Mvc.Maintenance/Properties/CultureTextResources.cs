@@ -187,6 +187,10 @@
         {
             get { return LanguageLoader.Get("Site.DefaultCulture"); }
         }
+        public static string SiteMaxSignInFailTimes
+        {
+            get { return LanguageLoader.Get("Site.MaxSignInFailTimes"); }
+        }
         public static string ProfileInfo
         {
             get { return LanguageLoader.Get("Profile.Info"); }

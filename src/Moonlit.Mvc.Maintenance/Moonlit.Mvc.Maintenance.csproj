@@ -136,6 +136,10 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="CultureAttribute.cs" />
+    <Compile Include="Migrations\201507090847570_Increase_SystemSetting_Value_Length.cs" />
+    <Compile Include="Migrations\201507090847570_Increase_SystemSetting_Value_Length.Designer.cs">
+      <DependentUpon>201507090847570_Increase_SystemSetting_Value_Length.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Properties\CultureTextResources.cs" />
@@ -198,6 +202,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506181244588_Init.resx">
       <DependentUpon>201506181244588_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507090847570_Increase_SystemSetting_Value_Length.resx">
+      <DependentUpon>201507090847570_Increase_SystemSetting_Value_Length.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

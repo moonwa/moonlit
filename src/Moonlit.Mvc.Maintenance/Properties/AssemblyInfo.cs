@@ -39,8 +39,8 @@ using Moonlit.Mvc.Maintenance.Properties;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.2.5")]
-[assembly: AssemblyFileVersion("1.0.2.5")]
+[assembly: AssemblyVersion("1.0.2.8")]
+[assembly: AssemblyFileVersion("1.0.2.8")]
 
 
 [assembly: Privilege(Text = "PrivilegeAdminUser", Name = MaintModule.PrivilegeAdminUser, ResourceType = typeof(CultureTextResources))]

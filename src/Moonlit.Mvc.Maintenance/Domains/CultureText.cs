@@ -9,5 +9,6 @@ namespace Moonlit.Mvc.Maintenance.Domains
         public string Name { get; set; }
         public int CultureId { get; set; }
         public string Text { get; set; }
+        public bool IsEdited { get; set; }
     }
 }

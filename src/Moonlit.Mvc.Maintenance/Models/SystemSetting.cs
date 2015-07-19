@@ -16,7 +16,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         public string Name { get; set; }
         [StringLength(100)]
         public string Category { get; set; }
-        [StringLength(1000)]
+        [StringLength(4000)]
         public string Value { get; set; }
     }
 }
