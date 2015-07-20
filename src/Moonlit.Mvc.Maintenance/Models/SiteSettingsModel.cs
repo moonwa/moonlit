@@ -13,6 +13,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void SetInnerObject(SiteModel siteModel)
         {
             SiteName = siteModel.SiteName;
+            MaxSignInFailTimes = siteModel.MaxSignInFailTimes;
             DefaultCulture = siteModel.DefaultCulture;
         }
 
@@ -68,7 +69,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     {
                         Width = 6,
                         Label = CultureTextResources.SiteMaxSignInFailTimes,
-                        FieldName = "MaxSignInFailedTimes",
+                        FieldName = "MaxSignInFailTimes",
                         Control = new TextBox
                         {
                             MaxLength = 12,

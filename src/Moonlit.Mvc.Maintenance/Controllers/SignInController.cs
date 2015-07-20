@@ -48,14 +48,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var adminUser = db.Users.FirstOrDefault(x => x.LoginName == model.UserName);
             if (adminUser == null)
             {
-                this.ModelState.AddModelError("UserName", "用户名或密码错");
+                this.ModelState.AddModelError("UserName", "用户名错");
                 return Template(model.CreateTemplate());
             }
       
             if (adminUser.HashPassword(model.Password) != adminUser.Password)
             {
-                _cacheManager.Set(HttpContext.Request.UserHostAddress + ":" + adminUser.UserName, count - 1, TimeSpan.FromDays(1));
-                this.ModelState.AddModelError("Password", "用户名或密码错");
+                _cacheManager.Set(cacheKey, count - 1, TimeSpan.FromDays(1));
+                this.ModelState.AddModelError("Password", "密码错");
                 return Template(model.CreateTemplate());
             }
             var privileges = adminUser.IsSuper ? _privilegeLoader.Load().Items.Select(x => x.Name).ToArray() : adminUser.Roles.ToList().SelectMany(x => x.GetPrivileges()).ToArray();
