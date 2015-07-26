@@ -11,7 +11,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class ProfileController : MaintControllerBase
     {
         [RequestMapping("settings", "Profile/Settings")]
-        [SitemapNode(ResourceType = typeof(CultureTextResources), Text = "ProfileSettings", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
+        [SitemapNode(ResourceType = typeof(MaintCultureTextResources), Text = "ProfileSettings", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
         public ActionResult Settings()
         {
             ProfileSettingsModel model = new ProfileSettingsModel();
@@ -41,13 +41,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
         }
         [RequestMapping("changepassword", "Profile/ChangePassword")]
-        [SitemapNode(ResourceType = typeof(CultureTextResources), Text = "ProfileChangePassword", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
+        [SitemapNode(ResourceType = typeof(MaintCultureTextResources), Text = "ProfileChangePassword", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
         public ActionResult ChangePassword()
         {
             var model = new ProfileChangePasswordModel();
@@ -72,14 +72,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             if (!string.Equals(user.HashPassword(model.OldPassword), user.Password, StringComparison.OrdinalIgnoreCase))
             {
-                ModelState.AddModelError("OldPassword", string.Format(CultureTextResources.ValidationError, CultureTextResources.ProfileChangePasswordOldPassword));
+                ModelState.AddModelError("OldPassword", string.Format(MaintCultureTextResources.ValidationError, MaintCultureTextResources.ProfileChangePasswordOldPassword));
                 return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
             }
             user.Password = user.HashPassword(model.NewPassword);
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));

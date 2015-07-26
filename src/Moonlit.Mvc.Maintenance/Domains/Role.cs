@@ -1,11 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
     public class Role
     {
         public int RoleId { get; set; }
+        [StringLength(32)]
         public string Name { get; set; }
+        [StringLength(8000)]
         public string Privileges { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsBuildIn { get; set; }

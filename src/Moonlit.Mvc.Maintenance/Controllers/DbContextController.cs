@@ -19,7 +19,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class DbContextController : MaintControllerBase
     {
         [RequestMapping("dbcontexts", "devtools/dbcontext")]
-        [SitemapNode(Parent = "DevTools", Text = "DevToolsDbContextList", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Parent = "DevTools", Text = "DevToolsDbContextList", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(DbContextListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));

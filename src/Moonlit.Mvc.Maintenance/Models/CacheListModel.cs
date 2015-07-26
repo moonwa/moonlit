@@ -41,15 +41,15 @@ namespace Moonlit.Mvc.Maintenance.Models
 
             return new AdministrationSimpleListTemplate(query)
             {
-                Title = CultureTextResources.CultureTextList,
-                Description = CultureTextResources.CultureTextListDescription,
-                QueryPanelTitle = CultureTextResources.PanelQuery,
+                Title = MaintCultureTextResources.CultureTextList,
+                Description = MaintCultureTextResources.CultureTextListDescription,
+                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 Criteria = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CacheName,
+                        Label = MaintCultureTextResources.CacheName,
                         FieldName = "Name",
                         Control = new TextBox
                         {
@@ -68,7 +68,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "Name",
-                            Header = CultureTextResources.CacheName,
+                            Header = MaintCultureTextResources.CacheName,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((dynamic) x.Target).Name
@@ -77,10 +77,10 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "Exist",
-                            Header = CultureTextResources.Null,
+                            Header = MaintCultureTextResources.Null,
                             CellTemplate = x => new Literal
                             {
-                                Text = ((dynamic) x.Target).IsNull == true ? CultureTextResources.Yes : CultureTextResources.No
+                                Text = ((dynamic) x.Target).IsNull == true ? MaintCultureTextResources.Yes : MaintCultureTextResources.No
                             }
                         }
                        
@@ -90,12 +90,12 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Search,
+                        Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
                     new Button
                     {
-                        Text = CultureTextResources.Clear,
+                        Text = MaintCultureTextResources.Clear,
                         ActionName = "Clear"
                     },  
                 },

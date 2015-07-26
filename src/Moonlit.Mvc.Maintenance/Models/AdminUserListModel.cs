@@ -48,15 +48,15 @@ namespace Moonlit.Mvc.Maintenance.Models
 
             return new AdministrationSimpleListTemplate(query)
             {
-                Title = CultureTextResources.AdminUserList,
-                Description = CultureTextResources.AdminUserListDescription,
-                QueryPanelTitle = CultureTextResources.PanelQuery,
+                Title = MaintCultureTextResources.AdminUserList,
+                Description = MaintCultureTextResources.AdminUserListDescription,
+                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 Criteria = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.Keyword,
+                        Label = MaintCultureTextResources.Keyword,
                         FieldName = "Keyword",
                         Control = new TextBox
                         {
@@ -67,7 +67,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserUserName,
+                        Label = MaintCultureTextResources.AdminUserUserName,
                         FieldName = "UserName",
                         Control = new TextBox
                         {
@@ -94,7 +94,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "LoginName",
-                            Header = CultureTextResources.AdminUserLoginName,
+                            Header = MaintCultureTextResources.AdminUserLoginName,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((User) x.Target).LoginName
@@ -103,7 +103,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "UserName",
-                            Header = CultureTextResources.AdminUserUserName,
+                            Header = MaintCultureTextResources.AdminUserUserName,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((User) x.Target).UserName
@@ -112,7 +112,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "Gender",
-                            Header = CultureTextResources.AdminUserGender,
+                            Header = MaintCultureTextResources.AdminUserGender,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((User) x.Target).Gender.ToDisplayString()
@@ -121,7 +121,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "DateOfBirth",
-                            Header =  CultureTextResources.AdminUserDateOfBirth,
+                            Header =  MaintCultureTextResources.AdminUserDateOfBirth,
                             CellTemplate = x => new Literal
                             {
                                 Text = string.Format("{0:yyyy-MM-dd}", ((User) x.Target).DateOfBirth)
@@ -130,15 +130,15 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "IsEnabled",
-                            Header =  CultureTextResources.AdminUserIsEnabled,
+                            Header =  MaintCultureTextResources.AdminUserIsEnabled,
                             CellTemplate = x => new Literal
                             {
-                                Text = ((User) x.Target).IsEnabled ? CultureTextResources.Yes : CultureTextResources.No,
+                                Text = ((User) x.Target).IsEnabled ? MaintCultureTextResources.Yes : MaintCultureTextResources.No,
                             }
                         },
                         new TableColumn
                         {
-                            Header =CultureTextResources.Operation,
+                            Header =MaintCultureTextResources.Operation,
                             CellTemplate = x =>
                             {
                                 var url = RequestMappings.Current.GetRequestMapping("edituser").MakeUrl(urlHelper, new {id= ((User) x.Target).UserId});
@@ -148,7 +148,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                                             new Link
                                             {
                                                 Style = LinkStyle.Normal,
-                                                Text = CultureTextResources.Edit, 
+                                                Text = MaintCultureTextResources.Edit, 
                                                 Url = url,
                                             }
                                         }
@@ -161,17 +161,17 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Search,
+                        Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
                     new Button
                     {
-                        Text = CultureTextResources.Disable,
+                        Text = MaintCultureTextResources.Disable,
                         ActionName = "Disable"
                     },
                     new Button
                     {
-                        Text = CultureTextResources.Enable,
+                        Text = MaintCultureTextResources.Enable,
                         ActionName = "Enable"
                     },
                 },
@@ -179,7 +179,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Link
                     {
-                        Text = CultureTextResources.New,
+                        Text = MaintCultureTextResources.New,
                         Url = RequestMappings.Current.GetRequestMapping("createuser").MakeUrl(urlHelper, null),
                     },
                 }

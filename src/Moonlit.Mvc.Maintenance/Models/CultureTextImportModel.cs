@@ -11,14 +11,14 @@ namespace Moonlit.Mvc.Maintenance.Models
 {
     public class CultureTextImportModel
     {  
-        [Display(ResourceType = typeof(CultureTextResources), Name = "Content")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Content")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Content { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "Overwrite")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Overwrite")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public bool Overwrite { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "CultureTextCulture")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public int? Culture { get; set; }
 
         public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
@@ -31,15 +31,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             }).ToList();
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.CultureTextImport,
-                Description = CultureTextResources.CultureTextImportDescription,
-                FormTitle = CultureTextResources.CultureTextInfo,
+                Title = MaintCultureTextResources.CultureTextImport,
+                Description = MaintCultureTextResources.CultureTextImportDescription,
+                FormTitle = MaintCultureTextResources.CultureTextInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.Content,
+                        Label = MaintCultureTextResources.Content,
                         FieldName = "Content",
                         Control = new MultiLineTextBox
                         {
@@ -50,7 +50,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.Overwrite,
+                        Label = MaintCultureTextResources.Overwrite,
                         FieldName = "Overwrite",
                         Control = new CheckBox()
                         {
@@ -61,7 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CultureTextCulture,
+                        Label = MaintCultureTextResources.CultureTextCulture,
                         FieldName = "Culture",
                         Control = new SelectList()
                         {
@@ -73,7 +73,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }

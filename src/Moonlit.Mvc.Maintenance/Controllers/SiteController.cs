@@ -19,7 +19,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("SiteSettings", "Site/Settings")]
-        [SitemapNode(Parent = "Site", ResourceType = typeof(CultureTextResources), Text = "SiteSettings")]
+        [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "SiteSettings")]
         public ActionResult Settings()
         {
             SiteSettingsModel model = new SiteSettingsModel();
@@ -27,7 +27,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
         }
         [RequestMapping("Caches", "Site/Caches")]
-        [SitemapNode(Parent = "Site", ResourceType = typeof(CultureTextResources), Text = "Cache")]
+        [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "Cache")]
         public ActionResult Index(CacheListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, _cacheManager, _cacheKeyManager));
@@ -61,7 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             MaintDomainService.ClearSystemSettingsCache();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return RedirectToAction("Settings");

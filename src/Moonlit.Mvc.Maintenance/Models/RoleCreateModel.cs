@@ -16,15 +16,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             Privileges = new string[0];
         }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "RoleName")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RoleName")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Name { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "RolePrivileges")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RolePrivileges")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string[] Privileges { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "RoleIsEnabled")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RoleIsEnabled")]
         public bool IsEnabled { get; set; }
 
         public Template CreateTemplate(RequestContext requestContext, IPrivilegeLoader privilegeLoader)
@@ -39,15 +39,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             }).ToArray();
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.RoleCreate,
-                Description = CultureTextResources.RoleCreateDescription,
-                FormTitle = CultureTextResources.RoleInfo,
+                Title = MaintCultureTextResources.RoleCreate,
+                Description = MaintCultureTextResources.RoleCreateDescription,
+                FormTitle = MaintCultureTextResources.RoleInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.RoleName,
+                        Label = MaintCultureTextResources.RoleName,
                         FieldName = "Name",
                         Control = new TextBox
                         {
@@ -58,7 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.RolePrivileges,
+                        Label = MaintCultureTextResources.RolePrivileges,
                         FieldName = "Privileges",
                         Control = new MultiSelectList
                         {
@@ -68,13 +68,13 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.RoleIsEnabled,
+                        Label = MaintCultureTextResources.RoleIsEnabled,
                         FieldName = "IsEnabled",
                         Control = new CheckBox()
                         {
                             Checked = IsEnabled,
                             Value = true.ToString(),
-                            Text=CultureTextResources.RoleIsEnabled,
+                            Text=MaintCultureTextResources.RoleIsEnabled,
                         }
                     },
                 },
@@ -82,7 +82,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }

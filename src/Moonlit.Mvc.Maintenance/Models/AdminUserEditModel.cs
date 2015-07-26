@@ -24,40 +24,40 @@ namespace Moonlit.Mvc.Maintenance.Models
         }
 
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserPassword")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserPassword")]
         public string Password { get; set; }
 
-//        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserUserName")]
-//        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+//        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
+//        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string UserName { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserLoginName")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string LoginName { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserGender")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         public Gender? Gender { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserDateOfBirth")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserDateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserIsEnabled")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsEnabled")]
         public bool IsEnabled { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserIsSuper")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsSuper")]
         public bool IsSuper { get; set; }
         public Template CreateTemplate(RequestContext requestContext)
         {
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.AdminUserEdit,
-                Description = CultureTextResources.AdminUserEditDescription,
-                FormTitle = CultureTextResources.AdminUserInfo,
+                Title = MaintCultureTextResources.AdminUserEdit,
+                Description = MaintCultureTextResources.AdminUserEditDescription,
+                FormTitle = MaintCultureTextResources.AdminUserInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserLoginName,
+                        Label = MaintCultureTextResources.AdminUserLoginName,
                         FieldName = "LoginName",
                         Control = new TextBox
                         {
@@ -68,7 +68,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserUserName,
+                        Label = MaintCultureTextResources.AdminUserUserName,
                         FieldName = "UserName",
                         Control = new TextBox
                         {
@@ -79,7 +79,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserPassword,
+                        Label = MaintCultureTextResources.AdminUserPassword,
                         FieldName = "Password",
                         Control = new PasswordBox
                         { 
@@ -88,7 +88,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserGender,
+                        Label = MaintCultureTextResources.AdminUserGender,
                         FieldName = "Gender",
                         Control = new SelectList
                         {
@@ -112,19 +112,19 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserIsEnabled,
+                        Label = MaintCultureTextResources.AdminUserIsEnabled,
                         FieldName = "IsEnabled",
                         Control = new CheckBox()
                         {
                             Checked = IsEnabled,
                             Value = true.ToString(),
-                            Text=CultureTextResources.AdminUserIsEnabled,
+                            Text=MaintCultureTextResources.AdminUserIsEnabled,
                         }
                     },
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserDateOfBirth,
+                        Label = MaintCultureTextResources.AdminUserDateOfBirth,
                         FieldName = "DateOfBirth",
                         Control = new DatePicker
                         {
@@ -136,7 +136,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }

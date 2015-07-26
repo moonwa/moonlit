@@ -36,9 +36,9 @@ namespace Moonlit.Mvc.Maintenance.Models
 
             return new AdministrationSimpleListTemplate(query)
             {
-                Title = CultureTextResources.DevToolsDbContextList,
-                Description = CultureTextResources.DevToolsDbContextListDescription,
-                QueryPanelTitle = CultureTextResources.PanelQuery,
+                Title = MaintCultureTextResources.DevToolsDbContextList,
+                Description = MaintCultureTextResources.DevToolsDbContextListDescription,
+                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 Criteria = new Field[0],
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
@@ -68,12 +68,12 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Search,
+                        Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
                     new Button
                     {
-                        Text = CultureTextResources.ExportAsNode,
+                        Text = MaintCultureTextResources.ExportAsNode,
                         ActionName = "dbcontexts_export_nodejs"
                     }, 
                 },

@@ -12,7 +12,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         private readonly Authenticate _authenticate;
         private readonly IPrivilegeLoader _privilegeLoader;
         private readonly ICacheManager _cacheManager;
-        private const string Url = "SignIn";
+        private const string DefaultUrl = "SignIn";
         public SignInController(Authenticate authenticate, IPrivilegeLoader privilegeLoader, ICacheManager cacheManager)
         {
             _authenticate = authenticate;
@@ -20,13 +20,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _cacheManager = cacheManager.GetPrefixCacheManager("sign_failed::");
         }
 
-        [RequestMapping("signin", Url)]
+        [RequestMapping("signin", DefaultUrl)]
         public ActionResult SignIn()
         {
             SignInModel model = new SignInModel();
             return Template(model.CreateTemplate());
         }
-        [RequestMapping("signin_postback", Url)]
+        [RequestMapping("signin_postback", DefaultUrl)]
         [HttpPost]
         public ActionResult SignIn(SignInModel model, string returnUrl)
         {

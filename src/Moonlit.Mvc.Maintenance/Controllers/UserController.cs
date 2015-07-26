@@ -13,7 +13,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class UserController : MaintControllerBase
     {
         [RequestMapping("users", "user")]
-        [SitemapNode(Parent = "BasicData", ResourceType = typeof(CultureTextResources), Text = "AdminUserList")]
+        [SitemapNode(Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources), Text = "AdminUserList")]
         [Display(Name = "用户管理", Description = "用户管理描述，这是一段很长的描述")]
         public ActionResult Index(AdminUserListModel model)
         {
@@ -73,8 +73,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var user = await db.Users.FirstOrDefaultAsync(x => x.LoginName == loginName);
             if (user != null)
             {
-                var errorMessage = string.Format(CultureTextResources.ValidationDumplicate,
-                    CultureTextResources.AdminUserLoginName, loginName);
+                var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
+                    MaintCultureTextResources.AdminUserLoginName, loginName);
 
                 ModelState.AddModelError("LoginName", string.Format(errorMessage, loginName));
                 return Template(model.CreateTemplate(Request.RequestContext));
@@ -97,7 +97,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return RedirectToAction("Create");
@@ -143,7 +143,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
 

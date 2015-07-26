@@ -25,7 +25,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("culturetexts", "culturetext")]
-        [SitemapNode(Text = "CultureTextList", Parent = "BasicData", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Text = "CultureTextList", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureTextListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
@@ -68,7 +68,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("importculturetext", "culturetext/import")]
-        [SitemapNode(Text = "CultureTextImport", Parent = "culturetexts", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Text = "CultureTextImport", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Import()
         {
             var model = new CultureTextImportModel();
@@ -114,13 +114,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _maintDomainService.ClearCultureTextsCache();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
         }
         [RequestMapping("createculturetext", "culturetext/create")]
-        [SitemapNode(Text = "CultureTextCreate", Parent = "culturetexts", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Text = "CultureTextCreate", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Create()
         {
             var model = new CultureTextCreateModel();
@@ -140,8 +140,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var cultureText = await db.CultureTexts.FirstOrDefaultAsync(x => x.Name == name);
             if (cultureText != null)
             {
-                var errorMessage = string.Format(CultureTextResources.ValidationDumplicate,
-                    CultureTextResources.CultureTextName, name);
+                var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
+                    MaintCultureTextResources.CultureTextName, name);
 
                 ModelState.AddModelError("Name", string.Format(errorMessage, name));
                 return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
@@ -162,7 +162,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             _maintDomainService.ClearCultureTextsCache();
@@ -170,7 +170,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("editculturetext", "culturetext/edit/{id}")]
-        [SitemapNode(Text = "CultureTextEdit", Parent = "culturetexts", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Text = "CultureTextEdit", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
@@ -203,7 +203,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             _maintDomainService.ClearCultureTextsCache();

@@ -7,13 +7,13 @@ namespace Moonlit.Mvc.Maintenance.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Increase_SystemSetting_Value_Length : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Increase_SystemSetting_Value_Length));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507090847570_Increase_SystemSetting_Value_Length"; }
+            get { return "201507262146584_Init"; }
         }
         
         string IMigrationMetadata.Source

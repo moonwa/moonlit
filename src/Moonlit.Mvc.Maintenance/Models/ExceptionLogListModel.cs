@@ -47,15 +47,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             
             return new AdministrationSimpleListTemplate(query)
             {
-                Title = CultureTextResources.ExceptionLogList,
-                Description = CultureTextResources.ExceptionLogListDescription,
-                QueryPanelTitle = CultureTextResources.PanelQuery,
+                Title = MaintCultureTextResources.ExceptionLogList,
+                Description = MaintCultureTextResources.ExceptionLogListDescription,
+                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 Criteria = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.Keyword,
+                        Label = MaintCultureTextResources.Keyword,
                         FieldName = "Keyword",
                         Control = new TextBox
                         {
@@ -66,7 +66,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.StartTime,
+                        Label = MaintCultureTextResources.StartTime,
                         FieldName = "StartTime",
                         Control = new DatePicker()
                         {
@@ -76,7 +76,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.EndTime,
+                        Label = MaintCultureTextResources.EndTime,
                         FieldName = "EndTime",
                         Control = new DatePicker()
                         {
@@ -94,7 +94,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "CreationTime",
-                            Header = CultureTextResources.ExceptionLogCreationTime,
+                            Header = MaintCultureTextResources.ExceptionLogCreationTime,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((ExceptionLog) x.Target).CreationTime.ToString()
@@ -103,7 +103,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "RouteData",
-                            Header = CultureTextResources.ExceptionLogRouteData,
+                            Header = MaintCultureTextResources.ExceptionLogRouteData,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((ExceptionLog) x.Target).RouteData
@@ -112,7 +112,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "Exception",
-                            Header = CultureTextResources.ExceptionLogException,
+                            Header = MaintCultureTextResources.ExceptionLogException,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((ExceptionLog) x.Target).Exception
@@ -124,7 +124,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Search,
+                        Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
                     

@@ -24,9 +24,9 @@ using Moonlit.Mvc.Maintenance.Properties;
 [assembly: Mvc()]
 [assembly: Sitemap("Main", IsDefault = true)]
 [assembly: Sitemap("Profile", IsDefault = false)]
-[assembly: SitemapNode(Name = "BasicData", Text = "BasicDataList", ResourceType = typeof(CultureTextResources))]
-[assembly: SitemapNode(Name = "Site", Text = "SiteMaintenance", ResourceType = typeof(CultureTextResources))]
-[assembly: SitemapNode(Name = "Devtools", Text = "DevTools", ResourceType = typeof(CultureTextResources))]
+[assembly: SitemapNode(Name = "BasicData", Text = "BasicDataList", ResourceType = typeof(MaintCultureTextResources))]
+[assembly: SitemapNode(Name = "Site", Text = "SiteMaintenance", ResourceType = typeof(MaintCultureTextResources))]
+[assembly: SitemapNode(Name = "Devtools", Text = "DevTools", ResourceType = typeof(MaintCultureTextResources))]
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("39d53f7c-cbfb-476d-bdb0-d281028401dd")]
 
@@ -43,7 +43,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 [assembly: AssemblyFileVersion("1.0.2.9")]
 
 
-[assembly: Privilege(Text = "PrivilegeAdminUser", Name = MaintModule.PrivilegeAdminUser, ResourceType = typeof(CultureTextResources))]
-[assembly: Privilege(Text = "PrivilegeRole", Name = MaintModule.PrivilegeRole, ResourceType = typeof(CultureTextResources))]
-[assembly: Privilege(Text = "PrivilegeCulture", Name = MaintModule.PrivilegeCulture, ResourceType = typeof(CultureTextResources))]
-[assembly: Privilege(Text = "PrivilegeCultureText", Name = MaintModule.PrivilegeCultureText, ResourceType = typeof(CultureTextResources))]
+[assembly: Privilege(Text = "PrivilegeAdminUser", Name = MaintModule.PrivilegeAdminUser, ResourceType = typeof(MaintCultureTextResources))]
+[assembly: Privilege(Text = "PrivilegeRole", Name = MaintModule.PrivilegeRole, ResourceType = typeof(MaintCultureTextResources))]
+[assembly: Privilege(Text = "PrivilegeCulture", Name = MaintModule.PrivilegeCulture, ResourceType = typeof(MaintCultureTextResources))]
+[assembly: Privilege(Text = "PrivilegeCultureText", Name = MaintModule.PrivilegeCultureText, ResourceType = typeof(MaintCultureTextResources))]

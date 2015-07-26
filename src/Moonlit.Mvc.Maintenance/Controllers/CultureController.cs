@@ -12,7 +12,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class CultureController : MaintControllerBase
     {
         [RequestMapping("cultures", "culture")]
-        [SitemapNode(Parent = "BasicData", Text = "CultureList", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Parent = "BasicData", Text = "CultureList", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
@@ -51,7 +51,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("createculture", "culture/create")]
-        [SitemapNode(Text = "CultureTextCreate", Parent = "cultures", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Text = "CultureTextCreate", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Create()
         {
             var model = new CultureCreateModel();
@@ -71,8 +71,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var culture = await db.Cultures.FirstOrDefaultAsync(x => x.Name == name);
             if (culture != null)
             {
-                var errorMessage = string.Format(CultureTextResources.ValidationDumplicate,
-                    CultureTextResources.CultureName, name);
+                var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
+                    MaintCultureTextResources.CultureName, name);
 
                 ModelState.AddModelError("Name", string.Format(errorMessage, name));
                 return Template(model.CreateTemplate(Request.RequestContext));
@@ -89,14 +89,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return RedirectToAction("Create");
         }
 
         [RequestMapping("editculture", "culture/edit/{id}")]
-        [SitemapNode(Text = "CultureTextEdit", Parent = "cultures", ResourceType = typeof(CultureTextResources))]
+        [SitemapNode(Text = "CultureTextEdit", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
@@ -130,7 +130,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
 

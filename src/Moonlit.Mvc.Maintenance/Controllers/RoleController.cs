@@ -20,7 +20,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("roles", "role")]
-        [SitemapNode(Parent = "BasicData", ResourceType = typeof(CultureTextResources), Text = "RoleList")]
+        [SitemapNode(Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources), Text = "RoleList")]
         [Display(Name = "角色管理", Description = "角色管理描述，这是一段很长的描述")]
         public ActionResult Index(RoleListModel model)
         {
@@ -87,14 +87,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
             return RedirectToAction("Create");
         }
 
         [RequestMapping("editrole", "role/edit/{id}")]
-        [SitemapNode(Text = "AdminUserEdit", ResourceType = typeof(CultureTextResources), Parent = "roles")]
+        [SitemapNode(Text = "AdminUserEdit", ResourceType = typeof(MaintCultureTextResources), Parent = "roles")]
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
@@ -128,7 +128,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
-                Text = CultureTextResources.SuccessToSave,
+                Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
 

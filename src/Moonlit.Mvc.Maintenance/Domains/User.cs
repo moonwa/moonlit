@@ -11,6 +11,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
     public class User : IIdentity, IUser
     {
         public int UserId { get; set; }
+        [StringLength(32)]
         public string LoginName { get; set; }
 
         public bool IsEnabled
@@ -19,10 +20,11 @@ namespace Moonlit.Mvc.Maintenance.Domains
             set;
 
         }
+        [StringLength(128)]
         public string Password { get; set; }
 
         public int CultureId { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserGender")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         public Gender? Gender { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
@@ -35,6 +37,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
 
             return Convert.ToBase64String(hashed);
         }
+        [StringLength(32)]
         public string UserName { get; set; }
 
         public bool IsSuper { get; set; }
@@ -55,6 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
             get { return true; }
         }
 
+        [StringLength(64)]
         public string Avatar { get; set; }
 
         public bool IsBuildIn { get; set; }

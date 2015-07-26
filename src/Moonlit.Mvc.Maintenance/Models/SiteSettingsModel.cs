@@ -17,16 +17,16 @@ namespace Moonlit.Mvc.Maintenance.Models
             DefaultCulture = siteModel.DefaultCulture;
         }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "SiteSiteName")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteSiteName")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string SiteName { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "SiteDefaultCulture")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteDefaultCulture")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public int? DefaultCulture { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "SiteMaxSignInFailTimes")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteMaxSignInFailTimes")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public int MaxSignInFailTimes { get; set; }
         public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
         {
@@ -39,15 +39,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             cultures.Insert(0, new SelectListItem());
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.SiteSettings,
-                Description = CultureTextResources.SiteSettingsDescription,
-                FormTitle = CultureTextResources.SiteInfo,
+                Title = MaintCultureTextResources.SiteSettings,
+                Description = MaintCultureTextResources.SiteSettingsDescription,
+                FormTitle = MaintCultureTextResources.SiteInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.SiteSiteName,
+                        Label = MaintCultureTextResources.SiteSiteName,
                         FieldName = "SiteName",
                         Control = new TextBox
                         {
@@ -58,7 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.SiteDefaultCulture,
+                        Label = MaintCultureTextResources.SiteDefaultCulture,
                         FieldName = "DefaultCulture",
                         Control = new SelectList
                         {
@@ -68,7 +68,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.SiteMaxSignInFailTimes,
+                        Label = MaintCultureTextResources.SiteMaxSignInFailTimes,
                         FieldName = "MaxSignInFailTimes",
                         Control = new TextBox
                         {
@@ -81,7 +81,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }

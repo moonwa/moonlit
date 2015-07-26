@@ -79,6 +79,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -136,13 +137,13 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="CultureAttribute.cs" />
-    <Compile Include="Migrations\201507090847570_Increase_SystemSetting_Value_Length.cs" />
-    <Compile Include="Migrations\201507090847570_Increase_SystemSetting_Value_Length.Designer.cs">
-      <DependentUpon>201507090847570_Increase_SystemSetting_Value_Length.cs</DependentUpon>
+    <Compile Include="Migrations\201507262146584_Init.cs" />
+    <Compile Include="Migrations\201507262146584_Init.Designer.cs">
+      <DependentUpon>201507262146584_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Properties\CultureTextResources.cs" />
+    <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="DbCultureTextLoader.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
     <Compile Include="Domains\IMaintDbRepository.cs" />
@@ -157,13 +158,14 @@
     <Compile Include="ExceptionLogAttribute.cs" />
     <Compile Include="Domains\MaintDbContext.cs" />
     <Compile Include="DbContextExportAttribute.cs" />
-    <Compile Include="Migrations\201506181244588_Init.cs" />
-    <Compile Include="Migrations\201506181244588_Init.Designer.cs">
-      <DependentUpon>201506181244588_Init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\CacheListModel.cs" />
     <Compile Include="Models\DbContextListModel.cs" />
     <Compile Include="Models\ExceptionLogListModel.cs" />
+    <Compile Include="Properties\languages\MaintCultureTexts.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaintCultureTexts.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserLoader.cs" />
     <Compile Include="IModuleConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -197,15 +199,19 @@
     <None Include="app.config" />
     <None Include="Moonlit.Mvc.Maintenance.nuspec" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Migrations\201507262146584_Init.resx">
+      <DependentUpon>201507262146584_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\languages\zh-cn.lang">
+      <RunCustomToolOn>MaintCultureTexts.tt</RunCustomToolOn>
+    </EmbeddedResource>
+    <None Include="Properties\languages\MaintCultureTexts.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MaintCultureTexts.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506181244588_Init.resx">
-      <DependentUpon>201506181244588_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507090847570_Increase_SystemSetting_Value_Length.resx">
-      <DependentUpon>201507090847570_Increase_SystemSetting_Value_Length.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Moonlit.Mvc\Moonlit.Mvc.csproj">

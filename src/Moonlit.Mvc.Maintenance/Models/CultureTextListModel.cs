@@ -63,15 +63,15 @@ namespace Moonlit.Mvc.Maintenance.Models
 
             return new AdministrationSimpleListTemplate(query)
             {
-                Title = CultureTextResources.CultureTextList,
-                Description = CultureTextResources.CultureTextListDescription,
-                QueryPanelTitle = CultureTextResources.PanelQuery,
+                Title = MaintCultureTextResources.CultureTextList,
+                Description = MaintCultureTextResources.CultureTextListDescription,
+                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 Criteria = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.Keyword,
+                        Label = MaintCultureTextResources.Keyword,
                         FieldName = "Keyword",
                         Control = new TextBox
                         {
@@ -82,7 +82,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CultureTextName,
+                        Label = MaintCultureTextResources.CultureTextName,
                         FieldName = "Name",
                         Control = new TextBox
                         {
@@ -93,7 +93,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CultureTextCulture,
+                        Label = MaintCultureTextResources.CultureTextCulture,
                         FieldName = "Culture",
                         Control = new SelectList()
                         {
@@ -119,7 +119,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "Name",
-                            Header = CultureTextResources.CultureTextName,
+                            Header = MaintCultureTextResources.CultureTextName,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((CultureText) x.Target).Name
@@ -128,7 +128,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "Text",
-                            Header = CultureTextResources.CultureTextText,
+                            Header = MaintCultureTextResources.CultureTextText,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((CultureText) x.Target).Text
@@ -136,7 +136,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         },  
                         new TableColumn
                         {
-                            Header =CultureTextResources.Operation,
+                            Header =MaintCultureTextResources.Operation,
                             CellTemplate = x =>
                             {
                                 var url = RequestMappings.Current.GetRequestMapping("editculturetext").MakeUrl(urlHelper, new {id= ((CultureText) x.Target).CultureTextId});
@@ -146,7 +146,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                                             new Link
                                             {
                                                 Style = LinkStyle.Normal,
-                                                Text = CultureTextResources.Edit, 
+                                                Text = MaintCultureTextResources.Edit, 
                                                 Url = url,
                                             }
                                         }
@@ -159,17 +159,17 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Search,
+                        Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
                     new Button
                     {
-                        Text = CultureTextResources.Export,
+                        Text = MaintCultureTextResources.Export,
                         ActionName = "Export"
                     }, 
                     new Button
                     {
-                        Text = CultureTextResources.Delete,
+                        Text = MaintCultureTextResources.Delete,
                         ActionName = "Delete"
                     }, 
                 },
@@ -177,13 +177,13 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Link
                     {
-                        Text = CultureTextResources.New,
+                        Text = MaintCultureTextResources.New,
                         Style = LinkStyle.Button,
                         Url = RequestMappings.Current.GetRequestMapping("createculturetext").MakeUrl(urlHelper, null),
                     },
                     new Link
                     {
-                        Text = CultureTextResources.Import,
+                        Text = MaintCultureTextResources.Import,
                         Style = LinkStyle.Button,
                         Url = RequestMappings.Current.GetRequestMapping("importculturetext").MakeUrl(urlHelper, null),
                     }, 

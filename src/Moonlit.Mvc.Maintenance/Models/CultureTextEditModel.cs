@@ -19,13 +19,13 @@ namespace Moonlit.Mvc.Maintenance.Models
             Culture = cultureText.CultureId;
         }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "CultureTextText")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextText")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Text { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "CultureTextName")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
         public string Name { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "CultureTextCulture")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
         public int? Culture { get; set; }
 
         public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
@@ -38,15 +38,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             }).ToList();
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.CultureTextEdit,
-                Description = CultureTextResources.CultureTextEditDescription,
-                FormTitle = CultureTextResources.CultureTextInfo,
+                Title = MaintCultureTextResources.CultureTextEdit,
+                Description = MaintCultureTextResources.CultureTextEditDescription,
+                FormTitle = MaintCultureTextResources.CultureTextInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CultureTextName,
+                        Label = MaintCultureTextResources.CultureTextName,
                         FieldName = "Name",
                         Control = new TextBox
                         {
@@ -58,7 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CultureTextText,
+                        Label = MaintCultureTextResources.CultureTextText,
                         FieldName = "Text",
                         Control = new TextBox
                         {
@@ -69,7 +69,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.CultureTextCulture,
+                        Label = MaintCultureTextResources.CultureTextCulture,
                         FieldName = "Culture",
                         Control = new SelectList()
                         {
@@ -82,7 +82,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }

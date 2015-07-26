@@ -8,7 +8,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class ExceptionLogController : MaintControllerBase
     {
         [RequestMapping("ExceptionLogs", "ExceptionLog")]
-        [SitemapNode(Parent = "Site", ResourceType = typeof(CultureTextResources), Text = "ExceptionLogList")]
+        [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "ExceptionLogList")]
         public ActionResult Index(ExceptionLogListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));

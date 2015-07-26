@@ -6,7 +6,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
     {
         public static string ToDisplayString(this Gender gender)
         {
-            return gender == Gender.Male ? CultureTextResources.GenderMale : CultureTextResources.GenderFemale;
+            return gender == Gender.Male ? MaintCultureTextResources.GenderMale : MaintCultureTextResources.GenderFemale;
 
         }
         public static string ToDisplayString(this Gender? gender)

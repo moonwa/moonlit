@@ -21,8 +21,8 @@ namespace Moonlit.Mvc.Maintenance.Models
         {
             return new SimpleBoxTemplate
             {
-                Title = CultureTextResources.SignInTitle,
-                Description = CultureTextResources.SignInDescription,
+                Title = MaintCultureTextResources.SignIn,
+                Description = MaintCultureTextResources.SignInDescription,
                 Fields = new[]
                 {
                     new Field
@@ -31,7 +31,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Control = new TextBox()
                         {
                             Value = UserName,
-                            PlaceHolder = CultureTextResources.SignInUserName,
+                            PlaceHolder = MaintCultureTextResources.SignInUserName,
                             Icon = "user"
                         }
                     },
@@ -41,7 +41,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Control = new PasswordBox()
                         {
                             Icon = "lock",
-                            PlaceHolder = CultureTextResources.SignInPassword
+                            PlaceHolder = MaintCultureTextResources.SignInPassword
                         }
                     }
                 },
@@ -50,7 +50,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Button
                     {
                         ActionName = "",
-                        Text = CultureTextResources.SignIn 
+                        Text = MaintCultureTextResources.SignIn 
                     }
                 },
                 Additional = new List

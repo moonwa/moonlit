@@ -21,23 +21,23 @@ namespace Moonlit.Mvc.Maintenance.Models
             Culture = user.CultureId;
         }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserCulture")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserCulture")]
         public int? Culture { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserLoginName")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]
         public string LoginName { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserUserName")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string UserName { get; set; }
 
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserGender")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         public Gender? Gender { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserDateOfBirth")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserDateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "AdminUserIsSuper")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsSuper")]
         public bool IsSuper { get; set; }
         public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
         {
@@ -50,15 +50,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             cultures.Insert(0, new SelectListItem());
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.ProfileSettings,
-                Description = CultureTextResources.ProfileSettingsDescription,
-                FormTitle = CultureTextResources.ProfileInfo,
+                Title = MaintCultureTextResources.ProfileSettings,
+                Description = MaintCultureTextResources.ProfileSettingsDescription,
+                FormTitle = MaintCultureTextResources.ProfileInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserLoginName,
+                        Label = MaintCultureTextResources.AdminUserLoginName,
                         FieldName = "LoginName",
                         Control = new TextBox
                         {
@@ -70,7 +70,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserUserName,
+                        Label = MaintCultureTextResources.AdminUserUserName,
                         FieldName = "UserName",
                         Control = new TextBox
                         {
@@ -81,7 +81,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserGender,
+                        Label = MaintCultureTextResources.AdminUserGender,
                         FieldName = "Gender",
                         Control = new SelectList
                         {
@@ -105,7 +105,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserDateOfBirth,
+                        Label = MaintCultureTextResources.AdminUserDateOfBirth,
                         FieldName = "DateOfBirth",
                         Control = new DatePicker
                         {
@@ -115,7 +115,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.AdminUserCulture,
+                        Label = MaintCultureTextResources.AdminUserCulture,
                         FieldName = "Culture",
                         Control = new SelectList()
                         {
@@ -127,7 +127,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }
@@ -141,14 +141,14 @@ namespace Moonlit.Mvc.Maintenance.Models
 
         }
 
-        [Display(ResourceType = typeof(CultureTextResources), Name = "ProfileChangePasswordOldPassword")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordOldPassword")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string OldPassword { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "ProfileChangePasswordNewPassword")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordNewPassword")]
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string NewPassword { get; set; }
-        [Display(ResourceType = typeof(CultureTextResources), Name = "ProfileChangePasswordConfirmPassword")]
-        [Compare("NewPassword", ErrorMessageResourceName = "ValidationCompare", ErrorMessageResourceType = typeof(CultureTextResources))]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordConfirmPassword")]
+        [Compare("NewPassword", ErrorMessageResourceName = "ValidationCompare", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string ConfirmPassword { get; set; }
 
 
@@ -157,15 +157,15 @@ namespace Moonlit.Mvc.Maintenance.Models
 
             return new AdministrationSimpleEditTemplate(this)
             {
-                Title = CultureTextResources.ProfileChangePassword,
-                Description = CultureTextResources.ProfileChangePasswordDescription,
-                FormTitle = CultureTextResources.ProfileChangePasswordInfo,
+                Title = MaintCultureTextResources.ProfileChangePassword,
+                Description = MaintCultureTextResources.ProfileChangePasswordDescription,
+                FormTitle = MaintCultureTextResources.ProfileChangePasswordInfo,
                 Fields = new[]
                 {
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.ProfileChangePasswordOldPassword,
+                        Label = MaintCultureTextResources.ProfileChangePasswordOldPassword,
                         FieldName = "OldPassword",
                         Control = new PasswordBox()
                         { 
@@ -174,7 +174,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.ProfileChangePasswordNewPassword,
+                        Label = MaintCultureTextResources.ProfileChangePasswordNewPassword,
                         FieldName = "NewPassword",
                         Control = new PasswordBox
                         { 
@@ -183,7 +183,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         Width = 6,
-                        Label = CultureTextResources.ProfileChangePasswordConfirmPassword,
+                        Label = MaintCultureTextResources.ProfileChangePasswordConfirmPassword,
                         FieldName = "ConfirmPassword",
                         Control = new PasswordBox
                         {
@@ -195,7 +195,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        Text = CultureTextResources.Save,
+                        Text = MaintCultureTextResources.Save,
                         ActionName = ""
                     }
                 }

@@ -1,4 +1,6 @@
 using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Transactions;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Models;
 
@@ -8,7 +10,7 @@ namespace Moonlit.Mvc.Maintenance.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+//            AutomaticMigrationsEnabled = true;
 //            AutomaticMigrationDataLossAllowed = true;
             SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
@@ -18,32 +20,44 @@ namespace Moonlit.Mvc.Maintenance.Migrations
             SiteModel model = new SiteModel(context.SystemSettings);
             if (model.DBVersion == SiteModel.VersionFirst)
             {
-                var adminUser = new User()
+                using (var tran = new TransactionScope())
                 {
-                    LoginName = "admin",
-                    IsSuper = true,
-                    IsEnabled = true,
-                    IsBuildIn = true,
-                };
-                 
-                adminUser.Password = adminUser.HashPassword("123456");
-                context.Users.Add(adminUser);
+                    var adminUser = new User()
+                    {
+                        LoginName = "admin",
+                        IsSuper = true,
+                        IsEnabled = true,
+                        IsBuildIn = true,
+                    };
 
-                var defaultCulture = new Culture()
-                { 
-                    DisplayName = "简体中文",
-                    IsEnabled = true,
-                    Name = "zh-cn",
-                }; 
+                    adminUser.Password = adminUser.HashPassword("123456");
+                    context.Users.Add(adminUser);
+
+                    var defaultCulture = new Culture()
+                    {
+                        DisplayName = "简体中文",
+                        IsEnabled = true,
+                        Name = "zh-cn",
+                    };
+
+                    context.Cultures.Add(defaultCulture);
+                    context.SaveChanges();
+
+                    model.DefaultCulture = defaultCulture.CultureId;
+                    model.DBVersion = "0.2";
+                    model.Save(new MaintDbContextMaintDbRepository(context));
+
                 
-                context.Cultures.Add(defaultCulture);
                 context.SaveChanges();
-                 
-                model.DefaultCulture = defaultCulture.CultureId;
-                model.DBVersion = "0.2";
-                model.Save(new MaintDbContextMaintDbRepository(context));
-                context.SaveChanges();
+                    tran.Complete(); 
+                }
             }
+
+            foreach (var cultureInfo in context.Cultures.ToList())
+            {
+                cultureInfo.Import(new MaintDbContextMaintDbRepository(context), LanguageItemConverType.All);
+            }
+
         } 
     }
 

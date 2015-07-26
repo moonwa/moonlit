@@ -12,7 +12,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [RequestMapping("SignOut", "SignOut")]
-        [SitemapNode(ResourceType = typeof(CultureTextResources), Text = "Exit", Order = 1000000, SiteMap = "Profile")]
+        [SitemapNode(ResourceType = typeof(MaintCultureTextResources), Text = "Exit", Order = 1000000, SiteMap = "Profile")]
         public ActionResult SignIn()
         {
             _authenticate.SignOut();
