@@ -40,6 +40,7 @@
     "Site.Settings": "站点设置",
     "Cache": "缓存",
     "Exit ": "退出",
+    "Profile.Group": "个人设定",
     "Profile.Settings": "个人设定",
     "Profile.ChangePassword": "修改密码",
     "Pagination.Status": "当前总记录数 {0}, 当前第 {1} 页, 共{2} 页",

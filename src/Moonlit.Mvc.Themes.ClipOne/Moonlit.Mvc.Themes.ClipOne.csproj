@@ -108,7 +108,6 @@
     <Content Include="Views\Shared\clip-one\Templates\Administration\layout_administration.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\Administration\SimpleEdit.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\Administration\SimpleList.cshtml" />
-    <Content Include="Views\Shared\clip-one\Templates\layout_html.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\SimpleBox.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\Administration\Dashboard.cshtml" />
   </ItemGroup>

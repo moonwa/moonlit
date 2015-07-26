@@ -166,6 +166,10 @@
 			{
 				get { return LanguageLoader.Get("Exit "); }
 			}
+			public static string ProfileGroup
+			{
+				get { return LanguageLoader.Get("Profile.Group"); }
+			}
 			public static string ProfileSettings
 			{
 				get { return LanguageLoader.Get("Profile.Settings"); }

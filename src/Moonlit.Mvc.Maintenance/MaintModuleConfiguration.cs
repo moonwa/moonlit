@@ -9,7 +9,7 @@ namespace Moonlit.Mvc.Maintenance
         {
             AuthorizeManager.Setup();
              
-            Moonlit.Properties.CultureTextResources.LanguageLoader = DependencyResolver.Current.GetService<ILanguageLoader>(false) ??
+            Moonlit.Properties.MoonlitCultureTextResources.LanguageLoader = DependencyResolver.Current.GetService<ILanguageLoader>(false) ??
                                                   new NullLanguageLoader();
         }
     }

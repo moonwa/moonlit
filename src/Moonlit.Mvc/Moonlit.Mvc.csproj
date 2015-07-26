@@ -127,7 +127,7 @@
     <Compile Include="ITaskLoader.cs" />
     <Compile Include="IUserLoader.cs" />
     <Compile Include="IUserPrincipal.cs" />
-    <Compile Include="Properties\CultureTextResources.cs" />
+    <Compile Include="Properties\MvcCultureTextResources.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MoonlitAuthorizeAttribute.cs" />

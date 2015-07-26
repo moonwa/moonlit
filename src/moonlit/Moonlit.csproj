@@ -129,7 +129,7 @@
     <Compile Include="ILanguageLoader.cs" />
     <Compile Include="ITypeResolvor.cs" />
     <Compile Include="IValue.cs" />
-    <Compile Include="Properties\CultureTextResources.cs" />
+    <Compile Include="Properties\MoonlitCultureTextResources.cs" />
     <Compile Include="Linq\DefaultMetadateAnalyzer.cs" />
     <Compile Include="Linq\ColumnMetadate.cs" />
     <Compile Include="Linq\DynamicDictionaryMapper.cs" />

@@ -89,7 +89,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
         {
 
         }
-        internal MaintDbContextMaintDbRepository(MaintDbContext database)
+        public MaintDbContextMaintDbRepository(MaintDbContext database)
         {
             _database = database;
         }

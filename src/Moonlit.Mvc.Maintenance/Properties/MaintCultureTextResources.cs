@@ -5,7 +5,7 @@
     {
         public static ILanguageLoader LanguageLoader
         {
-            get { return Moonlit.Properties.CultureTextResources.LanguageLoader; }
+            get { return Moonlit.Properties.MoonlitCultureTextResources.LanguageLoader; }
         }
 
     }
