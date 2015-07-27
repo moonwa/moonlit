@@ -47,7 +47,6 @@ namespace Moonlit.Mvc.Maintenance.Models
             {
                 Text = x.DisplayName,
                 Value = x.CultureId.ToString(),
-                Selected = x.CultureId == this.Culture,
             }).ToList();
             cultures.Insert(0, new SelectListItem());
             return new AdministrationSimpleEditTemplate(this)
@@ -91,13 +90,11 @@ namespace Moonlit.Mvc.Maintenance.Models
                                 {
                                     Text = Domains.Gender.Male.ToDisplayString(),
                                     Value = ((int) Domains.Gender.Male).ToString(),
-                                    Selected = Gender == Domains.Gender.Male
                                 },
                                 new SelectListItem
                                 {
                                     Text = Domains.Gender.Female.ToDisplayString(),
                                     Value = ((int) Domains.Gender.Female).ToString(),
-                                    Selected = Gender == Domains.Gender.Female
                                 }
                             }, this.Gender.ToIntString())
                     }, 

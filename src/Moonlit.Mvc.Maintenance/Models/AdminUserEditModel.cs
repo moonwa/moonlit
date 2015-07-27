@@ -104,15 +104,13 @@ namespace Moonlit.Mvc.Maintenance.Models
                                 {
                                     Text = Domains.Gender.Male.ToDisplayString(),
                                     Value = ((int) Domains.Gender.Male).ToString(),
-                                    Selected = Gender == Domains.Gender.Male
                                 },
                                 new SelectListItem
                                 {
                                     Text = Domains.Gender.Female.ToDisplayString(),
                                     Value = ((int) Domains.Gender.Female).ToString(),
-                                    Selected = Gender == Domains.Gender.Female
                                 }
-                            }, this.Gender == null ? null : ((int)Gender).ToString()),
+                            }, this.Gender .ToIntString()),
                     },
                     new Field
                     {
