@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
@@ -20,15 +22,17 @@ namespace Moonlit.Mvc.Maintenance.Models
             DateOfBirth = user.DateOfBirth;
             Gender = user.Gender;
 
-            //            RoleIds = adminUser.Roles.Select(x => x.RoleId).ToArray();
+            RoleIds = user.Roles == null ? new int[0] : user.Roles.Select(x => x.RoleId).ToArray();
         }
+
+        public int[] RoleIds { get; set; }
 
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserPassword")]
         public string Password { get; set; }
 
-//        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
-//        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
+        //        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
+        //        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string UserName { get; set; }
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]
@@ -47,6 +51,11 @@ namespace Moonlit.Mvc.Maintenance.Models
         public bool IsSuper { get; set; }
         public Template CreateTemplate(RequestContext requestContext)
         {
+            var roles = new RolesSelectListProvider().GetItems();
+            foreach (var role in roles)
+            {
+                role.Selected = RoleIds.Select(x => x.ToString()).Contains(role.Value);
+            }
             return new AdministrationSimpleEditTemplate(this)
             {
                 Title = MaintCultureTextResources.AdminUserEdit,
@@ -129,6 +138,16 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Control = new DatePicker
                         {
                             Value = DateOfBirth
+                        }
+                    }, 
+                    new Field
+                    {
+                        Width = 6,
+                        Label = MaintCultureTextResources.AdminUserDateOfBirth,
+                        FieldName = "RoleIds",
+                        Control = new MultiSelectList()
+                        {
+                            Items = roles,
                         }
                     }, 
                 },

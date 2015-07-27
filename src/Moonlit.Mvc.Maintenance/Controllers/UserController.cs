@@ -108,7 +108,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
-            var adminUser = await db.Users.FirstOrDefaultAsync(x=>x.UserId == id);
+            var adminUser = await db.Users.FirstOrDefaultAsync(x => x.UserId == id);
             if (adminUser == null)
             {
                 return HttpNotFound();
@@ -127,7 +127,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(model.CreateTemplate(Request.RequestContext));
             }
             var db = MaintDbContext;
-            var adminUser = await db.Users.FirstOrDefaultAsync(x => x.UserId == id);
+            var adminUser = await db.Users.Include(user => user.Roles).FirstOrDefaultAsync(x => x.UserId == id);
             if (adminUser == null)
             {
                 return HttpNotFound();
@@ -136,6 +136,9 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             adminUser.Gender = model.Gender;
             adminUser.DateOfBirth = model.DateOfBirth;
             adminUser.IsEnabled = model.IsEnabled;
+            adminUser.Roles.Clear();
+            var roleIds = model.RoleIds??new int[0];
+            adminUser.Roles = db.Roles.Where(x => roleIds.Contains(x.RoleId)).ToList();
             if (!string.IsNullOrEmpty(model.Password))
             {
                 adminUser.Password = adminUser.HashPassword(model.Password);

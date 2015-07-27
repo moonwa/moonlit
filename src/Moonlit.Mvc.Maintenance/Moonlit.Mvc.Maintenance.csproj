@@ -143,6 +143,7 @@
     </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\RolesSelectListProvider.cs" />
     <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="DbCultureTextLoader.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
