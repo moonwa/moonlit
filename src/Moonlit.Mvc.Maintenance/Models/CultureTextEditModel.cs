@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
-using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
@@ -33,8 +34,7 @@ namespace Moonlit.Mvc.Maintenance.Models
             List<SelectListItem> items = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem()
             {
                 Text = x.DisplayName,
-                Value = x.CultureId.ToString(),
-                Selected = x.CultureId == this.Culture,
+                Value = x.CultureId.ToString(), 
             }).ToList();
             return new AdministrationSimpleEditTemplate(this)
             {
@@ -71,10 +71,9 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.CultureTextCulture,
                         FieldName = "Culture",
-                        Control = new SelectList()
+                        Control = new SelectList(items, Culture.ToString())
                         {
                             Enabled = false,
-                            Items = items,
                         }
                     },
                 },

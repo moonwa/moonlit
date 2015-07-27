@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
@@ -83,9 +85,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.AdminUserGender,
                         FieldName = "Gender",
-                        Control = new SelectList
-                        {
-                            Items = new[]
+                        Control = new SelectList(new[]
                             {
                                 new SelectListItem
                                 {
@@ -99,8 +99,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                                     Value = ((int) Domains.Gender.Female).ToString(),
                                     Selected = Gender == Domains.Gender.Female
                                 }
-                            }
-                        }
+                            }, this.Gender.ToIntString())
                     }, 
                     new Field
                     {
@@ -117,10 +116,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.AdminUserCulture,
                         FieldName = "Culture",
-                        Control = new SelectList()
-                        {
-                            Items = cultures
-                        }
+                        Control = new SelectList(cultures, Culture.ToString()),
                     }, 
                 },
                 Buttons = new IClickable[]
@@ -148,7 +144,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string NewPassword { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordConfirmPassword")]
-        [Compare("NewPassword", ErrorMessageResourceName = "ValidationCompare", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceName = "ValidationCompare", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string ConfirmPassword { get; set; }
 
 

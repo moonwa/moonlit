@@ -171,7 +171,7 @@
     <Compile Include="CodeDom\CodeDomainHelper.cs" />
     <Compile Include="Collections\DynamicQueryable.cs" />
     <Compile Include="Collections\EnumerableHelper.cs" />
-    <Compile Include="EnumHelper.cs" />
+    <Compile Include="Extensions\EnumHelper.cs" />
     <Compile Include="Net\Bits\Interop.cs" />
     <Compile Include="Net\CookieHelper.cs" />
     <Compile Include="Net\Extensions\HttpWebRequestExtensions.cs" />

@@ -1,10 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
@@ -86,11 +88,9 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.AdminUserGender,
                         FieldName = "Gender",
-                        Control = new SelectList
+                        Control = new SelectList(new []
                         {
-                            Items = new[]
-                            {
-                                new SelectListItem
+                            new SelectListItem
                                 {
                                     Text = Domains.Gender.Male.ToDisplayString(),
                                     Value = ((int) Domains.Gender.Male).ToString(),
@@ -102,8 +102,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                                     Value = ((int) Domains.Gender.Female).ToString(),
                                     Selected = false
                                 }
-                            }
-                        }
+                        }, Gender == null ? null : ((int)Gender).ToString())
                     },
                     new Field
                     {

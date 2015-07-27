@@ -97,10 +97,9 @@
     <Compile Include="Controls\SelectList.cs" />
     <Compile Include="Controls\List.cs" />
     <Compile Include="Controls\ListStyle.cs" />
-    <Compile Include="Controls\MultipleCheckList.cs" />
+    <Compile Include="Controls\MultiSelectList.cs" />
     <Compile Include="Controls\Panel.cs" />
     <Compile Include="Controls\PasswordBox.cs" />
-    <Compile Include="Controls\SelectListItem.cs" />
     <Compile Include="Controls\MultiLineTextBox.cs" />
     <Compile Include="DashboardIcon.cs" />
     <Compile Include="DashboardIconAttribute.cs" />

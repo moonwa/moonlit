@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
@@ -34,7 +36,6 @@ namespace Moonlit.Mvc.Maintenance.Models
             {
                 Text = x.DisplayName,
                 Value = x.CultureId.ToString(),
-                Selected = x.CultureId == this.DefaultCulture,
             }).ToList();
             cultures.Insert(0, new SelectListItem());
             return new AdministrationSimpleEditTemplate(this)
@@ -60,10 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.SiteDefaultCulture,
                         FieldName = "DefaultCulture",
-                        Control = new SelectList
-                        {
-                            Items = cultures
-                        }
+                        Control = new SelectList(cultures,DefaultCulture.ToString() )
                     } , 
                     new Field
                     {

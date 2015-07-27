@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
-using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
+using MultiSelectList = Moonlit.Mvc.Controls.MultiSelectList;
+using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
@@ -52,10 +54,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         public Template CreateTemplate(RequestContext requestContext)
         {
             var roles = new RolesSelectListProvider().GetItems();
-            foreach (var role in roles)
-            {
-                role.Selected = RoleIds.Select(x => x.ToString()).Contains(role.Value);
-            }
+
             return new AdministrationSimpleEditTemplate(this)
             {
                 Title = MaintCultureTextResources.AdminUserEdit,
@@ -99,9 +98,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.AdminUserGender,
                         FieldName = "Gender",
-                        Control = new SelectList
-                        {
-                            Items = new[]
+                        Control = new SelectList(new[]
                             {
                                 new SelectListItem
                                 {
@@ -115,8 +112,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                                     Value = ((int) Domains.Gender.Female).ToString(),
                                     Selected = Gender == Domains.Gender.Female
                                 }
-                            }
-                        }
+                            }, this.Gender == null ? null : ((int)Gender).ToString()),
                     },
                     new Field
                     {
@@ -145,10 +141,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.AdminUserDateOfBirth,
                         FieldName = "RoleIds",
-                        Control = new MultiSelectList()
-                        {
-                            Items = roles,
-                        }
+                        Control = new MultiSelectList(roles, RoleIds.Select(x=>x.ToString())),
                     }, 
                 },
                 Buttons = new IClickable[]

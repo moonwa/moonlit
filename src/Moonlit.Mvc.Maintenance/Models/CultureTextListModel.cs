@@ -6,7 +6,6 @@ using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
-using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
@@ -42,7 +41,6 @@ namespace Moonlit.Mvc.Maintenance.Models
             {
                 Text = x.DisplayName,
                 Value = x.CultureId.ToString(),
-                Selected = x.CultureId == Culture,
             }).ToList();
 
             var urlHelper = new UrlHelper(requestContext);
@@ -95,10 +93,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.CultureTextCulture,
                         FieldName = "Culture",
-                        Control = new SelectList()
-                        {
-                            Items = cultures,
-                        }
+                        Control = new SelectList(cultures, Culture.ToString()),
                     },
                 },
                 DefaultSort = "Name",

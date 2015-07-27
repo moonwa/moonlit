@@ -19,7 +19,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
             {
                 return new string[0];
             }
-            return Privileges.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return Privileges.ToLowerInvariant().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
         }
         public void SetPrivileges(string[] value)

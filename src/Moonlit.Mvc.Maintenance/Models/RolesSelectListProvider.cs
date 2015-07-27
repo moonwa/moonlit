@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Moonlit.Mvc.Maintenance.Domains;
-using SelectListItem = Moonlit.Mvc.Controls.SelectListItem;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {

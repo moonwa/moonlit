@@ -1,10 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
+using MultiSelectList = Moonlit.Mvc.Controls.MultiSelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
@@ -35,7 +37,6 @@ namespace Moonlit.Mvc.Maintenance.Models
             {
                 Text = x.Text,
                 Value = x.Name,
-                Selected = this.Privileges.Any(y => string.Equals(x.Name, y, StringComparison.OrdinalIgnoreCase)),
             }).ToArray();
             return new AdministrationSimpleEditTemplate(this)
             {
@@ -60,10 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Width = 6,
                         Label = MaintCultureTextResources.RolePrivileges,
                         FieldName = "Privileges",
-                        Control = new MultiSelectList
-                        {
-                            Items =selectListItems
-                        }
+                        Control = new MultiSelectList(selectListItems, this.Privileges),
                     },
                     new Field
                     {
