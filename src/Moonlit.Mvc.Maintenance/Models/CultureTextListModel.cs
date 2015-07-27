@@ -157,6 +157,18 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
+                    new Link
+                    {
+                        Text = MaintCultureTextResources.New,
+                        Style = LinkStyle.Button,
+                        Url = RequestMappings.Current.GetRequestMapping("createculturetext").MakeUrl(urlHelper, null),
+                    },
+                    new Link
+                    {
+                        Text = MaintCultureTextResources.Import,
+                        Style = LinkStyle.Button,
+                        Url = RequestMappings.Current.GetRequestMapping("importculturetext").MakeUrl(urlHelper, null),
+                    }, 
                     new Button
                     {
                         Text = MaintCultureTextResources.Export,
@@ -170,18 +182,6 @@ namespace Moonlit.Mvc.Maintenance.Models
                 },
                 RecordButtons = new IClickable[]
                 {
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.New,
-                        Style = LinkStyle.Button,
-                        Url = RequestMappings.Current.GetRequestMapping("createculturetext").MakeUrl(urlHelper, null),
-                    },
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.Import,
-                        Style = LinkStyle.Button,
-                        Url = RequestMappings.Current.GetRequestMapping("importculturetext").MakeUrl(urlHelper, null),
-                    }, 
                 }
             };
         }

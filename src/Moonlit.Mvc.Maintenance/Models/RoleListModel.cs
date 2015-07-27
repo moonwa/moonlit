@@ -119,6 +119,11 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Text = MaintCultureTextResources.Search,
                         ActionName = ""
                     },
+                    new Link
+                    {
+                        Text = MaintCultureTextResources.New,
+                        Url = RequestMappings.Current.GetRequestMapping("createrole").MakeUrl(urlHelper, null),
+                    },
                     new Button
                     {
                         Text = MaintCultureTextResources.Disable,
@@ -132,11 +137,6 @@ namespace Moonlit.Mvc.Maintenance.Models
                 },
                 RecordButtons = new IClickable[]
                 {
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.New,
-                        Url = RequestMappings.Current.GetRequestMapping("createrole").MakeUrl(urlHelper, null),
-                    },
                 }
             };
         }
