@@ -24,13 +24,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             SiteSettingsModel model = new SiteSettingsModel();
             model.SetInnerObject(new SiteModel(MaintDbContext.SystemSettings));
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("Caches", "Site/Caches")]
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "Cache")]
         public ActionResult Index(CacheListModel model)
         {
-            return Template(model.CreateTemplate(Request.RequestContext, _cacheManager, _cacheKeyManager));
+            return Template(model.CreateTemplate(ControllerContext, _cacheManager, _cacheKeyManager));
         }
         [RequestMapping("Caches_Clear", "Site/Caches")]
         [HttpPost]
@@ -41,7 +41,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 _cacheManager.Remove(cacheKey);
             }
-            return Template(model.CreateTemplate(Request.RequestContext, _cacheManager, _cacheKeyManager));
+            return Template(model.CreateTemplate(ControllerContext, _cacheManager, _cacheKeyManager));
         }
         [RequestMapping("SiteSettings_postback", "Site/Settings")]
         [HttpPost]
@@ -49,7 +49,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var siteModel = new SiteModel(db.SystemSettings);

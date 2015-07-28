@@ -2,16 +2,16 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 using Moonlit.Mvc.Templates;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class ProfileSettingsModel
+    public class ProfileSettingsModel 
     {
         public void SetInnerObject(User user)
         {
@@ -22,100 +22,43 @@ namespace Moonlit.Mvc.Maintenance.Models
             Gender = user.Gender;
             Culture = user.CultureId;
         }
-
+        [Field(FieldWidth.W6)]
+        [SelectList(typeof(CultureSelectListItemsProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserCulture")]
         public int? Culture { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]
+        [Field(FieldWidth.W6)]
+        [TextBox]
         public string LoginName { get; set; }
-
+        [Field(FieldWidth.W6)]
+        [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string UserName { get; set; }
 
 
+        [Field(FieldWidth.W6)]
+        [SelectList(typeof(EnumSelectListItemsProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         public Gender? Gender { get; set; }
 
+        [DatePicker]
+        [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserDateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
+        [CheckBox]
+        [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsSuper")]
         public bool IsSuper { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(ControllerContext controllerContext)
         {
-            var cultures = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem()
-            {
-                Text = x.DisplayName,
-                Value = x.CultureId.ToString(),
-            }).ToList();
-            cultures.Insert(0, new SelectListItem());
-            return new AdministrationSimpleEditTemplate(this)
+            return new AdministrationSimpleEditTemplate
             {
                 Title = MaintCultureTextResources.ProfileSettings,
                 Description = MaintCultureTextResources.ProfileSettingsDescription,
                 FormTitle = MaintCultureTextResources.ProfileInfo,
-                Fields = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.AdminUserLoginName,
-                        FieldName = "LoginName",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = LoginName,
-                            Enabled = false,
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.AdminUserUserName,
-                        FieldName = "UserName",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = UserName,
-                        }
-                    }, 
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.AdminUserGender,
-                        FieldName = "Gender",
-                        Control = new SelectList(new[]
-                            {
-                                new SelectListItem
-                                {
-                                    Text = Domains.Gender.Male.ToDisplayString(),
-                                    Value = ((int) Domains.Gender.Male).ToString(),
-                                },
-                                new SelectListItem
-                                {
-                                    Text = Domains.Gender.Female.ToDisplayString(),
-                                    Value = ((int) Domains.Gender.Female).ToString(),
-                                }
-                            }, this.Gender.ToIntString())
-                    }, 
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.AdminUserDateOfBirth,
-                        FieldName = "DateOfBirth",
-                        Control = new DatePicker
-                        {
-                            Value = DateOfBirth
-                        }
-                    }, 
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.AdminUserCulture,
-                        FieldName = "Culture",
-                        Control = new SelectList(cultures, Culture.ToString()),
-                    }, 
-                },
+                Fields = TemplateHelper.MakeFields(this, controllerContext),
                 Buttons = new IClickable[]
                 {
                     new Button
@@ -125,74 +68,6 @@ namespace Moonlit.Mvc.Maintenance.Models
                     }
                 }
             };
-        }
-    }
-    public class ProfileChangePasswordModel
-    {
-        public void SetInnerObject(User user)
-        {
-
-        }
-
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordOldPassword")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        public string OldPassword { get; set; }
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordNewPassword")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        public string NewPassword { get; set; }
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordConfirmPassword")]
-        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceName = "ValidationCompare", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        public string ConfirmPassword { get; set; }
-
-
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
-        {
-
-            return new AdministrationSimpleEditTemplate(this)
-            {
-                Title = MaintCultureTextResources.ProfileChangePassword,
-                Description = MaintCultureTextResources.ProfileChangePasswordDescription,
-                FormTitle = MaintCultureTextResources.ProfileChangePasswordInfo,
-                Fields = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.ProfileChangePasswordOldPassword,
-                        FieldName = "OldPassword",
-                        Control = new PasswordBox()
-                        { 
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.ProfileChangePasswordNewPassword,
-                        FieldName = "NewPassword",
-                        Control = new PasswordBox
-                        { 
-                        }
-                    }, 
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.ProfileChangePasswordConfirmPassword,
-                        FieldName = "ConfirmPassword",
-                        Control = new PasswordBox
-                        {
-                             
-                        }
-                    }, 
-                },
-                Buttons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
-                }
-            };
-        }
+        } 
     }
 }

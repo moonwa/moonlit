@@ -5,12 +5,13 @@ using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 using Moonlit.Mvc.Templates;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class SiteSettingsModel
+    public class SiteSettingsModel 
     {
         public void SetInnerObject(SiteModel siteModel)
         {
@@ -19,62 +20,30 @@ namespace Moonlit.Mvc.Maintenance.Models
             DefaultCulture = siteModel.DefaultCulture;
         }
 
+        [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteSiteName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
+        [Field(FieldWidth.W6)]
         public string SiteName { get; set; }
-
+        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteDefaultCulture")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public int? DefaultCulture { get; set; }
 
+        [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteMaxSignInFailTimes")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
+        [Field(FieldWidth.W6)]
         public int MaxSignInFailTimes { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(ControllerContext controllerContext)
         {
-            var cultures = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem()
-            {
-                Text = x.DisplayName,
-                Value = x.CultureId.ToString(),
-            }).ToList();
-            cultures.Insert(0, new SelectListItem());
-            return new AdministrationSimpleEditTemplate(this)
+            return new AdministrationSimpleEditTemplate
             {
                 Title = MaintCultureTextResources.SiteSettings,
                 Description = MaintCultureTextResources.SiteSettingsDescription,
                 FormTitle = MaintCultureTextResources.SiteInfo,
-                Fields = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.SiteSiteName,
-                        FieldName = "SiteName",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = SiteName,
-                        }
-                    }, 
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.SiteDefaultCulture,
-                        FieldName = "DefaultCulture",
-                        Control = new SelectList(cultures,DefaultCulture.ToString() )
-                    } , 
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.SiteMaxSignInFailTimes,
-                        FieldName = "MaxSignInFailTimes",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = MaxSignInFailTimes.ToString(),
-                        }
-                    } 
-                },
+                Fields = TemplateHelper.MakeFields(this, controllerContext),
                 Buttons = new IClickable[]
                 {
                     new Button

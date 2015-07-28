@@ -1,16 +1,18 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 using Moonlit.Mvc.Templates;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureTextListModel : IPagedRequest
+    public class CultureTextListModel : IPagedRequest 
     {
         public CultureTextListModel()
         {
@@ -18,32 +20,24 @@ namespace Moonlit.Mvc.Maintenance.Models
             PageSize = 10;
             OrderBy = "UserName";
         }
-
+        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureName")]
         public int Culture { get; set; }
+        [TextBox]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
         public string Keyword { get; set; }
+        [TextBox]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
         public string Name { get; set; }
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(ControllerContext controllerContext, IMaintDbRepository db)
         {
-            if (Culture == 0)
-            {
-                Culture = new SiteModel(db.SystemSettings).DefaultCulture;
-            }
-            var culture = db.Cultures.FirstOrDefault(x => x.IsEnabled);
-            if (Culture == 0 && culture != null)
-            {
-                Culture = culture.CultureId;
-            }
-            var cultures = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem
-            {
-                Text = x.DisplayName,
-                Value = x.CultureId.ToString(),
-            }).ToList();
-
-            var urlHelper = new UrlHelper(requestContext);
             var query = db.CultureTexts.Where(x => x.CultureId == Culture);
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
@@ -58,47 +52,16 @@ namespace Moonlit.Mvc.Maintenance.Models
                 query = query.Where(x => x.Name.StartsWith(name));
             }
 
-
-            return new AdministrationSimpleListTemplate(query)
+            var urlHelper = new UrlHelper(controllerContext.RequestContext);
+            var template = new AdministrationSimpleListTemplate(query)
             {
                 Title = MaintCultureTextResources.CultureTextList,
                 Description = MaintCultureTextResources.CultureTextListDescription,
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.Keyword,
-                        FieldName = "Keyword",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Keyword
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextName,
-                        FieldName = "Name",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value= Name,
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextCulture,
-                        FieldName = "Culture",
-                        Control = new SelectList(cultures, Culture.ToString()),
-                    },
-                },
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
                 DefaultPageIndex = 1,
+                Criteria = TemplateHelper.MakeFields(this, controllerContext),
                 Table = new Table
                 {
                     Columns = new[]
@@ -128,24 +91,25 @@ namespace Moonlit.Mvc.Maintenance.Models
                             {
                                 Text = ((CultureText) x.Target).Text
                             }
-                        },  
+                        },
                         new TableColumn
                         {
-                            Header =MaintCultureTextResources.Operation,
+                            Header = MaintCultureTextResources.Operation,
                             CellTemplate = x =>
                             {
-                                var url = RequestMappings.Current.GetRequestMapping("editculturetext").MakeUrl(urlHelper, new {id= ((CultureText) x.Target).CultureTextId});
+                                var url = RequestMappings.Current.GetRequestMapping("editculturetext").MakeUrl(urlHelper, new {id = ((CultureText) x.Target).CultureTextId});
                                 return new ControlCollection()
-                                    { 
-                                        Controls= new List<Control>() {
-                                            new Link
-                                            {
-                                                Style = LinkStyle.Normal,
-                                                Text = MaintCultureTextResources.Edit, 
-                                                Url = url,
-                                            }
+                                {
+                                    Controls = new List<Control>()
+                                    {
+                                        new Link
+                                        {
+                                            Style = LinkStyle.Normal,
+                                            Text = MaintCultureTextResources.Edit,
+                                            Url = url,
                                         }
-                                    };
+                                    }
+                                };
                             }
                         }
                     }
@@ -168,22 +132,21 @@ namespace Moonlit.Mvc.Maintenance.Models
                         Text = MaintCultureTextResources.Import,
                         Style = LinkStyle.Button,
                         Url = RequestMappings.Current.GetRequestMapping("importculturetext").MakeUrl(urlHelper, null),
-                    }, 
+                    },
                     new Button
                     {
                         Text = MaintCultureTextResources.Export,
                         ActionName = "Export"
-                    }, 
+                    },
                     new Button
                     {
                         Text = MaintCultureTextResources.Delete,
                         ActionName = "Delete"
-                    }, 
-                },
-                RecordButtons = new IClickable[]
-                {
+                    },
                 }
-            };
-        }
+            }; 
+            return template;
+        } 
+
     }
 }

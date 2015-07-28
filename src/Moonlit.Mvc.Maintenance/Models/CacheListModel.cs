@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -14,23 +15,26 @@ namespace Moonlit.Mvc.Maintenance.Models
         {
             PageIndex = 1;
             PageSize = 10;
-            OrderBy = "Key";
+            OrderBy = "Name";
         }
 
+        [Field(FieldWidth.W6)]
+        [TextBox]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CacheName")]
         public string Name { get; set; }
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, ICacheManager cacheManager, CacheKeyManager cacheKeyManager)
+
+        public Template CreateTemplate(ControllerContext controllerContext, ICacheManager cacheManager, CacheKeyManager cacheKeyManager)
         {
-            var urlHelper = new UrlHelper(requestContext);
             var query = cacheKeyManager.AllKeys.Select(x => new
             {
                 Name = x,
                 IsNull = !cacheManager.Exist(x)
             }).ToList().AsQueryable();
-      
+
             if (!string.IsNullOrWhiteSpace(Name))
             {
                 var name = Name.Trim();
@@ -38,29 +42,27 @@ namespace Moonlit.Mvc.Maintenance.Models
                 query = query.Where(x => x.Name.Contains(name));
             }
 
-
-            return new AdministrationSimpleListTemplate(query)
+            var template = new AdministrationSimpleListTemplate(query)
             {
                 Title = MaintCultureTextResources.CultureTextList,
                 Description = MaintCultureTextResources.CultureTextListDescription,
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CacheName,
-                        FieldName = "Name",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Name
-                        }
-                    },
-                },
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
-                DefaultPageIndex = 1,
+                Criteria = TemplateHelper.MakeFields(this, controllerContext),
+                GlobalButtons = new IClickable[]
+                {
+                    new Button
+                    {
+                        Text = MaintCultureTextResources.Search,
+                        ActionName = ""
+                    },
+                    new Button
+                    {
+                        Text = MaintCultureTextResources.Clear,
+                        ActionName = "Clear"
+                    },
+                },
                 Table = new Table
                 {
                     Columns = new[]
@@ -83,26 +85,13 @@ namespace Moonlit.Mvc.Maintenance.Models
                                 Text = ((dynamic) x.Target).IsNull == true ? MaintCultureTextResources.Yes : MaintCultureTextResources.No
                             }
                         }
-                       
+
                     }
-                },
-                GlobalButtons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Clear,
-                        ActionName = "Clear"
-                    },  
-                },
-                RecordButtons = new IClickable[]
-                {
                 }
-            };
+            }; 
+            return template;
+
         }
+
     }
 }

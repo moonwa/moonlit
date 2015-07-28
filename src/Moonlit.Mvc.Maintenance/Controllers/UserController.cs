@@ -17,7 +17,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [Display(Name = "用户管理", Description = "用户管理描述，这是一段很长的描述")]
         public ActionResult Index(AdminUserListModel model)
         {
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("users_disable", "user")]
         [FormAction("disable")]
@@ -33,7 +33,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("users_enable", "user")]
         [FormAction("enable")]
@@ -49,7 +49,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [RequestMapping("createuser", "user/create")]
@@ -57,7 +57,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Create()
         {
             var model = new AdminUserCreateModel();
-            return Template(model.CreateTemplate(Request.RequestContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [RequestMapping("createuser_postback", "user/create")]
@@ -66,7 +66,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var loginName = model.LoginName.Trim();
@@ -77,7 +77,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                     MaintCultureTextResources.AdminUserLoginName, loginName);
 
                 ModelState.AddModelError("LoginName", string.Format(errorMessage, loginName));
-                return Template(model.CreateTemplate(Request.RequestContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
 
             user = new User
@@ -116,7 +116,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var model = new AdminUserEditModel();
             model.SetInnerObject(adminUser);
 
-            return Template(model.CreateTemplate(Request.RequestContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("edituser_postback", "user/edit/{id}")]
         [HttpPost]
@@ -124,7 +124,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var adminUser = await db.Users.Include(user => user.Roles).FirstOrDefaultAsync(x => x.UserId == id);
@@ -137,7 +137,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             adminUser.DateOfBirth = model.DateOfBirth;
             adminUser.IsEnabled = model.IsEnabled;
             adminUser.Roles.Clear();
-            var roleIds = model.RoleIds??new int[0];
+            var roleIds = model.Roles ?? new int[0];
             adminUser.Roles = db.Roles.Where(x => roleIds.Contains(x.RoleId)).ToList();
             if (!string.IsNullOrEmpty(model.Password))
             {
@@ -150,7 +150,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
 
-            return Template(model.CreateTemplate(Request.RequestContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

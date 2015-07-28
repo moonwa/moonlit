@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
@@ -7,7 +8,7 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureEditModel
+    public class CultureEditModel  
     {
         public void SetInnerObject(Culture culture)
         {
@@ -15,63 +16,31 @@ namespace Moonlit.Mvc.Maintenance.Models
             DisplayName = culture.DisplayName;
             IsEnabled = culture.IsEnabled;
         }
-
+        [TextBox]
+        [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Name { get; set; }
 
+        [TextBox]
+        [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureDisplayName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string DisplayName { get; set; }
 
+        [CheckBox]
+        [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureIsEnabled")]
         public bool IsEnabled { get; set; }
 
-        public Template CreateTemplate(RequestContext requestContext)
+        public Template CreateTemplate(ControllerContext controllerContext)
         {
-            return new AdministrationSimpleEditTemplate(this)
+            return new AdministrationSimpleEditTemplate
             {
-                Title = MaintCultureTextResources.CultureCreate,
-                Description = MaintCultureTextResources.CultureCreateDescription,
+                Title = MaintCultureTextResources.CultureEdit,
+                Description = MaintCultureTextResources.CultureEditDescription,
                 FormTitle = MaintCultureTextResources.CultureInfo,
-                Fields = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureName,
-                        FieldName = "Name",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Name,
-                            Enabled = false,
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureDisplayName,
-                        FieldName = "DisplayName",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = DisplayName
-                        }
-                    },  
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureIsEnabled,
-                        FieldName = "IsEnabled",
-                        Control = new CheckBox()
-                        {
-                            Checked = IsEnabled,
-                            Value = true.ToString(),
-                            Text=MaintCultureTextResources.CultureIsEnabled,
-                        }
-                    }, 
-                },
+                Fields = TemplateHelper.MakeFields(this, controllerContext),
                 Buttons = new IClickable[]
                 {
                     new Button
@@ -81,6 +50,6 @@ namespace Moonlit.Mvc.Maintenance.Models
                     }
                 }
             };
-        }
+        } 
     }
 }

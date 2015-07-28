@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -18,17 +20,29 @@ namespace Moonlit.Mvc.Maintenance.Models
             OrderBy = "UserName";
         }
 
+        [TextBox]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof (MaintCultureTextResources), Name = "Keyword")]
         public string Keyword { get; set; }
+
+        [TextBox]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof (MaintCultureTextResources), Name = "AdminUserUserName")]
         public string UserName { get; set; }
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
+
+        [CheckBox]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof (MaintCultureTextResources), Name = "AdminUserIsEnabled")]
         public bool? IsEnabled { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+
+        public Template CreateTemplate(ControllerContext controllerContext)
         {
-            var urlHelper = new UrlHelper(requestContext);
-            var query = db.Users.AsQueryable();
+            var irepository = DependencyResolver.Current.GetService<IMaintDbRepository>();
+            var query = irepository.Users.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
                 var keyword = Keyword.Trim();
@@ -45,40 +59,39 @@ namespace Moonlit.Mvc.Maintenance.Models
             {
                 query = query.Where(x => x.IsEnabled == IsEnabled);
             }
-
-            return new AdministrationSimpleListTemplate(query)
+            var urlHelper = new UrlHelper(controllerContext.RequestContext);
+            var template = new AdministrationSimpleListTemplate(query)
             {
                 Title = MaintCultureTextResources.AdminUserList,
                 Description = MaintCultureTextResources.AdminUserListDescription,
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.Keyword,
-                        FieldName = "Keyword",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Keyword
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.AdminUserUserName,
-                        FieldName = "UserName",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value=UserName,
-                        }
-                    }
-                },
                 DefaultSort = "UserName",
                 DefaultPageSize = 10,
-                DefaultPageIndex = 1,
+                Criteria = TemplateHelper.MakeFields(this, controllerContext),
+                GlobalButtons = new IClickable[]
+                {
+                    new Button
+                    {
+                        Text = MaintCultureTextResources.Search,
+                        ActionName = ""
+                    },
+                    new Link
+                    {
+                        Text = MaintCultureTextResources.New,
+                        Style = LinkStyle.Button,
+                        Url = RequestMappings.Current.GetRequestMapping("CreateUser").MakeUrl(urlHelper, null),
+                    },
+                    new Button
+                    {
+                        Text = MaintCultureTextResources.Disable,
+                        ActionName = "Disable"
+                    },
+                    new Button
+                    {
+                        Text = MaintCultureTextResources.Enable,
+                        ActionName = "Enable"
+                    },
+                },
                 Table = new Table
                 {
                     Columns = new[]
@@ -121,7 +134,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "DateOfBirth",
-                            Header =  MaintCultureTextResources.AdminUserDateOfBirth,
+                            Header = MaintCultureTextResources.AdminUserDateOfBirth,
                             CellTemplate = x => new Literal
                             {
                                 Text = string.Format("{0:yyyy-MM-dd}", ((User) x.Target).DateOfBirth)
@@ -130,7 +143,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         new TableColumn
                         {
                             Sort = "IsEnabled",
-                            Header =  MaintCultureTextResources.AdminUserIsEnabled,
+                            Header = MaintCultureTextResources.AdminUserIsEnabled,
                             CellTemplate = x => new Literal
                             {
                                 Text = ((User) x.Target).IsEnabled ? MaintCultureTextResources.Yes : MaintCultureTextResources.No,
@@ -138,53 +151,28 @@ namespace Moonlit.Mvc.Maintenance.Models
                         },
                         new TableColumn
                         {
-                            Header =MaintCultureTextResources.Operation,
+                            Header = MaintCultureTextResources.Operation,
                             CellTemplate = x =>
                             {
-                                var url = RequestMappings.Current.GetRequestMapping("edituser").MakeUrl(urlHelper, new {id= ((User) x.Target).UserId});
+                                var url = RequestMappings.Current.GetRequestMapping("edituser").MakeUrl(urlHelper, new {id = ((User) x.Target).UserId});
                                 return new ControlCollection()
-                                    { 
-                                        Controls= new List<Control>() {
-                                            new Link
-                                            {
-                                                Style = LinkStyle.Normal,
-                                                Text = MaintCultureTextResources.Edit, 
-                                                Url = url,
-                                            }
+                                {
+                                    Controls = new List<Control>()
+                                    {
+                                        new Link
+                                        {
+                                            Style = LinkStyle.Normal,
+                                            Text = MaintCultureTextResources.Edit,
+                                            Url = url,
                                         }
-                                    };
+                                    }
+                                };
                             }
                         }
                     }
                 },
-                GlobalButtons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.New,
-                        Style = LinkStyle.Button,
-                        Url = RequestMappings.Current.GetRequestMapping("createuser").MakeUrl(urlHelper, null),
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Disable,
-                        ActionName = "Disable"
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Enable,
-                        ActionName = "Enable"
-                    },
-                },
-                RecordButtons = new IClickable[]
-                {
-                }
-            };
+            }; 
+            return template;
         }
     }
 }

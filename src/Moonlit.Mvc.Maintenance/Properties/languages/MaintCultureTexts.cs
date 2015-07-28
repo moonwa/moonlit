@@ -62,6 +62,10 @@
 			{
 				get { return LanguageLoader.Get("AdminUser.LoginName"); }
 			}
+			public static string AdminUserRoles
+			{
+				get { return LanguageLoader.Get("AdminUser.Roles"); }
+			}
 			public static string AdminUserGender
 			{
 				get { return LanguageLoader.Get("AdminUser.Gender"); }
@@ -305,6 +309,14 @@
 			public static string CultureCreateDescription
 			{
 				get { return LanguageLoader.Get("Culture.Create.Description"); }
+			}
+			public static string CultureEdit
+			{
+				get { return LanguageLoader.Get("Culture.Edit"); }
+			}
+			public static string CultureEditDescription
+			{
+				get { return LanguageLoader.Get("Culture.Edit.Description"); }
 			}
 			public static string CultureInfo
 			{

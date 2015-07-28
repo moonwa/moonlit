@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Web.Mvc;
@@ -8,7 +9,7 @@ using Moonlit.Mvc.Controls;
 namespace Moonlit.Mvc.Templates
 {
     public class AdministrationSimpleEditTemplate : Template
-    {
+    {  
         public object Model { get; set; } 
         public string FormTitle { get; set; }
         public AdministrationSimpleEditTemplate(object model)

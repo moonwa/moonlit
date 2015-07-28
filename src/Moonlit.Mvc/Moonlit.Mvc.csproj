@@ -104,6 +104,21 @@
     <Compile Include="DashboardIcon.cs" />
     <Compile Include="DashboardIconAttribute.cs" />
     <Compile Include="DashboardIcons.cs" />
+    <Compile Include="DataAnnotations\ControlAttribute.cs" />
+    <Compile Include="DataAnnotations\EnumSelectListItemsProvider.cs" />
+    <Compile Include="DataAnnotations\FieldAttribute.cs" />
+    <Compile Include="DataAnnotations\FieldWidth.cs" />
+    <Compile Include="DataAnnotations\GroupAttribute.cs" />
+    <Compile Include="DataAnnotations\GroupSwitch.cs" />
+    <Compile Include="DataAnnotations\HiddenAttribute.cs" />
+    <Compile Include="DataAnnotations\IControllBuilder.cs" />
+    <Compile Include="DataAnnotations\IRenderJudge.cs" />
+    <Compile Include="DataAnnotations\ISelectListItemsProvider.cs" />
+    <Compile Include="DataAnnotations\ModelMetadataHelper.cs" />
+    <Compile Include="DataAnnotations\RenderAttribute.cs" />
+    <Compile Include="DataAnnotations\SelectListAttribute.cs" />
+    <Compile Include="DataAnnotations\SortAttribute.cs" />
+    <Compile Include="DataAnnotations\TextBoxAttribute.cs" />
     <Compile Include="DefaultThemeLoader.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
@@ -165,6 +180,7 @@
     <Compile Include="Task.cs" />
     <Compile Include="Tasks.cs" />
     <Compile Include="TaskStatus.cs" />
+    <Compile Include="TemplateBuilder.cs" />
     <Compile Include="TemplateResult.cs" />
     <Compile Include="Templates\AdministrationDashboardTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
@@ -175,6 +191,7 @@
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Templates\SimpleBoxTemplate.cs" />
     <Compile Include="IThemeLoader.cs" />
+    <Compile Include="Templates\TemplateHelper.cs" />
     <Compile Include="Theme.cs" />
     <Compile Include="ThemeAttribute.cs" />
     <Compile Include="Themes.cs" />

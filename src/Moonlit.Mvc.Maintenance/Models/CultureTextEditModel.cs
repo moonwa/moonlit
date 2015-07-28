@@ -6,12 +6,13 @@ using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 using Moonlit.Mvc.Templates;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureTextEditModel
+    public class CultureTextEditModel 
     {
         public void SetInnerObject(CultureText cultureText)
         {
@@ -20,63 +21,28 @@ namespace Moonlit.Mvc.Maintenance.Models
             Culture = cultureText.CultureId;
         }
 
+        [Field(FieldWidth.W6)]
+        [TextBox]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
+        public string Name { get; set; }
+
+        [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextText")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Text { get; set; }
-
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
-        public string Name { get; set; }
+        [Field(FieldWidth.W6)]
+        [SelectList(typeof(CultureSelectListItemsProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
         public int? Culture { get; set; }
 
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(ControllerContext controllerContext)
         {
-            List<SelectListItem> items = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem()
-            {
-                Text = x.DisplayName,
-                Value = x.CultureId.ToString(), 
-            }).ToList();
-            return new AdministrationSimpleEditTemplate(this)
+            return new AdministrationSimpleEditTemplate
             {
                 Title = MaintCultureTextResources.CultureTextEdit,
                 Description = MaintCultureTextResources.CultureTextEditDescription,
                 FormTitle = MaintCultureTextResources.CultureTextInfo,
-                Fields = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextName,
-                        FieldName = "Name",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Name,
-                            Enabled = false,
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextText,
-                        FieldName = "Text",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Text
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextCulture,
-                        FieldName = "Culture",
-                        Control = new SelectList(items, Culture.ToString())
-                        {
-                            Enabled = false,
-                        }
-                    },
-                },
+                Fields = TemplateHelper.MakeFields(this, controllerContext),
                 Buttons = new IClickable[]
                 {
                     new Button

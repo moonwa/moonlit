@@ -18,7 +18,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var db = MaintDbContext;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name);
             model.SetInnerObject(user);
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("settings_postback", "Profile/Settings")]
         [HttpPost]
@@ -26,7 +26,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name && x.IsEnabled);
@@ -44,7 +44,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("changepassword", "Profile/ChangePassword")]
         [SitemapNode(ResourceType = typeof(MaintCultureTextResources), Text = "ProfileChangePassword", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
@@ -54,7 +54,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var db = MaintDbContext;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name);
             model.SetInnerObject(user);
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("changepassword_postback", "Profile/ChangePassword")]
         [HttpPost]
@@ -62,7 +62,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name && x.IsEnabled);
@@ -73,7 +73,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             if (!string.Equals(user.HashPassword(model.OldPassword), user.Password, StringComparison.OrdinalIgnoreCase))
             {
                 ModelState.AddModelError("OldPassword", string.Format(MaintCultureTextResources.ValidationError, MaintCultureTextResources.ProfileChangePasswordOldPassword));
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             user.Password = user.HashPassword(model.NewPassword);
             await db.SaveChangesAsync();
@@ -82,7 +82,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -18,16 +19,25 @@ namespace Moonlit.Mvc.Maintenance.Models
             OrderBy = "ExceptionLogId desc";
         }
 
+        [TextBox]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
         public string Keyword { get; set; }
+        [DatePicker]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "StartTime")]
         public DateTime? StartTime { get; set; }
+        [DatePicker]
+        [Field(FieldWidth.W6)]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "EndTime")]
         public DateTime? EndTime { get; set; }
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+
+        public Template CreateTemplate(ControllerContext controllerContext, IMaintDbRepository db)
         {
-            var urlHelper = new UrlHelper(requestContext);
             var query = db.ExceptionLogs.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
@@ -44,53 +54,26 @@ namespace Moonlit.Mvc.Maintenance.Models
                 var endTime = EndTime.Value.AddDays(1);
                 query = query.Where(x => x.CreationTime < endTime);
             }
-            
-            return new AdministrationSimpleListTemplate(query)
+            var template = new AdministrationSimpleListTemplate(query)
             {
                 Title = MaintCultureTextResources.ExceptionLogList,
                 Description = MaintCultureTextResources.ExceptionLogListDescription,
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.Keyword,
-                        FieldName = "Keyword",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Keyword
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.StartTime,
-                        FieldName = "StartTime",
-                        Control = new DatePicker()
-                        {
-                            Value=StartTime,
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.EndTime,
-                        FieldName = "EndTime",
-                        Control = new DatePicker()
-                        {
-                            Value=StartTime,
-                        }
-                    }
-                },
                 DefaultSort = "ExceptionLogId desc",
                 DefaultPageSize = 10,
-                DefaultPageIndex = 1,
+                Criteria = TemplateHelper.MakeFields(this, controllerContext),
+                GlobalButtons = new IClickable[]
+                {
+                    new Button
+                    {
+                        Text = MaintCultureTextResources.Search,
+                        ActionName = ""
+                    },
+                },
                 Table = new Table
                 {
                     Columns = new[]
-                    { 
+                    {
                         new TableColumn
                         {
                             Sort = "CreationTime",
@@ -99,7 +82,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                             {
                                 Text = ((ExceptionLog) x.Target).CreationTime.ToString()
                             }
-                        }, 
+                        },
                         new TableColumn
                         {
                             Sort = "RouteData",
@@ -119,20 +102,9 @@ namespace Moonlit.Mvc.Maintenance.Models
                             }
                         },
                     }
-                },
-                GlobalButtons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    
-                },
-                RecordButtons = new IClickable[]
-                { 
                 }
-            };
+            }; 
+            return template;
         }
     }
 }

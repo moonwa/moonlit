@@ -15,7 +15,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Parent = "BasicData", Text = "CultureList", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureListModel model)
         {
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
         [RequestMapping("cultures_disable", "culture")]
         [FormAction("disable")]
@@ -31,7 +31,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
         [RequestMapping("cultures_enable", "culture")]
         [FormAction("enable")]
@@ -47,7 +47,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
 
         [RequestMapping("createculture", "culture/create")]
@@ -55,7 +55,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Create()
         {
             var model = new CultureCreateModel();
-            return Template(model.CreateTemplate(Request.RequestContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [RequestMapping("createculture_postback", "culture/create")]
@@ -64,7 +64,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var name = model.Name.Trim();
@@ -75,7 +75,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                     MaintCultureTextResources.CultureName, name);
 
                 ModelState.AddModelError("Name", string.Format(errorMessage, name));
-                return Template(model.CreateTemplate(Request.RequestContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
 
             culture = new Culture
@@ -108,7 +108,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var model = new CultureEditModel();
             model.SetInnerObject(adminUser);
 
-            return Template(model.CreateTemplate(Request.RequestContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("editculture_postback", "culture/edit/{id}")]
         [HttpPost]
@@ -116,7 +116,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var adminUser = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
@@ -134,7 +134,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
 
-            return Template(model.CreateTemplate(Request.RequestContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

@@ -10,16 +10,11 @@ using Moonlit.Mvc.Controls;
 
 namespace Moonlit.Mvc.Templates
 {
-
     public class AdministrationSimpleListTemplate : Template
     {
-        public IQueryable Queryable { get; set; } 
+        public IQueryable Queryable { get; set; }
         public string QueryPanelTitle { get; set; }
-        public AdministrationSimpleListTemplate()
-            : this(null)
-        {
-
-        }
+       
         public AdministrationSimpleListTemplate(IQueryable queryable)
         {
             Queryable = queryable;
@@ -27,6 +22,7 @@ namespace Moonlit.Mvc.Templates
             Criteria = new Field[0];
             GlobalButtons = new IClickable[0];
             RecordButtons = new IClickable[0];
+            this.DefaultPageIndex = 1;
         }
         public override void OnReadyRender(ControllerContext context)
         {

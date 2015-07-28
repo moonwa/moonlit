@@ -9,15 +9,9 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [MoonlitAuthorize(Roles = MaintModule.PrivilegeRole )]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeRole)]
     public class RoleController : MaintControllerBase
     {
-        private readonly IPrivilegeLoader _privilegeLoader;
-
-        public RoleController(IPrivilegeLoader privilegeLoader)
-        {
-            _privilegeLoader = privilegeLoader;
-        }
 
         [RequestMapping("roles", "role")]
         [SitemapNode(Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources), Text = "RoleList")]
@@ -64,7 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Create()
         {
             var model = new RoleCreateModel();
-            return Template(model.CreateTemplate(Request.RequestContext, _privilegeLoader));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [RequestMapping("createrole_postback", "role/create")]
@@ -73,7 +67,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, _privilegeLoader));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
 
@@ -98,7 +92,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
-            var role = await db.Roles.FirstOrDefaultAsync(x => x.RoleId == id) ;
+            var role = await db.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
             if (role == null)
             {
                 return HttpNotFound();
@@ -106,7 +100,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var model = new RoleEditModel();
             model.SetInnerObject(role);
 
-            return Template(model.CreateTemplate(Request.RequestContext, _privilegeLoader));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("editrole_postback", "role/edit/{id}")]
         [HttpPost]
@@ -114,7 +108,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, _privilegeLoader));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var role = await db.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
@@ -132,7 +126,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
 
-            return Template(model.CreateTemplate(Request.RequestContext, _privilegeLoader));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

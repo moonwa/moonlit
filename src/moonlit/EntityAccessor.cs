@@ -24,6 +24,7 @@ namespace Moonlit
             _getters = new Dictionary<string, DynamicMethodExecutor>();
             _setters = new Dictionary<string, DynamicMethodExecutor>();
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+
             foreach (PropertyInfo propertyInfo in properties)
             {
                 if (propertyInfo.CanWrite)

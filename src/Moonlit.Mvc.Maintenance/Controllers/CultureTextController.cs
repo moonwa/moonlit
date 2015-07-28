@@ -28,7 +28,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "CultureTextList", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureTextListModel model)
         {
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
         [RequestMapping("culturetexts_delete", "culturetext")]
         [FormAction("delete")]
@@ -45,7 +45,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MaintDbContext.SaveChanges();
                 _maintDomainService.ClearCultureTextsCache();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
         [RequestMapping("culturetexts_Export", "culturetext")]
         [FormAction("Export")]
@@ -72,7 +72,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Import()
         {
             var model = new CultureTextImportModel();
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [RequestMapping("importculturetext_postback", "culturetext/import")]
@@ -81,7 +81,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
 
@@ -117,14 +117,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("createculturetext", "culturetext/create")]
         [SitemapNode(Text = "CultureTextCreate", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Create()
         {
             var model = new CultureTextCreateModel();
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [RequestMapping("createculturetext_postback", "culturetext/create")]
@@ -133,7 +133,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var name = model.Name.Trim();
@@ -144,7 +144,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                     MaintCultureTextResources.CultureTextName, name);
 
                 ModelState.AddModelError("Name", string.Format(errorMessage, name));
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var culture = db.Cultures.FirstOrDefault(x => x.CultureId == model.Culture && x.IsEnabled);
             if (culture == null)
@@ -182,7 +182,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             var model = new CultureTextEditModel();
             model.SetInnerObject(adminUser);
 
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [RequestMapping("editculturetext_postback", "culturetext/edit/{id}")]
         [HttpPost]
@@ -191,7 +191,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
             var cultureText = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id);
@@ -207,7 +207,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
             _maintDomainService.ClearCultureTextsCache();
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

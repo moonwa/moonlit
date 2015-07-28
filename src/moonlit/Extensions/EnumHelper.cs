@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace Moonlit
 {
@@ -15,6 +17,17 @@ namespace Moonlit
                 return null;
             }
             return Convert.ToInt32(value).ToString();
+        }
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+
+            var attr = fi.GetCustomAttribute<DisplayAttribute>(false);
+
+            if (attr != null)
+                return attr.GetName();
+            else
+                return value.ToString();
         }
     }
 }

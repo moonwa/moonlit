@@ -6,68 +6,36 @@ using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 using Moonlit.Mvc.Templates;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureTextCreateModel
+    public class CultureTextCreateModel 
     {
+        [Field(FieldWidth.W6)]
+        [TextBox]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
+        public string Name { get; set; }
+
+        [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextText")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Text { get; set; }
-
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        public string Name { get; set; }
+        [Field(FieldWidth.W6)]
+        [SelectList(typeof(CultureSelectListItemsProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public int? Culture { get; set; }
 
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(ControllerContext controllerContext)
         {
-            List<SelectListItem> items = db.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem()
-            {
-                Text = x.DisplayName,
-                Value = x.CultureId.ToString(),
-            }).ToList();
-            return new AdministrationSimpleEditTemplate(this)
+            return new AdministrationSimpleEditTemplate
             {
                 Title = MaintCultureTextResources.CultureTextCreate,
                 Description = MaintCultureTextResources.CultureTextCreateDescription,
                 FormTitle = MaintCultureTextResources.CultureTextInfo,
-                Fields = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextName,
-                        FieldName = "Name",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Name
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextText,
-                        FieldName = "Text",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Text
-                        }
-                    },
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.CultureTextCulture,
-                        FieldName = "Culture",
-                        Control = new SelectList(items, Culture.ToString()),
-                    },
-                },
+                Fields = TemplateHelper.MakeFields(this, controllerContext),
                 Buttons = new IClickable[]
                 {
                     new Button
@@ -77,6 +45,6 @@ namespace Moonlit.Mvc.Maintenance.Models
                     }
                 }
             };
-        }
+        }  
     }
 }
