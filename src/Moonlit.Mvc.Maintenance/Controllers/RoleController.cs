@@ -18,7 +18,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [Display(Name = "角色管理", Description = "角色管理描述，这是一段很长的描述")]
         public ActionResult Index(RoleListModel model)
         {
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
         [RequestMapping("roles_disable", "role")]
         [FormAction("disable")]
@@ -34,7 +34,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
         [RequestMapping("roles_enable", "role")]
         [FormAction("enable")]
@@ -50,7 +50,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
 
         [RequestMapping("createrole", "role/create")]

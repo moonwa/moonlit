@@ -41,6 +41,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         [StringLength(12)]
         public string LoginName { get; set; }
         [Field(FieldWidth.W6)]
+        [PasswordBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserPassword")]
         public string Password { get; set; }
 

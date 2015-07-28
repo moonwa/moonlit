@@ -78,7 +78,7 @@ namespace Moonlit.Mvc
         }
     }
     [AttributeUsage(AttributeTargets.Property)]
-    public class PasswordAttribute : ControlAttribute
+    public class PasswordBoxAttribute : ControlAttribute
     {
         public string Icon { get; set; }
         public string PlaceHolder { get; set; }

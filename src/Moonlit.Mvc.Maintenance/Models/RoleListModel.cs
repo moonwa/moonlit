@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -17,16 +18,21 @@ namespace Moonlit.Mvc.Maintenance.Models
             PageSize = 10;
             OrderBy = "UserName";
         }
-
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
+        [Field(FieldWidth.W6)]
+        [TextBox]
         public string Keyword { get; set; }
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RoleIsEnabled")]
+        [Field(FieldWidth.W6)]
+        [CheckBox]
         public bool? IsEnabled { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(ControllerContext controllerContext, IMaintDbRepository db)
         {
-            var urlHelper = new UrlHelper(requestContext); 
+            var urlHelper = new UrlHelper(controllerContext.RequestContext); 
             var query = db.Roles.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
@@ -44,20 +50,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Title = MaintCultureTextResources.RoleList,
                 Description = MaintCultureTextResources.RoleListDescription,
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new[]
-                {
-                    new Field
-                    {
-                        Width = 6,
-                        Label = MaintCultureTextResources.Keyword,
-                        FieldName = "Keyword",
-                        Control = new TextBox
-                        {
-                            MaxLength = 12,
-                            Value = Keyword
-                        }
-                    }, 
-                },
+                Criteria = TemplateHelper.MakeFields(this , controllerContext),
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
                 DefaultPageIndex = 1,
@@ -122,6 +115,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Link
                     {
                         Text = MaintCultureTextResources.New,
+                        Style = LinkStyle.Button,
                         Url = RequestMappings.Current.GetRequestMapping("createrole").MakeUrl(urlHelper, null),
                     },
                     new Button

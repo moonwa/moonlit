@@ -14,17 +14,17 @@ namespace Moonlit.Mvc.Maintenance.Models
         {
 
         }
-        [Password]
+        [PasswordBox]
         [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordOldPassword")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string OldPassword { get; set; }
-        [Password]
+        [PasswordBox]
         [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordNewPassword")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string NewPassword { get; set; }
-        [Password]
+        [PasswordBox]
         [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "ProfileChangePasswordConfirmPassword")]
         [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceName = "ValidationCompare", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
