@@ -91,6 +91,7 @@
     <Compile Include="Data\XmlDataSourceFixture.cs" />
     <Compile Include="DictionaryHelper_Test.cs" />
     <Compile Include="DynamicDictionaryMapperTest.cs" />
+    <Compile Include="Extensions\DecimalExtensions.cs" />
     <Compile Include="Helpers\ByteExtensions_Test.cs" />
     <Compile Include="Helpers\StringHelperTest.cs" />
     <Compile Include="Helpers\UriBuilderExtensions_Test.cs" />

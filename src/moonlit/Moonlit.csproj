@@ -119,6 +119,7 @@
     <Compile Include="Caching\CachedObject.cs" />
     <Compile Include="Caching\CacheManagerExtensions.cs" />
     <Compile Include="Caching\RedisCacheManager.cs" />
+    <Compile Include="IAuditObject.cs" />
     <Compile Include="Data\DbDataReaderExtensions.cs" />
     <Compile Include="DictionaryObject.cs" />
     <Compile Include="DomainTypeResolver.cs" />
@@ -280,7 +281,6 @@
     <Compile Include="RandomHelper.cs" />
     <Compile Include="ObjectConverts\IObjectConverter.cs" />
     <Compile Include="Reflection\XmlObjectTranslater.cs" />
-    <Compile Include="Runtime\Serialization\StringSerializer.cs" />
     <Compile Include="Security\RsaHelper.cs" />
     <Compile Include="Services\Spelling\ISpelling.cs" />
     <Compile Include="Extensions\DependencyResolverHelper.cs" />
