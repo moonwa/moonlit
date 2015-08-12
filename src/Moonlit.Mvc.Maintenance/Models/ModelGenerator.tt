@@ -1,0 +1,189 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+	using System.Web.Mvc; 
+	using System; 
+	using System.ComponentModel.DataAnnotations;
+	using Moonlit.Mvc;
+	using Moonlit.Mvc.Templates;
+	using Moonlit.Mvc.Maintenance.Domains;
+	using Moonlit.Mvc.Controls;
+
+<#  
+
+	Init();
+
+	string absolutePath = Host.ResolvePath("models.xml");
+	String text = System.IO.File.ReadAllText(absolutePath) ; 
+	string contents = File.ReadAllText(absolutePath); 
+
+	
+	XElement entities = XElement.Parse(contents); 
+
+
+	defaultResourceType = (string)entities.Attribute("defaultResourceType");
+	var @namespace = (string)entities.Attribute("namespace");
+
+	var imports = entities.Elements(XName.Get("import", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	var models = entities.Elements(XName.Get("model", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	
+#>
+
+<# 
+	foreach(XElement import in imports) {
+#>
+		using <#= import.Value #>;
+<#
+	}
+#>
+namespace <#= @namespace #>
+{
+
+<# 
+	foreach(XElement model in models) {
+
+		var className = (string)model.Attribute("name");
+		var resourceName = (string)model.Attribute("resourceName");
+#> 
+
+	public partial class <#= (string)model.Attribute("name") #> {
+<# 
+		foreach(XElement property in model.Element(XName.Get("properties", "http://hizhanzhang.com/moonlit/mvc/maint/models")).Elements(XName.Get("add", "http://hizhanzhang.com/moonlit/mvc/maint/models"))) {
+			var propertyName = (string)property.Attribute("name");
+			XElement display = property.Element(XName.Get("display", "http://hizhanzhang.com/moonlit/mvc/maint/models")) ?? new XElement("display");
+			XElement field = property.Element(XName.Get("field", "http://hizhanzhang.com/moonlit/mvc/maint/models")) ?? new XElement("field");
+			XElement control = property.Element(XName.Get("control", "http://hizhanzhang.com/moonlit/mvc/maint/models")) ?? new XElement("control");
+#> 
+		[Display(
+			ResourceType = typeof(<#= (string)display.Attribute("resourceType") ?? defaultResourceType #>),
+			Name = "<#= (string)display.Attribute("name") == null ? resourceName + propertyName : (string)display.Attribute("name") #>"
+			)]
+<#
+			if (field != null) {
+#>
+		[Field(FieldWidth.W<#= (String)field.Attribute("width") ?? "6" #>)]
+<#
+			}
+#>
+<#
+			if (control != null) {
+#>
+		<#  WriteControlAsAttribute(control); #>
+<#
+			}
+#>
+		public <#= (string)property.Attribute("type") #> <#= (string)property.Attribute("name") #> { get; set; }
+<#
+		}
+#>
+
+
+<# 
+		foreach(XElement method in model.Element(XName.Get("methods", "http://hizhanzhang.com/moonlit/mvc/maint/models")).Nodes().OfType<XElement>()) {
+			WriteMethod(model, method);
+		}
+#>
+	}
+
+<#
+	}
+#>
+}
+
+<#+ 
+	Dictionary<string, Action<XElement>> controlAttributeWriters = new Dictionary<string, Action<XElement>>();
+	Dictionary<string, Action<XElement>> controlWriters = new Dictionary<string, Action<XElement>>();
+	Dictionary<string, Action<XElement, XElement>> methodWriters = new Dictionary<string, Action<XElement, XElement>>();
+	string defaultResourceType = null;
+	 
+#>
+
+<#+
+	void Init(){
+		InitControlWriters(); 
+		InitControlAttributeWriters(); 
+		InitMethodsWriters(); 
+	}
+	void InitMethodsWriters(){
+		methodWriters.Add("administrationSimpleListTemplate", (model, method)=>{
+#> 		
+	    partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
+
+		public Template CreateTemplate(ControllerContext controllerContext)
+        {
+            var query = GetDataSource(controllerContext);
+            var template = new AdministrationSimpleListTemplate(query)
+            { 
+                Title = <#= defaultResourceType #>.<#= (string)model.Attribute("name") #>List,
+                Description = <#= defaultResourceType #>.<#= (string)model.Attribute("name") #>ListDescription,
+                QueryPanelTitle = <#= defaultResourceType #>.PanelQuery,
+                DefaultSort = OrderBy,
+                DefaultPageSize = PageSize,
+                Criteria = TemplateHelper.MakeFields(this, controllerContext), 
+            };
+			OnTemplate (template, controllerContext);
+            return template;
+        }
+<#+
+		});
+	}
+	void InitControlAttributeWriters(){
+		controlAttributeWriters.Add("textbox", x=>{
+#>
+		[TextBox]
+<#+
+		});
+		controlAttributeWriters.Add("checkbox", x=>{
+#>
+		[CheckBox]
+<#+
+		});
+	}
+	void InitControlWriters(){
+		controlAttributeWriters.Add("table", x=>{
+#>
+		new Table();
+<#+
+		});
+	}
+
+	void WriteControl(XElement control)
+	{
+		var controlType = control.Name.LocalName.ToString();
+		Action<XElement> fn = null;
+		if(!controlAttributeWriters.TryGetValue(controlType, out fn))
+		{
+			throw new Exception("not support control: " + controlType);
+		}
+		fn(control);
+	}
+	void WriteControlAsAttribute(XElement control){
+		var child = control.Descendants().First();
+		var controlType = child.Name.LocalName.ToString();
+		Action<XElement> fn = null;
+		if(!controlAttributeWriters.TryGetValue(controlType, out fn)){
+			throw new Exception("not support control: " + controlType);
+		}
+		fn(child);
+	}
+	void WriteMethod(XElement classInfo, XElement method){ 
+		var methodType = method.Name.LocalName.ToString();
+		Action<XElement, XElement> fn = null;
+		if(!methodWriters.TryGetValue(methodType, out fn)){
+			throw new Exception("not support method: " + methodType);
+		}
+		fn(classInfo, method); 
+		
+	}
+	
+#>
+
+

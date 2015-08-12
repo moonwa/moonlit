@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="models"
+    targetNamespace="http://hizhanzhang.com/moonlit/mvc/maint/models"
+    elementFormDefault="qualified"
+    xmlns="http://hizhanzhang.com/moonlit/mvc/maint/models"
+    xmlns:mstns="http://hizhanzhang.com/moonlit/mvc/maint/models"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:complexType name="columnType">
+    
+  </xs:complexType>
+  <xs:complexType name="columnsType">
+    <xs:all>
+      <xs:element name="add" type="columnType" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="tableType">
+    <xs:all>
+      <xs:element name="columns" type="columnsType" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="administrationSimpleListTemplate">
+<!--    <xs:all>-->
+<!--      <xs:element type="tableType" name="table"></xs:element>-->
+<!--    </xs:all>-->
+  </xs:complexType>
+  <xs:complexType name="methodsType">
+    <xs:all>
+      <xs:element type="administrationSimpleListTemplate" name="administrationSimpleListTemplate" maxOccurs="1" minOccurs="0"></xs:element>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="textboxType">
+  </xs:complexType>
+  <xs:complexType name="selectType">
+  </xs:complexType>
+  <xs:complexType name="checkboxType">
+  </xs:complexType>
+  <xs:complexType name="controlType">
+    <xs:choice maxOccurs="1">
+      <xs:element type="textboxType" name="textbox" maxOccurs="1"></xs:element>
+      <xs:element type="checkboxType" name="checkbox" maxOccurs="1"></xs:element>
+      <xs:element type="selectType" name="checkbox" maxOccurs="1"></xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="fieldType">
+    <xs:attribute name="width" type="xs:integer" use="required"></xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="displayAttributeType">
+    <xs:attribute name="name" type="xs:string" use="optional"></xs:attribute>
+    <xs:attribute name="description" type="xs:string" use="optional"></xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="propertiesType">
+    <xs:choice>
+      <xs:element name="add" type="propertyType" maxOccurs="unbounded" minOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="propertyType">
+    <xs:all>
+      <xs:element name="display" type="displayAttributeType" maxOccurs="1" minOccurs="0"></xs:element>
+      <xs:element name="field" type="fieldType" maxOccurs="1" minOccurs="0"></xs:element>
+      <xs:element name="control" type="controlType" maxOccurs="1" minOccurs="0"></xs:element>
+    </xs:all>
+    <xs:attribute name="name" use="required" />
+    <xs:attribute name="type" use="required" />
+  </xs:complexType>
+  <xs:complexType name="modelType">
+    <xs:all>
+      
+      <xs:element name="properties" type="propertiesType"  maxOccurs="1"  minOccurs="1"></xs:element>
+      <xs:element name="methods" type="methodsType"  maxOccurs="1"  minOccurs="0"></xs:element>
+    </xs:all> 
+    
+    <xs:attribute name="name" use="required" />
+    <xs:attribute name="resourceName" use="required" />
+  </xs:complexType>
+  <xs:complexType name="models" >
+    <xs:choice maxOccurs="unbounded" minOccurs="0">
+      <xs:element type="xs:string" name="import"></xs:element>
+      <xs:element type="modelType" name="model"></xs:element>
+    </xs:choice>
+    <xs:attribute name="namespace" type="xs:string" use="required"></xs:attribute>
+    <xs:attribute name="defaultResourceType" type="xs:string" use="required"></xs:attribute> 
+  </xs:complexType>
+
+  <xs:element type="models" name="models">
+    
+  </xs:element>
+</xs:schema>

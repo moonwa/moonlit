@@ -141,6 +141,11 @@
     <Compile Include="Migrations\201507262146584_Init.Designer.cs">
       <DependentUpon>201507262146584_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\ProfileChangePasswordModel.cs" />
@@ -199,6 +204,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Models\ModelGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelGenerator.cs</LastGenOutput>
+    </None>
+    <None Include="Models\models.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Moonlit.Mvc.Maintenance.nuspec" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Migrations\201507262146584_Init.resx">
@@ -224,6 +236,11 @@
       <Project>{318a3070-6896-4e82-b52b-7a1959156df1}</Project>
       <Name>Moonlit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\models.xml">
+      <RunCustomToolOn>ModelGenerator.tt</RunCustomToolOn>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -38,13 +38,13 @@
 			{
 				get { return LanguageLoader.Get("Privilege.CultureText"); }
 			}
-			public static string AdminUserList
+			public static string AdminUserListModelList
 			{
-				get { return LanguageLoader.Get("AdminUser.List"); }
+				get { return LanguageLoader.Get("AdminUserListModelList"); }
 			}
-			public static string AdminUserListDescription
+			public static string AdminUserListModelListDescription
 			{
-				get { return LanguageLoader.Get("AdminUser.ListDescription"); }
+				get { return LanguageLoader.Get("AdminUserListModelListDescription"); }
 			}
 			public static string PanelQuery
 			{

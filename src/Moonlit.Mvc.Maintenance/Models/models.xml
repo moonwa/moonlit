@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<models xmlns="http://hizhanzhang.com/moonlit/mvc/maint/models"  namespace="Moonlit.Mvc.Maintenance.Models"  defaultResourceType="Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources">
+  <import>Moonlit.Mvc.Maintenance.Properties</import>
+  <model name="AdminUserListModel" resourceName="AdminUser">
+    <properties>
+      <add name="Keyword" type="string">
+        <display name="Keyword"/>
+        <field width="6"/>
+        <control>
+          <textbox />
+        </control>
+      </add>
+      <add name="UserName" type="string">
+        <field width="6"/>
+        <control>
+          <textbox />
+        </control>
+      </add>
+      <add name="IsEnabled" type="bool?">
+        <field width="6"/>
+        <control>
+          <checkbox />
+        </control>
+      </add>
+    </properties>
+    <methods>
+      <administrationSimpleListTemplate />
+    </methods>
+  </model>
+</models>

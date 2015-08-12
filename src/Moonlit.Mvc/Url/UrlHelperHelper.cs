@@ -13,6 +13,10 @@ namespace Moonlit.Mvc.Url
         {
             return requestMapping.MakeUrl(urlHelper, routeValues);
         }
+        public static string GetRequestMappingUrl(this UrlHelper urlHelper, string mappingName, object routeValues = null)
+        {
+            return RequestMappings.Current.GetRequestMapping(mappingName).MakeUrl(urlHelper, routeValues);
+        }
         public static string Asset
             (this UrlHelper urlHelper, string url)
         {
