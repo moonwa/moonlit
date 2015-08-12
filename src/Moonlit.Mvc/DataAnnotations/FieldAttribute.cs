@@ -4,7 +4,6 @@ using Moonlit.Mvc.Controls;
 
 namespace Moonlit.Mvc
 {
-    [AttributeUsage(AttributeTargets.Property)]
     public class FieldAttribute : Attribute, IMetadataAware 
     {
         public FieldAttribute(FieldWidth width)

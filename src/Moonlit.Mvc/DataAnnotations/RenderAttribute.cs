@@ -27,31 +27,4 @@ namespace Moonlit.Mvc
             return renderJudge.IsRender(vc, Parameter);
         }
     }
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-    public class HiddenLabelAttribute : Attribute, IMetadataAware
-    {
-
-        internal const string MetadataAdditionalKey = "ecard_HiddenLabel";
-        public void OnMetadataCreated(ModelMetadata metadata)
-        {
-            metadata.AdditionalValues[MetadataAdditionalKey] = true;
-        }
-    }
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-    public class PrintAttribute : Attribute, IMetadataAware
-    {
-        private readonly string _template;
-
-        public PrintAttribute(string template)
-        {
-            _template = template;
-        }
-
-        public void OnMetadataCreated(ModelMetadata metadata)
-        {
-            metadata.TemplateHint = "print/" + _template;
-            metadata.AdditionalValues[HiddenLabelAttribute.MetadataAdditionalKey] = true;
-        }
-
-    } 
 }

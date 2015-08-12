@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
+using System.Collections;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class SelectListAttribute : ControlAttribute
+    public class MultiSelectListAttribute : ControlAttribute
     {
         private readonly Type _providerType;
 
-        public SelectListAttribute(Type providerType)
+        public MultiSelectListAttribute(Type providerType)
         {
             _providerType = providerType;
         }
-
-        public bool IncludeAll { get; set; }
 
 
         public static string ObjectToString(object selectedValue)
@@ -35,12 +34,9 @@ namespace Moonlit.Mvc
         {
             var selectListItemsProvider = (DependencyResolver.Current.GetService(this._providerType) ?? Activator.CreateInstance(_providerType)) as ISelectListItemsProvider;
             var selectListItems = selectListItemsProvider.GetSelectList(metadata, controllerContext.Controller.ViewData.Model);
-            if (IncludeAll)
-            {
-                selectListItems.Insert(0, new SelectListItem() { Text = "", Value = "" });
-            }
-            var selectedValue = ObjectToString(model);
-            return new Moonlit.Mvc.Controls.SelectList(selectListItems, selectedValue);
+
+            var selectedValue = ((IEnumerable)model ?? new string[0]).Cast<object>().Select(x => ObjectToString(x)).ToArray();
+            return new Controls.MultiSelectList(selectListItems, selectedValue);
         }
     }
 }

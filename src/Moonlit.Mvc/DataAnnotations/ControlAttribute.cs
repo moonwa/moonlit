@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public abstract class ControlAttribute : Attribute, IMetadataAware, IControllBuilder
     {
         internal const string MetadataAdditionalKey = "moonlit_controllerbuilder";

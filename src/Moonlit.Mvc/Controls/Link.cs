@@ -8,10 +8,4 @@ namespace Moonlit.Mvc.Controls
         public string Text { get; set; }
         public LinkStyle Style { get; set; }
     }
-
-    public enum LinkStyle
-    {
-        Normal,
-        Button
-    }
 }
