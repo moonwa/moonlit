@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -65,7 +66,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 },
                 Table = new Table
                 {
-                    Columns = new[]
+                    Columns = new List<TableColumn>
                     {
                         new TableColumn
                         {

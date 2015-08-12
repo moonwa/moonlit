@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
@@ -45,7 +46,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 DefaultPageIndex = 1,
                 Table = new Table
                 {
-                    Columns = new[]
+                    Columns = new List<TableColumn>
                     {
                         new TableColumn
                         {

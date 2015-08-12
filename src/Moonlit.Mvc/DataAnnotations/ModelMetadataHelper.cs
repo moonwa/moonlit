@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
@@ -64,9 +65,18 @@ namespace Moonlit.Mvc
         public static IControllBuilder GetControlBuilder(this ModelMetadata metadata)
         {
             object obj;
-            if (metadata.AdditionalValues.TryGetValue(TextBoxAttribute.MetadataAdditionalKey, out obj))
+            if (metadata.AdditionalValues.TryGetValue(ControlAttribute.MetadataAdditionalKey, out obj))
             {
                 return (IControllBuilder)obj;
+            }
+            return null;
+        }
+        public static ICellTemplateBuilder GetCellTemplateBuilder(this ModelMetadata metadata)
+        {
+            object obj;
+            if (metadata.AdditionalValues.TryGetValue(CellTemplateBuilderAttribute.MetadataAdditionalKey, out obj))
+            {
+                return (ICellTemplateBuilder)obj;
             }
             return null;
         }
@@ -79,5 +89,10 @@ namespace Moonlit.Mvc
             }
             return null;
         }
+    }
+
+    public interface ICellTemplateBuilder
+    {
+         Func<RowBoundItem, Control> CreateCellTemplate(ModelMetadata propertyMetadata, ControllerContext controllerContext);
     }
 }

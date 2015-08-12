@@ -83,7 +83,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 },
                 Table = new Table
                 {
-                    Columns = new[]
+                    Columns = new List<TableColumn>
                     {
                         new TableColumn
                         {

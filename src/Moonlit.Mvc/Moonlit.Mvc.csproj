@@ -112,6 +112,7 @@
     <Compile Include="DashboardIcon.cs" />
     <Compile Include="DashboardIconAttribute.cs" />
     <Compile Include="DashboardIcons.cs" />
+    <Compile Include="DataAnnotations\CellTemplateBuilderAttribute.cs" />
     <Compile Include="DataAnnotations\CheckBoxAttribute.cs" />
     <Compile Include="DataAnnotations\ControlAttribute.cs" />
     <Compile Include="DataAnnotations\DatePickerAttribute.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="DataAnnotations\IRenderJudge.cs" />
     <Compile Include="DataAnnotations\ISelectListItemsProvider.cs" />
     <Compile Include="DataAnnotations\LiteralAttribute.cs" />
+    <Compile Include="DataAnnotations\LiteralCellAttribute.cs" />
     <Compile Include="DataAnnotations\ModelMetadataHelper.cs" />
     <Compile Include="DataAnnotations\MultiLineTextBoxAttribute.cs" />
     <Compile Include="DataAnnotations\MultiSelectListAttribute.cs" />

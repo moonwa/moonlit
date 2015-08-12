@@ -64,7 +64,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Criteria = TemplateHelper.MakeFields(this, controllerContext),
                 Table = new Table
                 {
-                    Columns = new[]
+                    Columns = new List<TableColumn>
                     {
                         new TableColumn
                         {

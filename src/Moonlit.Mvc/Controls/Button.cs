@@ -4,7 +4,6 @@ namespace Moonlit.Mvc.Controls
 {
     public class Button : Control, IClickable
     {
-        [System.Obsolete]
         public Button()
         {
             
