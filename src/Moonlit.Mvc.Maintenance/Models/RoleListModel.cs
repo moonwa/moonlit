@@ -50,7 +50,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Title = MaintCultureTextResources.RoleList,
                 Description = MaintCultureTextResources.RoleListDescription,
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = TemplateHelper.MakeFields(this , controllerContext),
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
                 DefaultPageIndex = 1,

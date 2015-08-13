@@ -62,7 +62,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 DefaultSort = "ExceptionLogId desc",
                 DefaultPageSize = 10,
-                Criteria = TemplateHelper.MakeFields(this, controllerContext),
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
                 GlobalButtons = new IClickable[]
                 {
                     new Button

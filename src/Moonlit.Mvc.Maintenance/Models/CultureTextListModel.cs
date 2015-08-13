@@ -61,7 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
                 DefaultPageIndex = 1,
-                Criteria = TemplateHelper.MakeFields(this, controllerContext),
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
                 Table = new Table
                 {
                     Columns = new List<TableColumn>

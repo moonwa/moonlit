@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using Moonlit.Collections;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Models;
@@ -52,7 +53,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 DefaultSort = model.OrderBy,
                 DefaultPageSize = model.PageSize,
-                Criteria = TemplateHelper.MakeFields(model, ControllerContext),
+                Criteria = new FieldsBuilder().ForEntity(model, ControllerContext).Build(),
             };
             var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
             template.GlobalButtons = new IClickable[]
@@ -200,7 +201,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(int id, int[] roles)
         {
-            var user = MaintDbContext.Users.Include(x=>x.Roles).FirstOrDefault(x => x.UserId == id);
+            var user = MaintDbContext.Users.Include(x => x.Roles).FirstOrDefault(x => x.UserId == id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -211,8 +212,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(OnEdit(user));
 
             }
-
-            user.Roles = MaintDbContext.Roles.Where(x => roles.Contains(x.RoleId)).ToList();
+            user.Roles = roles.IsNullOrEmpty() ? new List<Role>() : MaintDbContext.Roles.Where(x => roles.Contains(x.RoleId)).ToList();
             if (!string.IsNullOrEmpty(user.Password))
             {
                 user.Password = user.HashPassword(user.Password);

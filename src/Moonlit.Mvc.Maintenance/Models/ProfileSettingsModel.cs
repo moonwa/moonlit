@@ -58,7 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Title = MaintCultureTextResources.ProfileSettings,
                 Description = MaintCultureTextResources.ProfileSettingsDescription,
                 FormTitle = MaintCultureTextResources.ProfileInfo,
-                Fields = TemplateHelper.MakeFields(this, controllerContext),
+                Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
                 Buttons = new IClickable[]
                 {
                     new Button

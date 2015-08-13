@@ -40,7 +40,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Title = MaintCultureTextResources.CultureEdit,
                 Description = MaintCultureTextResources.CultureEditDescription,
                 FormTitle = MaintCultureTextResources.CultureInfo,
-                Fields = TemplateHelper.MakeFields(this, controllerContext),
+                Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build() ,
                 Buttons = new IClickable[]
                 {
                     new Button

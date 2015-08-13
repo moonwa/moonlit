@@ -38,7 +38,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Title = MaintCultureTextResources.ProfileChangePassword,
                 Description = MaintCultureTextResources.ProfileChangePasswordDescription,
                 FormTitle = MaintCultureTextResources.ProfileChangePasswordInfo,
-                Fields = TemplateHelper.MakeFields(this, controllerContext),
+                Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
                 Buttons = new IClickable[]
                 {
                     new Button

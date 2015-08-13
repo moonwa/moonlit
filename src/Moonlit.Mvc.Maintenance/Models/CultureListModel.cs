@@ -56,7 +56,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 QueryPanelTitle = MaintCultureTextResources.PanelQuery,
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
-                Criteria = TemplateHelper.MakeFields(this, controllerContext),
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
                 GlobalButtons = new IClickable[]
                 {
                     new Button
