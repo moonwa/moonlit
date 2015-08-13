@@ -3,7 +3,8 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc.Controls
 {
-    public class SelectList : Control
+    public class 
+        SelectList : Control
     {
         public bool Enabled { get; set; }
 

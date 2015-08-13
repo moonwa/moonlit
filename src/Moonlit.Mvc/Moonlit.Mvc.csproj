@@ -97,6 +97,8 @@
     <Compile Include="Controls\DatePicker.cs" />
     <Compile Include="Controls\Form.cs" />
     <Compile Include="Controls\FormType.cs" />
+    <Compile Include="Controls\Hidden.cs" />
+    <Compile Include="Controls\IEnabledControl.cs" />
     <Compile Include="Controls\LinkStyle.cs" />
     <Compile Include="Controls\Literal.cs" />
     <Compile Include="Controls\RowBoundItem.cs" />
@@ -121,8 +123,10 @@
     <Compile Include="DataAnnotations\FieldWidth.cs" />
     <Compile Include="DataAnnotations\GroupAttribute.cs" />
     <Compile Include="DataAnnotations\GroupSwitch.cs" />
+    <Compile Include="DataAnnotations\HiddenAttribute.cs" />
     <Compile Include="DataAnnotations\HiddenLabelAttribute.cs" />
     <Compile Include="DataAnnotations\IControllBuilder.cs" />
+    <Compile Include="DataAnnotations\IKeyObject.cs" />
     <Compile Include="DataAnnotations\IRenderJudge.cs" />
     <Compile Include="DataAnnotations\ISelectListItemsProvider.cs" />
     <Compile Include="DataAnnotations\LiteralAttribute.cs" />

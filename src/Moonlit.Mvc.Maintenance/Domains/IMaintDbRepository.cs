@@ -17,7 +17,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
         void Add(CultureText cultureText);
         void Add(SystemSetting systemSetting);
         void Add(User user);
-        void Add(Role role);
+        void Add(Role role); 
         void SaveChanges();
         Task SaveChangesAsync();
         void Remove(CultureText cultureText);

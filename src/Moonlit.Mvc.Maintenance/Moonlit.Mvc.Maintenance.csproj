@@ -141,6 +141,10 @@
     <Compile Include="Migrations\201507262146584_Init.Designer.cs">
       <DependentUpon>201507262146584_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508130935305_ChangeUserRoleM2M.cs" />
+    <Compile Include="Migrations\201508130935305_ChangeUserRoleM2M.Designer.cs">
+      <DependentUpon>201508130935305_ChangeUserRoleM2M.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\ProfileChangePasswordModel.cs" />
@@ -179,9 +183,7 @@
     <Compile Include="Models\CultureTextEditModel.cs" />
     <Compile Include="Models\CultureTextListModel.cs" />
     <Compile Include="Models\CultureCreateModel.cs" />
-    <Compile Include="Models\AdminUserCreateModel.cs" />
     <Compile Include="Models\CultureEditModel.cs" />
-    <Compile Include="Models\AdminUserEditModel.cs" />
     <Compile Include="Models\CultureListModel.cs" />
     <Compile Include="Models\AdminUserListModel.cs" />
     <Compile Include="Models\ProfileSettingsModel.cs" />
@@ -203,6 +205,9 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Migrations\201507262146584_Init.resx">
       <DependentUpon>201507262146584_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508130935305_ChangeUserRoleM2M.resx">
+      <DependentUpon>201508130935305_ChangeUserRoleM2M.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\languages\zh-cn.lang">
       <RunCustomToolOn>MaintCultureTexts.tt</RunCustomToolOn>
@@ -237,8 +242,7 @@
   </Target>
   <ProjectExtensions />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)\cp.cmd</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,4 +1,5 @@
 ﻿@using Moonlit.Mvc
+@using Moonlit.Mvc.Controls
 @using Moonlit.Mvc.Html
 @model Moonlit.Mvc.Controls.Field
 @{
@@ -12,7 +13,7 @@
 }
 
 <div class="form-group @fieldCssClass">
-    @if (!string.IsNullOrWhiteSpace(Model.Label))
+    @if (!string.IsNullOrWhiteSpace(Model.Label) && !(Model.Control is IHidden))
     {
         <label class="col-sm-2 control-label" for="@Model.FieldName">
             @Model.Label

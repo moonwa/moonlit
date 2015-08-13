@@ -4,17 +4,16 @@ using System.Web;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 
-namespace Moonlit.Mvc 
+namespace Moonlit.Mvc
 {
     public abstract class Control
     {
         public string Name { get; set; }
-
         public string Id
         {
             get { return string.IsNullOrEmpty(Name) ? "" : TagBuilder.CreateSanitizedId(Name); }
         }
-     
+
         protected virtual IDictionary<string, string> CreateAttributes()
         {
             return new Dictionary<string, string>();

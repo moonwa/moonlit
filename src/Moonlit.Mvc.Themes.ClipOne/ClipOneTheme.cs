@@ -18,6 +18,7 @@ namespace Moonlit.Mvc.ClipOne
             this.RegisterControl(typeof(AdministrationSimpleListTemplate), ThemeName + "/templates/administration/SimpleList");
 
             this.RegisterControl(typeof(List), ThemeName + "/Controls/List");
+            this.RegisterControl(typeof(Hidden), ThemeName + "/Controls/Hidden");
             this.RegisterControl(typeof(TextBox), ThemeName + "/Controls/TextBox");
             this.RegisterControl(typeof(MultiLineTextBox), ThemeName + "/Controls/MultiLineTextBox");
             this.RegisterControl(typeof(PasswordBox), ThemeName + "/Controls/PasswordBox");

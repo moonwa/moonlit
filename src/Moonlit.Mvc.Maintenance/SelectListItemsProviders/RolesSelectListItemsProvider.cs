@@ -26,7 +26,7 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
             var repository = DependencyResolver.Current.GetService<IMaintDbRepository>();
             return repository.Cultures.Where(x=>x.IsEnabled).ToList().Select(x => new SelectListItem
             {
-                Text = x.Name,
+                Text = x.DisplayName,
                 Value = x.CultureId.ToString()
             }).ToList();
         }

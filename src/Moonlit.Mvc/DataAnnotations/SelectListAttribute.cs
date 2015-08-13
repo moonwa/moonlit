@@ -14,9 +14,6 @@ namespace Moonlit.Mvc
             _providerType = providerType;
         }
 
-        public bool IncludeAll { get; set; }
-
-
         public static string ObjectToString(object selectedValue)
         {
             if (selectedValue == null)
@@ -27,6 +24,11 @@ namespace Moonlit.Mvc
             {
                 return ((int)selectedValue).ToString();
             }
+            var ikeyObject = selectedValue as IKeyObject;
+            if (ikeyObject != null)
+            {
+                return ikeyObject.Key;
+            }
 
             return selectedValue.ToString();
         }
@@ -35,10 +37,7 @@ namespace Moonlit.Mvc
         {
             var selectListItemsProvider = (DependencyResolver.Current.GetService(this._providerType) ?? Activator.CreateInstance(_providerType)) as ISelectListItemsProvider;
             var selectListItems = selectListItemsProvider.GetSelectList(metadata, controllerContext.Controller.ViewData.Model);
-            if (IncludeAll)
-            {
-                selectListItems.Insert(0, new SelectListItem() { Text = "", Value = "" });
-            }
+            selectListItems.Insert(0, new SelectListItem() { Text = "", Value = "" });
             var selectedValue = ObjectToString(model);
             return new Moonlit.Mvc.Controls.SelectList(selectListItems, selectedValue);
         }

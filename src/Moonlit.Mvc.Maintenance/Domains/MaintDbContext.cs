@@ -17,7 +17,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<User>().HasMany(x => x.Roles).WithMany().Map(x=>x.MapLeftKey("UserId").MapRightKey("RoleId"));
             base.OnModelCreating(modelBuilder);
         }
 

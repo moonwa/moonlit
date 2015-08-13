@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
-    public class Role
+    public class Role : IKeyObject
     {
         public int RoleId { get; set; }
         [StringLength(32)]
@@ -34,5 +35,15 @@ namespace Moonlit.Mvc.Maintenance.Domains
             }
 
         }
+
+        #region Implementation of IKeyObject
+
+        string IKeyObject.Key
+        {
+            get { return this.RoleId.ToString(); }
+        }
+
+        #endregion
     }
+
 }

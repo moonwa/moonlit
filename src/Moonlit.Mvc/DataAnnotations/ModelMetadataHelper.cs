@@ -22,9 +22,9 @@ namespace Moonlit.Mvc
             object obj;
             if (metadata.AdditionalValues.TryGetValue(RenderAttribute.MetadataAdditionalKey, out obj))
             {
-                RenderAttribute norender = (RenderAttribute)obj;
+                RenderAttribute renderAttr = (RenderAttribute)obj;
 
-                return norender.IsRender(vc);
+                return renderAttr.IsRender(vc);
             }
             return true;
         }

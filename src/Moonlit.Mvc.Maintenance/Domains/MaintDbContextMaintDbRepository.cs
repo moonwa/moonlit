@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Moonlit.Mvc.Maintenance.Models;
@@ -61,6 +62,32 @@ namespace Moonlit.Mvc.Maintenance.Domains
         {
             _database.Roles.Add(role);
         }
+         
+        public void Update(Culture culture)
+        {
+            _database.Entry(culture).State = EntityState.Modified;
+        }
+
+        public void Update(CultureText cultureText)
+        {
+            _database.Entry(cultureText).State = EntityState.Modified;
+        }
+
+        public void Update(SystemSetting systemSetting)
+        {
+            _database.Entry(systemSetting).State = EntityState.Modified;
+        }
+
+        public void Update(User user)
+        {
+            _database.Entry(user).State = EntityState.Modified;
+        }
+
+        public void Update(Role role)
+        {
+            _database.Entry(role).State = EntityState.Modified;
+        }
+         
 
         public void SaveChanges()
         {

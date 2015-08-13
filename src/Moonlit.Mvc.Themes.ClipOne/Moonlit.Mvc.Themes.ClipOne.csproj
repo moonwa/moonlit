@@ -110,6 +110,7 @@
     <Content Include="Views\Shared\clip-one\Templates\Administration\SimpleList.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\SimpleBox.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\Administration\Dashboard.cshtml" />
+    <Content Include="Views\Shared\clip-one\Controls\Hidden.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

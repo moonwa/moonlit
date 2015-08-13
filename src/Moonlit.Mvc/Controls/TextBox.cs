@@ -1,6 +1,6 @@
 ﻿namespace Moonlit.Mvc.Controls
 {
-    public class TextBox : Control
+    public class TextBox : Control, IEnabledControl
     {
         public int? MaxLength { get; set; }
         public string PlaceHolder { get; set; }
