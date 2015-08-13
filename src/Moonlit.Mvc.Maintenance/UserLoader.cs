@@ -34,7 +34,7 @@ namespace Moonlit.Mvc.Maintenance
             {
                 return _privilegeLoader.Load().Items.Select(x => x.Name);
             }
-            return user.Roles.ToList().SelectMany(x => x.GetPrivileges());
+            return user.Roles.ToList().SelectMany(x => x.PrivilegeArray );
         }
 
     }

@@ -145,6 +145,10 @@
     <Compile Include="Migrations\201508130935305_ChangeUserRoleM2M.Designer.cs">
       <DependentUpon>201508130935305_ChangeUserRoleM2M.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508131424169_AddLengthOfRoleName.cs" />
+    <Compile Include="Migrations\201508131424169_AddLengthOfRoleName.Designer.cs">
+      <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\ProfileChangePasswordModel.cs" />
@@ -176,8 +180,6 @@
     <Compile Include="IModuleConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CultureTextImportModel.cs" />
-    <Compile Include="Models\RoleCreateModel.cs" />
-    <Compile Include="Models\RoleEditModel.cs" />
     <Compile Include="Models\RoleListModel.cs" />
     <Compile Include="Models\CultureTextCreateModel.cs" />
     <Compile Include="Models\CultureTextEditModel.cs" />
@@ -208,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508130935305_ChangeUserRoleM2M.resx">
       <DependentUpon>201508130935305_ChangeUserRoleM2M.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508131424169_AddLengthOfRoleName.resx">
+      <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\languages\zh-cn.lang">
       <RunCustomToolOn>MaintCultureTexts.tt</RunCustomToolOn>

@@ -58,7 +58,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 this.ModelState.AddModelError("Password", "密码错");
                 return Template(model.CreateTemplate());
             }
-            var privileges = adminUser.IsSuper ? _privilegeLoader.Load().Items.Select(x => x.Name).ToArray() : adminUser.Roles.ToList().SelectMany(x => x.GetPrivileges()).ToArray();
+            var privileges = adminUser.IsSuper ? _privilegeLoader.Load().Items.Select(x => x.Name).ToArray() : adminUser.Roles.ToList().SelectMany(x => x.PrivilegeArray).ToArray();
             _authenticate.SetSession(adminUser.LoginName, new Session
             {
                 UserName = adminUser.LoginName,
