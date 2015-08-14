@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Moonlit.Collections;
 
 namespace Moonlit.Mvc
 {
@@ -21,8 +22,8 @@ namespace Moonlit.Mvc
         {
             get
             {
-                var sitempas = HttpContext.Current.GetObject<Sitemaps>();
-                if (sitempas == null)
+                var sitemaps = HttpContext.Current.GetObject<Sitemaps>();
+                if (sitemaps == null)
                 {
                     var loader = DependencyResolver.Current.GetService<ISitemapsLoader>(false);
                     if (loader == null)
@@ -33,13 +34,40 @@ namespace Moonlit.Mvc
                     var httpContext = new HttpContextWrapper(HttpContext.Current);
                     var routeData = RouteTable.Routes.GetRouteData(httpContext);
                     var requestContext = new RequestContext(httpContext, routeData);
-                    sitempas = loader.Create(requestContext);
-                    sitempas.Filter(HttpContext.Current.User, requestContext);
+                    sitemaps = loader.Create(requestContext);
+                    sitemaps.Filter(HttpContext.Current.User, requestContext);
 
-                    HttpContext.Current.SetObject(sitempas);
+                    var node = sitemaps.GetCurrentNode();
+                    node.IsCurrent = true;
+                    sitemaps.CurrentNode = node;
+
+                    List<SitemapNode> nodes = new List<SitemapNode>();
+                    do
+                    {
+                        nodes.Add(node);
+                        node.InCurrent = true;
+                        node = node.Parent;
+                    } while (node != null && node.Parent != null);  // ignore the root node
+                    nodes.Reverse();
+                    sitemaps.Breadcrumb = nodes;
+
+                    HttpContext.Current.SetObject(sitemaps);
                 }
-                return sitempas;
+                return sitemaps;
             }
+        }
+
+        private SitemapNode GetCurrentNode(SitemapNode parent)
+        {
+            if (parent.IsCurrent)
+            {
+                return parent;
+            }
+            return parent.Nodes.FirstNotNull(x => GetCurrentNode(x));
+        }
+        private SitemapNode GetCurrentNode()
+        {
+            return this._siteMaps.FirstNotNull(x => GetCurrentNode(x));
         }
 
         public SitemapNode CurrentNode { get; set; }

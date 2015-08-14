@@ -10,7 +10,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     [MoonlitAuthorize()]
     public class ProfileController : MaintControllerBase
     {
-        [RequestMapping("settings", "Profile/Settings")]
+
         [SitemapNode(ResourceType = typeof(MaintCultureTextResources), Text = "ProfileSettings", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
         public ActionResult Settings()
         {
@@ -20,7 +20,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             model.SetInnerObject(user);
             return Template(model.CreateTemplate(ControllerContext));
         }
-        [RequestMapping("settings_postback", "Profile/Settings")]
         [HttpPost]
         public async Task<ActionResult> Settings(ProfileSettingsModel model)
         {
@@ -46,7 +45,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             });
             return Template(model.CreateTemplate(ControllerContext));
         }
-        [RequestMapping("changepassword", "Profile/ChangePassword")]
+
+
         [SitemapNode(ResourceType = typeof(MaintCultureTextResources), Text = "ProfileChangePassword", Group = "ProfileGroup", Order = 100, SiteMap = "Profile")]
         public ActionResult ChangePassword()
         {
@@ -56,7 +56,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             model.SetInnerObject(user);
             return Template(model.CreateTemplate(ControllerContext));
         }
-        [RequestMapping("changepassword_postback", "Profile/ChangePassword")]
         [HttpPost]
         public async Task<ActionResult> ChangePassword(ProfileChangePasswordModel model)
         {

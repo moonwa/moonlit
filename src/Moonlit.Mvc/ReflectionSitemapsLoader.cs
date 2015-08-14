@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Moonlit.Mvc
@@ -52,7 +53,8 @@ namespace Moonlit.Mvc
                 }
                 foreach (var sitemapNodeAttr in referencedAssembly.GetCustomAttributes<SitemapNodeAttribute>())
                 {
-                    var node = MakeNode(sitemapNodeAttr, null);
+                    
+                    var node = MakeNode(sitemapNodeAttr, new ConstUrl("#"));
 
                     sitemapNodes.Add(new SitemapNodeDefinationWithParent() { Node = node, Parent = sitemapNodeAttr.Parent });
                 }
@@ -62,11 +64,10 @@ namespace Moonlit.Mvc
                     foreach (var methodInfo in methodInfos)
                     {
                         var sitemapNodeAttrs = methodInfo.GetCustomAttributes<SitemapNodeAttribute>(false);
-                        var info = methodInfo as ICustomAttributeProvider;
 
                         foreach (var sitemapNodeAttr in sitemapNodeAttrs)
                         {
-                            var sitemapNode = MakeNode(sitemapNodeAttr, info);
+                            var sitemapNode = MakeNode(sitemapNodeAttr, new RouteUrl(methodInfo.Name, exportedType.Name.Replace("Controller", "")));
 
                             sitemapNodes.Add(new SitemapNodeDefinationWithParent()
                             {
@@ -80,7 +81,7 @@ namespace Moonlit.Mvc
             return sitemapNodes;
         }
 
-        private static SitemapNodeDefination MakeNode(SitemapNodeAttribute sitemapNodeAttr, ICustomAttributeProvider info)
+        private static SitemapNodeDefination MakeNode(SitemapNodeAttribute sitemapNodeAttr, IUrl url )
         {
             var sitemapNode = new SitemapNodeDefination
             {
@@ -92,29 +93,12 @@ namespace Moonlit.Mvc
                 SiteMap = sitemapNodeAttr.SiteMap ?? GlobalSitemaps.DefaultSiteMap.Name,
             };
 
-            if (info != null)
-            {
-                var namedAttr = info.GetCustomAttributes(false).OfType<INamed>().FirstOrDefault();
-                if (namedAttr != null)
-                {
-                    sitemapNodeAttr.Name = namedAttr.Name;
-                }
-            }
             if (string.IsNullOrEmpty(sitemapNodeAttr.Name))
             {
                 sitemapNodeAttr.Name = Guid.NewGuid().ToString("N");
             }
             sitemapNode.Name = sitemapNodeAttr.Name;
-
-            if (info != null)
-            {
-                var urlAttr = info.GetCustomAttributes(false).OfType<IUrl>().FirstOrDefault();
-                if (urlAttr != null)
-                {
-                    sitemapNode.Url = urlAttr;
-                }
-            }
-            sitemapNode.Url = sitemapNode.Url ?? new ConstUrl("#");
+            sitemapNode.Url = url;
             return sitemapNode;
         }
 
@@ -165,6 +149,7 @@ namespace Moonlit.Mvc
                 Name = sitemapNodeDefination.Name,
                 Parent = parent,
                 Url = sitemapNodeDefination.Url.MakeUrl(requestContext),
+                IsCurrent = sitemapNodeDefination.Url.IsCurrent(requestContext),
                 Text = sitemapNodeDefination.Text(),
                 Group = sitemapNodeDefination.Group(),
                 Order = sitemapNodeDefination.Order,
@@ -172,10 +157,43 @@ namespace Moonlit.Mvc
             };
             foreach (var childNodeDefination in sitemapNodeDefination.Nodes)
             {
-                node.Nodes.Add(Create(childNodeDefination, node, requestContext));
+                var childNode = Create(childNodeDefination, node, requestContext);
+                if (childNode.IsCurrent)
+                {
+                    childNode.InCurrent = true;
+                }
+                node.Nodes.Add(childNode);
             }
             node.Nodes = node.Nodes.OrderBy(x => x.Order).ToList();
             return node;
         }
+    }
+
+    internal class RouteUrl : IUrl
+    {
+        private readonly string _action;
+        private readonly string _controller;
+
+        public RouteUrl(string action, string controller)
+        {
+            _action = action;
+            _controller = controller;
+        }
+
+        #region Implementation of IUrl
+
+        public string MakeUrl(RequestContext requestContext)
+        {
+            var urlHelper = new UrlHelper(requestContext);
+            return urlHelper.Action(_action, _controller);
+        }
+
+        public bool IsCurrent(RequestContext requestContext)
+        {
+            return _controller.EqualsIgnoreCase(requestContext.RouteData.GetRequiredString("controller"))
+                   && _action.EqualsIgnoreCase(requestContext.RouteData.GetRequiredString("action"));
+        }
+
+        #endregion
     }
 }

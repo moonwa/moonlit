@@ -43,7 +43,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         [LiteralCell]
         [Field(FieldWidth.W6)]
-        [SelectList(typeof(EnumSelectListItemsProvider))]
+        [SelectList(typeof(EnumSelectListProvider))]
         public Gender? Gender { get; set; }
 
         [LiteralCell]
@@ -73,7 +73,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
 
         [DbContextExport(Ignore = true)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserRoles")]
-        [MultiSelectList(typeof(RolesSelectListItemsProvider))]
+        [MultiSelectList(typeof(RoleSelectListProvider))]
         [Field(FieldWidth.W6)]
         public virtual ICollection<Role> Roles { get; set; }
 

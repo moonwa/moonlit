@@ -7,6 +7,7 @@ using System.Web.Compilation;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
+using Moonlit.Mvc.Maintenance.Controllers;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
@@ -75,7 +76,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Button
                     {
                         Text = MaintCultureTextResources.ExportAsNode,
-                        ActionName = "dbcontexts_export_nodejs"
+                        ActionName = DbContextController.FormActionNameExportAsNodeJs
                     }, 
                 },
                 RecordButtons = new IClickable[]

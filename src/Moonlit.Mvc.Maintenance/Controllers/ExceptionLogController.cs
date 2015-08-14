@@ -7,7 +7,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     [MoonlitAuthorize(Roles = MaintModule.PrivilegeAdminUser )]
     public class ExceptionLogController : MaintControllerBase
     {
-        [RequestMapping("ExceptionLogs", "ExceptionLog")]
+
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "ExceptionLogList")]
         public ActionResult Index(ExceptionLogListModel model)
         {

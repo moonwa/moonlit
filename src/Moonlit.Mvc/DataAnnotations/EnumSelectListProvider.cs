@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
-    public class EnumSelectListItemsProvider : ISelectListItemsProvider
+    public class EnumSelectListProvider : ISelectListItemsProvider
     {
         public static string GetEnumDescription(Enum value)
         {

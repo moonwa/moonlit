@@ -8,17 +8,16 @@ using Moonlit.Mvc.Maintenance.Properties;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [MoonlitAuthorize(Roles = MaintModule.PrivilegeCulture )]
+    [MoonlitAuthorize(Roles = MaintModule.PrivilegeCulture)]
     public class CultureController : MaintControllerBase
     {
-        [RequestMapping("cultures", "culture")]
+
         [SitemapNode(Parent = "BasicData", Text = "CultureList", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureListModel model)
         {
             return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
-        [RequestMapping("cultures_disable", "culture")]
-        [FormAction("disable")]
+        [FormAction("Disable")]
         [ActionName("Index")]
         [HttpPost]
         public ActionResult Disable(CultureListModel model, int[] ids)
@@ -33,8 +32,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
-        [RequestMapping("cultures_enable", "culture")]
-        [FormAction("enable")]
+        [FormAction("Enable")]
         [ActionName("Index")]
         [HttpPost]
         public ActionResult Enable(CultureListModel model, int[] ids)
@@ -50,7 +48,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
 
-        [RequestMapping("createculture", "culture/create")]
         [SitemapNode(Text = "CultureTextCreate", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Create()
         {
@@ -58,7 +55,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return Template(model.CreateTemplate(ControllerContext));
         }
 
-        [RequestMapping("createculture_postback", "culture/create")]
         [HttpPost]
         public async Task<ActionResult> Create(CultureCreateModel model)
         {
@@ -95,7 +91,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return RedirectToAction("Create");
         }
 
-        [RequestMapping("editculture", "culture/edit/{id}")]
         [SitemapNode(Text = "CultureTextEdit", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
         public async Task<ActionResult> Edit(int id)
         {
@@ -109,8 +104,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             model.SetInnerObject(adminUser);
 
             return Template(model.CreateTemplate(ControllerContext));
-        }
-        [RequestMapping("editculture_postback", "culture/edit/{id}")]
+        } 
         [HttpPost]
         public async Task<ActionResult> Edit(CultureEditModel model, int id)
         {

@@ -5,15 +5,15 @@ using Moonlit.Mvc.Maintenance.Models;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
-    [MoonlitAuthorize( )]
-    public class DashboardController : MaintControllerBase
+    [MoonlitAuthorize()]
+    public class HomeController : MaintControllerBase
     {
         // GET: Dashboard
-        [RequestMapping("Home", "")]
         [DashboardIcon]
+        [SitemapNode(IsHidden = true)]
         public ActionResult Index(DashboardModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext));
-        } 
+        }
     }
 }

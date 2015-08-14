@@ -127,7 +127,7 @@
   <ItemGroup>
     <Compile Include="Controllers\DbContextController.cs" />
     <Compile Include="Controllers\ExceptionLogController.cs" />
-    <Compile Include="Controllers\SignOutControllery.cs" />
+    <Compile Include="Controllers\SignOutController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\CultureTextController.cs" />
@@ -149,10 +149,16 @@
     <Compile Include="Migrations\201508131424169_AddLengthOfRoleName.Designer.cs">
       <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminUserCreateModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\ModelGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProfileChangePasswordModel.cs" />
-    <Compile Include="SelectListItemsProviders\RolesSelectListItemsProvider.cs" />
+    <Compile Include="SelectListItemsProviders\RoleSelectListProvider.cs" />
     <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="DbCultureTextLoader.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
@@ -203,6 +209,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Models\ModelGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelGenerator.cs</LastGenOutput>
+    </None>
+    <Content Include="Models\models.xml">
+      <RunCustomToolOn>ModelGenerator.tt</RunCustomToolOn>
+    </Content>
+    <Content Include="Models\models.xsd">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Moonlit.Mvc.Maintenance.nuspec" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Migrations\201507262146584_Init.resx">

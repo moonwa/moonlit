@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
+using Moonlit.Mvc.Maintenance.Controllers;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
@@ -21,12 +22,12 @@ namespace Moonlit.Mvc.Maintenance.Models
 
         [TextBox]
         [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof (MaintCultureTextResources), Name = "Keyword")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
         public string Keyword { get; set; }
 
         [TextBox]
         [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof (MaintCultureTextResources), Name = "CultureName")]
+        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureName")]
         public string Name { get; set; }
 
         public string OrderBy { get; set; }
@@ -68,7 +69,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     {
                         Text = MaintCultureTextResources.New,
                         Style = LinkStyle.Button,
-                        Url = RequestMappings.Current.GetRequestMapping("createculture").MakeUrl(urlHelper, null),
+                        Url = urlHelper.Action( "Create" , "Culture"),
                     },
                     new Button
                     {
@@ -125,7 +126,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                             Header = MaintCultureTextResources.Operation,
                             CellTemplate = x =>
                             {
-                                var url = RequestMappings.Current.GetRequestMapping("editculture").MakeUrl(urlHelper, new {id = ((Culture) x.Target).CultureId});
+                                var url = urlHelper.Action("Edit", "Culture", new {id = ((Culture) x.Target).CultureId});
                                 return new ControlCollection()
                                 {
                                     Controls = new List<Control>()
@@ -142,7 +143,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                         }
                     }
                 }
-            }; 
+            };
             return template;
         }
     }

@@ -19,16 +19,15 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _privilegeLoader = privilegeLoader;
             _cacheManager = cacheManager.GetPrefixCacheManager("sign_failed::");
         }
+         
 
-        [RequestMapping("signin", DefaultUrl)]
-        public ActionResult SignIn()
+        public ActionResult Index()
         {
             SignInModel model = new SignInModel();
             return Template(model.CreateTemplate());
         }
-        [RequestMapping("signin_postback", DefaultUrl)]
         [HttpPost]
-        public ActionResult SignIn(SignInModel model, string returnUrl)
+        public ActionResult Index(SignInModel model, string returnUrl)
         {
             var siteModel = new SiteModel(MaintDbContext.SystemSettings);
             var cacheKey = "signin_fail_times:" + model.UserName + ":" + Request.UserHostAddress;
@@ -51,7 +50,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 this.ModelState.AddModelError("UserName", "用户名错");
                 return Template(model.CreateTemplate());
             }
-      
+
             if (adminUser.HashPassword(model.Password) != adminUser.Password)
             {
                 _cacheManager.Set(cacheKey, count - 1, TimeSpan.FromDays(1));
@@ -68,7 +67,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             });
             if (string.IsNullOrEmpty(returnUrl))
             {
-                return RedirectToRequestMapping("Home", null);
+                return Redirect("/");
             }
             return Redirect(returnUrl);
         }

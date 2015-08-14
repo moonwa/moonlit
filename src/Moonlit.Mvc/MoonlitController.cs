@@ -24,20 +24,7 @@ namespace Moonlit.Mvc
             await Flash.SetAsync(target).ConfigureAwait(false);
         }
 
-        protected ActionResult RedirectToRequestMapping(string mappingName, object routeValues)
-        {
-            var mapping = RequestMappings.Current.GetRequestMapping(mappingName);
-            if (mapping == null)
-            {
-                throw new Exception("Not found request mapping " + mappingName);
-            }
-            return RedirectToRequestMapping(mapping, routeValues);
-        }
-        protected ActionResult RedirectToRequestMapping(RequestMapping requestMapping, object routeValues)
-        {
-
-            return Redirect(requestMapping.MakeUrl(this.Url, routeValues));
-        }
+ 
 
         protected virtual ActionResult Template(Template template)
         {

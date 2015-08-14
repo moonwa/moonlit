@@ -38,7 +38,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 
 
         [Field(FieldWidth.W6)]
-        [SelectList(typeof(EnumSelectListItemsProvider))]
+        [SelectList(typeof(EnumSelectListProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         public Gender? Gender { get; set; }
 

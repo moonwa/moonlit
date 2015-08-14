@@ -15,5 +15,10 @@ namespace Moonlit.Mvc
         {
             return Url;
         }
+
+        public bool IsCurrent(RequestContext requestContext)
+        {
+            return requestContext.HttpContext.Request.Url.ToString().ToLower().StartsWith(Url.ToLower());
+        }
     }
 }

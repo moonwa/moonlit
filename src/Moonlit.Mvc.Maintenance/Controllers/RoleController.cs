@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
@@ -9,16 +10,14 @@ using Moonlit.Mvc.Maintenance.Models;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Templates;
 using System.Collections.Generic;
-using Moonlit.Mvc.Url;
+using UrlHelper = System.Web.Mvc.UrlHelper;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
 {
     [MoonlitAuthorize(Roles = MaintModule.PrivilegeRole)]
     public class RoleController : MaintControllerBase
     {
-
-        [RequestMapping("roles", "role")]
-        [SitemapNode(Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources), Text = "RoleList")]
+        [SitemapNode(Parent = "BasicData", Name = "Roles", ResourceType = typeof(MaintCultureTextResources), Text = "RoleList")]
         [Display(Name = "角色管理", Description = "角色管理描述，这是一段很长的描述")]
         public ActionResult Index(RoleListModel model)
         {
@@ -60,7 +59,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                         {
                             Controls = new List<Control>
                             {
-                                new Link(MaintCultureTextResources.Edit, urlHelper.GetRequestMappingUrl("editrole", new {id = ((Role) x.Target).RoleId}), LinkStyle.Normal)
+                                new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", new {id = ((Role) x.Target).RoleId}), LinkStyle.Normal)
                             }
                         };
                     }, MaintCultureTextResources.Operation).Build(),
@@ -68,16 +67,17 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 GlobalButtons = new IClickable[]
                 {
                     new Button(MaintCultureTextResources.Search, ""),
-                    new Link(MaintCultureTextResources.New, RequestMappings.Current.GetRequestMapping("createrole").MakeUrl(urlHelper, null), LinkStyle.Button),
+                    new Link(MaintCultureTextResources.New, urlHelper.Action("Create", "Role"), LinkStyle.Button),
                     new Button(MaintCultureTextResources.Disable, "Disable"),
                     new Button(MaintCultureTextResources.Enable, "Enable"),
                 }
             };
         }
 
-        [RequestMapping("roles_disable", "role")]
-        [FormAction("disable")]
-        [ActionName("Index")]
+        public const string FormActionNameDisable = "Disable";
+
+        [FormAction(FormActionNameDisable)]
+        [ActionName("index")]
         [HttpPost]
         public ActionResult Disable(RoleListModel model, int[] ids)
         {
@@ -91,9 +91,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             return Template(OnIndex(model));
         }
-        [RequestMapping("roles_enable", "role")]
-        [FormAction("enable")]
-        [ActionName("Index")]
+
+        public const string FormActionNameEnable = "enable";
+
+        [FormAction(FormActionNameEnable)]
+        [ActionName("index")]
         [HttpPost]
         public ActionResult Enable(RoleListModel model, int[] ids)
         {
@@ -108,7 +110,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return Template(OnIndex(model));
         }
 
-        [RequestMapping("createrole", "role/create")]
         [SitemapNode(Text = "创建用户", Parent = "roles")]
         public ActionResult Create()
         {
@@ -150,7 +151,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return RedirectToAction("Create");
         }
 
-        [RequestMapping("editrole", "role/edit/{id}")]
         [SitemapNode(Text = "AdminUserEdit", ResourceType = typeof(MaintCultureTextResources), Parent = "roles")]
         public async Task<ActionResult> Edit(int id)
         {
@@ -186,18 +186,19 @@ namespace Moonlit.Mvc.Maintenance.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
-        public async Task<ActionResult> Edit_Postback(int id)
+        public async Task<ActionResult> Edit_Save(int id, string [] privilegeArray)
         {
             var role = await MaintDbContext.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
             if (role == null)
             {
                 return HttpNotFound();
             }
-
-            if (!TryUpdateModel(role, null, new[] { "Name", "IsEnabled", "PrivilegeArray" }))
+            if (!TryUpdateModel(role, null, new[] { "Name", "IsEnabled"  }))
             {
                 return Template(OnEdit(role));
             }
+            role.PrivilegeArray = privilegeArray;
+             
             await MaintDbContext.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {

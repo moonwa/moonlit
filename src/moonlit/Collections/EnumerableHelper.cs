@@ -14,6 +14,18 @@ namespace Moonlit.Collections
             return collection == null || !collection.Any();
         }
 
+        public static TResult FirstNotNull<T, TResult>(this IEnumerable<T> collection, Func<T, TResult> selector)
+        {
+            foreach (var item in collection)
+            {
+                var result = selector(item);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+            return default(TResult);
+        }
         public static TResult FirstOrDefault<T, TResult>(this IEnumerable<T> query, Func<T, bool> predicate, Func<T, TResult> selector)
         {
             if (query == null) throw new ArgumentNullException("query");

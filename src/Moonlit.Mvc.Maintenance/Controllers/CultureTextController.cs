@@ -16,7 +16,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
 {
     [MoonlitAuthorize(Roles = MaintModule.PrivilegeCultureText )]
     public class CultureTextController : MaintControllerBase
-    {
+    { 
         private readonly IMaintDomainService _maintDomainService;
 
         public CultureTextController(IMaintDomainService maintDomainService)
@@ -24,15 +24,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _maintDomainService = maintDomainService;
         }
 
-        [RequestMapping("culturetexts", "culturetext")]
         [SitemapNode(Text = "CultureTextList", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureTextListModel model)
         {
             return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
-        [RequestMapping("culturetexts_delete", "culturetext")]
-        [FormAction("delete")]
-        [ActionName("Index")]
+        [FormAction("Delete")]
+        [ActionName("index")]
         [HttpPost]
         public ActionResult Delete(CultureTextListModel model, int[] ids)
         {
@@ -47,7 +45,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
         }
-        [RequestMapping("culturetexts_Export", "culturetext")]
+
         [FormAction("Export")]
         [ActionName("Index")]
         [HttpPost]
@@ -67,7 +65,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return File(Encoding.UTF8.GetBytes(text), "text/plain", culture.Name + ".lang");
         }
 
-        [RequestMapping("importculturetext", "culturetext/import")]
         [SitemapNode(Text = "CultureTextImport", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Import()
         {
@@ -75,7 +72,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return Template(model.CreateTemplate(ControllerContext));
         }
 
-        [RequestMapping("importculturetext_postback", "culturetext/import")]
         [HttpPost]
         public async Task<ActionResult> Import(CultureTextImportModel model)
         {
@@ -119,15 +115,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             });
             return Template(model.CreateTemplate(ControllerContext));
         }
-        [RequestMapping("createculturetext", "culturetext/create")]
+
         [SitemapNode(Text = "CultureTextCreate", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Create()
         {
             var model = new CultureTextCreateModel();
             return Template(model.CreateTemplate(ControllerContext));
         }
-
-        [RequestMapping("createculturetext_postback", "culturetext/create")]
+         
         [HttpPost]
         public async Task<ActionResult> Create(CultureTextCreateModel model)
         {
@@ -169,7 +164,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return RedirectToAction("Create");
         }
 
-        [RequestMapping("editculturetext", "culturetext/edit/{id}")]
         [SitemapNode(Text = "CultureTextEdit", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public async Task<ActionResult> Edit(int id)
         {
@@ -183,8 +177,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             model.SetInnerObject(adminUser);
 
             return Template(model.CreateTemplate(ControllerContext));
-        }
-        [RequestMapping("editculturetext_postback", "culturetext/edit/{id}")]
+        } 
         [HttpPost]
         [SitemapNode(Text = "编辑词条", Parent = "culturetexts")]
         public async Task<ActionResult> Edit(CultureTextEditModel model, int id)

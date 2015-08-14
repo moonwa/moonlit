@@ -5,6 +5,7 @@ using Moonlit.Mvc.Templates;
 using Moonlit.Mvc.Url;
 using MultiSelectList = Moonlit.Mvc.Controls.MultiSelectList;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
+using UrlHelper = System.Web.Mvc.UrlHelper;
 
 namespace Moonlit.Mvc.ClipOne
 {

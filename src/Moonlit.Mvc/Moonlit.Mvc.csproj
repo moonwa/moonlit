@@ -118,7 +118,7 @@
     <Compile Include="DataAnnotations\CheckBoxAttribute.cs" />
     <Compile Include="DataAnnotations\ControlAttribute.cs" />
     <Compile Include="DataAnnotations\DatePickerAttribute.cs" />
-    <Compile Include="DataAnnotations\EnumSelectListItemsProvider.cs" />
+    <Compile Include="DataAnnotations\EnumSelectListProvider.cs" />
     <Compile Include="DataAnnotations\FieldAttribute.cs" />
     <Compile Include="DataAnnotations\FieldWidth.cs" />
     <Compile Include="DataAnnotations\GroupAttribute.cs" />
@@ -177,11 +177,7 @@
     <Compile Include="ReflectionDashboardIconLoader.cs" />
     <Compile Include="ReflectionPrivilegeLoader.cs" />
     <Compile Include="ReflectionSitemapsLoader.cs" />
-    <Compile Include="RequestMapping.cs" />
-    <Compile Include="RequestMappingAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestMappings.cs" />
-    <Compile Include="RequestMappingsAttribute.cs" />
     <Compile Include="Script.cs" />
     <Compile Include="Scripts.cs" />
     <Compile Include="SessionCachingFlash.cs" />
@@ -216,7 +212,7 @@
     <Compile Include="Theme.cs" />
     <Compile Include="ThemeAttribute.cs" />
     <Compile Include="Themes.cs" />
-    <Compile Include="Url\UrlHelperHelper.cs" />
+    <Compile Include="Url\UrlExtensions.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserPrincipal.cs" />
   </ItemGroup>

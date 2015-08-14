@@ -6,7 +6,7 @@ using System.Web.Mvc;
 namespace Moonlit.Mvc
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
-    public class SitemapNodeAttribute : ActionFilterAttribute
+    public class SitemapNodeAttribute :  Attribute
     {
         private string _text;
         public string Name { get; set; }
@@ -53,47 +53,6 @@ namespace Moonlit.Mvc
         public string SiteMap { get; set; }
         public bool IsHidden { get; set; }
         public Type ResourceType { get; set; }
-        public SitemapNodeAttribute()
-        {
-            Order = 2;
-        }
-
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (string.IsNullOrEmpty(Name))
-            {
-                var name = filterContext.ActionDescriptor.GetCustomAttributes(false).OfType<INamed>().FirstOrDefault();
-                if (name != null)
-                {
-                    this.Name = name.Name;
-                }
-            }
-            base.OnActionExecuting(filterContext);
-        }
-
-        public override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-
-            var sitemaps = Sitemaps.Current;
-            if (sitemaps == null || string.IsNullOrEmpty(Name))
-            {
-                return;
-            }
-            var node = sitemaps.FindSitemapNode(Name, this.SiteMap);
-            node.IsCurrent = true;
-            sitemaps.CurrentNode = node;
-
-            List<SitemapNode> nodes = new List<SitemapNode>();
-            do
-            {
-                nodes.Add(node);
-                node.InCurrent = true;
-                node = node.Parent;
-            } while (node != null && node.Parent != null);  // ignore the root node
-            nodes.Reverse();
-            sitemaps.Breadcrumb = nodes;
-            base.OnResultExecuting(filterContext);
-        }
-
+        public int Order { get; set; }
     }
 }

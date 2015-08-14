@@ -18,15 +18,17 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     [MoonlitAuthorize(Roles = MaintModule.PrivilegeCulture)]
     public class DbContextController : MaintControllerBase
     {
-        [RequestMapping("dbcontexts", "devtools/dbcontext")]
+
         [SitemapNode(Parent = "DevTools", Text = "DevToolsDbContextList", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(DbContextListModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
         }
-        [RequestMapping("dbcontexts_export_nodejs", "devtools/dbcontext")]
-        [FormAction("dbcontexts_export_nodejs")]
-        [ActionName("Index")]
+
+        public const string FormActionNameExportAsNodeJs = "ExportAsNodeJs";
+
+        [FormAction(FormActionNameExportAsNodeJs)]
+        [ActionName("index")]
         [HttpPost]
         public ActionResult ExportNode(DbContextListModel model, string[] ids)
         {

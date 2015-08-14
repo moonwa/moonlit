@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moonlit.Mvc.Controls;
+using Moonlit.Mvc.Maintenance.Controllers;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
 using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
@@ -97,7 +98,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                             Header = MaintCultureTextResources.Operation,
                             CellTemplate = x =>
                             {
-                                var url = RequestMappings.Current.GetRequestMapping("editculturetext").MakeUrl(urlHelper, new {id = ((CultureText) x.Target).CultureTextId});
+                                var url = urlHelper.Action("Edit", "CultureText", new { id = ((CultureText)x.Target).CultureTextId });
                                 return new ControlCollection()
                                 {
                                     Controls = new List<Control>()
@@ -125,13 +126,13 @@ namespace Moonlit.Mvc.Maintenance.Models
                     {
                         Text = MaintCultureTextResources.New,
                         Style = LinkStyle.Button,
-                        Url = RequestMappings.Current.GetRequestMapping("createculturetext").MakeUrl(urlHelper, null),
+                        Url = urlHelper.Action("Create", "CultureText"),
                     },
                     new Link
                     {
                         Text = MaintCultureTextResources.Import,
                         Style = LinkStyle.Button,
-                        Url = RequestMappings.Current.GetRequestMapping("importculturetext").MakeUrl(urlHelper, null),
+                        Url = urlHelper.Action("Import", "CultureText"),
                     },
                     new Button
                     {

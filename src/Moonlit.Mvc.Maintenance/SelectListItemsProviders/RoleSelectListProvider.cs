@@ -31,7 +31,7 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
             }).ToList();
         }
     }
-    public class RolesSelectListItemsProvider : ISelectListItemsProvider
+    public class RoleSelectListProvider : ISelectListItemsProvider
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {
