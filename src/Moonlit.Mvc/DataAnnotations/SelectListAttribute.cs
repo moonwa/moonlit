@@ -33,7 +33,10 @@ namespace Moonlit.Mvc
             var selectListItems = selectListItemsProvider.GetSelectList(metadata, controllerContext.Controller.ViewData.Model);
             selectListItems.Insert(0, new SelectListItem() { Text = "", Value = "" });
             var selectedValue = ObjectToString(model);
-            return new Moonlit.Mvc.Controls.SelectList(selectListItems, selectedValue);
+            return new Moonlit.Mvc.Controls.SelectList(selectListItems, selectedValue)
+            {
+                Enabled = !metadata.IsReadOnly,
+            };
         }
     }
 }

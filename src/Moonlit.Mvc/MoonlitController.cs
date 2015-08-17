@@ -36,8 +36,7 @@ namespace Moonlit.Mvc
         }
 
         protected bool ValidateAs<T>(T entity, params  string[] properties)
-        {
-            ModelState.Clear();
+        { 
             var metadata = ModelMetadataProviders.Current.GetMetadataForType((Func<object>)(() => entity), typeof(T));
             var modelValidator = ModelValidator.GetModelValidator(metadata, this.ControllerContext);
             foreach (ModelValidationResult validationResult in modelValidator.Validate((object)null))

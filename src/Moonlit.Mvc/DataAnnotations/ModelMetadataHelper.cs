@@ -10,6 +10,15 @@ namespace Moonlit.Mvc
 {
     public static class ModelMetadataHelper
     {
+        public static string GetMapping(this ModelMetadata metadata)
+        {
+            object obj;
+            if (metadata.AdditionalValues.TryGetValue(MappingAttribute.MetadataAdditionalKey, out obj))
+            {
+                return ((MappingAttribute)obj).To;
+            }
+            return null;
+        }
         public static string GetSort(this ModelMetadata metadata)
         {
             object obj;

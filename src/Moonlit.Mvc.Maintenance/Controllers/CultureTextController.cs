@@ -24,10 +24,10 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _maintDomainService = maintDomainService;
         }
 
-        [SitemapNode(Text = "CultureTextList", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
+        [SitemapNode(Text = "CultureTextList", Name = "CultureTexts", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureTextListModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [FormAction("Delete")]
         [ActionName("index")]
@@ -43,7 +43,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MaintDbContext.SaveChanges();
                 _maintDomainService.ClearCultureTextsCache();
             }
-            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [FormAction("Export")]
@@ -117,23 +117,24 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         }
 
         [SitemapNode(Text = "CultureTextCreate", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
-        public ActionResult Create()
+        public ActionResult Create(int cultureId = 0)
         {
             var model = new CultureTextCreateModel();
+            model.CultureId = cultureId;
             return Template(model.CreateTemplate(ControllerContext));
         }
          
         [HttpPost]
         public async Task<ActionResult> Create(CultureTextCreateModel model)
         {
-            if (!ModelState.IsValid)
+            var db = MaintDbContext;
+            CultureText cultureText= new CultureText();
+            if (!TryUpdateModel(cultureText, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
-            var name = model.Name.Trim();
-            var cultureText = await db.CultureTexts.FirstOrDefaultAsync(x => x.Name == name);
-            if (cultureText != null)
+            var name = model.Name;
+            if (await db.CultureTexts.AnyAsync(x => x.Name == name))
             {
                 var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
                     MaintCultureTextResources.CultureTextName, name);
@@ -141,17 +142,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 ModelState.AddModelError("Name", string.Format(errorMessage, name));
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var culture = db.Cultures.FirstOrDefault(x => x.CultureId == model.Culture && x.IsEnabled);
+            var culture = db.Cultures.FirstOrDefault(x => x.CultureId == model.CultureId && x.IsEnabled);
             if (culture == null)
             {
                 return HttpNotFound();
             }
-            cultureText = new CultureText
-            {
-                Name = name,
-                Text = model.Text.Trim(),
-                CultureId = culture.CultureId,
-            };
 
             db.Add(cultureText);
             await db.SaveChangesAsync();
@@ -168,13 +163,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
-            var adminUser = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id) ;
-            if (adminUser == null)
+            var entity = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id) ;
+            if (entity == null)
             {
                 return HttpNotFound();
             }
             var model = new CultureTextEditModel();
-            model.SetInnerObject(adminUser);
+            model.FromEntity(entity, false);
 
             return Template(model.CreateTemplate(ControllerContext));
         } 
@@ -182,17 +177,18 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "编辑词条", Parent = "culturetexts")]
         public async Task<ActionResult> Edit(CultureTextEditModel model, int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return Template(model.CreateTemplate(ControllerContext));
-            }
             var db = MaintDbContext;
-            var cultureText = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id);
-            if (cultureText == null)
+            var entity = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
-            cultureText.Text = model.Text.Trim();
+            model.FromEntity(entity, true);
+            if (!TryUpdateModel(entity, model))
+            {
+                return Template(model.CreateTemplate(ControllerContext));
+            }
+           
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {

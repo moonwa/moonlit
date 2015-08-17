@@ -12,10 +12,10 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class CultureController : MaintControllerBase
     {
 
-        [SitemapNode(Parent = "BasicData", Text = "CultureList", ResourceType = typeof(MaintCultureTextResources))]
+        [SitemapNode(Parent = "BasicData", Name = "Cultures", Text = "CultureList", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureListModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [FormAction("Disable")]
         [ActionName("Index")]
@@ -30,7 +30,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
         [FormAction("Enable")]
         [ActionName("Index")]
@@ -45,7 +45,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [SitemapNode(Text = "CultureTextCreate", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
@@ -58,14 +58,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CultureCreateModel model)
         {
-            if (!ModelState.IsValid)
+            var entity = new Culture();
+            if (!TryUpdateModel(entity, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
-            var name = model.Name.Trim();
-            var culture = await db.Cultures.FirstOrDefaultAsync(x => x.Name == name);
-            if (culture != null)
+            var name = model.Name.Trim(); ;
+            if (db.Cultures.Any(x => x.Name == name))
             {
                 var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
                     MaintCultureTextResources.CultureName, name);
@@ -74,14 +74,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(model.CreateTemplate(ControllerContext));
             }
 
-            culture = new Culture
-            {
-                Name = name,
-                DisplayName = model.DisplayName.Trim(),
-                IsEnabled = model.IsEnabled,
-            };
-
-            db.Add(culture);
+            db.Add(entity);
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
@@ -95,32 +88,31 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;
-            var adminUser = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
-            if (adminUser == null)
+            var entity = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
             var model = new CultureEditModel();
-            model.SetInnerObject(adminUser);
+            model.FromEntity(entity, false);
 
             return Template(model.CreateTemplate(ControllerContext));
-        } 
+        }
         [HttpPost]
         public async Task<ActionResult> Edit(CultureEditModel model, int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return Template(model.CreateTemplate(ControllerContext));
-            }
             var db = MaintDbContext;
-            var adminUser = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
-            if (adminUser == null)
+            var entity = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
+            if (entity == null)
             {
                 return HttpNotFound();
             }
-            adminUser.DisplayName = model.DisplayName;
-            adminUser.Name = model.Name.Trim();
-            adminUser.IsEnabled = model.IsEnabled;
+            model.FromEntity(entity, true);
+
+            if (!TryUpdateModel(entity, model))
+            {
+                return Template(model.CreateTemplate(ControllerContext));
+            }
             await db.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {

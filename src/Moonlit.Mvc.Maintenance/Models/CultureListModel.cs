@@ -11,7 +11,7 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureListModel : IPagedRequest
+    public partial class CultureListModel : IPagedRequest
     {
         public CultureListModel()
         {
@@ -19,24 +19,38 @@ namespace Moonlit.Mvc.Maintenance.Models
             PageSize = 10;
             OrderBy = "Name";
         }
-
-        [TextBox]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
-        public string Keyword { get; set; }
-
-        [TextBox]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureName")]
-        public string Name { get; set; }
-
+ 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
+        partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext)
+        { 
+            var tableBuilder = new TableBuilder<Culture>();
+            var urlHelper = new UrlHelper(controllerContext.RequestContext);
+            template.GlobalButtons = new IClickable[]
+            {
+                new Button(MaintCultureTextResources.Search, ""),
+                new Link(MaintCultureTextResources.New, urlHelper.Action("Create", "Culture"), LinkStyle.Button),
+                new Button(MaintCultureTextResources.Disable, "Disable"),
+                new Button(MaintCultureTextResources.Enable, "Enable"),
+            };
+            template.Table = tableBuilder.Add(tableBuilder.CheckBox(x => x.CultureId.ToString(), controllerContext, "ids"), "", "CultureId")
+                .Add(tableBuilder.Literal(x => x.Name.Format(), controllerContext), MaintCultureTextResources.RoleName, "Name")
+                .Add(tableBuilder.Literal(x => x.DisplayName.Format(), controllerContext), MaintCultureTextResources.RoleIsBuildIn, "DisplayName")
+                .Add(tableBuilder.Literal(x => x.IsEnabled.Format(), controllerContext), MaintCultureTextResources.RoleIsEnabled, "IsEnabled")
+                .Add(x =>
+                {
+                    return new ControlCollection(
+                        new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", "Culture", new { id = x.Target.CultureId }), LinkStyle.Normal)
+                        );
+                }, MaintCultureTextResources.Operation).Build();
+        
+        }
 
-        public Template CreateTemplate(ControllerContext controllerContext, IMaintDbRepository db)
+        public IMaintDbRepository MaintDbContext { get; set; }
+        private IQueryable GetDataSource(ControllerContext controllerContext)
         {
-            var query = db.Cultures.AsQueryable();
+            var query = MaintDbContext.Cultures.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
@@ -49,102 +63,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 
                 query = query.Where(x => x.Name.StartsWith(name));
             }
-            var urlHelper = new UrlHelper(controllerContext.RequestContext);
-            var template = new AdministrationSimpleListTemplate(query)
-            {
-                Title = MaintCultureTextResources.CultureList,
-                Description = MaintCultureTextResources.CultureListDescription,
-                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                DefaultSort = "Name",
-                DefaultPageSize = 10,
-                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                GlobalButtons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.New,
-                        Style = LinkStyle.Button,
-                        Url = urlHelper.Action( "Create" , "Culture"),
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Disable,
-                        ActionName = "Disable"
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Enable,
-                        ActionName = "Enable"
-                    },
-                },
-                Table = new Table
-                {
-                    Columns = new List<TableColumn>
-                    {
-                        new TableColumn
-                        {
-                            CellTemplate = x => new CheckBox()
-                            {
-                                Name = "ids",
-                                Value = ((Culture) x.Target).CultureId.ToString()
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "Name",
-                            Header = MaintCultureTextResources.CultureName,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((Culture) x.Target).Name
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "DisplayName",
-                            Header = MaintCultureTextResources.CultureDisplayName,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((Culture) x.Target).DisplayName
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "IsEnabled",
-                            Header = MaintCultureTextResources.CultureIsEnabled,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((Culture) x.Target).IsEnabled ? MaintCultureTextResources.Yes : MaintCultureTextResources.No,
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Header = MaintCultureTextResources.Operation,
-                            CellTemplate = x =>
-                            {
-                                var url = urlHelper.Action("Edit", "Culture", new {id = ((Culture) x.Target).CultureId});
-                                return new ControlCollection()
-                                {
-                                    Controls = new List<Control>()
-                                    {
-                                        new Link
-                                        {
-                                            Style = LinkStyle.Normal,
-                                            Text = MaintCultureTextResources.Edit,
-                                            Url = url,
-                                        }
-                                    }
-                                };
-                            }
-                        }
-                    }
-                }
-            };
-            return template;
+            return query;
         }
     }
 }

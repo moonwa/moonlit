@@ -76,7 +76,7 @@
       </property>
     </properties>
     <methods>
-      <administrationSimpleEditTemplate   title="AdminUserEdit"  description="AdminUserEditDescription" panelTitle="AdminUserInfo" />
+      <administrationSimpleEditTemplate   title="AdminUserCreate"  description="AdminUserCreateDescription" panelTitle="AdminUserInfo" />
       <entityMappingFrom target="User" /> 
       <entityMappingTo target="User" /> 
     </methods>
@@ -176,7 +176,7 @@
       </property>
     </properties>
     <methods>
-      <administrationSimpleEditTemplate title="RoleEdit"  description="RoleEditDescription" panelTitle="RoleInfo" />
+      <administrationSimpleEditTemplate title="RoleCreate"  description="RoleCreateDescription" panelTitle="RoleInfo" />
       <entityMappingFrom target="Role" /> 
       <entityMappingTo target="Role" /> 
     </methods>
@@ -206,6 +206,143 @@
       <administrationSimpleEditTemplate  title="RoleEdit"  description="RoleEditDescription" panelTitle="RoleInfo" />
       <entityMappingFrom target="Role" /> 
       <entityMappingTo target="Role" /> 
+    </methods>
+  </model>
+  <model name="CultureListModel" resourceName="Culture">
+    <properties>
+      <property name="Keyword" type="string">
+        <display name="Keyword"/>
+        <field width="6">
+          <textbox /> 
+        </field>
+      </property>
+    
+      <property name="Name" type="string">
+        <field width="6">
+        </field>
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleListTemplate>
+      </administrationSimpleListTemplate>
+    </methods>
+  </model>
+  <model name="CultureCreateModel" resourceName="Culture">
+    <mapping default="enabled" mappingType="Culture" />
+    <properties>
+      <property name="Name" type="string">
+        <mapping />
+        <field width="6" />
+      </property> 
+      <property name="DisplayName" type="string" >
+        <mapping/>
+        <field width="6" />
+      </property>
+      <property name="IsEnabled" type="bool">
+        <mapping />
+        <field width="6" />
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate title="CultureCreate"  description="CultureCreateDescription" panelTitle="CultureInfo" />
+      <entityMappingFrom target="Culture" /> 
+      <entityMappingTo target="Culture" /> 
+    </methods>
+  </model>
+  <model name="CultureEditModel" resourceName="Culture">
+    <mapping default="enabled" mappingType="Culture" />
+    <properties>
+      <property name="Name" type="string">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="DisplayName" type="string" >
+        <mapping/>
+        <field width="6" />
+      </property>
+      <property name="IsEnabled" type="bool">
+        <mapping />
+        <field width="6" />
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate  title="CultureEdit"  description="CultureEditDescription" panelTitle="CultureInfo" />
+      <entityMappingFrom target="Culture" /> 
+      <entityMappingTo target="Culture" /> 
+    </methods>
+  </model>
+  <model name="CultureTextListModel" resourceName="CultureText">
+    <properties>
+      <property name="Keyword" type="string">
+        <display name="Keyword"/>
+        <field width="6">
+          <textbox /> 
+        </field>
+      </property>
+      <property name="Culture" type="int"> 
+        <field width="6">
+          <selectlist provider="Culture" />
+        </field>
+      </property>
+    
+      <property name="Name" type="string">
+        <field width="6">
+        </field>
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleListTemplate>
+      </administrationSimpleListTemplate>
+    </methods>
+  </model>
+  <model name="CultureTextCreateModel" resourceName="CultureText">
+    <mapping default="enabled" mappingType="CultureText" />
+    <properties>
+      <property name="CultureId" type="int">
+        <mapping type="int"/>
+        <display name="CultureTextCulture"/>
+        <field width="6" >
+          <selectlist provider="Culture"/>
+        </field>
+      </property>
+      <property name="Name" type="string">
+        <mapping />
+        <field width="6" />
+      </property>  
+      <property name="Text" type="string">
+        <mapping />
+        <field width="6" />
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate title="CultureTextCreate"  description="CultureTextCreateDescription" panelTitle="CultureTextInfo" />
+      <entityMappingFrom target="CultureText" /> 
+      <entityMappingTo target="CultureText" /> 
+    </methods>
+  </model>
+  <model name="CultureTextEditModel" resourceName="CultureText">
+    <mapping default="enabled" mappingType="CultureText"/>
+    <properties>
+      <property name="CultureId" type="int?" enabled="false">
+        <display name="CultureTextCulture"/>
+        <mapping type="int" to="CultureId"/>
+        <field width="6" >
+          <selectlist provider="Culture"/>
+        </field>
+      </property> 
+      <property name="Name" type="string"   enabled="false">
+        <mapping type="int"/>
+        <field width="6" />
+      </property> 
+      <property name="Text" type="string">
+        <mapping />
+        <field width="6" />
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate  title="CultureTextEdit"  description="CultureTextEditDescription" panelTitle="CultureTextInfo" />
+      <entityMappingFrom target="CultureText" /> 
+      <entityMappingTo target="CultureText" /> 
     </methods>
   </model>
 </models>

@@ -12,49 +12,18 @@ using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureTextEditModel 
+    public partial class CultureTextEditModel : IEntityMapper<CultureText>
     {
-        public void SetInnerObject(CultureText cultureText)
+        partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
         {
-            Text = cultureText.Text;
-            Name = cultureText.Name;
-            Culture = cultureText.CultureId;
-        }
-
-
-        [Field(FieldWidth.W6)]
-        [TextBox]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
-        public string Name { get; set; }
-
-        [Field(FieldWidth.W6)]
-        [SelectList(typeof(CultureSelectListProvider))]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
-        public int? Culture { get; set; }
-
-        [Field(FieldWidth.W12)]
-        [MultiLineTextBox]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextText")]
-        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        public string Text { get; set; }
-
-        public Template CreateTemplate(ControllerContext controllerContext)
-        {
-            return new AdministrationSimpleEditTemplate
+            template.Buttons = new IClickable[]
             {
-                Title = MaintCultureTextResources.CultureTextEdit,
-                Description = MaintCultureTextResources.CultureTextEditDescription,
-                FormTitle = MaintCultureTextResources.CultureTextInfo,
-                Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                Buttons = new IClickable[]
+                new Button
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
+                    Text = MaintCultureTextResources.Save,
+                    ActionName = ""
                 }
             };
-        }
+        }  
     }
 }

@@ -8,6 +8,7 @@
 >
   <xs:complexType name="mappingType">
     <xs:attribute name="to" use="optional" type="xs:string" />
+    <xs:attribute name="type" use="optional" type="xs:string" />
     <xs:attribute name="enabled" use="optional" type="xs:boolean" />
     <xs:attribute name="stub" use="optional" type="xs:boolean" />
   </xs:complexType>
@@ -38,9 +39,6 @@
     <xs:attribute name="entityType" type="xs:string"></xs:attribute>
   </xs:complexType>
   <xs:complexType name="administrationSimpleListTemplateType">
-    <xs:all>
-      <xs:element type="tableType" name="table"></xs:element>
-    </xs:all>
   </xs:complexType>
   <xs:complexType name="administrationSimpleEditTemplateType">
     <xs:attribute name="title" use="required" />

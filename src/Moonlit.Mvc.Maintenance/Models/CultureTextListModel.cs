@@ -13,33 +13,22 @@ using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class CultureTextListModel : IPagedRequest 
+    public partial class CultureTextListModel : IPagedRequest
     {
         public CultureTextListModel()
         {
             PageIndex = 1;
             PageSize = 10;
-            OrderBy = "UserName";
+            OrderBy = "Name";
         }
-        [SelectList(typeof(CultureSelectListProvider))]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureName")]
-        public int Culture { get; set; }
-        [TextBox]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
-        public string Keyword { get; set; }
-        [TextBox]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextName")]
-        public string Name { get; set; }
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-        public Template CreateTemplate(ControllerContext controllerContext, IMaintDbRepository db)
+        public IMaintDbRepository MaintDbContext { get; set; }
+        private IQueryable GetDataSource(ControllerContext controllerContext)
         {
-            var query = db.CultureTexts.Where(x => x.CultureId == Culture);
+            var query = MaintDbContext.CultureTexts.Where(x => x.CultureId == Culture);
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
                 var keyword = Keyword.Trim();
@@ -52,102 +41,28 @@ namespace Moonlit.Mvc.Maintenance.Models
 
                 query = query.Where(x => x.Name.StartsWith(name));
             }
+            return query;
+        }
 
+        partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext)
+        {
             var urlHelper = new UrlHelper(controllerContext.RequestContext);
-            var template = new AdministrationSimpleListTemplate(query)
+            template.GlobalButtons = new IClickable[]
             {
-                Title = MaintCultureTextResources.CultureTextList,
-                Description = MaintCultureTextResources.CultureTextListDescription,
-                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                DefaultSort = "Name",
-                DefaultPageSize = 10,
-                DefaultPageIndex = 1,
-                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                Table = new Table
-                {
-                    Columns = new List<TableColumn>
-                    {
-                        new TableColumn
-                        {
-                            CellTemplate = x => new CheckBox()
-                            {
-                                Name = "ids",
-                                Value = ((CultureText) x.Target).CultureTextId.ToString()
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "Name",
-                            Header = MaintCultureTextResources.CultureTextName,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((CultureText) x.Target).Name
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "Text",
-                            Header = MaintCultureTextResources.CultureTextText,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((CultureText) x.Target).Text
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Header = MaintCultureTextResources.Operation,
-                            CellTemplate = x =>
-                            {
-                                var url = urlHelper.Action("Edit", "CultureText", new { id = ((CultureText)x.Target).CultureTextId });
-                                return new ControlCollection()
-                                {
-                                    Controls = new List<Control>()
-                                    {
-                                        new Link
-                                        {
-                                            Style = LinkStyle.Normal,
-                                            Text = MaintCultureTextResources.Edit,
-                                            Url = url,
-                                        }
-                                    }
-                                };
-                            }
-                        }
-                    }
-                },
-                GlobalButtons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.New,
-                        Style = LinkStyle.Button,
-                        Url = urlHelper.Action("Create", "CultureText"),
-                    },
-                    new Link
-                    {
-                        Text = MaintCultureTextResources.Import,
-                        Style = LinkStyle.Button,
-                        Url = urlHelper.Action("Import", "CultureText"),
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Export,
-                        ActionName = "Export"
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Delete,
-                        ActionName = "Delete"
-                    },
-                }
-            }; 
-            return template;
-        } 
-
+                new Button(MaintCultureTextResources.Search, ""),
+                new Link(MaintCultureTextResources.New, urlHelper.Action("Create", "CultureText", new {cultureId = this.Culture}), LinkStyle.Button),
+                new Button(MaintCultureTextResources.Delete, "Delete"),
+                new Link(MaintCultureTextResources.Import, urlHelper.Action("Import", "CultureText", new {cultureId=this.Culture}), LinkStyle.Button), 
+            };
+            var tableBuilder = new TableBuilder<CultureText>();
+            template.Table = tableBuilder
+                .Add(tableBuilder.CheckBox(x => x.CultureTextId.Format(), controllerContext, name: "ids"), "", "CultureTextId")
+                .Add(tableBuilder.Literal(x => x.Name.Format(), controllerContext), MaintCultureTextResources.AdminUserUserName, "CultureTextName")
+                .Add(tableBuilder.Literal(x => x.Text.Format(), controllerContext), MaintCultureTextResources.AdminUserLoginName, "CultureTextText")
+                .Add(tableBuilder.Literal(x => x.IsEdited.Format(), controllerContext), MaintCultureTextResources.AdminUserGender, "CultureTextIsEdited")
+                .Add(x => new ControlCollection(
+                    new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", "CultureText", new { id = x.Target.CultureTextId }), LinkStyle.Normal)
+                    ), MaintCultureTextResources.Operation).Build();
+        }
     }
 }

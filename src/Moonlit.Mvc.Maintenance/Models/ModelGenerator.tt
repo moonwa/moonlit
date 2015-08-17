@@ -16,7 +16,7 @@ using Moonlit.Mvc;
 using Moonlit.Mvc.Templates;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Controls;
-
+ 
 <#  
 
 	Init();
@@ -65,6 +65,7 @@ namespace <#= @namespace #>
 			}
  
 			WriteControlAsAttribute(field);  
+			RenderMapping(property);
 			RenderProperty(property);
 		}
   
@@ -185,12 +186,29 @@ using <#= import.Value #>;
 	public partial class <#= (string)model.Attribute("name") #> <#= baseClass #> {
 <#+	
     }
+    void RenderMapping(XElement property)
+    {
+        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+
+        if (mapping == null)
+        {
+            return;
+        }
+        var to = "";
+        if (mapping.Attribute("to") != null)
+        {
+            to = "To=\"" + (string) mapping.Attribute("to") + "\"";
+        } 
+#>
+		[Mapping(<#= to #>)]
+<#+	
+    }
     void RenderProperty(XElement property)
     {
         var getset = "{ get; set; }";
         if (property.Attribute("enabled") != null && (bool) property.Attribute("enabled") == false)
         {
-            getset = "{ get; private set; }";
+            getset = "{ get; internal set; }";
         }
 #>
 		public <#= (string)property.Attribute("type") #> <#= (string)property.Attribute("name") #> <#= getset  #>
@@ -251,6 +269,11 @@ using <#= import.Value #>;
 	    {
 	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
 
+	        string mappingType = "";
+	        if (mapping.Attribute("type") != null)
+	        {
+	            mappingType = "(" + (string)mapping.Attribute("type") + ")";
+	        }
 	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
 	        {
 #>  
@@ -260,7 +283,7 @@ using <#= import.Value #>;
 	        else
 	        {
 #>
-			entity.<#= (string) property.Attribute("name") #> = <#= (string) property.Attribute("name") #>;
+			entity.<#= (string) property.Attribute("name") #> = <#= mappingType #><#= (string) property.Attribute("name") #>;
 <#+
 	        }
 	    }
