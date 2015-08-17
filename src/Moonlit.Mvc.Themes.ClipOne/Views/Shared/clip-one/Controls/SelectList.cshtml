@@ -3,7 +3,7 @@
 @using Moonlit.Mvc.Url
 @model Moonlit.Mvc.Controls.SelectList
 @{
-    Scripts.Current.RegisterScript("plugins:select2-init", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugins:select2-init", new Script()
     {
         Content = @"$(function(){
             $('.search-select').select2({
@@ -12,11 +12,11 @@
             });
         });"
     });
-    Scripts.Current.RegisterScript("plugins:select2", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugins:select2", new Script()
     {
         Src = Url.Asset("clip-one/plugins/select2/dist/js/select2.min.js")
     });
-    Styles.Current.RegisterStyleLink("plugins:select2", new StyleLink() 
+    Moonlit.Mvc.Styles.Current.RegisterStyleLink("plugins:select2", new StyleLink() 
     {
         Href = Url.Asset("clip-one/plugins/select2/dist/css/select2.css")
     });

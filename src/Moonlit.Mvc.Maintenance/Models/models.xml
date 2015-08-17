@@ -4,104 +4,121 @@
   <import>Moonlit.Mvc.Maintenance.SelectListItemsProviders</import>
   <model name="AdminUserListModel" resourceName="AdminUser">
     <properties>
-      <add name="Keyword" type="string">
+      <property name="Keyword" type="string">
         <display name="Keyword"/>
         <field width="6">
-          <control>
-            <textbox />
-          </control>
+          <textbox />
         </field>
-        
-      </add>
-      <add name="UserName" type="string">
+
+      </property>
+      <property name="UserName" type="string">
         <field width="6">
-          <control>
-            <textbox />
-          </control>
+          <textbox />
         </field>
-      </add>
-      <add name="IsEnabled" type="bool?">
+      </property>
+      <property name="IsEnabled" type="bool?">
         <field width="6">
-          <control>
-            <checkbox />
-          </control>
+          <checkbox />
         </field>
-      </add>
+      </property>
     </properties>
     <methods>
-      <administrationSimpleListTemplate />
+      <administrationSimpleListTemplate >
+      </administrationSimpleListTemplate>
     </methods>
   </model>
-  <model name="AdminUserCreateModel" resourceName="AdminUser" base="IEntityMapper&lt;User&gt;">
+  <model name="AdminUserCreateModel" resourceName="AdminUser">
     <mapping default="enabled" mappingType="User" />
     <properties>
-      <add name="UserName" type="string">
+      <property name="UserName" type="string">
         <mapping />
-        <field width="6">
-          <control>
-            <textbox />
-          </control>
-        </field>
-      </add>
-      <add name="LoginName" type="string">
+        <field width="6" />
+      </property>
+      <property name="LoginName" type="string">
         <mapping />
+        <field width="6" />
+      </property>
+      <property name="Password" type="string">
+        <mapping stub="true" />
         <field width="6">
-          <control>
-            <textbox />
-          </control>
+          <passwordbox/>
         </field>
-      </add>
-      <add name="Password" type="string">
+      </property>
+      <property name="Gender" type="Gender?">
         <mapping />
-        <field width="6">
-          <control>
-            <passwordbox />
-          </control>
-        </field>
-      </add>
-      <add name="Gender" type="Gender?">
+        <field width="6" />
+      </property>
+      <property name="DateOfBirth" type="DateTime?">
         <mapping />
-        <field width="6">
-          <control>
-            <selectlist provider="Enum" />
-          </control>
-        </field>
-      </add>
-      <add name="DateOfBirth" type="DateTime?">
+        <field width="6" />
+      </property>
+      <property name="IsSuper" type="bool" enabled="false">
         <mapping />
-        <field width="6">
-          <control>
-            <datepicker />
-          </control>
-        </field>
-      </add>
-      <add name="IsSuper" type="bool" enabled="false">
-        <mapping />
-        <field width="6">
-          <control>
-            <checkbox />
-          </control>
-        </field>
-      </add>
-      <add name="Roles" type="int[]" >
+        <field width="6" />
+      </property>
+      <property name="Roles" type="int[]" >
         <mapping stub="true"/>
         <field width="6">
-          <control>
-            <selectlist provider="Role" />
-          </control>
+            <multiselectlist provider="Role" />
         </field>
-      </add>
-      <add name="IsEnabled" type="bool">
+      </property>
+      <property name="IsEnabled" type="bool">
+        <mapping />
         <field width="6">
-          <control>
-            <checkbox />
-          </control>
         </field>
-      </add>
+      </property>
     </properties>
     <methods>
-      <administrationSimpleEditTemplate />
-      <entityMapper target="User"/>
+      <administrationSimpleEditTemplate   title="AdminUserEdit"  description="AdminUserEditDescription" panelTitle="AdminUserInfo" />
+      <entityMappingFrom target="User" /> 
+      <entityMappingTo target="User" /> 
+    </methods>
+  </model>
+  <model name="AdminUserEditModel" resourceName="AdminUser">
+    <mapping default="enabled" mappingType="User" />
+    <properties>
+      <property name="UserName" type="string">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="LoginName" type="string" enabled="false">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="Password" type="string">
+        <mapping stub="true"/>
+        <field width="6">
+          <passwordbox/>
+        </field>
+      </property>
+      <property name="Gender" type="Gender?">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="DateOfBirth" type="DateTime?">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="IsSuper" type="bool" enabled="false">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="Roles" type="int[]" >
+        <mapping stub="true"/>
+        <field width="6">
+            <multiselectlist provider="Role" />
+        </field>
+      </property>
+      <property name="IsEnabled" type="bool">
+        <mapping/>
+        <field width="6">
+        </field>
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate  title="AdminUserEdit"  description="AdminUserEditDescription" panelTitle="AdminUserInfo" />
+      <entityMappingFrom target="User" /> 
+      <entityMappingTo target="User" /> 
     </methods>
   </model>
 </models>

@@ -2,11 +2,11 @@
 @using Moonlit.Mvc.Url
 @model Moonlit.Mvc.Controls.MultiLineTextBox
 @{
-    Scripts.Current.RegisterScript("plugin:autosize", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugin:autosize", new Script()
     {
         Src = Url.Asset("clip-one/plugins/autosize/jquery.autosize.min.js")
     });
-    Scripts.Current.RegisterScript("plugin:autosize:startup", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugin:autosize:startup", new Script()
     {
         Content = "$(function(){ $('textarea.autosize').autosize(); });"
     });

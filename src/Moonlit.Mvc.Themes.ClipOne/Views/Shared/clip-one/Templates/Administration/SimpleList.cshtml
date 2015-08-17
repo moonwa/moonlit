@@ -71,7 +71,7 @@
 
 
 @{
-    Scripts.Current.RegisterScript("page_setup", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("page_setup", new Script()
     {
         Content = @"
         var page = JSON.parse(window.sessionStorage.page || '{}');

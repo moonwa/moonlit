@@ -1,5 +1,8 @@
+using System;
 using System.Web.Mvc;
 using Autofac;
+using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Properties;
 
 namespace Moonlit.Mvc.Maintenance
 {
@@ -9,9 +12,14 @@ namespace Moonlit.Mvc.Maintenance
         {
             AuthorizeManager.Setup();
             ModelBinders.Binders.DefaultBinder = new MaintInjectBinder(ModelBinders.Binders.DefaultBinder, container);
-             
-            Moonlit.Properties.MoonlitCultureTextResources.LanguageLoader = DependencyResolver.Current.GetService<ILanguageLoader>(false) ??
+
+            Formatter.Register(x => x == typeof(bool) || x == typeof(bool?), new BooleanFormatter(() => MaintCultureTextResources.Yes, () => MaintCultureTextResources.No));
+            Formatter.Register(x => x == typeof(DateTime) || x == typeof(DateTime?), new DateFormatter());
+            Formatter.Register(x => x.ToWithoutNullableType().IsEnum, new EnumFormatter());
+            MoonlitCultureTextResources.LanguageLoader = DependencyResolver.Current.GetService<ILanguageLoader>(false) ??
                                                   new NullLanguageLoader();
         }
     }
+
+
 }

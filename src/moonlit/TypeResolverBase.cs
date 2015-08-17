@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Moonlit.Collections;
 
 namespace Moonlit
@@ -20,7 +21,7 @@ namespace Moonlit
             }
             else
             {
-                _types = new Dictionary<string, Type>( );
+                _types = new Dictionary<string, Type>();
             }
             AddTypeAlias("object", typeof(object));
 
@@ -73,6 +74,12 @@ namespace Moonlit
             return type;
         }
 
+        public IEnumerable<Type> ResolveTypes(Predicate<Type> predicate)
+        {
+            return ResolveTypes().Where(x => predicate(x));
+        }
+
+        protected abstract IEnumerable<Type> ResolveTypes();
 
 
         private string GetFullTypeName(string name)

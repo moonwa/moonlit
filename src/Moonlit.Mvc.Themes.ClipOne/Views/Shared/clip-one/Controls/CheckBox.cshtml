@@ -20,7 +20,7 @@
     }
 }
 <label class="checkbox-inline">
-    <input type="checkbox" name="@Model.Name" value="@Model.Value" @Selected(Model.Checked) class="grey">
+    <input type="checkbox" name="@Model.Name" value="@Model.Value" @Selected(Model.Checked) @Enabled(Model.Enabled) class="grey">
     @Model.Text
 </label>
 

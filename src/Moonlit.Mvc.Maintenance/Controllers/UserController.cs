@@ -26,7 +26,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             return Template(model.CreateTemplate(ControllerContext));
         }
- 
+
 
         [FormAction("disable")]
         [ActionName("Index")]
@@ -63,85 +63,23 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "创建用户", Parent = "users")]
         public ActionResult Create()
         {
-            var template = OnCreate(new AdminUserCreateModel());
-            return Template(template);
+            var model =  new AdminUserCreateModel() ;
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
-        private Template OnCreate(AdminUserCreateModel user)
-        {
-            return user.CreateTemplate(ControllerContext);
-        }
-        //        private AdministrationSimpleEditTemplate OnCreate(User user)
-        //        {
-        //            var template = new AdministrationSimpleEditTemplate
-        //            {
-        //                Title = MaintCultureTextResources.AdminUserCreate,
-        //                Description = MaintCultureTextResources.AdminUserCreateDescription,
-        //                FormTitle = MaintCultureTextResources.AdminUserInfo,
-        //                Fields = new FieldsBuilder().ForEntity(user, ControllerContext).Build(),
-        //                Buttons = new IClickable[]
-        //                {
-        //                    new Button
-        //                    {
-        //                        Text = MaintCultureTextResources.Save,
-        //                        ActionName = ""
-        //                    }
-        //                }
-        //            };
-        //            return template;
-        //        }
-
-        //        [HttpPost]
-        //        public async Task<ActionResult> Create([Bind(Include = "UserName,LoginName,Password,Gender,DateOfBirth,IsEnabled,CultureId")] User user, int[] roles)
-        //        {
-        //            if (!ModelState.IsValid)
-        //            {
-        //                return Template(OnCreate(user));
-        //            }
-        //            var db = MaintDbContext;
-        //            var loginName = user.LoginName.Trim();
-        //            if (await db.Users.AnyAsync(x => x.LoginName == loginName))
-        //            {
-        //                var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
-        //                    MaintCultureTextResources.AdminUserLoginName, loginName);
-        //                ModelState.AddModelError("LoginName", string.Format(errorMessage, loginName));
-        //                return Template(OnCreate(user));
-        //            }
-        //
-        //            user.Password = user.HashPassword(user.Password ?? "");
-        //            if (roles != null)
-        //            {
-        //                user.Roles = db.Roles.Where(x => roles.Contains(x.RoleId)).ToList();
-        //            }
-        //            db.Add(user);
-        //            await db.SaveChangesAsync();
-        //            await SetFlashAsync(new FlashMessage
-        //            {
-        //                Text = MaintCultureTextResources.SuccessToSave,
-        //                MessageType = FlashMessageType.Success,
-        //            });
-        //            return RedirectToAction("Create");
-        //        }
         [HttpPost]
         public async Task<ActionResult> Create(AdminUserCreateModel model)
         {
-            ModelState.Clear();  
+            ModelState.Clear();
 
             var user = new User();
-            model.ToEntity(user );
+            model.ToEntity(user);
 
-            var metadata = ModelMetadataProviders.Current.GetMetadataForType((Func<object>)(() => user), typeof(User));
-            var modelValidator = ModelValidator.GetModelValidator(metadata, this.ControllerContext);
-            foreach (ModelValidationResult validationResult in modelValidator.Validate((object)null))
+            if (!ValidateAs<AdminUserCreateModel, User>(user))
             {
-                this.ModelState.AddModelError(validationResult.MemberName, validationResult.Message);
+                return Template(model.CreateTemplate(ControllerContext));
             }
-
-            if (!ModelState.IsValid)
-            {
-                return Template(OnCreate(model));
-            }
-
+           
             var db = MaintDbContext;
             var loginName = model.LoginName.Trim();
             if (await db.Users.AnyAsync(x => x.LoginName == loginName))
@@ -149,7 +87,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 var errorMessage = string.Format(MaintCultureTextResources.ValidationDumplicate,
                     MaintCultureTextResources.AdminUserLoginName, loginName);
                 ModelState.AddModelError("LoginName", string.Format(errorMessage, loginName));
-                return Template(OnCreate(model));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             db.Add(user);
             await db.SaveChangesAsync();
@@ -170,33 +108,16 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return HttpNotFound();
             }
-            var template = OnEdit(adminUser);
 
-            return Template(template);
+            AdminUserEditModel model = new AdminUserEditModel();
+            model.FromEntity(adminUser, false);
+
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
-        private AdministrationSimpleEditTemplate OnEdit(User adminUser)
-        {
-            var template = new AdministrationSimpleEditTemplate
-            {
-                Title = MaintCultureTextResources.AdminUserEdit,
-                Description = MaintCultureTextResources.AdminUserEditDescription,
-                FormTitle = MaintCultureTextResources.AdminUserInfo,
-                Fields = new FieldsBuilder().ForEntity(adminUser, ControllerContext).ReadOnly("LoginName").Build(),
-                Buttons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
-                }
-            };
-            return template;
-        }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, int[] roles)
+        public async Task<ActionResult> Edit(AdminUserEditModel model, int id)
         {
             var user = MaintDbContext.Users.Include(x => x.Roles).FirstOrDefault(x => x.UserId == id);
             if (user == null)
@@ -204,16 +125,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
 
-            if (!TryUpdateModel(user, null, "UserName,Password,Gender,DateOfBirth,IsEnabled,CultureId".Split(',')))
+            model.FromEntity(user, true);
+            model.ToEntity(user);
+            if (!ValidateAs<AdminUserCreateModel, User>(user))
             {
-                return Template(OnEdit(user));
+                return Template(model.CreateTemplate(ControllerContext));
+            }
 
-            }
-            user.Roles = roles.IsNullOrEmpty() ? new List<Role>() : MaintDbContext.Roles.Where(x => roles.Contains(x.RoleId)).ToList();
-            if (!string.IsNullOrEmpty(user.Password))
-            {
-                user.Password = user.HashPassword(user.Password);
-            }
+          
             await MaintDbContext.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
@@ -221,7 +140,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
 
-            return Template(OnEdit(user));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

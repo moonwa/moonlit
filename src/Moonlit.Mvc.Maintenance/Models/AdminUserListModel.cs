@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -34,9 +34,16 @@ namespace Moonlit.Mvc.Maintenance.Models
                 new Button(MaintCultureTextResources.Disable, "Disable"),
                 new Button(MaintCultureTextResources.Enable, "Enable"),
             };
-            template.Table = new TableBuilder<User>()
-                .Add(x => new CheckBox() { Name = "ids", Value = x.Target.UserId.ToString() }, "")
-                .ForEntity(controllerContext)
+            var tableBuilder = new TableBuilder<User>();
+            template.Table = tableBuilder
+                .Add(tableBuilder.CheckBox(x => x.UserId.Format(), controllerContext, name: "ids"), "", "UserId")
+                .Add(tableBuilder.Literal(x => x.UserName.Format(), controllerContext), MaintCultureTextResources.AdminUserUserName, "UserName")
+                .Add(tableBuilder.Literal(x => x.LoginName.Format(), controllerContext), MaintCultureTextResources.AdminUserLoginName, "LoginName")
+                .Add(tableBuilder.Literal(x => x.Gender.Format(), controllerContext), MaintCultureTextResources.AdminUserGender, "Gender")
+                .Add(tableBuilder.Literal(x => x.DateOfBirth.Format(), controllerContext), MaintCultureTextResources.AdminUserDateOfBirth, "DateOfBirth")
+                .Add(tableBuilder.Literal(x => x.IsBuildIn.Format(), controllerContext), MaintCultureTextResources.AdminUserIsBuildIn, "IsBuildIn")
+                .Add(tableBuilder.Literal(x => x.IsEnabled.Format(), controllerContext), MaintCultureTextResources.AdminUserIsEnabled, "IsEnabled")
+                .Add(tableBuilder.Literal(x => x.IsSuper.Format(), controllerContext), MaintCultureTextResources.AdminUserIsSuper, "IsSuper")
                 .Add(x => new ControlCollection(
                     new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", "User", new { id = x.Target.UserId }), LinkStyle.Normal)
                     ), MaintCultureTextResources.Operation).Build();

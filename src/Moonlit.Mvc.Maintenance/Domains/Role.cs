@@ -8,22 +8,18 @@ using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
-    public class Role : IKeyObject
+    public class Role 
     {
         public int RoleId { get; set; }
         [StringLength(32)]
-        [Field(FieldWidth.W6)]
-        [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RoleName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [LiteralCell]
         public string Name { get; set; }
+
         [StringLength(8000)]
         public string Privileges { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RolePrivileges")]
-        [MultiSelectList(typeof(PrivilegeSelectListItemsProvider))]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [Field(FieldWidth.W6)]
         [NotMapped]
         public string[] PrivilegeArray
         {
@@ -50,20 +46,10 @@ namespace Moonlit.Mvc.Maintenance.Domains
 
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RoleIsEnabled")]
-        [Field(FieldWidth.W6)]
-        [CheckBox]
-        [LiteralCell]
         public bool IsEnabled { get; set; }
-        [LiteralCell]
+        
         public bool IsBuildIn { get; set; }
-        #region Implementation of IKeyObject
-
-        string IKeyObject.Key
-        {
-            get { return this.RoleId.ToString(); }
-        }
-
-        #endregion
+      
     }
 
 }

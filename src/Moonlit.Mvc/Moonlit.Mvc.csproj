@@ -126,7 +126,6 @@
     <Compile Include="DataAnnotations\HiddenAttribute.cs" />
     <Compile Include="DataAnnotations\HiddenLabelAttribute.cs" />
     <Compile Include="DataAnnotations\IControllBuilder.cs" />
-    <Compile Include="DataAnnotations\IKeyObject.cs" />
     <Compile Include="DataAnnotations\IRenderJudge.cs" />
     <Compile Include="DataAnnotations\ISelectListItemsProvider.cs" />
     <Compile Include="DataAnnotations\LiteralAttribute.cs" />
@@ -203,18 +202,21 @@
     <Compile Include="Templates\AdministrationSimpleEditTemplate.cs" />
     <Compile Include="Templates\AdministrationSimpleListTemplate.cs" />
     <Compile Include="Control.cs" />
+    <Compile Include="Templates\FieldsBuilder.cs" />
     <Compile Include="Templates\ISite.cs" />
+    <Compile Include="Templates\TableBuilder.cs" />
     <Compile Include="Templates\Template.cs" />
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Templates\SimpleBoxTemplate.cs" />
     <Compile Include="IThemeLoader.cs" />
-    <Compile Include="Templates\TemplateHelper.cs" />
+    <Compile Include="Templates\ControlBuilderCriteria.cs" />
     <Compile Include="Theme.cs" />
     <Compile Include="ThemeAttribute.cs" />
     <Compile Include="Themes.cs" />
     <Compile Include="Url\UrlExtensions.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserPrincipal.cs" />
+    <Compile Include="ViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using MultiSelectList = System.Web.Mvc.MultiSelectList;
@@ -89,10 +91,9 @@ namespace Moonlit.Mvc
             }
             return null;
         }
+
+      
     }
 
-    public interface ICellTemplateBuilder
-    {
-         Func<RowBoundItem, Control> CreateCellTemplate(ModelMetadata propertyMetadata, ControllerContext controllerContext);
-    }
+  
 }

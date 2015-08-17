@@ -15,5 +15,6 @@ namespace Moonlit.Mvc
                 Text = model == null ? "" : model.ToString(),
             };
         }
+         
     }
 }

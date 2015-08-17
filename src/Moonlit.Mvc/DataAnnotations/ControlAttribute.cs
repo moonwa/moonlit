@@ -12,6 +12,6 @@ namespace Moonlit.Mvc
             metadata.AdditionalValues[MetadataAdditionalKey] = this;
         }
 
-        public abstract Control CreateControl(ModelMetadata metadata, object model, ControllerContext controllerContext);
+        public abstract Control CreateControl(ModelMetadata metadata, object model, ControllerContext controllerContext); 
     }
 }

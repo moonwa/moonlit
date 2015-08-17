@@ -9,76 +9,60 @@ using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
-    public class User : IIdentity, IUser, IKeyObject
+    public class User : IIdentity, IUser 
     {
-        #region Implementation of IKeyObject
-
-        string IKeyObject.Key
-        {
-            get { return this.UserId.ToString(); }
-        }
-
-        #endregion
         public int UserId { get; set; }
 
         [StringLength(32)]
-        [LiteralCell]
+        
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
-        [Field(FieldWidth.W6)]
-        [TextBox]
+        
+        
         public string UserName { get; set; }
         [StringLength(32)]
-        [LiteralCell]
+        
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]
-        [Field(FieldWidth.W6)]
-        [TextBox]
+        
+        
         public string LoginName { get; set; }
 
         [StringLength(128)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserPassword")]
-        [Field(FieldWidth.W6)]
-        [PasswordBox]
+        
         public string Password { get; set; }
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
-        [LiteralCell]
-        [Field(FieldWidth.W6)]
-        [SelectList(typeof(EnumSelectListProvider))]
         public Gender? Gender { get; set; }
 
-        [LiteralCell]
+        
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserDateOfBirth")]
-        [Field(FieldWidth.W6)]
+        
         [DatePicker]
         public DateTime? DateOfBirth { get; set; }
 
-        [LiteralCell]
+        
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsEnabled")]
-        [Field(FieldWidth.W6)]
+        
         [CheckBox]
         public bool IsEnabled { get; set; }
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserCulture")]
-        [Field(FieldWidth.W6)]
-        [SelectList(typeof(CultureSelectListItemsProvider))]
+        
         [Required(ErrorMessageResourceType = typeof(MaintCultureTextResources), ErrorMessageResourceName = "ValidationRequired")]
         public int CultureId { get; set; }
 
 
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsSuper")]
-        [Field(FieldWidth.W6)]
-        [Literal]
+        
         public bool IsSuper { get; set; }
 
         [DbContextExport(Ignore = true)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserRoles")]
-        [MultiSelectList(typeof(RoleSelectListProvider))]
-        [Field(FieldWidth.W6)]
+        
         public virtual ICollection<Role> Roles { get; set; }
 
-        [LiteralCell]
-        [Literal]
+        
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsBuildIn")]
         public bool IsBuildIn { get; set; }
 

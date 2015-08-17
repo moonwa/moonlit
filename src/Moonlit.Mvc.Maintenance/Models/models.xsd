@@ -22,33 +22,43 @@
     <xs:attribute name="default" use="optional" type="enableSwtichType" />
   </xs:complexType>
   <xs:complexType name="columnType">
-
+    <xs:group ref="controlType" minOccurs="0" maxOccurs="1"></xs:group>
+    <xs:attribute name="field" type="xs:string" />
+    <xs:attribute name="header" type="xs:string" /> 
   </xs:complexType>
   <xs:complexType name="columnsType">
-    <xs:all>
-      <xs:element name="add" type="columnType" />
-    </xs:all>
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="column" type="columnType" />
+    </xs:choice>
   </xs:complexType>
   <xs:complexType name="tableType">
     <xs:all>
       <xs:element name="columns" type="columnsType" />
     </xs:all>
+    <xs:attribute name="entityType" type="xs:string"></xs:attribute>
   </xs:complexType>
   <xs:complexType name="administrationSimpleListTemplateType">
-    <!--    <xs:all>-->
-    <!--      <xs:element type="tableType" name="table"></xs:element>-->
-    <!--    </xs:all>-->
+    <xs:all>
+      <xs:element type="tableType" name="table"></xs:element>
+    </xs:all>
   </xs:complexType>
   <xs:complexType name="administrationSimpleEditTemplateType">
+    <xs:attribute name="title" use="required" />
+    <xs:attribute name="description" use="required" />
+    <xs:attribute name="panelTitle" use="required" />
   </xs:complexType>
-  <xs:complexType name="entityMapperType">
+  <xs:complexType name="entityMappingFromType">
+    <xs:attribute name="target" use="required" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="entityMappingToType">
     <xs:attribute name="target" use="required" type="xs:string" />
   </xs:complexType>
   <xs:complexType name="methodsType">
     <xs:choice maxOccurs="unbounded">
       <xs:element type="administrationSimpleListTemplateType" name="administrationSimpleListTemplate" maxOccurs="1" minOccurs="0"></xs:element>
       <xs:element type="administrationSimpleEditTemplateType" name="administrationSimpleEditTemplate" maxOccurs="1" minOccurs="0"></xs:element>
-      <xs:element type="entityMapperType" name="entityMapper" maxOccurs="1" minOccurs="0"></xs:element>
+      <xs:element type="entityMappingFromType" name="entityMappingFrom" maxOccurs="1" minOccurs="0"></xs:element>
+      <xs:element type="entityMappingToType" name="entityMappingTo" maxOccurs="1" minOccurs="0"></xs:element>
     </xs:choice>
   </xs:complexType>
   <xs:complexType name="passwordboxType">
@@ -60,21 +70,23 @@
   <xs:complexType name="selectListType">
     <xs:attribute name="provider" type="xs:string" use="required" />
   </xs:complexType>
-  <xs:complexType name="checkboxType">
+  <xs:complexType name="multiSelectListType">
+    <xs:attribute name="provider" type="xs:string" use="required" />
   </xs:complexType>
-  <xs:complexType name="controlType">
-    <xs:choice maxOccurs="1">
+  <xs:complexType name="checkboxType">
+  </xs:complexType> 
+  <xs:group name="controlType">
+    <xs:choice>
       <xs:element type="textboxType" name="textbox" maxOccurs="1"></xs:element>
       <xs:element type="checkboxType" name="checkbox" maxOccurs="1"></xs:element>
       <xs:element type="selectListType" name="selectlist" maxOccurs="1"></xs:element>
+      <xs:element type="multiSelectListType" name="multiselectlist" maxOccurs="1"></xs:element>
       <xs:element type="passwordboxType" name="passwordbox" maxOccurs="1"></xs:element>
       <xs:element type="datepickerType" name="datepicker" maxOccurs="1"></xs:element>
     </xs:choice>
-  </xs:complexType>
+  </xs:group>
   <xs:complexType name="fieldType">
-    <xs:sequence>
-      <xs:element name="control" type="controlType" maxOccurs="1" minOccurs="0"></xs:element>
-    </xs:sequence>
+    <xs:group ref="controlType" minOccurs="0" maxOccurs="1"></xs:group>
     <xs:attribute name="width" type="xs:integer" use="required"></xs:attribute>
   </xs:complexType>
   <xs:complexType name="displayAttributeType">
@@ -83,7 +95,7 @@
   </xs:complexType>
   <xs:complexType name="propertiesType">
     <xs:choice>
-      <xs:element name="add" type="propertyType" maxOccurs="unbounded" minOccurs="1" />
+      <xs:element name="property" type="propertyType" maxOccurs="unbounded" minOccurs="1" />
     </xs:choice>
   </xs:complexType>
   <xs:complexType name="propertyType">

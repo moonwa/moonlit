@@ -15,4 +15,9 @@ namespace Moonlit.Mvc
 
         public abstract Func<RowBoundItem, Control> CreateCellTemplate(ModelMetadata propertyMetadata, ControllerContext controllerContext);
     }
+
+    public interface ICellTemplateBuilder
+    {
+        Func<RowBoundItem, Control> CreateCellTemplate(ModelMetadata propertyMetadata, ControllerContext controllerContext);
+    }
 }

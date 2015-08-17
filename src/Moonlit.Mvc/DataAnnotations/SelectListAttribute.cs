@@ -24,12 +24,6 @@ namespace Moonlit.Mvc
             {
                 return ((int)selectedValue).ToString();
             }
-            var ikeyObject = selectedValue as IKeyObject;
-            if (ikeyObject != null)
-            {
-                return ikeyObject.Key;
-            }
-
             return selectedValue.ToString();
         }
 

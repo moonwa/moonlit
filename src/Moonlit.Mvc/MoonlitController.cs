@@ -24,7 +24,7 @@ namespace Moonlit.Mvc
             await Flash.SetAsync(target).ConfigureAwait(false);
         }
 
- 
+
 
         protected virtual ActionResult Template(Template template)
         {
@@ -33,6 +33,27 @@ namespace Moonlit.Mvc
                 TempData = TempData,
                 ViewEngineCollection = ViewEngineCollection,
             };
+        }
+
+        protected bool ValidateAs<T>(T entity, params  string[] properties)
+        {
+            ModelState.Clear();
+            var metadata = ModelMetadataProviders.Current.GetMetadataForType((Func<object>)(() => entity), typeof(T));
+            var modelValidator = ModelValidator.GetModelValidator(metadata, this.ControllerContext);
+            foreach (ModelValidationResult validationResult in modelValidator.Validate((object)null))
+            {
+                if (properties.Any(x => string.Equals(x, validationResult.MemberName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    this.ModelState.AddModelError(validationResult.MemberName, validationResult.Message);
+                }
+            }
+            return ModelState.IsValid;
+        }
+        protected bool ValidateAs<TValidationAs, T>(T entity)
+        {
+            var properties = ModelMetadataProviders.Current.GetMetadataForProperties(null, typeof(TValidationAs));
+
+            return ValidateAs(entity, properties.Where(x => !x.IsReadOnly).Select(x => x.PropertyName).ToArray());
         }
     }
 }
