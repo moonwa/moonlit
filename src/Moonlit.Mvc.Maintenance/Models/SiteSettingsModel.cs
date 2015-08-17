@@ -25,7 +25,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         [Field(FieldWidth.W6)]
         public string SiteName { get; set; }
-        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [SelectList(typeof(CultureSelectListProvider))]
         [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteDefaultCulture")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]

@@ -127,7 +127,7 @@
     <Compile Include="DataAnnotations\HiddenLabelAttribute.cs" />
     <Compile Include="DataAnnotations\IControllBuilder.cs" />
     <Compile Include="DataAnnotations\IRenderJudge.cs" />
-    <Compile Include="DataAnnotations\ISelectListItemsProvider.cs" />
+    <Compile Include="DataAnnotations\ISelectListProvider.cs" />
     <Compile Include="DataAnnotations\LiteralAttribute.cs" />
     <Compile Include="DataAnnotations\LiteralCellAttribute.cs" />
     <Compile Include="DataAnnotations\ModelMetadataHelper.cs" />

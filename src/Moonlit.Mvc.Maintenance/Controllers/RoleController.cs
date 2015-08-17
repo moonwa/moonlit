@@ -21,58 +21,10 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [Display(Name = "角色管理", Description = "角色管理描述，这是一段很长的描述")]
         public ActionResult Index(RoleListModel model)
         {
-            return Template(OnIndex(model));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
-        private Template OnIndex(RoleListModel model)
-        {
-            var urlHelper = new UrlHelper(ControllerContext.RequestContext);
-            var query = MaintDbContext.Roles.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(model.Keyword))
-            {
-                var keyword = model.Keyword.Trim();
 
-                query = query.Where(x => x.Name.StartsWith(keyword) || x.Name.StartsWith(keyword));
-            }
-            if (model.IsEnabled != null)
-            {
-                query = query.Where(x => x.IsEnabled == model.IsEnabled);
-            }
-
-            return new AdministrationSimpleListTemplate(query)
-            {
-                Title = MaintCultureTextResources.RoleList,
-                Description = MaintCultureTextResources.RoleListDescription,
-                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new FieldsBuilder().ForEntity(model, ControllerContext).Build(),
-                DefaultSort = "Name",
-                DefaultPageSize = 10,
-                DefaultPageIndex = 1,
-                Table = new TableBuilder<Role>().Add(x => new CheckBox()
-                {
-                    Name = "ids",
-                    Value = ((Role)x.Target).RoleId.ToString()
-                }, "").ForEntity(ControllerContext)
-                    .Add(x =>
-                    {
-                        return new ControlCollection()
-                        {
-                            Controls = new List<Control>
-                            {
-                                new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", new {id = ((Role) x.Target).RoleId}), LinkStyle.Normal)
-                            }
-                        };
-                    }, MaintCultureTextResources.Operation).Build(),
-
-                GlobalButtons = new IClickable[]
-                {
-                    new Button(MaintCultureTextResources.Search, ""),
-                    new Link(MaintCultureTextResources.New, urlHelper.Action("Create", "Role"), LinkStyle.Button),
-                    new Button(MaintCultureTextResources.Disable, "Disable"),
-                    new Button(MaintCultureTextResources.Enable, "Enable"),
-                }
-            };
-        }
 
         public const string FormActionNameDisable = "Disable";
 
@@ -89,7 +41,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(OnIndex(model));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         public const string FormActionNameEnable = "enable";
@@ -107,37 +59,26 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 }
                 MaintDbContext.SaveChanges();
             }
-            return Template(OnIndex(model));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [SitemapNode(Text = "创建用户", Parent = "roles")]
         public ActionResult Create()
         {
-
-            return Template(OnCreate(new Role()));
+            RoleCreateModel model = new RoleCreateModel();
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
-        private Template OnCreate(Role role)
-        {
-            return new AdministrationSimpleEditTemplate
-            {
-                Title = MaintCultureTextResources.RoleCreate,
-                Description = MaintCultureTextResources.RoleCreateDescription,
-                FormTitle = MaintCultureTextResources.RoleInfo,
-                Fields = new FieldsBuilder().ForEntity(role, ControllerContext).Build(),
-                Buttons = new IClickable[]
-                {
-                    new Button(MaintCultureTextResources.Save, ""),
-                }
-            };
-        }
 
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "Name,IsEnabled,PrivilegeArray")] Role role)
+        public async Task<ActionResult> Create(RoleCreateModel model)
         {
-            if (!ModelState.IsValid)
+            var role = new Role();
+
+
+            if (!TryUpdateModel(role, model))
             {
-                return Template(OnCreate(role));
+                return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
 
@@ -160,45 +101,28 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return HttpNotFound();
             }
+            var model = new RoleEditModel();
+            model.FromEntity(role, false);
 
-
-            return Template(OnEdit(role));
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
-        private Template OnEdit(Role role)
-        {
-            return new AdministrationSimpleEditTemplate
-            {
-                Title = MaintCultureTextResources.RoleEdit,
-                Description = MaintCultureTextResources.RoleEditDescription,
-                FormTitle = MaintCultureTextResources.RoleInfo,
-                Fields = new FieldsBuilder().ForEntity(role, ControllerContext).Build(),
-                Buttons = new IClickable[]
-                {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
-                }
-            };
-        }
+        
 
-        [HttpPost]
-        [ActionName("Edit")]
-        public async Task<ActionResult> Edit_Save(int id, string [] privilegeArray)
+        [HttpPost] 
+        public async Task<ActionResult> Edit(RoleEditModel model, int id)
         {
             var role = await MaintDbContext.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
-            if (role == null)
+            if (role == null) 
             {
                 return HttpNotFound();
             }
-            if (!TryUpdateModel(role, null, new[] { "Name", "IsEnabled"  }))
+            model.FromEntity(role, true);
+            if (!TryUpdateModel(role, model))
             {
-                return Template(OnEdit(role));
+                return Template(model.CreateTemplate(ControllerContext));
             }
-            role.PrivilegeArray = privilegeArray;
-             
+
             await MaintDbContext.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
@@ -206,7 +130,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
 
-            return Template(OnEdit(role));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

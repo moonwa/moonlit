@@ -104,6 +104,15 @@ namespace Moonlit.Mvc.Maintenance.Models
  
 		[Display(
 			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "AdminUserCulture"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[SelectList(typeof(CultureSelectListProvider))] 
+		public int CultureId { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
 			Name = "AdminUserIsSuper"
 			)]
 		[Field(FieldWidth.W6)]
@@ -147,6 +156,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 				Password = MappingPasswordFromEntity(entity);
 				Gender = entity.Gender;
 				DateOfBirth = entity.DateOfBirth;
+				CultureId = entity.CultureId;
   
 				Roles = MappingRolesFromEntity(entity);
 				IsEnabled = entity.IsEnabled;
@@ -163,6 +173,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 			entity.Password = MappingPasswordToEntity(entity);
 			entity.Gender = Gender;
 			entity.DateOfBirth = DateOfBirth;
+			entity.CultureId = CultureId;
   
 			entity.Roles = MappingRolesToEntity(entity);
 			entity.IsEnabled = IsEnabled;
@@ -211,6 +222,15 @@ namespace Moonlit.Mvc.Maintenance.Models
  
 		[Display(
 			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "AdminUserCulture"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[SelectList(typeof(CultureSelectListProvider))] 
+		public int CultureId { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
 			Name = "AdminUserIsSuper"
 			)]
 		[Field(FieldWidth.W6)]
@@ -253,6 +273,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 				Password = MappingPasswordFromEntity(entity);
 				Gender = entity.Gender;
 				DateOfBirth = entity.DateOfBirth;
+				CultureId = entity.CultureId;
   
 				Roles = MappingRolesFromEntity(entity);
 				IsEnabled = entity.IsEnabled;
@@ -269,8 +290,166 @@ namespace Moonlit.Mvc.Maintenance.Models
 			entity.Password = MappingPasswordToEntity(entity);
 			entity.Gender = Gender;
 			entity.DateOfBirth = DateOfBirth;
+			entity.CultureId = CultureId;
   
 			entity.Roles = MappingRolesToEntity(entity);
+			entity.IsEnabled = IsEnabled;
+			OnToEntity(entity);
+		}
+ 
+	} 
+	public partial class RoleListModel  {
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "Keyword"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[TextBox] 
+		public string Keyword { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RoleIsEnabled"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[CheckBox] 
+		public bool? IsEnabled { get; set; }
+		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
+
+		public Template CreateTemplate(ControllerContext controllerContext)
+        {
+            var query = GetDataSource(controllerContext);
+            var template = new AdministrationSimpleListTemplate(query)
+            { 
+                Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.RoleList,
+                Description = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.RoleListDescription,
+                QueryPanelTitle = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.PanelQuery,
+                DefaultSort = OrderBy,
+                DefaultPageSize = PageSize,
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(), 
+            }; 
+			
+			OnTemplate (template, controllerContext);
+            return template;
+        }
+ 
+	} 
+	public partial class RoleCreateModel  {
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RoleName"
+			)]
+		[Field(FieldWidth.W6)]
+		public string Name { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RolePrivileges"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[MultiSelectList(typeof(PrivilegeSelectListProvider))] 
+		public string[] PrivilegeArray { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RoleIsEnabled"
+			)]
+		[Field(FieldWidth.W6)]
+		public bool IsEnabled { get; set; }
+		partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext); 
+		public Template CreateTemplate(ControllerContext controllerContext)
+		{ 
+			var template = new AdministrationSimpleEditTemplate
+			{
+                Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.RoleEdit,
+                Description = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.RoleEditDescription,
+				FormTitle = MaintCultureTextResources.RoleInfo,
+				Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
+			};
+			OnTemplate(template, controllerContext);
+			return template;
+		}
+		partial void OnFromEntity(Role entity, bool isPostback);
+        public void FromEntity(Role entity, bool isPostback)
+        {
+			if(!isPostback){
+				Name = entity.Name;
+  
+				PrivilegeArray = MappingPrivilegeArrayFromEntity(entity);
+				IsEnabled = entity.IsEnabled;
+			}
+			OnFromEntity(entity, isPostback);
+		}
+		partial void OnToEntity(Role entity);
+        public void ToEntity(Role entity )
+        {
+			entity.Name = Name;
+  
+			entity.PrivilegeArray = MappingPrivilegeArrayToEntity(entity);
+			entity.IsEnabled = IsEnabled;
+			OnToEntity(entity);
+		}
+ 
+	} 
+	public partial class RoleEditModel  {
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RoleName"
+			)]
+		[Field(FieldWidth.W6)]
+		public string Name { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RolePrivileges"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[MultiSelectList(typeof(PrivilegeSelectListProvider))] 
+		public string[] PrivilegeArray { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "RoleIsEnabled"
+			)]
+		[Field(FieldWidth.W6)]
+		public bool IsEnabled { get; set; }
+		partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext); 
+		public Template CreateTemplate(ControllerContext controllerContext)
+		{ 
+			var template = new AdministrationSimpleEditTemplate
+			{
+                Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.RoleEdit,
+                Description = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.RoleEditDescription,
+				FormTitle = MaintCultureTextResources.RoleInfo,
+				Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
+			};
+			OnTemplate(template, controllerContext);
+			return template;
+		}
+		partial void OnFromEntity(Role entity, bool isPostback);
+        public void FromEntity(Role entity, bool isPostback)
+        {
+			if(!isPostback){
+				Name = entity.Name;
+  
+				PrivilegeArray = MappingPrivilegeArrayFromEntity(entity);
+				IsEnabled = entity.IsEnabled;
+			}
+			OnFromEntity(entity, isPostback);
+		}
+		partial void OnToEntity(Role entity);
+        public void ToEntity(Role entity )
+        {
+			entity.Name = Name;
+  
+			entity.PrivilegeArray = MappingPrivilegeArrayToEntity(entity);
 			entity.IsEnabled = IsEnabled;
 			OnToEntity(entity);
 		}

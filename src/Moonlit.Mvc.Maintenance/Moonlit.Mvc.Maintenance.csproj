@@ -150,6 +150,7 @@
       <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminUserCreateModel.cs" />
+    <Compile Include="Models\AdminUserEditModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\ModelGenerator.cs">
@@ -158,6 +159,8 @@
       <DependentUpon>ModelGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProfileChangePasswordModel.cs" />
+    <Compile Include="Models\RoleCreateModel.cs" />
+    <Compile Include="Models\RoleEditModel.cs" />
     <Compile Include="SelectListItemsProviders\RoleSelectListProvider.cs" />
     <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="DbCultureTextLoader.cs" />

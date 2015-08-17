@@ -52,6 +52,13 @@
         <mapping />
         <field width="6" />
       </property>
+      <property name="CultureId" type="int">
+        <mapping />
+        <display name="AdminUserCulture"/>
+        <field width="6" >
+          <selectlist provider="Culture"/>
+        </field>
+      </property>
       <property name="IsSuper" type="bool" enabled="false">
         <mapping />
         <field width="6" />
@@ -99,6 +106,13 @@
         <mapping />
         <field width="6" />
       </property>
+      <property name="CultureId" type="int">
+        <mapping />
+        <display name="AdminUserCulture"/>
+        <field width="6" >
+          <selectlist provider="Culture"/>
+        </field>
+      </property>
       <property name="IsSuper" type="bool" enabled="false">
         <mapping />
         <field width="6" />
@@ -119,6 +133,79 @@
       <administrationSimpleEditTemplate  title="AdminUserEdit"  description="AdminUserEditDescription" panelTitle="AdminUserInfo" />
       <entityMappingFrom target="User" /> 
       <entityMappingTo target="User" /> 
+    </methods>
+  </model>
+  <model name="RoleListModel" resourceName="Role">
+    <properties>
+      <property name="Keyword" type="string">
+        <display name="Keyword"/>
+        <field width="6">
+          <textbox />
+        </field>
+      </property>
+    
+      <property name="IsEnabled" type="bool?">
+        <field width="6">
+          <checkbox />
+        </field>
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleListTemplate >
+      </administrationSimpleListTemplate>
+    </methods>
+  </model>
+  <model name="RoleCreateModel" resourceName="Role">
+    <mapping default="enabled" mappingType="Role" />
+    <properties>
+      <property name="Name" type="string">
+        <mapping />
+        <field width="6" />
+      </property> 
+      <property name="PrivilegeArray" type="string[]" >
+        <display name="RolePrivileges"/>
+        <mapping stub="true"/>
+        <field width="6">
+            <multiselectlist provider="Privilege" />
+        </field>
+      </property>
+      <property name="IsEnabled" type="bool">
+        <mapping />
+        <field width="6">
+        </field>
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate title="RoleEdit"  description="RoleEditDescription" panelTitle="RoleInfo" />
+      <entityMappingFrom target="Role" /> 
+      <entityMappingTo target="Role" /> 
+    </methods>
+  </model>
+  <model name="RoleEditModel" resourceName="Role">
+    <mapping default="enabled" mappingType="Role" />
+    <properties>
+
+      <property name="Name" type="string">
+        <mapping />
+        <field width="6" />
+      </property>
+      <property name="PrivilegeArray" type="string[]"  >
+        <display name="RolePrivileges"/>
+        <mapping stub="true"/>
+        <field width="6" >
+          <multiselectlist provider="Privilege" />
+        </field>
+      </property>
+      <property name="IsEnabled" type="bool">
+        <mapping />
+        <field width="6">
+        </field>
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleEditTemplate  title="RoleEdit"  description="RoleEditDescription" panelTitle="RoleInfo" />
+      <entityMappingFrom target="Role" /> 
+      <entityMappingTo target="Role" /> 
     </methods>
   </model>
 </models>

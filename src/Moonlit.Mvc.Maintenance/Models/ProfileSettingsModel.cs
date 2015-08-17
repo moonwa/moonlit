@@ -23,7 +23,7 @@ namespace Moonlit.Mvc.Maintenance.Models
             Culture = user.CultureId;
         }
         [Field(FieldWidth.W6)]
-        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [SelectList(typeof(CultureSelectListProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserCulture")]
         public int? Culture { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]

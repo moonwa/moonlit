@@ -21,7 +21,7 @@ namespace Moonlit.Mvc.Maintenance.Models
             PageSize = 10;
             OrderBy = "UserName";
         }
-        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [SelectList(typeof(CultureSelectListProvider))]
         [Field(FieldWidth.W6)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureName")]
         public int Culture { get; set; }

@@ -17,7 +17,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         [Field(FieldWidth.W6)]
-        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [SelectList(typeof(CultureSelectListProvider))]
         public int? Culture { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Overwrite")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]

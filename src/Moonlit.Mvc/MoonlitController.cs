@@ -49,11 +49,22 @@ namespace Moonlit.Mvc
             }
             return ModelState.IsValid;
         }
+
+        protected bool TryUpdateModel<TValidationAs, T>(T entity, TValidationAs model)
+            where TValidationAs : IEntityMapper<T>
+        {
+            model.ToEntity(entity);
+            return ValidateAs<TValidationAs, T>(entity);
+        }
         protected bool ValidateAs<TValidationAs, T>(T entity)
         {
             var properties = ModelMetadataProviders.Current.GetMetadataForProperties(null, typeof(TValidationAs));
 
             return ValidateAs(entity, properties.Where(x => !x.IsReadOnly).Select(x => x.PropertyName).ToArray());
         }
+    }
+    public interface IEntityMapper<T>
+    {
+        void ToEntity(T entity);
     }
 }

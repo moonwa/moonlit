@@ -28,7 +28,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         public string Name { get; set; }
 
         [Field(FieldWidth.W6)]
-        [SelectList(typeof(CultureSelectListItemsProvider))]
+        [SelectList(typeof(CultureSelectListProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
         public int? Culture { get; set; }
 

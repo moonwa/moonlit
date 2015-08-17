@@ -1,20 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Moonlit.Collections;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Properties;
-using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 using Moonlit.Mvc.Templates;
-using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public partial class AdminUserCreateModel
+    public partial class AdminUserEditModel : IEntityMapper<User>
     {
         partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
         {
@@ -23,10 +18,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 new Button(MaintCultureTextResources.Save, ""),
             };
         }
-
         public IMaintDbRepository MaintDbContext { get; set; }
-
-
         private int[] MappingRolesFromEntity(User entity)
         {
             return entity.Roles.Select(x => x.RoleId).ToArray();
@@ -51,5 +43,4 @@ namespace Moonlit.Mvc.Maintenance.Models
             return entity.Password;
         }
     }
-
 }

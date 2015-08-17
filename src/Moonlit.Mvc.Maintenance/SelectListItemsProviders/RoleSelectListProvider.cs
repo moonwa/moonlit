@@ -5,7 +5,7 @@ using Moonlit.Mvc.Maintenance.Domains;
 
 namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
 {
-    public class PrivilegeSelectListItemsProvider : ISelectListItemsProvider
+    public class PrivilegeSelectListProvider : ISelectListProvider
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {
@@ -19,7 +19,7 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
             }).ToList();
         }
     }
-    public class CultureSelectListItemsProvider : ISelectListItemsProvider
+    public class CultureSelectListProvider : ISelectListProvider
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {
@@ -31,7 +31,7 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
             }).ToList();
         }
     }
-    public class RoleSelectListProvider : ISelectListItemsProvider
+    public class RoleSelectListProvider : ISelectListProvider
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {

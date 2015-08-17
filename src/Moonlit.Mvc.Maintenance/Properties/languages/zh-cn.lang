@@ -93,6 +93,7 @@
     "Role.ListDescription": "角色维护",
     "Role.Name": "角色名",
     "Role.IsEnabled": "启用",
+    "Role.IsBuildIn": "内置角色",
     "Role.Create": "创建角色",
     "Role.CreateDescription": "创建角色",
     "Role.Info": "角色信息",

@@ -378,6 +378,10 @@
 			{
 				get { return LanguageLoader.Get("Role.IsEnabled"); }
 			}
+			public static string RoleIsBuildIn
+			{
+				get { return LanguageLoader.Get("Role.IsBuildIn"); }
+			}
 			public static string RoleCreate
 			{
 				get { return LanguageLoader.Get("Role.Create"); }

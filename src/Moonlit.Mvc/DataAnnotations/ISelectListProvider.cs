@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
-    public interface ISelectListItemsProvider
+    public interface ISelectListProvider
     {
         List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model);
     }

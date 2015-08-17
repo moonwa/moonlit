@@ -12,13 +12,11 @@ namespace Moonlit.Mvc.Maintenance.Domains
     {
         public int RoleId { get; set; }
         [StringLength(32)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RoleName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string Name { get; set; }
 
         [StringLength(8000)]
         public string Privileges { get; set; }
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "RolePrivileges")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         [NotMapped]
         public string[] PrivilegeArray
