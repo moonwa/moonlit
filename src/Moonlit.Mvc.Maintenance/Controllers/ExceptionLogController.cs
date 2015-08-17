@@ -11,7 +11,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "ExceptionLogList")]
         public ActionResult Index(ExceptionLogListModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext, MaintDbContext));
+            return Template(model.CreateTemplate(ControllerContext));
         }
     }
 }

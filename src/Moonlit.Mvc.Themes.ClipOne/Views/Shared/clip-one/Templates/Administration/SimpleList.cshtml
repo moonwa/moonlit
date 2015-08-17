@@ -9,12 +9,8 @@
 @using Control = Moonlit.Mvc.Control
 @model Moonlit.Mvc.Templates.AdministrationSimpleListTemplate
 
-@using (Html.BeginForm(
-     "Index", Html.ViewContext.RouteData.GetRequiredString("controller"),
-     FormMethod.Post,
-     new { enctype = "multipart/form-data" }
-     ))
-{
+
+<form enctype="multipart/form-data" method="POST">
     <div class="row">
         <div class="col-sm-12">
             @Html.Render(new Panel()
@@ -67,7 +63,7 @@
         </div>
     </div>
 
-}
+</form>
 
 
 @{

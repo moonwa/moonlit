@@ -796,5 +796,49 @@ namespace Moonlit.Mvc.Maintenance.Models
 		}
  
 	} 
+	public partial class ExceptionLogListModel  {
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "Keyword"
+			)]
+		[Field(FieldWidth.W6)]
+ 
+		[TextBox] 
+		public string Keyword { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "StartTime"
+			)]
+		[Field(FieldWidth.W6)]
+		public DateTime? StartTime { get; set; }
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "EndTime"
+			)]
+		[Field(FieldWidth.W6)]
+		public DateTime? EndTime { get; set; }
+		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
+
+		public Template CreateTemplate(ControllerContext controllerContext)
+        {
+            var query = GetDataSource(controllerContext);
+            var template = new AdministrationSimpleListTemplate(query)
+            { 
+                Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.ExceptionLogList,
+                Description = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.ExceptionLogListDescription,
+                QueryPanelTitle = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.PanelQuery,
+                DefaultSort = OrderBy,
+                DefaultPageSize = PageSize,
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(), 
+            }; 
+			
+			OnTemplate (template, controllerContext);
+            return template;
+        }
+ 
+	} 
 }
 

@@ -1,4 +1,6 @@
-﻿namespace Moonlit
+﻿using Moonlit.Collections;
+
+namespace Moonlit
 {
     public class DefaultFormatter : IFormatter
     {
@@ -9,6 +11,10 @@
             if (value == null)
             {
                 return string.Empty;
+            }
+            if (args.IsNullOrEmpty())
+            {
+                return value.ToString();
             }
             return string.Format(value.ToString(), args);
         }

@@ -23,13 +23,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Settings()
         {
             SiteSettingsModel model = new SiteSettingsModel();
-            model.SetInnerObject(new SiteModel(MaintDbContext.SystemSettings));
+            model.FromEntity(new SiteModel(MaintDbContext.SystemSettings), false);
             return Template(model.CreateTemplate(ControllerContext));
         }
          
 
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "Cache")]
-        public ActionResult Index(CacheListModel model)
+        public ActionResult Cache(CacheListModel model)
         {
             return Template(model.CreateTemplate(ControllerContext, _cacheManager, _cacheKeyManager));
         }
@@ -37,7 +37,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public const string FormActionNameClear = "clear";
 
         [FormAction(FormActionNameClear)]
-        [ActionName("Index")]
+        [ActionName("Cache")]
         [HttpPost]
         public ActionResult ClearCache(CacheListModel model)
         {
@@ -50,15 +50,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Settings(SiteSettingsModel model)
         {
-            if (!ModelState.IsValid)
+            var siteModel = new SiteModel(MaintDbContext.SystemSettings);
+            model.FromEntity(siteModel, true);
+            if (!TryUpdateModel(siteModel, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
             var db = MaintDbContext;
-            var siteModel = new SiteModel(db.SystemSettings);
-            siteModel.SiteName = model.SiteName;
-            siteModel.MaxSignInFailTimes = model.MaxSignInFailTimes;
-            siteModel.DefaultCulture = (int)model.DefaultCulture;
             siteModel.Save(db);
             await db.SaveChangesAsync();
             MaintDomainService.ClearSystemSettingsCache();

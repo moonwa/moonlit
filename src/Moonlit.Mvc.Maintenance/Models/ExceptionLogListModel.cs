@@ -11,7 +11,7 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class ExceptionLogListModel : IPagedRequest
+    public partial class ExceptionLogListModel : IPagedRequest
     {
         public ExceptionLogListModel()
         {
@@ -20,26 +20,15 @@ namespace Moonlit.Mvc.Maintenance.Models
             OrderBy = "ExceptionLogId desc";
         }
 
-        [TextBox]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Keyword")]
-        public string Keyword { get; set; }
-        [DatePicker]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "StartTime")]
-        public DateTime? StartTime { get; set; }
-        [DatePicker]
-        [Field(FieldWidth.W6)]
-        [Display(ResourceType = typeof(MaintCultureTextResources), Name = "EndTime")]
-        public DateTime? EndTime { get; set; }
+
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-
-        public Template CreateTemplate(ControllerContext controllerContext, IMaintDbRepository db)
+        public IMaintDbRepository MaintDbContext { get; set; }
+        private IQueryable GetDataSource(ControllerContext controllerContext)
         {
-            var query = db.ExceptionLogs.AsQueryable();
+            var query = MaintDbContext.ExceptionLogs.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
                 var keyword = Keyword.Trim();
@@ -55,57 +44,26 @@ namespace Moonlit.Mvc.Maintenance.Models
                 var endTime = EndTime.Value.AddDays(1);
                 query = query.Where(x => x.CreationTime < endTime);
             }
-            var template = new AdministrationSimpleListTemplate(query)
+
+            return query;
+        }
+
+        partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext)
+        {
+            var tableBuilder = new TableBuilder<ExceptionLog>();
+            template.GlobalButtons = new IClickable[]
             {
-                Title = MaintCultureTextResources.ExceptionLogList,
-                Description = MaintCultureTextResources.ExceptionLogListDescription,
-                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                DefaultSort = "ExceptionLogId desc",
-                DefaultPageSize = 10,
-                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                GlobalButtons = new IClickable[]
+                new Button
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
+                    Text = MaintCultureTextResources.Search,
+                    ActionName = ""
                 },
-                Table = new Table
-                {
-                    Columns = new List<TableColumn>
-                    {
-                        new TableColumn
-                        {
-                            Sort = "CreationTime",
-                            Header = MaintCultureTextResources.ExceptionLogCreationTime,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((ExceptionLog) x.Target).CreationTime.ToString()
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "RouteData",
-                            Header = MaintCultureTextResources.ExceptionLogRouteData,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((ExceptionLog) x.Target).RouteData
-                            }
-                        },
-                        new TableColumn
-                        {
-                            Sort = "Exception",
-                            Header = MaintCultureTextResources.ExceptionLogException,
-                            CellTemplate = x => new Literal
-                            {
-                                Text = ((ExceptionLog) x.Target).Exception
-                            }
-                        },
-                    }
-                }
-            }; 
-            return template;
+            };
+            template.Table = tableBuilder
+              .Add(tableBuilder.Literal(x => x.CreationTime.Format(), controllerContext), MaintCultureTextResources.ExceptionLogCreationTime, "CreationTime")
+              .Add(tableBuilder.Literal(x => x.RouteData.Format(), controllerContext), MaintCultureTextResources.ExceptionLogRouteData, "RouteData")
+              .Add(tableBuilder.Literal(x => x.Exception.Format(), controllerContext), MaintCultureTextResources.ExceptionLogException, "Exception")
+              .Build();
         }
     }
 }

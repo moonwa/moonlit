@@ -344,5 +344,29 @@
       <entityMappingFrom target="CultureText" /> 
       <entityMappingTo target="CultureText" /> 
     </methods>
+  </model> 
+
+  <model name="ExceptionLogListModel" resourceName="ExceptionLog">
+    <properties>
+      <property name="Keyword" type="string">
+        <display name="Keyword"/>
+        <field width="6">
+          <textbox />
+        </field>
+      </property>
+      <property name="StartTime" type="DateTime?">
+        <display name="StartTime"/>
+        <field width="6" />
+      </property>
+      <property name="EndTime" type="DateTime?">
+        <display name="EndTime"/>
+        <field width="6" />
+      </property>
+    </properties>
+    <methods>
+      <administrationSimpleListTemplate>
+      </administrationSimpleListTemplate>
+    </methods>
   </model>
+    
 </models>

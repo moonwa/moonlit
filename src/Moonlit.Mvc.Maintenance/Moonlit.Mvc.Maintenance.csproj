@@ -153,7 +153,7 @@
     <Compile Include="Models\AdminUserEditModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\ModelGenerator.cs">
+    <Compile Include="Models\ModelGenerator1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelGenerator.tt</DependentUpon>
@@ -212,10 +212,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Models\ModelGenerator.tt">
+    <Content Include="Models\ModelGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelGenerator.cs</LastGenOutput>
-    </None>
+      <LastGenOutput>ModelGenerator1.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\models.xml">
       <RunCustomToolOn>ModelGenerator.tt</RunCustomToolOn>
     </Content>

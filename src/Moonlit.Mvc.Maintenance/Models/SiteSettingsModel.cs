@@ -11,13 +11,26 @@ using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public class SiteSettingsModel 
-    {
-        public void SetInnerObject(SiteModel siteModel)
+    public partial class SiteSettingsModel : IEntityMapper<SiteModel>
+    { 
+        #region Implementation of IEntityMapper<SiteModel>
+
+        public void ToEntity(SiteModel entity)
         {
-            SiteName = siteModel.SiteName;
-            MaxSignInFailTimes = siteModel.MaxSignInFailTimes;
-            DefaultCulture = siteModel.DefaultCulture;
+            entity.SiteName = SiteName;
+            entity.MaxSignInFailTimes = MaxSignInFailTimes;
+            entity.DefaultCulture = (int)DefaultCulture;
+        }
+
+        #endregion
+        public void FromEntity(SiteModel siteModel, bool isPostback)
+        {
+            if (!isPostback)
+            {
+                SiteName = siteModel.SiteName;
+                MaxSignInFailTimes = siteModel.MaxSignInFailTimes;
+                DefaultCulture = siteModel.DefaultCulture;
+            }
         }
 
         [TextBox]
@@ -54,5 +67,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 }
             };
         }
+
+      
     }
 }
