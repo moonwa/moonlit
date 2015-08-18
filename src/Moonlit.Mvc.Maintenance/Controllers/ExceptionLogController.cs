@@ -8,8 +8,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class ExceptionLogController : MaintControllerBase
     {
 
-        [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "ExceptionLogList")]
-        public ActionResult Index(ExceptionLogListModel model)
+        [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "ExceptionLogIndex")]
+        public ActionResult Index(ExceptionLogIndexModel model)
         {
             return Template(model.CreateTemplate(ControllerContext));
         }

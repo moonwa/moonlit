@@ -6,8 +6,13 @@ namespace Moonlit.Mvc.Controls
     {
         public Link()
         {
-            
+
         }
+        public Link(string text, string url)
+            : this(text, url, LinkStyle.Normal)
+        {
+        }
+
         public Link(string text, string url, LinkStyle style)
         {
             Text = text;

@@ -6,7 +6,13 @@ namespace Moonlit.Mvc.Controls
     {
         public Button()
         {
-            
+
+        }
+
+        public Button(string text)
+            : this(text, "")
+        {
+
         }
         public Button(string text, string actionName)
         {

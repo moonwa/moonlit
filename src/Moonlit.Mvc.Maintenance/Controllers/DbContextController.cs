@@ -19,8 +19,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class DbContextController : MaintControllerBase
     {
 
-        [SitemapNode(Parent = "DevTools", Text = "DevToolsDbContextList", ResourceType = typeof(MaintCultureTextResources))]
-        public ActionResult Index(DbContextListModel model)
+        [SitemapNode(Parent = "DevTools", Text = "DevToolsDbContextIndex", ResourceType = typeof(MaintCultureTextResources))]
+        public ActionResult Index(DbContextIndexModel model)
         {
             return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
         }
@@ -30,7 +30,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction(FormActionNameExportAsNodeJs)]
         [ActionName("index")]
         [HttpPost]
-        public ActionResult ExportNode(DbContextListModel model, string[] ids)
+        public ActionResult ExportNode(DbContextIndexModel model, string[] ids)
         {
             if (ids != null && ids.Length > 0)
             {

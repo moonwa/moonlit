@@ -24,7 +24,7 @@ using Moonlit.Mvc.Maintenance.Properties;
 [assembly: Mvc()]
 [assembly: Sitemap("Main", IsDefault = true)]
 [assembly: Sitemap("Profile", IsDefault = false)]
-[assembly: SitemapNode(Name = "BasicData", Text = "BasicDataList", ResourceType = typeof(MaintCultureTextResources))]
+[assembly: SitemapNode(Name = "BasicData", Text = "BasicDataIndex", ResourceType = typeof(MaintCultureTextResources))]
 [assembly: SitemapNode(Name = "Site", Text = "SiteMaintenance", ResourceType = typeof(MaintCultureTextResources))]
 [assembly: SitemapNode(Name = "Devtools", Text = "DevTools", ResourceType = typeof(MaintCultureTextResources))]
 // The following GUID is for the ID of the typelib if this project is exposed to COM
@@ -39,8 +39,8 @@ using Moonlit.Mvc.Maintenance.Properties;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.3.7")]
-[assembly: AssemblyFileVersion("1.0.3.7")]
+[assembly: AssemblyVersion("1.0.3.8")]
+[assembly: AssemblyFileVersion("1.0.3.8")]
 
 
 [assembly: Privilege(Text = "PrivilegeAdminUser", Name = MaintModule.PrivilegeAdminUser, ResourceType = typeof(MaintCultureTextResources))]

@@ -23,13 +23,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Settings()
         {
             SiteSettingsModel model = new SiteSettingsModel();
-            model.FromEntity(new SiteModel(MaintDbContext.SystemSettings), false);
+            model.FromEntity(new SiteModel(MaintDbContext.SystemSettings), false, ControllerContext);
             return Template(model.CreateTemplate(ControllerContext));
         }
          
 
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "Cache")]
-        public ActionResult Cache(CacheListModel model)
+        public ActionResult Cache(CacheIndexModel model)
         {
             return Template(model.CreateTemplate(ControllerContext, _cacheManager, _cacheKeyManager));
         }
@@ -39,7 +39,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction(FormActionNameClear)]
         [ActionName("Cache")]
         [HttpPost]
-        public ActionResult ClearCache(CacheListModel model)
+        public ActionResult ClearCache(CacheIndexModel model)
         {
             foreach (var cacheKey in _cacheKeyManager.AllKeys)
             {
@@ -51,7 +51,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public async Task<ActionResult> Settings(SiteSettingsModel model)
         {
             var siteModel = new SiteModel(MaintDbContext.SystemSettings);
-            model.FromEntity(siteModel, true);
+            model.FromEntity(siteModel, true, ControllerContext);
             if (!TryUpdateModel(siteModel, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));

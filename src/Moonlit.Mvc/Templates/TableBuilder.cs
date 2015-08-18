@@ -76,6 +76,6 @@ namespace Moonlit.Mvc.Templates
                     Text = func(x.Target).IfNotNull(a => a.ToString())
                 };
             };
-        }
+        } 
     }
 }

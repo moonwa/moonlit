@@ -38,13 +38,13 @@
 			{
 				get { return LanguageLoader.Get("Privilege.CultureText"); }
 			}
-			public static string AdminUserList
+			public static string AdminUserIndex
 			{
-				get { return LanguageLoader.Get("AdminUser.List"); }
+				get { return LanguageLoader.Get("AdminUser.Index"); }
 			}
-			public static string AdminUserListDescription
+			public static string AdminUserIndexDescription
 			{
-				get { return LanguageLoader.Get("AdminUser.ListDescription"); }
+				get { return LanguageLoader.Get("AdminUser.IndexDescription"); }
 			}
 			public static string PanelQuery
 			{
@@ -106,17 +106,17 @@
 			{
 				get { return LanguageLoader.Get("DevTools"); }
 			}
-			public static string DevToolsDbContextList
+			public static string DevToolsDbContextIndex
 			{
-				get { return LanguageLoader.Get("DevTools.DbContext.List"); }
+				get { return LanguageLoader.Get("DevTools.DbContext.Index"); }
 			}
-			public static string BasicDataList
+			public static string BasicDataIndex
 			{
-				get { return LanguageLoader.Get("BasicData.List"); }
+				get { return LanguageLoader.Get("BasicData.Index"); }
 			}
-			public static string CultureTextList
+			public static string CultureTextIndex
 			{
-				get { return LanguageLoader.Get("CultureText.List"); }
+				get { return LanguageLoader.Get("CultureText.Index"); }
 			}
 			public static string EndTime
 			{
@@ -142,13 +142,13 @@
 			{
 				get { return LanguageLoader.Get("CultureText.Edit_Title"); }
 			}
-			public static string CultureList
+			public static string CultureIndex
 			{
-				get { return LanguageLoader.Get("Culture.List"); }
+				get { return LanguageLoader.Get("Culture.Index"); }
 			}
-			public static string RoleList
+			public static string RoleIndex
 			{
-				get { return LanguageLoader.Get("Role.List"); }
+				get { return LanguageLoader.Get("Role.Index"); }
 			}
 			public static string AdminUserEditTitle
 			{
@@ -158,9 +158,9 @@
 			{
 				get { return LanguageLoader.Get("Site.Maintenance"); }
 			}
-			public static string ExceptionLogList
+			public static string ExceptionLogIndex
 			{
-				get { return LanguageLoader.Get("ExceptionLog.List"); }
+				get { return LanguageLoader.Get("ExceptionLog.Index"); }
 			}
 			public static string SiteSettings
 			{
@@ -206,9 +206,9 @@
 			{
 				get { return LanguageLoader.Get("StartSearch"); }
 			}
-			public static string CultureListDescription
+			public static string CultureIndexDescription
 			{
-				get { return LanguageLoader.Get("Culture.ListDescription"); }
+				get { return LanguageLoader.Get("Culture.IndexDescription"); }
 			}
 			public static string CultureName
 			{
@@ -222,9 +222,9 @@
 			{
 				get { return LanguageLoader.Get("Culture.IsEnabled"); }
 			}
-			public static string CultureTextListDescription
+			public static string CultureTextIndexDescription
 			{
-				get { return LanguageLoader.Get("CultureText.ListDescription"); }
+				get { return LanguageLoader.Get("CultureText.IndexDescription"); }
 			}
 			public static string CultureTextName
 			{
@@ -366,9 +366,9 @@
 			{
 				get { return LanguageLoader.Get("Profile.Info"); }
 			}
-			public static string RoleListDescription
+			public static string RoleIndexDescription
 			{
-				get { return LanguageLoader.Get("Role.ListDescription"); }
+				get { return LanguageLoader.Get("Role.IndexDescription"); }
 			}
 			public static string RoleName
 			{
@@ -454,6 +454,14 @@
 			{
 				get { return LanguageLoader.Get("Cache.Name"); }
 			}
+			public static string CacheIndex
+			{
+				get { return LanguageLoader.Get("Cache.Index"); }
+			}
+			public static string CacheIndexDescription
+			{
+				get { return LanguageLoader.Get("Cache.Index_Description"); }
+			}
 			public static string Null
 			{
 				get { return LanguageLoader.Get("Null"); }
@@ -470,9 +478,9 @@
 			{
 				get { return LanguageLoader.Get("Export.AsNode"); }
 			}
-			public static string ExceptionLogListDescription
+			public static string ExceptionLogIndexDescription
 			{
-				get { return LanguageLoader.Get("ExceptionLog.ListDescription"); }
+				get { return LanguageLoader.Get("ExceptionLog.IndexDescription"); }
 			}
 			public static string ExceptionLogCreationTime
 			{

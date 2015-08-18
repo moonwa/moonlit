@@ -17,9 +17,9 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     [MoonlitAuthorize(Roles = MaintModule.PrivilegeRole)]
     public class RoleController : MaintControllerBase
     {
-        [SitemapNode(Parent = "BasicData", Name = "Roles", ResourceType = typeof(MaintCultureTextResources), Text = "RoleList")]
+        [SitemapNode(Parent = "BasicData", Name = "Roles", ResourceType = typeof(MaintCultureTextResources), Text = "RoleIndex")]
         [Display(Name = "角色管理", Description = "角色管理描述，这是一段很长的描述")]
-        public ActionResult Index(RoleListModel model)
+        public ActionResult Index(RoleIndexModel model)
         {
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -31,7 +31,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction(FormActionNameDisable)]
         [ActionName("index")]
         [HttpPost]
-        public ActionResult Disable(RoleListModel model, int[] ids)
+        public ActionResult Disable(RoleIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -49,7 +49,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction(FormActionNameEnable)]
         [ActionName("index")]
         [HttpPost]
-        public ActionResult Enable(RoleListModel model, int[] ids)
+        public ActionResult Enable(RoleIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -102,7 +102,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
             var model = new RoleEditModel();
-            model.FromEntity(role, false);
+            model.FromEntity(role, false, ControllerContext);
 
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -117,7 +117,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return HttpNotFound();
             }
-            model.FromEntity(role, true);
+            model.FromEntity(role, true, ControllerContext);
             if (!TryUpdateModel(role, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));

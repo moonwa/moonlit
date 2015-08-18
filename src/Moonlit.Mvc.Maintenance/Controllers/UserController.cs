@@ -20,9 +20,9 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     [MoonlitAuthorize(Roles = MaintModule.PrivilegeAdminUser)]
     public class UserController : MaintControllerBase
     {
-        [SitemapNode(Parent = "BasicData", Name = "users", ResourceType = typeof(MaintCultureTextResources), Text = "AdminUserList")]
+        [SitemapNode(Parent = "BasicData", Name = "users", ResourceType = typeof(MaintCultureTextResources), Text = "AdminUserIndex")]
         [Display(Name = "用户管理", Description = "用户管理描述，这是一段很长的描述")]
-        public ActionResult Index(AdminUserListModel model)
+        public ActionResult Index(AdminUserIndexModel model)
         {
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -31,7 +31,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction("disable")]
         [ActionName("Index")]
         [HttpPost]
-        public ActionResult Disable(AdminUserListModel model, int[] ids)
+        public ActionResult Disable(AdminUserIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -46,7 +46,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction("enable")]
         [ActionName("Index")]
         [HttpPost]
-        public ActionResult Enable(AdminUserListModel model, int[] ids)
+        public ActionResult Enable(AdminUserIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -63,23 +63,20 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "创建用户", Parent = "users")]
         public ActionResult Create()
         {
-            var model =  new AdminUserCreateModel() ;
+            var model = new AdminUserCreateModel();
             return Template(model.CreateTemplate(ControllerContext));
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(AdminUserCreateModel model)
         {
-            ModelState.Clear();
-
             var user = new User();
-            model.ToEntity(user);
 
-            if (!ValidateAs<AdminUserCreateModel, User>(user))
+            if (!TryUpdateModel(user, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-           
+
             var db = MaintDbContext;
             var loginName = model.LoginName.Trim();
             if (await db.Users.AnyAsync(x => x.LoginName == loginName))
@@ -110,7 +107,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
 
             AdminUserEditModel model = new AdminUserEditModel();
-            model.FromEntity(adminUser, false);
+            model.FromEntity(adminUser, false, ControllerContext);
 
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -125,14 +122,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
 
-            model.FromEntity(user, true);
-            model.ToEntity(user);
-            if (!ValidateAs<AdminUserCreateModel, User>(user))
+            model.FromEntity(user, true, ControllerContext  );
+             
+            if (!TryUpdateModel(user, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
 
-          
+
             await MaintDbContext.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {

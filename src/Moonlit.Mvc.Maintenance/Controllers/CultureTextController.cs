@@ -24,15 +24,15 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _maintDomainService = maintDomainService;
         }
 
-        [SitemapNode(Text = "CultureTextList", Name = "CultureTexts", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
-        public ActionResult Index(CultureTextListModel model)
+        [SitemapNode(Text = "CultureTextIndex", Name = "CultureTexts", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
+        public ActionResult Index(CultureTextIndexModel model)
         {
             return Template(model.CreateTemplate(ControllerContext));
         }
         [FormAction("Delete")]
         [ActionName("index")]
         [HttpPost]
-        public ActionResult Delete(CultureTextListModel model, int[] ids)
+        public ActionResult Delete(CultureTextIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -49,7 +49,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction("Export")]
         [ActionName("Index")]
         [HttpPost]
-        public ActionResult Export(CultureTextListModel model, int[] ids)
+        public ActionResult Export(CultureTextIndexModel model, int[] ids)
         {
             var db = MaintDbContext;
 
@@ -169,7 +169,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
             var model = new CultureTextEditModel();
-            model.FromEntity(entity, false);
+            model.FromEntity(entity, false, ControllerContext);
 
             return Template(model.CreateTemplate(ControllerContext));
         } 
@@ -183,7 +183,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return HttpNotFound();
             }
-            model.FromEntity(entity, true);
+            model.FromEntity(entity, true,ControllerContext);
             if (!TryUpdateModel(entity, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));

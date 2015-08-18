@@ -177,9 +177,9 @@
     <Compile Include="ExceptionLogAttribute.cs" />
     <Compile Include="Domains\MaintDbContext.cs" />
     <Compile Include="DbContextExportAttribute.cs" />
-    <Compile Include="Models\CacheListModel.cs" />
-    <Compile Include="Models\DbContextListModel.cs" />
-    <Compile Include="Models\ExceptionLogListModel.cs" />
+    <Compile Include="Models\CacheIndexModel.cs" />
+    <Compile Include="Models\DbContextIndexModel.cs" />
+    <Compile Include="Models\ExceptionLogIndexModel.cs" />
     <Compile Include="Properties\languages\MaintCultureTexts.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,14 +189,14 @@
     <Compile Include="IModuleConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CultureTextImportModel.cs" />
-    <Compile Include="Models\RoleListModel.cs" />
+    <Compile Include="Models\RoleIndexModel.cs" />
     <Compile Include="Models\CultureTextCreateModel.cs" />
     <Compile Include="Models\CultureTextEditModel.cs" />
     <Compile Include="Models\CultureTextListModel.cs" />
     <Compile Include="Models\CultureCreateModel.cs" />
     <Compile Include="Models\CultureEditModel.cs" />
-    <Compile Include="Models\CultureListModel.cs" />
-    <Compile Include="Models\AdminUserListModel.cs" />
+    <Compile Include="Models\CultureIndexModel.cs" />
+    <Compile Include="Models\AdminUserIndexModel.cs" />
     <Compile Include="Models\ProfileSettingsModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Models\SiteSettingsModel.cs" />
@@ -216,9 +216,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelGenerator1.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\models.xml">
+    <None Include="Models\models.xml">
       <RunCustomToolOn>ModelGenerator.tt</RunCustomToolOn>
-    </Content>
+    </None>
     <Content Include="Models\models.xsd">
       <SubType>Designer</SubType>
     </Content>

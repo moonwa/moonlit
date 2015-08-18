@@ -13,9 +13,9 @@ using SelectList = Moonlit.Mvc.Controls.SelectList;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public partial class CultureTextListModel : IPagedRequest
+    public partial class CultureTextIndexModel : IPagedRequest
     {
-        public CultureTextListModel()
+        public CultureTextIndexModel()
         {
             PageIndex = 1;
             PageSize = 10;

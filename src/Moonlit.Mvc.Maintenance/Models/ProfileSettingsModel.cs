@@ -22,33 +22,33 @@ namespace Moonlit.Mvc.Maintenance.Models
             Gender = user.Gender;
             Culture = user.CultureId;
         }
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [SelectList(typeof(CultureSelectListProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserCulture")]
         public int? Culture { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserLoginName")]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [TextBox]
         public string LoginName { get; set; }
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserUserName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public string UserName { get; set; }
 
 
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [SelectList(typeof(EnumSelectListProvider))]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserGender")]
         public Gender? Gender { get; set; }
 
         [DatePicker]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserDateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
         [CheckBox]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsSuper")]
         public bool IsSuper { get; set; }
         public Template CreateTemplate(ControllerContext controllerContext)

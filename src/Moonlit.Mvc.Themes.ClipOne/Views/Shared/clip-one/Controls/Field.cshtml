@@ -8,8 +8,8 @@
     if (Html.HasError(Model.FieldName))
     {
         fieldCssClass += " has-error";
-    }
-    var controlWidth = string.IsNullOrWhiteSpace(Model.Label) ? Model.Width : (Model.Width - 2);
+    } 
+    var controlWidth = Model.Width;
 }
 
 <div class="form-group @fieldCssClass">

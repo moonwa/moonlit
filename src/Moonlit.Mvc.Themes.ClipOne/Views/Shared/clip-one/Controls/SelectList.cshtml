@@ -23,13 +23,13 @@
 }
 @functions
 {
-    IHtmlString Selected(bool isSelected)
+    private IHtmlString Selected(bool isSelected)
     {
         return MvcHtmlString.Create(isSelected ? "selected=\"selected\"" : "");
     }
-    
-    
-    string Dsisabled(bool enabled)
+
+
+    private string Dsisabled(bool enabled)
     {
         if (enabled)
         {

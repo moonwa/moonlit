@@ -2,22 +2,22 @@
 <models xmlns="http://hizhanzhang.com/moonlit/mvc/maint/models"  namespace="Moonlit.Mvc.Maintenance.Models"  defaultResourceType="Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources">
   <import>Moonlit.Mvc.Maintenance.Properties</import>
   <import>Moonlit.Mvc.Maintenance.SelectListItemsProviders</import>
-  <model name="AdminUserListModel" resourceName="AdminUser">
+  <model name="AdminUserIndexModel" resourceName="AdminUser">
     <properties>
       <property name="Keyword" type="string">
         <display name="Keyword"/>
-        <field width="6">
+        <field width="4">
           <textbox />
         </field>
 
       </property>
       <property name="UserName" type="string">
-        <field width="6">
-          <textbox />
+        <field width="4">
+          <textbox /> 
         </field>
       </property>
       <property name="IsEnabled" type="bool?">
-        <field width="6">
+        <field width="4">
           <checkbox />
         </field>
       </property>
@@ -32,46 +32,46 @@
     <properties>
       <property name="UserName" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="LoginName" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="Password" type="string">
         <mapping stub="true" />
-        <field width="6">
+        <field width="4">
           <passwordbox/>
         </field>
       </property>
       <property name="Gender" type="Gender?">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="DateOfBirth" type="DateTime?">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="CultureId" type="int">
         <mapping />
         <display name="AdminUserCulture"/>
-        <field width="6" >
+        <field width="4" >
           <selectlist provider="Culture"/>
         </field>
       </property>
       <property name="IsSuper" type="bool" enabled="false">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="Roles" type="int[]" >
         <mapping stub="true"/>
-        <field width="6">
+        <field width="4">
             <multiselectlist provider="Role" />
         </field>
       </property>
       <property name="IsEnabled" type="bool">
         <mapping />
-        <field width="6">
+        <field width="4">
         </field>
       </property>
     </properties>
@@ -86,46 +86,46 @@
     <properties>
       <property name="UserName" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="LoginName" type="string" enabled="false">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="Password" type="string">
         <mapping stub="true"/>
-        <field width="6">
+        <field width="4">
           <passwordbox/>
         </field>
       </property>
       <property name="Gender" type="Gender?">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="DateOfBirth" type="DateTime?">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="CultureId" type="int">
         <mapping />
         <display name="AdminUserCulture"/>
-        <field width="6" >
+        <field width="4" >
           <selectlist provider="Culture"/>
         </field>
       </property>
       <property name="IsSuper" type="bool" enabled="false">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="Roles" type="int[]" >
         <mapping stub="true"/>
-        <field width="6">
+        <field width="4">
             <multiselectlist provider="Role" />
         </field>
       </property>
       <property name="IsEnabled" type="bool">
         <mapping/>
-        <field width="6">
+        <field width="4">
         </field>
       </property>
     </properties>
@@ -135,17 +135,17 @@
       <entityMappingTo target="User" /> 
     </methods>
   </model>
-  <model name="RoleListModel" resourceName="Role">
+  <model name="RoleIndexModel" resourceName="Role">
     <properties>
       <property name="Keyword" type="string">
         <display name="Keyword"/>
-        <field width="6">
+        <field width="4">
           <textbox />
         </field>
       </property>
     
       <property name="IsEnabled" type="bool?">
-        <field width="6">
+        <field width="4">
           <checkbox />
         </field>
       </property>
@@ -160,18 +160,18 @@
     <properties>
       <property name="Name" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property> 
       <property name="PrivilegeArray" type="string[]" >
         <display name="RolePrivileges"/>
         <mapping stub="true"/>
-        <field width="6">
+        <field width="4">
             <multiselectlist provider="Privilege" />
         </field>
       </property>
       <property name="IsEnabled" type="bool">
         <mapping />
-        <field width="6">
+        <field width="4">
         </field>
       </property>
     </properties>
@@ -187,18 +187,18 @@
 
       <property name="Name" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="PrivilegeArray" type="string[]"  >
         <display name="RolePrivileges"/>
         <mapping stub="true"/>
-        <field width="6" >
+        <field width="4" >
           <multiselectlist provider="Privilege" />
         </field>
       </property>
       <property name="IsEnabled" type="bool">
         <mapping />
-        <field width="6">
+        <field width="4">
         </field>
       </property>
     </properties>
@@ -208,17 +208,17 @@
       <entityMappingTo target="Role" /> 
     </methods>
   </model>
-  <model name="CultureListModel" resourceName="Culture">
+  <model name="CultureIndexModel" resourceName="Culture">
     <properties>
       <property name="Keyword" type="string">
         <display name="Keyword"/>
-        <field width="6">
+        <field width="4">
           <textbox /> 
         </field>
       </property>
     
       <property name="Name" type="string">
-        <field width="6">
+        <field width="4">
         </field>
       </property>
     </properties>
@@ -232,15 +232,15 @@
     <properties>
       <property name="Name" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property> 
       <property name="DisplayName" type="string" >
         <mapping/>
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="IsEnabled" type="bool">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
     </properties>
     <methods>
@@ -254,15 +254,15 @@
     <properties>
       <property name="Name" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="DisplayName" type="string" >
         <mapping/>
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="IsEnabled" type="bool">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
     </properties>
     <methods>
@@ -271,22 +271,22 @@
       <entityMappingTo target="Culture" /> 
     </methods>
   </model>
-  <model name="CultureTextListModel" resourceName="CultureText">
+  <model name="CultureTextIndexModel" resourceName="CultureText">
     <properties>
       <property name="Keyword" type="string">
         <display name="Keyword"/>
-        <field width="6">
+        <field width="4">
           <textbox /> 
         </field>
       </property>
       <property name="Culture" type="int"> 
-        <field width="6">
+        <field width="4">
           <selectlist provider="Culture" />
         </field>
       </property>
     
       <property name="Name" type="string">
-        <field width="6">
+        <field width="4">
         </field>
       </property>
     </properties>
@@ -301,17 +301,17 @@
       <property name="CultureId" type="int">
         <mapping type="int"/>
         <display name="CultureTextCulture"/>
-        <field width="6" >
+        <field width="4" >
           <selectlist provider="Culture"/>
         </field>
       </property>
       <property name="Name" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>  
       <property name="Text" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
     </properties>
     <methods>
@@ -326,17 +326,17 @@
       <property name="CultureId" type="int?" enabled="false">
         <display name="CultureTextCulture"/>
         <mapping type="int" to="CultureId"/>
-        <field width="6" >
+        <field width="4" >
           <selectlist provider="Culture"/>
         </field>
       </property> 
       <property name="Name" type="string"   enabled="false">
         <mapping type="int"/>
-        <field width="6" />
+        <field width="4" />
       </property> 
       <property name="Text" type="string">
         <mapping />
-        <field width="6" />
+        <field width="4" />
       </property>
     </properties>
     <methods>
@@ -346,21 +346,22 @@
     </methods>
   </model> 
 
-  <model name="ExceptionLogListModel" resourceName="ExceptionLog">
+
+  <model name="ExceptionLogIndexModel" resourceName="ExceptionLog">
     <properties>
       <property name="Keyword" type="string">
         <display name="Keyword"/>
-        <field width="6">
+        <field width="4">
           <textbox />
         </field>
       </property>
       <property name="StartTime" type="DateTime?">
         <display name="StartTime"/>
-        <field width="6" />
+        <field width="4" />
       </property>
       <property name="EndTime" type="DateTime?">
         <display name="EndTime"/>
-        <field width="6" />
+        <field width="4" />
       </property>
     </properties>
     <methods>

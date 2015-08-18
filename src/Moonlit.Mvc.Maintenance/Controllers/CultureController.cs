@@ -12,15 +12,15 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     public class CultureController : MaintControllerBase
     {
 
-        [SitemapNode(Parent = "BasicData", Name = "Cultures", Text = "CultureList", ResourceType = typeof(MaintCultureTextResources))]
-        public ActionResult Index(CultureListModel model)
+        [SitemapNode(Parent = "BasicData", Name = "Cultures", Text = "CultureIndex", ResourceType = typeof(MaintCultureTextResources))]
+        public ActionResult Index(CultureIndexModel model)
         {
             return Template(model.CreateTemplate(ControllerContext));
         }
         [FormAction("Disable")]
         [ActionName("Index")]
         [HttpPost]
-        public ActionResult Disable(CultureListModel model, int[] ids)
+        public ActionResult Disable(CultureIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -35,7 +35,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction("Enable")]
         [ActionName("Index")]
         [HttpPost]
-        public ActionResult Enable(CultureListModel model, int[] ids)
+        public ActionResult Enable(CultureIndexModel model, int[] ids)
         {
             if (ids != null && ids.Length > 0)
             {
@@ -94,7 +94,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
             var model = new CultureEditModel();
-            model.FromEntity(entity, false);
+            model.FromEntity(entity, false, ControllerContext);
 
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -107,7 +107,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return HttpNotFound();
             }
-            model.FromEntity(entity, true);
+            model.FromEntity(entity, true, ControllerContext);
 
             if (!TryUpdateModel(entity, model))
             {

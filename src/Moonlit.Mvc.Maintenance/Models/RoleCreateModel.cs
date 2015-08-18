@@ -16,12 +16,12 @@ namespace Moonlit.Mvc.Maintenance.Models
             };
         }
 
-        private string[] MappingPrivilegeArrayFromEntity(Role entity)
+        private string[] MappingPrivilegeArrayFromEntity(Role entity, ControllerContext controllerContext)
         {
             return entity.PrivilegeArray;
         }
 
-        private string[] MappingPrivilegeArrayToEntity(Role entity)
+        private string[] MappingPrivilegeArrayToEntity(Role entity, ControllerContext controllerContext)
         {
             return this.PrivilegeArray;
         }

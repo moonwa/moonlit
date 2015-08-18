@@ -16,19 +16,19 @@ namespace Moonlit.Mvc.Maintenance.Models
     {
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "CultureTextCulture")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [SelectList(typeof(CultureSelectListProvider))]
         public int? Culture { get; set; }
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Overwrite")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [CheckBox]
         public bool Overwrite { get; set; }
 
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "Content")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [MultiLineTextBox]
         public string Content { get; set; }
         public Template CreateTemplate(ControllerContext controllerContext)

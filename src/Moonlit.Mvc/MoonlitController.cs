@@ -52,7 +52,7 @@ namespace Moonlit.Mvc
         protected bool TryUpdateModel<TValidationAs, T>(T entity, TValidationAs model)
             where TValidationAs : IEntityMapper<T>
         {
-            model.ToEntity(entity);
+            model.ToEntity(entity, ControllerContext);
             return ValidateAs<TValidationAs, T>(entity);
         }
         protected bool ValidateAs<TValidationAs, T>(T entity)
@@ -64,6 +64,6 @@ namespace Moonlit.Mvc
     }
     public interface IEntityMapper<T>
     {
-        void ToEntity(T entity);
+        void ToEntity(T entity, ControllerContext controllerContext);
     }
 }

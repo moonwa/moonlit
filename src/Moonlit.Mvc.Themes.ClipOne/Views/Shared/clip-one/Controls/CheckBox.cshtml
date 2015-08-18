@@ -10,15 +10,17 @@
 }
 @functions
 {
-    IHtmlString Selected(bool isSelected)
+    private IHtmlString Selected(bool isSelected)
     {
         return MvcHtmlString.Create(isSelected ? "checked" : "");
     }
-    IHtmlString Enabled(bool isEnabled)
+    private IHtmlString Enabled(bool isEnabled)
     {
         return MvcHtmlString.Create(isEnabled ? "" : "disabled='disabled'");
     }
 }
+ 
+
 <label class="checkbox-inline">
     <input type="checkbox" name="@Model.Name" value="@Model.Value" @Selected(Model.Checked) @Enabled(Model.Enabled) class="grey">
     @Model.Text

@@ -15,7 +15,7 @@ namespace Moonlit.Mvc.Maintenance.Models
     { 
         #region Implementation of IEntityMapper<SiteModel>
 
-        public void ToEntity(SiteModel entity)
+        public void ToEntity(SiteModel entity, ControllerContext controllerContext)
         {
             entity.SiteName = SiteName;
             entity.MaxSignInFailTimes = MaxSignInFailTimes;
@@ -23,7 +23,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         }
 
         #endregion
-        public void FromEntity(SiteModel siteModel, bool isPostback)
+        public void FromEntity(SiteModel siteModel, bool isPostback, ControllerContext controllerContext)
         {
             if (!isPostback)
             {
@@ -36,10 +36,10 @@ namespace Moonlit.Mvc.Maintenance.Models
         [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteSiteName")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         public string SiteName { get; set; }
         [SelectList(typeof(CultureSelectListProvider))]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteDefaultCulture")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
         public int? DefaultCulture { get; set; }
@@ -47,7 +47,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         [TextBox]
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "SiteMaxSignInFailTimes")]
         [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
-        [Field(FieldWidth.W6)]
+        [Field(FieldWidth.W4)]
         public int MaxSignInFailTimes { get; set; }
         public Template CreateTemplate(ControllerContext controllerContext)
         {

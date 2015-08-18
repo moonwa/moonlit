@@ -12,7 +12,7 @@
 }
 @functions
 {
-    string DirectionToClass(ColumnDirection direction)
+    private string DirectionToClass(ColumnDirection direction)
     {
         switch (direction)
         {
@@ -26,7 +26,7 @@
                 throw new ArgumentOutOfRangeException("direction", direction, "不支持的对齐方式");
         }
     }
-    string SortDirectionToClass(SortDirection? direction)
+    private string SortDirectionToClass(SortDirection? direction)
     {
         if (direction == null)
         {
