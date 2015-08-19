@@ -10,7 +10,7 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public partial class RoleIndexModel : IPagedRequest
+    public partial class RoleIndexModel : IPagedRequest, IInjectModel
     {
         public RoleIndexModel()
         {

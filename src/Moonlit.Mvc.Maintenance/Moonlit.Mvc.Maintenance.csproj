@@ -57,6 +57,10 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -137,6 +141,10 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="CultureAttribute.cs" />
+    <Compile Include="Domains\IMaintDbRepository.cs" />
+    <Compile Include="Domains\MaintDbContextMaintDbRepository.cs" />
+    <Compile Include="IInjectModel.cs" />
+    <Compile Include="MaintInjectBinder.cs" />
     <Compile Include="Migrations\201507262146584_Init.cs" />
     <Compile Include="Migrations\201507262146584_Init.Designer.cs">
       <DependentUpon>201507262146584_Init.cs</DependentUpon>
@@ -165,8 +173,6 @@
     <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="DbCultureTextLoader.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
-    <Compile Include="Domains\IMaintDbRepository.cs" />
-    <Compile Include="Domains\MaintDbContextMaintDbRepository.cs" />
     <Compile Include="Domains\User.cs" />
     <Compile Include="Domains\Culture.cs" />
     <Compile Include="Domains\CultureText.cs" />

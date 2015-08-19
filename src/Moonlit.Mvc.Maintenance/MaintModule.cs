@@ -51,9 +51,9 @@ namespace Moonlit.Mvc.Maintenance
             builder.RegisterType<ReflectionDashboardIconLoader>().As<IDashboardIconLoader>();
             builder.Register(context => new DefaultThemeLoader(_defaultThemeName)).As<IThemeLoader>();
             builder.RegisterType<DbCultureTextLoader>().As<ILanguageLoader>();
-            builder.RegisterType<MaintDbContextMaintDbRepository>().As<IMaintDbRepository>().InstancePerDependency();
+            builder.RegisterType<MaintDbContextMaintDbRepository>().As<IMaintDbRepository>().InstancePerDependency(); 
             builder.RegisterType<MaintDomainService>().As<IMaintDomainService>().InstancePerDependency();
-
+            
             //            ModelBinders.Binders.Add(typeof(string[]), new StringsBinder());
             GlobalFilters.Filters.Add(new CultureAttribute());
             GlobalFilters.Filters.Add(new ExceptionLogAttribute());
@@ -70,30 +70,5 @@ namespace Moonlit.Mvc.Maintenance
             }
         }
     }
-
-    public class MaintInjectBinder : IModelBinder
-    {
-        private readonly IModelBinder _defaultBinder;
-        private readonly IContainer _container;
-
-        public MaintInjectBinder(IModelBinder defaultBinder, IContainer container)
-        {
-            _defaultBinder = defaultBinder;
-            _container = container;
-        }
-
-        #region Implementation of IModelBinder
-
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-        {
-            var model = _defaultBinder.BindModel(controllerContext, bindingContext);
-            if (model != null)
-            {
-                _container.InjectProperties(model);
-            }
-            return model;
-        }
-
-        #endregion
-    }
+     
 }
