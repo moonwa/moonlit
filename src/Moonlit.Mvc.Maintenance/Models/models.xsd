@@ -25,7 +25,7 @@
   <xs:complexType name="columnType">
     <xs:group ref="controlType" minOccurs="0" maxOccurs="1"></xs:group>
     <xs:attribute name="field" type="xs:string" />
-    <xs:attribute name="header" type="xs:string" /> 
+    <xs:attribute name="header" type="xs:string" />
   </xs:complexType>
   <xs:complexType name="columnsType">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
@@ -63,6 +63,8 @@
   </xs:complexType>
   <xs:complexType name="textboxType">
   </xs:complexType>
+  <xs:complexType name="multiLineTextboxType">
+  </xs:complexType>
   <xs:complexType name="datepickerType">
   </xs:complexType>
   <xs:complexType name="selectListType">
@@ -72,9 +74,10 @@
     <xs:attribute name="provider" type="xs:string" use="required" />
   </xs:complexType>
   <xs:complexType name="checkboxType">
-  </xs:complexType> 
+  </xs:complexType>
   <xs:group name="controlType">
     <xs:choice>
+      <xs:element type="multiLineTextboxType" name="multilinetextbox" maxOccurs="1"></xs:element>
       <xs:element type="textboxType" name="textbox" maxOccurs="1"></xs:element>
       <xs:element type="checkboxType" name="checkbox" maxOccurs="1"></xs:element>
       <xs:element type="selectListType" name="selectlist" maxOccurs="1"></xs:element>
@@ -100,11 +103,12 @@
     <xs:all>
       <xs:element name="display" type="displayAttributeType" maxOccurs="1" minOccurs="0"></xs:element>
       <xs:element name="field" type="fieldType" maxOccurs="1" minOccurs="0"></xs:element>
-      <xs:element name="mapping" type="mappingType" maxOccurs="1" minOccurs="0"></xs:element> 
+      <xs:element name="mapping" type="mappingType" maxOccurs="1" minOccurs="0"></xs:element>
     </xs:all>
     <xs:attribute name="name" use="required" />
     <xs:attribute name="type" use="required" />
     <xs:attribute name="enabled" type="xs:boolean"  use="optional" />
+    <xs:attribute name="required" type="xs:boolean"  use="optional" />
   </xs:complexType>
   <xs:complexType name="modelType">
     <xs:all>

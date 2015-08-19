@@ -66,6 +66,7 @@ namespace <#= @namespace #>
  
 			WriteControlAsAttribute(field);  
 			RenderMapping(property);
+			RenderRequired(property);
 			RenderProperty(property);
 		}
   
@@ -111,6 +112,7 @@ namespace <#= @namespace #>
 		controlAttributeWriters.Add("passwordbox", ControlAttributeWriter_PasswordBox);
 		controlAttributeWriters.Add("selectlist", ControlAttributeWriter_SelectList);
 		controlAttributeWriters.Add("multiselectlist", ControlAttributeWriter_MultiSelectList);
+		controlAttributeWriters.Add("multilinetextbox", ControlAttributeWriter_MultiLineTextBox);
 		controlAttributeWriters.Add("datepicker", ControlAttributeWriter_DatePicker);
 	}
 	void InitControlWriters(){
@@ -186,6 +188,17 @@ using <#= import.Value #>;
 #>
 	public partial class <#= (string)model.Attribute("name") #> <#= baseClass #> {
 <#+	
+    }
+    void RenderRequired(XElement property)
+    {
+        
+        if (property.Attribute("required") != null && (bool)property.Attribute("required"))
+        {
+#>
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
+<#+	
+             
+        } 
     }
     void RenderMapping(XElement property)
     {
@@ -364,6 +377,12 @@ using <#= import.Value #>;
     {
 #> 
 		[MultiSelectList(typeof(<#= (string)obj.Attribute("provider") #>SelectListProvider))] 
+<#+
+    }
+    private void ControlAttributeWriter_MultiLineTextBox(XElement obj)
+    {
+#> 
+		[MultiLineTextBox()] 
 <#+
     }
 

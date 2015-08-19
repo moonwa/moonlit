@@ -38,6 +38,10 @@
 			{
 				get { return LanguageLoader.Get("Privilege.CultureText"); }
 			}
+			public static string PrivilegeSite
+			{
+				get { return LanguageLoader.Get("Privilege.Site"); }
+			}
 			public static string AdminUserIndex
 			{
 				get { return LanguageLoader.Get("AdminUser.Index"); }

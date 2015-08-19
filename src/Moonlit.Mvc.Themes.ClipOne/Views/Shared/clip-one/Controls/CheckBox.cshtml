@@ -3,7 +3,7 @@
 @using Moonlit.Mvc.Url
 @model Moonlit.Mvc.Controls.CheckBox
 @{ 
-    Scripts.Current.RegisterScript("plugins:icheck", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugins:icheck", new Script()
     {
         Src = Url.Asset("clip-one/plugins/iCheck/jquery.icheck.min.js")
     });

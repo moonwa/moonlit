@@ -2,11 +2,11 @@
 @using Moonlit.Mvc.Url
 @model Moonlit.Mvc.Controls.DatePicker
 @{
-    Scripts.Current.RegisterScript("plugins:datepicker", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugins:datepicker", new Script()
     {
         Src = Url.Asset("clip-one/plugins/datepicker/js/bootstrap-datepicker.js")
     });
-    Scripts.Current.RegisterScript("plugins:datepicker-startup", new Script()
+    Moonlit.Mvc.Scripts.Current.RegisterScript("plugins:datepicker-startup", new Script()
     {
         Content = @"
             $('.date-picker').datepicker({
