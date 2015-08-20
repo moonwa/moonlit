@@ -5,7 +5,6 @@ using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using Moonlit.Mvc.Maintenance.Properties;
-using Moonlit.Mvc.Maintenance.SelectListItemsProviders;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
@@ -37,13 +36,11 @@ namespace Moonlit.Mvc.Maintenance.Domains
         
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserDateOfBirth")]
         
-        [DatePicker]
         public DateTime? DateOfBirth { get; set; }
 
         
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserIsEnabled")]
         
-        [CheckBox]
         public bool IsEnabled { get; set; }
 
         [Display(ResourceType = typeof(MaintCultureTextResources), Name = "AdminUserCulture")]

@@ -1,0 +1,414 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+using System.Web.Mvc; 
+using System;  
+using System.ComponentModel.DataAnnotations;
+using Moonlit.Mvc;
+using Moonlit.Mvc.Templates;
+using Moonlit.Mvc.Maintenance.Domains;
+using Moonlit.Mvc.Controls;
+ 
+<#  
+
+	Init();
+
+	string absolutePath = Host.ResolvePath("models.xml");
+    if (!File.Exists(absolutePath))
+    {
+		return "";
+    }
+	String text = System.IO.File.ReadAllText(absolutePath) ; 
+	string contents = File.ReadAllText(absolutePath); 
+
+	
+	XElement entities = XElement.Parse(contents); 
+
+
+	defaultResourceType = (string)entities.Attribute("defaultResourceType");
+	var @namespace = (string)entities.Attribute("namespace");
+	 
+	var models = entities.Elements(XName.Get("model", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	
+#>
+
+<# RenderImports(entities.Elements(XName.Get("import", "http://hizhanzhang.com/moonlit/mvc/maint/models"))); #>
+
+namespace <#= @namespace #>
+{
+
+<# 
+	foreach(XElement model in models) {
+
+		var className = (string)model.Attribute("name");
+		var resourceName = (string)model.Attribute("resourceName");
+		
+		RenderDeclareClass(model);
+
+		foreach(XElement property in GetProperties(model)) {
+			var propertyName = (string)property.Attribute("name");
+			XElement display = property.Element(XName.Get("display", "http://hizhanzhang.com/moonlit/mvc/maint/models")) ?? new XElement("display");
+			XElement field = property.Element(XName.Get("field", "http://hizhanzhang.com/moonlit/mvc/maint/models")) ?? new XElement("field");
+#> 
+		[Display(
+			ResourceType = typeof(<#= (string)display.Attribute("resourceType") ?? defaultResourceType #>),
+			Name = "<#= (string)display.Attribute("name") == null ? resourceName + propertyName : (string)display.Attribute("name") #>"
+			)]
+<#
+			if (field != null)
+			{
+			    RenderField(field);
+			}
+ 
+			WriteControlAsAttribute(field);  
+			RenderMapping(property);
+			RenderRequired(property);
+			RenderProperty(property);
+		}
+  
+		foreach(XElement method in model.Element(XName.Get("methods", "http://hizhanzhang.com/moonlit/mvc/maint/models")).Nodes().OfType<XElement>()) {
+			WriteMethod(model, method);
+		}
+	    RendEnd();
+	}
+#>
+}
+
+<#+ 
+	Dictionary<string, Action<XElement>> controlAttributeWriters = new Dictionary<string, Action<XElement>>();
+	Dictionary<string, Action<XElement>> controlWriters = new Dictionary<string, Action<XElement>>();
+	Dictionary<string, Action<XElement, XElement>> methodWriters = new Dictionary<string, Action<XElement, XElement>>();
+	string defaultResourceType = null;
+	 
+#>
+
+<#+
+
+    IEnumerable<XElement> GetProperties(XElement model)
+    {
+        var properties = model.Element(XName.Get("properties", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+        return properties.Elements(XName.Get("property", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+    }
+	void Init(){
+		InitControlWriters(); 
+		InitControlAttributeWriters(); 
+		InitMethodsWriters(); 
+	}
+	void InitMethodsWriters(){
+		methodWriters.Add("administrationSimpleListTemplate", MethodWriter_AdministrationSimpleListTemplate);
+		methodWriters.Add("administrationSimpleEditTemplate", MethodWriter_AdministrationSimpleEditTemplate);
+		methodWriters.Add("entityMappingFrom", MethodWriter_EntityMapFrom);
+		methodWriters.Add("entityMappingTo", MethodWriter_EntityMapTo);
+	}
+
+
+	void InitControlAttributeWriters(){
+		controlAttributeWriters.Add("textbox", ControlAttributeWriter_TextBox);
+		controlAttributeWriters.Add("checkbox", ControlAttributeWriter_CheckBox);
+		controlAttributeWriters.Add("passwordbox", ControlAttributeWriter_PasswordBox);
+		controlAttributeWriters.Add("selectlist", ControlAttributeWriter_SelectList);
+		controlAttributeWriters.Add("multiselectlist", ControlAttributeWriter_MultiSelectList);
+		controlAttributeWriters.Add("multilinetextbox", ControlAttributeWriter_MultiLineTextBox);
+		controlAttributeWriters.Add("datepicker", ControlAttributeWriter_DatePicker);
+	}
+	void InitControlWriters(){
+		controlAttributeWriters.Add("table", x=>{
+#>
+		new Table();
+<#+
+		});
+	}
+
+	void WriteControl(XElement control)
+	{
+		var controlType = control.Name.LocalName.ToString();
+		Action<XElement> fn = null;
+		if(!controlAttributeWriters.TryGetValue(controlType, out fn))
+		{
+			throw new Exception("not support control: " + controlType);
+		}
+		fn(control);
+	}
+	void WriteControlAsAttribute(XElement control){
+		var child = control.Descendants().FirstOrDefault();
+	    if (child == null)
+	    {
+	        return;
+	    }
+		var controlType = child.Name.LocalName.ToString();
+		Action<XElement> fn = null;
+		if(!controlAttributeWriters.TryGetValue(controlType, out fn)){
+			throw new Exception("not support control: " + controlType);
+		}
+		fn(child);
+	}
+
+	void WriteMethod(XElement classInfo, XElement method){ 
+		var methodType = method.Name.LocalName.ToString();
+		Action<XElement, XElement> fn = null;
+		if(!methodWriters.TryGetValue(methodType, out fn)){
+			throw new Exception("not support method: " + methodType);
+		}
+		fn(classInfo, method); 
+		
+	}
+
+    void RenderImports(IEnumerable<XElement> imports)
+    {
+		foreach(XElement import in imports) {
+#>
+using <#= import.Value #>;
+<#+
+		}
+    }
+
+    void RendEnd()
+    {
+#> 
+	} 
+<#+
+    }
+    void RenderField(XElement field)
+    { 
+#>
+		[Field(FieldWidth.W<#= (String)field.Attribute("width") ?? "6" #>)]
+<#+	
+    }
+    void RenderDeclareClass(XElement model)
+    {
+        var baseClass = "";
+        if (model.Attribute("base") != null)
+        {
+            baseClass = " : " + (string)model.Attribute("base");
+        }
+#>
+	public partial class <#= (string)model.Attribute("name") #> <#= baseClass #> {
+<#+	
+    }
+    void RenderRequired(XElement property)
+    {
+        
+        if (property.Attribute("required") != null && (bool)property.Attribute("required"))
+        {
+#>
+        [Required(ErrorMessageResourceName = "ValidationRequired", ErrorMessageResourceType = typeof(MaintCultureTextResources))]
+<#+	
+             
+        } 
+    }
+    void RenderMapping(XElement property)
+    {
+        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+
+        if (mapping == null)
+        {
+            return;
+        }
+        var to = "";
+        if (mapping.Attribute("to") != null)
+        {
+            to = "To=\"" + (string) mapping.Attribute("to") + "\"";
+        } 
+#>
+		[Mapping(<#= to #>)]
+<#+	
+    }
+    void RenderProperty(XElement property)
+    {
+        var getset = "{ get; set; }";
+        if (property.Attribute("enabled") != null && (bool) property.Attribute("enabled") == false)
+        {
+            getset = "{ get; internal set; }";
+        }
+#>
+		public <#= (string)property.Attribute("type") #> <#= (string)property.Attribute("name") #> <#= getset  #>
+<#+	
+    }
+	void MethodWriter_AdministrationSimpleListTemplate(XElement model, XElement method)
+	{
+#>
+		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
+
+		public Template CreateTemplate(ControllerContext controllerContext)
+        {
+            var query = GetDataSource(controllerContext);
+            var template = new AdministrationSimpleListTemplate(query)
+            { 
+                Title = <#= defaultResourceType #>.<#= (string)model.Attribute("resourceName") #>Index,
+                Description = <#= defaultResourceType #>.<#= (string)model.Attribute("resourceName") #>IndexDescription,
+                QueryPanelTitle = <#= defaultResourceType #>.PanelQuery,
+                DefaultSort = OrderBy,
+                DefaultPageSize = PageSize,
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(), 
+            }; 
+			
+			OnTemplate (template, controllerContext);
+            return template;
+        }
+<#+    
+    }
+	void MethodWriter_AdministrationSimpleEditTemplate(XElement model, XElement method)
+    {
+#>
+		partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext); 
+		public Template CreateTemplate(ControllerContext controllerContext)
+		{ 
+			var template = new AdministrationSimpleEditTemplate
+			{
+                Title = <#= defaultResourceType #>.<#= (string)method.Attribute("title") #>,
+                Description = <#= defaultResourceType #>.<#= (string)method.Attribute("description") #>,
+				FormTitle = <#= defaultResourceType #>.<#= (string)method.Attribute("panelTitle") #>,
+				Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
+			};
+			OnTemplate(template, controllerContext);
+			return template;
+		}
+<#+   
+    }
+	void MethodWriter_EntityMapTo(XElement model, XElement method)
+    {
+#>
+		partial void OnToEntity(<#= (string)method.Attribute("target") #> entity, ControllerContext controllerContext);
+        public void ToEntity(<#= (string)method.Attribute("target") #> entity, ControllerContext controllerContext)
+        {
+<#+
+	    foreach (var property in GetProperties(model)
+			.Where(x=>null != x.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models")))
+			.Where(x=> x.Attribute("enabled") == null || (bool)x.Attribute("enabled") != false)
+			)
+	    {
+	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+
+	        string mappingType = "";
+	        if (mapping.Attribute("type") != null)
+	        {
+	            mappingType = "(" + (string)mapping.Attribute("type") + ")";
+	        }
+	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
+	        {
+#>  
+			entity.<#= (string) property.Attribute("name") #> = Mapping<#= (string) property.Attribute("name") #>ToEntity(entity, controllerContext);
+<#+
+	        } 
+	        else
+	        {
+#>
+			entity.<#= (string) property.Attribute("name") #> = <#= mappingType #><#= (string) property.Attribute("name") #>;
+<#+
+	        }
+	    }
+#>
+			OnToEntity(entity, controllerContext);
+		}
+<#+
+    }
+	void MethodWriter_EntityMapFrom(XElement model, XElement method)
+    {
+#>
+		partial void OnFromEntity(<#= (string)method.Attribute("target") #> entity, bool isPostback, ControllerContext controllerContext);
+        public void FromEntity(<#= (string)method.Attribute("target") #> entity, bool isPostback, ControllerContext controllerContext)
+        {
+			if(!isPostback){
+<#+
+	    foreach (var property in GetProperties(model)
+			.Where(x=> null != x.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models")))
+			.Where(x=> x.Attribute("enabled") == null || (bool)x.Attribute("enabled") != false)
+			)
+	    {
+	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
+	        {
+#>  
+				<#= (string) property.Attribute("name") #> = Mapping<#= (string) property.Attribute("name") #>FromEntity(entity, controllerContext);
+<#+
+	        }
+	        else
+	        {
+#>
+				<#= (string) property.Attribute("name") #> = entity.<#= (string) property.Attribute("name") #>;
+<#+
+	        }
+	    }
+#>
+			}
+<#+
+	    foreach (var property in GetProperties(model)
+			.Where(x=> null != x.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models")))
+			.Where(x=> x.Attribute("enabled") != null && (bool)x.Attribute("enabled") == false)
+			)
+	    {
+	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
+	        {
+#>  
+			<#= (string) property.Attribute("name") #> = Mapping<#= (string) property.Attribute("name") #>FromEntity(entity, controllerContext);
+<#+
+	        }
+	        else
+	        {
+#>
+			<#= (string) property.Attribute("name") #> = entity.<#= (string) property.Attribute("name") #>;
+<#+
+	        }
+	    }
+#>
+			OnFromEntity(entity, isPostback, controllerContext);
+		}
+<#+
+    }
+
+    private void ControlAttributeWriter_TextBox(XElement obj)
+    {
+#> 
+		[TextBox] 
+<#+
+    }
+    private void ControlAttributeWriter_SelectList(XElement obj)
+    {
+#> 
+		[SelectList(typeof(<#= (string)obj.Attribute("provider") #>SelectListProvider))] 
+<#+
+    }
+    private void ControlAttributeWriter_MultiSelectList(XElement obj)
+    {
+#> 
+		[MultiSelectList(typeof(<#= (string)obj.Attribute("provider") #>SelectListProvider))] 
+<#+
+    }
+    private void ControlAttributeWriter_MultiLineTextBox(XElement obj)
+    {
+#> 
+		[MultiLineTextBox()] 
+<#+
+    }
+
+    private void ControlAttributeWriter_CheckBox(XElement obj)
+    {
+#> 
+		[CheckBox] 
+<#+
+    }
+    private void ControlAttributeWriter_DatePicker(XElement obj)
+    {
+#> 
+		[DatePicker] 
+<#+
+    }
+    private void ControlAttributeWriter_PasswordBox(XElement obj)
+    {
+#> 
+		[PasswordBox] 
+<#+
+    }
+
+#>
+
+

@@ -1,0 +1,21 @@
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Moonlit.Mvc.Controls;
+using Moonlit.Mvc.Maintenance.Domains;
+using Moonlit.Mvc.Maintenance.Properties;
+using Moonlit.Mvc.Templates;
+
+namespace Moonlit.Mvc.Maintenance.Models
+{
+    public partial class CultureEditModel : IEntityMapper<Culture>
+    {
+        partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
+        {
+            template.Buttons = new IClickable[]
+            {
+                new Button(  MaintCultureTextResources.Save, ""),
+            };
+        }
+    }
+}

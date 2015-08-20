@@ -36,7 +36,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
                         CultureId = culture.CultureId,
                         Name= key,
                     };
-                    repository.Add(originalLanguageItem);
+                    repository.CultureTexts.Add(originalLanguageItem);
                 }
                 else
                 {

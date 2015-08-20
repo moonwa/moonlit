@@ -1,5 +1,6 @@
-﻿using System.Data.Entity;
-using Moonlit.Mvc.Maintenance.Models;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
@@ -20,7 +21,36 @@ namespace Moonlit.Mvc.Maintenance.Domains
             modelBuilder.Entity<User>().HasMany(x => x.Roles).WithMany().Map(x=>x.MapLeftKey("UserId").MapRightKey("RoleId"));
             base.OnModelCreating(modelBuilder);
         }
+        public static Func<int?> GetCurrentUser = null;
+        private static int? GetOperatorId()
+        {
+            var getCurrentUser = GetCurrentUser;
+            if (getCurrentUser != null)
+            {
+                return getCurrentUser();
+            }
+            return null;
+        }
+        public override int SaveChanges()
+        {
+            var userId = GetOperatorId();
+            foreach (DbEntityEntry<IAuditObject> tradeLog in ChangeTracker.Entries<IAuditObject>())
+            {
+                if (tradeLog.State == EntityState.Added)
+                {
+                    tradeLog.Entity.CreationUserId = userId;
+                    tradeLog.Entity.CreationTime = DateTime.Now;
+                }
+                if (tradeLog.State == EntityState.Modified)
+                {
+                    tradeLog.Entity.UpdateUserId = userId;
+                    tradeLog.Entity.UpdateTime = DateTime.Now;
+                }
+            }
+            return base.SaveChanges();
+        }
 
+        public DbSet<SystemJob> SystemJobs { get; set; }
         public DbSet<Culture> Cultures { get; set; }
         public DbSet<CultureText> CultureTexts { get; set; }
         public DbSet<SystemSetting> SystemSettings { get; set; }

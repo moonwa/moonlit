@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Moonlit.Caching;
 using Moonlit.Mvc.Maintenance.Domains;
-using Moonlit.Mvc.Maintenance.Models;
+using Newtonsoft.Json;
 
 namespace Moonlit.Mvc.Maintenance.Services
 {
     public class MaintDomainService : IMaintDomainService
     {
+        static Locker _locker = new Locker();
         private readonly CacheKeyManager _cacheKeyManager;
         private readonly IMaintDbRepository _maintDbRepository;
         private readonly ICacheManager _cacheManager;
@@ -20,7 +21,7 @@ namespace Moonlit.Mvc.Maintenance.Services
             _cacheKeyManager = cacheKeyManager;
             _maintDbRepository = maintDbRepository;
             _cacheManager = cacheManager;
-             
+
 
             _cacheKeyManager.RegisterCacheKey(CacheKeySystemSettings);
             _cacheKeyManager.RegisterCacheKey(CacheKeyCultures);
@@ -28,9 +29,11 @@ namespace Moonlit.Mvc.Maintenance.Services
         }
 
         private TimeSpan _timeout = TimeSpan.FromHours(1);
+
+       
+
         public List<SystemSetting> GetSystemSettings()
         {
-
             var systemSettings = _cacheManager.Get<List<SystemSetting>>(CacheKeySystemSettings);
 
             if (systemSettings == null)

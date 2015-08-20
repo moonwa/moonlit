@@ -82,13 +82,6 @@
     <Compile Include="Arithmetic\Fibonacci.cs" />
     <Compile Include="Configuration\ParserTest.cs" />
     <Compile Include="Configuration\ValueArgument_Test.cs" />
-    <Compile Include="Data\Design\Entity\MockData\Cat.cs" />
-    <Compile Include="Data\Design\Entity\MockData\DbContextV1.cs" />
-    <Compile Include="Data\Design\Entity\MockData\Dog.cs" />
-    <Compile Include="Data\Design\Entity\MockData\Person.cs" />
-    <Compile Include="Data\Models\Person.cs" />
-    <Compile Include="Data\TestHelper.cs" />
-    <Compile Include="Data\XmlDataSourceFixture.cs" />
     <Compile Include="DictionaryHelper_Test.cs" />
     <Compile Include="DynamicDictionaryMapperTest.cs" />
     <Compile Include="Extensions\DecimalExtensions.cs" />
@@ -133,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="Data\Resources\Moonlit.Data.Fixtures.Person.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

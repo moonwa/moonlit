@@ -45,10 +45,6 @@
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -62,16 +58,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MySql.Data.6.9.6\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MySql.Data.Entity.6.9.6\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MySql.Data.Entity.6.9.7\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -90,30 +82,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -129,22 +97,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DbContextController.cs" />
-    <Compile Include="Controllers\ExceptionLogController.cs" />
-    <Compile Include="Controllers\SignOutController.cs" />
-    <Compile Include="Controllers\SiteController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Controllers\CultureTextController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\CultureController.cs" />
-    <Compile Include="Controllers\MaintControllerBase.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\SignInController.cs" />
-    <Compile Include="CultureAttribute.cs" />
+    <Compile Include="Daemons\SystemJobDaemon.cs" />
     <Compile Include="Domains\IMaintDbRepository.cs" />
+    <Compile Include="Domains\ISystemJobHandler.cs" />
     <Compile Include="Domains\MaintDbContextMaintDbRepository.cs" />
-    <Compile Include="IInjectModel.cs" />
-    <Compile Include="MaintInjectBinder.cs" />
+    <Compile Include="Domains\SystemJob.cs" />
+    <Compile Include="Domains\SystemJobStatus.cs" />
+    <Compile Include="MaintPrivileges.cs" />
     <Compile Include="Migrations\201507262146584_Init.cs" />
     <Compile Include="Migrations\201507262146584_Init.Designer.cs">
       <DependentUpon>201507262146584_Init.cs</DependentUpon>
@@ -157,21 +116,11 @@
     <Compile Include="Migrations\201508131424169_AddLengthOfRoleName.Designer.cs">
       <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminUserCreateModel.cs" />
-    <Compile Include="Models\AdminUserEditModel.cs" />
-    <Compile Include="Models\DashboardModel.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Models\ModelGenerator1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGenerator.tt</DependentUpon>
+    <Compile Include="Migrations\201508200052571_AddSystemJob.cs" />
+    <Compile Include="Migrations\201508200052571_AddSystemJob.Designer.cs">
+      <DependentUpon>201508200052571_AddSystemJob.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProfileChangePasswordModel.cs" />
-    <Compile Include="Models\RoleCreateModel.cs" />
-    <Compile Include="Models\RoleEditModel.cs" />
-    <Compile Include="SelectListItemsProviders\RoleSelectListProvider.cs" />
     <Compile Include="Properties\MaintCultureTextResources.cs" />
-    <Compile Include="DbCultureTextLoader.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
     <Compile Include="Domains\User.cs" />
     <Compile Include="Domains\Culture.cs" />
@@ -179,55 +128,23 @@
     <Compile Include="Domains\DomainExtensions.cs" />
     <Compile Include="Domains\Gender.cs" />
     <Compile Include="Domains\Role.cs" />
-    <Compile Include="EnumAttribute.cs" />
-    <Compile Include="ExceptionLogAttribute.cs" />
     <Compile Include="Domains\MaintDbContext.cs" />
     <Compile Include="DbContextExportAttribute.cs" />
-    <Compile Include="Models\CacheIndexModel.cs" />
-    <Compile Include="Models\DbContextIndexModel.cs" />
-    <Compile Include="Models\ExceptionLogIndexModel.cs" />
     <Compile Include="Properties\languages\MaintCultureTexts.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MaintCultureTexts.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domains\SystemSetting.cs" />
+    <Compile Include="SiteModel.cs" />
+    <Compile Include="SystemSettingModel.cs" />
     <Compile Include="UserLoader.cs" />
-    <Compile Include="IModuleConfiguration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\CultureTextImportModel.cs" />
-    <Compile Include="Models\RoleIndexModel.cs" />
-    <Compile Include="Models\CultureTextCreateModel.cs" />
-    <Compile Include="Models\CultureTextEditModel.cs" />
-    <Compile Include="Models\CultureTextListModel.cs" />
-    <Compile Include="Models\CultureCreateModel.cs" />
-    <Compile Include="Models\CultureEditModel.cs" />
-    <Compile Include="Models\CultureIndexModel.cs" />
-    <Compile Include="Models\AdminUserIndexModel.cs" />
-    <Compile Include="Models\ProfileSettingsModel.cs" />
-    <Compile Include="Models\SignInModel.cs" />
-    <Compile Include="Models\SiteSettingsModel.cs" />
-    <Compile Include="ModuleConfiguration.cs" />
-    <Compile Include="MaintModule.cs" />
-    <Compile Include="MaintModuleConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MaintDomainService.cs" />
-    <Compile Include="Models\SiteModel.cs" />
-    <Compile Include="Models\SystemSetting.cs" />
-    <Compile Include="Models\SystemSettingModel.cs" />
-    <Compile Include="Url\UrlPath.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="Models\ModelGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelGenerator1.cs</LastGenOutput>
-    </Content>
-    <None Include="Models\models.xml">
-      <RunCustomToolOn>ModelGenerator.tt</RunCustomToolOn>
-    </None>
-    <Content Include="Models\models.xsd">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Moonlit.Mvc.Maintenance.nuspec" />
     <None Include="packages.config" />
     <EmbeddedResource Include="Migrations\201507262146584_Init.resx">
@@ -238,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508131424169_AddLengthOfRoleName.resx">
       <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508200052571_AddSystemJob.resx">
+      <DependentUpon>201508200052571_AddSystemJob.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\languages\zh-cn.lang">
       <RunCustomToolOn>MaintCultureTexts.tt</RunCustomToolOn>
@@ -260,6 +180,7 @@
       <Name>Moonlit</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion>12.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -272,7 +193,8 @@
   </Target>
   <ProjectExtensions />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)\cp.cmd</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

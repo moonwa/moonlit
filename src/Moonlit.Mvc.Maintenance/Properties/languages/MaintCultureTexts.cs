@@ -2,9 +2,77 @@
 { 
     public partial class MaintCultureTextResources
     {
+			public static string Abort
+			{
+				get { return LanguageLoader.Get("Abort"); }
+			}
+			public static string SystemJobStatusInit
+			{
+				get { return LanguageLoader.Get("SystemJobStatus.Init"); }
+			}
+			public static string SystemJobStatusSuccess
+			{
+				get { return LanguageLoader.Get("SystemJobStatus.Success"); }
+			}
+			public static string SystemJobStatusError
+			{
+				get { return LanguageLoader.Get("SystemJobStatus.Error"); }
+			}
+			public static string SystemJobStatusAbort
+			{
+				get { return LanguageLoader.Get("SystemJobStatus.Abort"); }
+			}
 			public static string SignIn
 			{
 				get { return LanguageLoader.Get("SignIn"); }
+			}
+			public static string SystemJobInfo
+			{
+				get { return LanguageLoader.Get("SystemJob_Info"); }
+			}
+			public static string SystemJobName
+			{
+				get { return LanguageLoader.Get("SystemJob.Name"); }
+			}
+			public static string SystemJobEdit
+			{
+				get { return LanguageLoader.Get("SystemJob.Edit"); }
+			}
+			public static string SystemJobEditDescription
+			{
+				get { return LanguageLoader.Get("SystemJob.Edit_Description"); }
+			}
+			public static string SystemJobIndex
+			{
+				get { return LanguageLoader.Get("SystemJob.Index"); }
+			}
+			public static string SystemJobIndexDescription
+			{
+				get { return LanguageLoader.Get("SystemJob.Index_Description"); }
+			}
+			public static string SystemJobCreationTime
+			{
+				get { return LanguageLoader.Get("SystemJob.CreationTime"); }
+			}
+			public static string SystemJobStartTime
+			{
+				get { return LanguageLoader.Get("SystemJob.StartTime"); }
+			}
+			public static string SystemJobStatus
+			{
+				get { return LanguageLoader.Get("SystemJob.Status"); }
+			}
+			public static string SystemJobTitle
+			{
+				get { return LanguageLoader.Get("SystemJob.Title"); }
+			}
+			public static string SystemJobExecuteTime
+			{
+				get { return LanguageLoader.Get("SystemJob.ExecuteTime"); }
+			}
+			public static string SystemJobResult
+			{
+				get { return LanguageLoader.Get("SystemJob.Result"); }
 			}
 			public static string SignInDescription
 			{
@@ -41,6 +109,10 @@
 			public static string PrivilegeSite
 			{
 				get { return LanguageLoader.Get("Privilege.Site"); }
+			}
+			public static string PrivilegeSystemJob
+			{
+				get { return LanguageLoader.Get("Privilege.SystemJob"); }
 			}
 			public static string AdminUserIndex
 			{

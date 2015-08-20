@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Moonlit.Mvc.Maintenance.Web</id>
+    <version>1.0.4.5</version>
+    <title>Moonlit.Mvc.Maintenance.Web</title>
+    <authors>moon.wa</authors>
+    <owners>moon.wa</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>there is no description</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Maint</tags>
+    <dependencies>
+      <dependency id="Moonlit.Mvc.Maintenance" version="1.0.4.5" />
+      <dependency id="Moonlit.Mvc" version="1.0.4.3" />
+    </dependencies>
+  </metadata>
+</package>

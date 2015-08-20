@@ -68,4 +68,20 @@ namespace Moonlit
 
         #endregion
     }
+    public class DateTimeFormatter : IFormatter
+    { 
+
+        #region Implementation of IFormatter
+
+        public string Format(object value, object[] args)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+            return ((DateTime)value).ToString();
+        }
+
+        #endregion
+    }
 }

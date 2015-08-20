@@ -1,26 +1,20 @@
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Moonlit.Mvc.Maintenance.Models;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
     public interface IMaintDbRepository : IDisposable
     {
-        IQueryable<Culture> Cultures { get; }
-        IQueryable<CultureText> CultureTexts { get; }
-        IQueryable<SystemSetting> SystemSettings { get; }
-        IQueryable<User> Users { get; }
-        IQueryable<Role> Roles { get; }
-        IQueryable<ExceptionLog> ExceptionLogs{ get; }
-        void Add(Culture culture);
-        void Add(CultureText cultureText);
-        void Add(SystemSetting systemSetting);
-        void Add(User user);
-        void Add(Role role); 
+        DbSet<SystemJob> SystemJobs { get; }
+        DbSet<Culture> Cultures { get; }
+        DbSet<CultureText> CultureTexts { get; }
+        DbSet<SystemSetting> SystemSettings { get; }
+        DbSet<User> Users { get; }
+        DbSet<Role> Roles { get; }
+        DbSet<ExceptionLog> ExceptionLogs { get; }
         void SaveChanges();
         Task SaveChangesAsync();
-        void Remove(CultureText cultureText);
-        void Add(ExceptionLog exceptionLog);
     }
 }

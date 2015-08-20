@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.Themes.ClipOne"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.Maintenance", "src\Moonlit.Mvc.Maintenance\Moonlit.Mvc.Maintenance.csproj", "{12BA5796-9316-442B-B231-77DEBC986536}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.Maintenance.Web", "src\Moonlit.Mvc.Maintenance.Web\Moonlit.Mvc.Maintenance.Web.csproj", "{12832352-3280-4B7B-BE2F-48B424362F8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,14 @@ Global
 		{12BA5796-9316-442B-B231-77DEBC986536}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12BA5796-9316-442B-B231-77DEBC986536}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{12BA5796-9316-442B-B231-77DEBC986536}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{12832352-3280-4B7B-BE2F-48B424362F8C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +179,7 @@ Global
 		{4571D368-2FFC-42C8-8F98-22D79D9AC3B1} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{99649938-209C-4B6B-ABD3-3355ACA52FA3} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{12BA5796-9316-442B-B231-77DEBC986536} = {0216D058-FD7E-444D-9012-68848B65E767}
+		{12832352-3280-4B7B-BE2F-48B424362F8C} = {0216D058-FD7E-444D-9012-68848B65E767}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
