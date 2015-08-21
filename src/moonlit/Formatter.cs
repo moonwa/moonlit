@@ -5,8 +5,8 @@ namespace Moonlit
 {
     public static class Formatter
     {
-        static Dictionary<Predicate<Type>, IFormatter> _typeToFormatters = new Dictionary<Predicate<Type>, IFormatter>();
-        public static void Register(Predicate<Type> predicate, IFormatter formatter)
+        static Dictionary<Func<Type, object, bool>, IFormatter> _typeToFormatters = new Dictionary<Func<Type, object, bool>, IFormatter>();
+        public static void Register(Func<Type, object, bool> predicate, IFormatter formatter)
         {
             _typeToFormatters[predicate] = formatter;
         }
@@ -25,7 +25,7 @@ namespace Moonlit
         {
             foreach (var typeToFormatter in _typeToFormatters)
             {
-                if (typeToFormatter.Key(typeof(T)))
+                if (typeToFormatter.Key(typeof(T), value))
                 {
                     return typeToFormatter.Value;
                 }
