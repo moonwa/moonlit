@@ -29,7 +29,6 @@ using Moonlit.Mvc.Maintenance.Properties;
 [assembly: SitemapNode(Name = "Devtools", Text = "DevTools", ResourceType = typeof(MaintCultureTextResources))]
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("39d53f7c-cbfb-476d-bdb0-d281028401dd")]
-// TODO: 账户被锁解锁功能
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
@@ -39,8 +38,8 @@ using Moonlit.Mvc.Maintenance.Properties;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.4.6")]
-[assembly: AssemblyFileVersion("1.0.4.6")]
+[assembly: AssemblyVersion("1.0.4.9")]
+[assembly: AssemblyFileVersion("1.0.4.9")]
 
 
 [assembly: Privilege(Text = "PrivilegeAdminUser", Name = MaintPrivileges.PrivilegeAdminUser, ResourceType = typeof(MaintCultureTextResources))]

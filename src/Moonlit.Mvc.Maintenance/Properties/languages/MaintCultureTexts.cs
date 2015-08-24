@@ -6,6 +6,26 @@
 			{
 				get { return LanguageLoader.Get("Abort"); }
 			}
+			public static string UserLoginFailedLogIpAddress
+			{
+				get { return LanguageLoader.Get("UserLoginFailedLog.IpAddress"); }
+			}
+			public static string UserLoginFailedLogCreateTime
+			{
+				get { return LanguageLoader.Get("UserLoginFailedLog.CreateTime"); }
+			}
+			public static string UserLoginFailedLogUser
+			{
+				get { return LanguageLoader.Get("UserLoginFailedLog.User"); }
+			}
+			public static string UserLoginFailedLogIndex
+			{
+				get { return LanguageLoader.Get("UserLoginFailedLog.Index"); }
+			}
+			public static string UserLoginFailedLogIndexDescription
+			{
+				get { return LanguageLoader.Get("UserLoginFailedLog.Index_Description"); }
+			}
 			public static string SystemJobStatusInit
 			{
 				get { return LanguageLoader.Get("SystemJobStatus.Init"); }

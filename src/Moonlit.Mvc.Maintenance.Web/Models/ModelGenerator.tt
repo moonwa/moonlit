@@ -111,6 +111,7 @@ namespace <#= @namespace #>
 
 
 	void InitControlAttributeWriters(){
+		controlAttributeWriters.Add("link", ControlAttributeWriter_Link);
 		controlAttributeWriters.Add("textbox", ControlAttributeWriter_TextBox);
 		controlAttributeWriters.Add("checkbox", ControlAttributeWriter_CheckBox);
 		controlAttributeWriters.Add("passwordbox", ControlAttributeWriter_PasswordBox);
@@ -286,6 +287,7 @@ using <#= import.Value #>;
 			)
 	    {
 	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+			var propertyTo = (string) mapping.Attribute("to") ?? (string) property.Attribute("name");
 
 	        string mappingType = "";
 	        if (mapping.Attribute("type") != null)
@@ -295,13 +297,13 @@ using <#= import.Value #>;
 	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
 	        {
 #>  
-			entity.<#= (string) property.Attribute("name") #> = Mapping<#= (string) property.Attribute("name") #>ToEntity(entity, controllerContext);
+			entity.<#= propertyTo #> = Mapping<#= (string) property.Attribute("name") #>ToEntity(entity, controllerContext);
 <#+
-	        } 
+	        }  
 	        else
 	        {
 #>
-			entity.<#= (string) property.Attribute("name") #> = <#= mappingType #><#= (string) property.Attribute("name") #>;
+			entity.<#= propertyTo #> = <#= mappingType #><#= (string) property.Attribute("name") #>;
 <#+
 	        }
 	    }
@@ -324,16 +326,17 @@ using <#= import.Value #>;
 			)
 	    {
 	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	        var propertyTo = (string) mapping.Attribute("to") ?? (string) property.Attribute("name");
 	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
 	        {
 #>  
-				<#= (string) property.Attribute("name") #> = Mapping<#= (string) property.Attribute("name") #>FromEntity(entity, controllerContext);
+				<#= (string) property.Attribute("name") #> = Mapping<#= propertyTo #>FromEntity(entity, controllerContext);
 <#+
 	        }
 	        else
 	        {
-#>
-				<#= (string) property.Attribute("name") #> = entity.<#= (string) property.Attribute("name") #>;
+#> 
+				<#= (string) property.Attribute("name") #> = entity.<#= propertyTo #>;
 <#+
 	        }
 	    }
@@ -346,16 +349,17 @@ using <#= import.Value #>;
 			)
 	    {
 	        var mapping = property.Element(XName.Get("mapping", "http://hizhanzhang.com/moonlit/mvc/maint/models"));
+	        var propertyTo = (string) mapping.Attribute("to") ?? (string) property.Attribute("name");
 	        if (mapping.Attribute("stub")!=null && (bool) mapping.Attribute("stub") == true)
 	        {
 #>  
-			<#= (string) property.Attribute("name") #> = Mapping<#= (string) property.Attribute("name") #>FromEntity(entity, controllerContext);
+			<#= (string) property.Attribute("name") #> = Mapping<#= propertyTo #>FromEntity(entity, controllerContext);
 <#+
 	        }
 	        else
 	        {
-#>
-			<#= (string) property.Attribute("name") #> = entity.<#= (string) property.Attribute("name") #>;
+#> 
+			<#= (string) property.Attribute("name") #> = entity.<#= propertyTo #>;
 <#+
 	        }
 	    }
@@ -375,6 +379,12 @@ using <#= import.Value #>;
     {
 #> 
 		[SelectList(typeof(<#= (string)obj.Attribute("provider") #>SelectListProvider))] 
+<#+
+    }
+    private void ControlAttributeWriter_Link(XElement obj)
+    {
+#> 
+		[Link] 
 <#+
     }
     private void ControlAttributeWriter_MultiSelectList(XElement obj)

@@ -1,5 +1,10 @@
 {
     "Abort": "放弃",
+    "UserLoginFailedLog.IpAddress": "登录IP",
+    "UserLoginFailedLog.CreateTime": "登录时间",
+    "UserLoginFailedLog.User": "登录用户",
+    "UserLoginFailedLog.Index": "登录失败日志",
+    "UserLoginFailedLog.Index_Description": "登录失败日志",
     "SystemJobStatus.Init": "未执行",
     "SystemJobStatus.Success": "执行成功",
     "SystemJobStatus.Error": "执行出错",

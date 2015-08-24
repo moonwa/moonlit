@@ -7,6 +7,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
 {
     public interface IMaintDbRepository : IDisposable
     {
+        DbSet<UserLoginFailedLog> UserLoginFailedLogs { get; }
         DbSet<SystemJob> SystemJobs { get; }
         DbSet<Culture> Cultures { get; }
         DbSet<CultureText> CultureTexts { get; }

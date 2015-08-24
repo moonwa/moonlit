@@ -404,4 +404,20 @@
       <entityMappingTo target="SystemJob" />
     </methods>
   </model>
+
+  <model name="UserLoginFailedLogIndexModel" resourceName="UserLoginFailedLog">
+    <properties>
+      <property name="UserId" type="int?">
+        <display name="Keyword"/>
+        <field width="4">
+          <link />
+        </field>
+      </property>
+     
+    </properties>
+    <methods>
+      <administrationSimpleListTemplate >
+      </administrationSimpleListTemplate>
+    </methods>
+  </model>
 </models>

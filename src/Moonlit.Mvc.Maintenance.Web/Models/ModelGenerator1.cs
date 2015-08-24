@@ -159,17 +159,24 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(User entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				UserName = entity.UserName;
+ 
 				LoginName = entity.LoginName;
   
 				Password = MappingPasswordFromEntity(entity, controllerContext);
+ 
 				Gender = entity.Gender;
+ 
 				DateOfBirth = entity.DateOfBirth;
+ 
 				CultureId = entity.CultureId;
   
 				Roles = MappingRolesFromEntity(entity, controllerContext);
+ 
 				IsEnabled = entity.IsEnabled;
 			}
+ 
 			IsSuper = entity.IsSuper;
 			OnFromEntity(entity, isPostback, controllerContext);
 		}
@@ -286,17 +293,24 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(User entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				UserName = entity.UserName;
   
 				Password = MappingPasswordFromEntity(entity, controllerContext);
+ 
 				Gender = entity.Gender;
+ 
 				DateOfBirth = entity.DateOfBirth;
+ 
 				CultureId = entity.CultureId;
   
 				Roles = MappingRolesFromEntity(entity, controllerContext);
+ 
 				IsEnabled = entity.IsEnabled;
 			}
+ 
 			LoginName = entity.LoginName;
+ 
 			IsSuper = entity.IsSuper;
 			OnFromEntity(entity, isPostback, controllerContext);
 		}
@@ -399,9 +413,11 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(Role entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				Name = entity.Name;
   
 				PrivilegeArray = MappingPrivilegeArrayFromEntity(entity, controllerContext);
+ 
 				IsEnabled = entity.IsEnabled;
 			}
 			OnFromEntity(entity, isPostback, controllerContext);
@@ -461,9 +477,11 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(Role entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				Name = entity.Name;
   
 				PrivilegeArray = MappingPrivilegeArrayFromEntity(entity, controllerContext);
+ 
 				IsEnabled = entity.IsEnabled;
 			}
 			OnFromEntity(entity, isPostback, controllerContext);
@@ -558,8 +576,11 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(Culture entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				Name = entity.Name;
+ 
 				DisplayName = entity.DisplayName;
+ 
 				IsEnabled = entity.IsEnabled;
 			}
 			OnFromEntity(entity, isPostback, controllerContext);
@@ -616,8 +637,11 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(Culture entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				Name = entity.Name;
+ 
 				DisplayName = entity.DisplayName;
+ 
 				IsEnabled = entity.IsEnabled;
 			}
 			OnFromEntity(entity, isPostback, controllerContext);
@@ -722,8 +746,11 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(CultureText entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				CultureId = entity.CultureId;
+ 
 				Name = entity.Name;
+ 
 				Text = entity.Text;
 			}
 			OnFromEntity(entity, isPostback, controllerContext);
@@ -782,9 +809,12 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(CultureText entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				Text = entity.Text;
 			}
+ 
 			CultureId = entity.CultureId;
+ 
 			Name = entity.Name;
 			OnFromEntity(entity, isPostback, controllerContext);
 		}
@@ -911,8 +941,10 @@ namespace Moonlit.Mvc.Maintenance.Models
         public void FromEntity(SystemJob entity, bool isPostback, ControllerContext controllerContext)
         {
 			if(!isPostback){
+ 
 				StartTime = entity.StartTime;
 			}
+ 
 			Name = entity.Name;
 			OnFromEntity(entity, isPostback, controllerContext);
 		}
@@ -922,6 +954,36 @@ namespace Moonlit.Mvc.Maintenance.Models
 			entity.StartTime = StartTime;
 			OnToEntity(entity, controllerContext);
 		}
+ 
+	} 
+	public partial class UserLoginFailedLogIndexModel  {
+ 
+		[Display(
+			ResourceType = typeof(Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources),
+			Name = "Keyword"
+			)]
+		[Field(FieldWidth.W4)]
+ 
+		[Link] 
+		public int? UserId { get; set; }
+		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
+
+		public Template CreateTemplate(ControllerContext controllerContext)
+        {
+            var query = GetDataSource(controllerContext);
+            var template = new AdministrationSimpleListTemplate(query)
+            { 
+                Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.UserLoginFailedLogIndex,
+                Description = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.UserLoginFailedLogIndexDescription,
+                QueryPanelTitle = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.PanelQuery,
+                DefaultSort = OrderBy,
+                DefaultPageSize = PageSize,
+                Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(), 
+            }; 
+			
+			OnTemplate (template, controllerContext);
+            return template;
+        }
  
 	} 
 }

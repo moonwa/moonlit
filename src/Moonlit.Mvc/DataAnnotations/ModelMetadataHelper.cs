@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using MultiSelectList = System.Web.Mvc.MultiSelectList;
 
@@ -28,6 +29,15 @@ namespace Moonlit.Mvc
             }
             return null;
         }
+        public static string MakeUrl(this ModelMetadata metadata, ControllerContext controllerContext)
+        {
+            object obj;
+            if (metadata.AdditionalValues.TryGetValue(LinkProviderAttribute.MetadataAdditionalKey, out obj))
+            {
+                return ((LinkProviderAttribute) obj).MakeUrl(metadata, controllerContext);
+            }
+            return null;
+        }
         public static bool IsRenderEnabled(this ModelMetadata metadata, ViewContext vc)
         {
             object obj;
@@ -48,21 +58,7 @@ namespace Moonlit.Mvc
             }
             return true;
         }
-        //        public static int GetMaxStringLength(this ModelMetadata metadata)
-        //        {
-        //            object obj;
-        //            if (metadata.AdditionalValues.TryGetValue(FixStringLengthAttribute.MetadataAdditionalKey, out obj))
-        //            {
-        //                return Convert.ToInt32(obj);
-        //            }
-        //            if (metadata.AdditionalValues.TryGetValue(EcardStringLengthAttribute.MetadataAdditionalKey, out obj))
-        //            {
-        //                return Convert.ToInt32(obj);
-        //            }
-        //            return 50;
-        //        }
-   
-        
+ 
 
         public static string GetGroup(this ModelMetadata metadata)
         {
@@ -100,9 +96,5 @@ namespace Moonlit.Mvc
             }
             return null;
         }
-
-      
     }
-
-  
 }

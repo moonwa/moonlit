@@ -6,6 +6,11 @@ namespace Moonlit.Mvc.Maintenance.Domains
 {
     public class MaintDbContextMaintDbRepository : IMaintDbRepository
     {
+        public DbSet<UserLoginFailedLog> UserLoginFailedLogs
+        {
+            get { return _database.UserLoginFailedLogs; }
+        }
+
         public DbSet<SystemJob> SystemJobs
         {
             get { return _database.SystemJobs; }
@@ -41,7 +46,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
             get { return _database.ExceptionLogs; }
         }
 
-       
+
 
         public void SaveChanges()
         {
@@ -52,7 +57,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
         {
             await _database.SaveChangesAsync().ConfigureAwait(false);
         }
-         
+
         MaintDbContext _database;
 
         public MaintDbContextMaintDbRepository()

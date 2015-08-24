@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Moonlit.Caching;
+using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Models;
 
 namespace Moonlit.Mvc.Maintenance.Controllers
@@ -11,15 +12,12 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     {
         private readonly Authenticate _authenticate;
         private readonly IPrivilegeLoader _privilegeLoader;
-        private readonly ICacheManager _cacheManager;
-        private const string DefaultUrl = "SignIn";
-        public SignInController(Authenticate authenticate, IPrivilegeLoader privilegeLoader, ICacheManager cacheManager)
+        public SignInController(Authenticate authenticate, IPrivilegeLoader privilegeLoader)
         {
             _authenticate = authenticate;
             _privilegeLoader = privilegeLoader;
-            _cacheManager = cacheManager.GetPrefixCacheManager("sign_failed::");
         }
-         
+
 
         public ActionResult Index()
         {
@@ -30,19 +28,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Index(SignInModel model, string returnUrl)
         {
             var siteModel = new SiteModel(MaintDbContext.SystemSettings);
-            var cacheKey = "signin_fail_times:" + model.UserName + ":" + Request.UserHostAddress;
 
-            int count = _cacheManager.Get<int?>(cacheKey) ?? siteModel.MaxSignInFailTimes;
-            if (count == 0)
-            {
-                this.ModelState.AddModelError("UserName", "您已经失败 " + siteModel.MaxSignInFailTimes + " 次，请明天再试。");
-                return Template(model.CreateTemplate());
-            }
+
 
             if (!ModelState.IsValid)
             {
                 return Template(model.CreateTemplate());
             }
+
             var db = MaintDbContext;
             var adminUser = db.Users.FirstOrDefault(x => x.LoginName == model.UserName);
             if (adminUser == null)
@@ -51,12 +44,42 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(model.CreateTemplate());
             }
 
-            if (adminUser.HashPassword(model.Password) != adminUser.Password)
+
+            var expiredTime = DateTime.Now.AddMinutes(-30);
+            // Request.UserHostAddress
+            int count = siteModel.MaxSignInFailTimes - adminUser.LoginFailedLogs.OrderByDescending(x => x.CreationTime).Count(x => x.CreationTime > expiredTime && x.IpAddress == Request.UserHostAddress);
+            if (count <= 0)
             {
-                _cacheManager.Set(cacheKey, count - 1, TimeSpan.FromDays(1));
-                this.ModelState.AddModelError("Password", "密码错");
+                this.ModelState.AddModelError("UserName", "您已经失败 " + siteModel.MaxSignInFailTimes + " 次，请明天再试。");
                 return Template(model.CreateTemplate());
             }
+
+            if (adminUser.HashPassword(model.Password) != adminUser.Password)
+            {
+                adminUser.LoginFailedLogs.Add(new UserLoginFailedLog()
+                {
+                    User = adminUser,
+                    IpAddress = Request.UserHostAddress,
+                    CreationTime = DateTime.Now,
+                });
+                db.SaveChanges();
+                count--;
+                if (count > 0)
+                {
+                    this.ModelState.AddModelError("Password", "密码错, 您还剩" + count + " 次");
+                }
+                else
+                {
+                    this.ModelState.AddModelError("Password", "密码错, 已经失败" + siteModel.MaxSignInFailTimes + " 次，请明天再试");
+                }
+                return Template(model.CreateTemplate());
+            }
+            foreach (var log in adminUser.LoginFailedLogs.Where(x => x.IpAddress == Request.UserHostAddress).ToList())
+            {
+                db.UserLoginFailedLogs.Remove(log);
+            }
+            db.SaveChanges();
+
             var privileges = adminUser.IsSuper ? _privilegeLoader.Load().Items.Select(x => x.Name).ToArray() : adminUser.Roles.ToList().SelectMany(x => x.PrivilegeArray).ToArray();
             _authenticate.SetSession(adminUser.LoginName, new Session
             {

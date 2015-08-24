@@ -45,7 +45,8 @@ namespace Moonlit.Mvc.Maintenance.Models
                 .Add(tableBuilder.Literal(x => x.IsEnabled.Format(), controllerContext), MaintCultureTextResources.AdminUserIsEnabled, "IsEnabled")
                 .Add(tableBuilder.Literal(x => x.IsSuper.Format(), controllerContext), MaintCultureTextResources.AdminUserIsSuper, "IsSuper")
                 .Add(x => new ControlCollection(
-                    new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", "User", new { id = x.Target.UserId }), LinkStyle.Normal)
+                    new Link(MaintCultureTextResources.Edit, urlHelper.Action("Edit", "User", new { id = x.Target.UserId }), LinkStyle.Normal),
+                    new Link(MaintCultureTextResources.UserLoginFailedLogIndex, urlHelper.Action("UserLoginFailedLogIndex", "User", new { UserId = x.Target.UserId }), LinkStyle.Normal)
                     ), MaintCultureTextResources.Operation).Build();
         }
 

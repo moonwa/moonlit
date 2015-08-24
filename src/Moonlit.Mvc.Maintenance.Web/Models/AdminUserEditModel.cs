@@ -9,7 +9,7 @@ using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Maintenance.Models
 {
-    public partial class AdminUserEditModel : IEntityMapper<User>
+    public partial class AdminUserEditModel : IEntityMapper<User>, IInjectModel
     {
         partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
         {

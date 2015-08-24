@@ -61,6 +61,8 @@
   </xs:complexType>
   <xs:complexType name="passwordboxType">
   </xs:complexType>
+  <xs:complexType name="link">
+  </xs:complexType>
   <xs:complexType name="textboxType">
   </xs:complexType>
   <xs:complexType name="multiLineTextboxType">
@@ -84,6 +86,7 @@
       <xs:element type="multiSelectListType" name="multiselectlist" maxOccurs="1"></xs:element>
       <xs:element type="passwordboxType" name="passwordbox" maxOccurs="1"></xs:element>
       <xs:element type="datepickerType" name="datepicker" maxOccurs="1"></xs:element>
+      <xs:element type="link" name="link" maxOccurs="1"></xs:element>
     </xs:choice>
   </xs:group>
   <xs:complexType name="fieldType">

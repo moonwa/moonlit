@@ -122,8 +122,8 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
 
-            model.FromEntity(user, true, ControllerContext  );
-             
+            model.FromEntity(user, true, ControllerContext);
+
             if (!TryUpdateModel(user, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
@@ -138,6 +138,32 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             });
 
             return Template(model.CreateTemplate(ControllerContext));
+        }
+
+        [MoonlitAuthorize(Roles = MaintPrivileges.PrivilegeAdminUser)]
+        [SitemapNode(Text = "UserLoginFailedLogIndex", Name = "UserLoginFailedLogs", Parent = "users", ResourceType = typeof(MaintCultureTextResources))]
+        public ActionResult UserLoginFailedLogIndex(UserLoginFailedLogIndexModel model)
+        {
+            return Template(model.CreateTemplate(ControllerContext));
+        }
+
+        [ActionName("UserLoginFailedLogIndex")]
+        [HttpPost]
+        [FormAction("Delete")]
+        public async Task<ActionResult> DeleteUserLoginFailedLogIndex(UserLoginFailedLogIndexModel model, long[] ids)
+        {
+            foreach (var item in MaintDbContext.UserLoginFailedLogs.Where(x => ids.Contains(x.UserLoginFailedLogId)).ToList())
+            {
+                MaintDbContext.UserLoginFailedLogs.Remove(item);
+            }
+            await MaintDbContext.SaveChangesAsync();
+            await SetFlashAsync(new FlashMessage
+            {
+                Text = MaintCultureTextResources.SuccessToSave,
+                MessageType = FlashMessageType.Success,
+            });
+
+            return UserLoginFailedLogIndex(model);
         }
     }
 }

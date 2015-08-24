@@ -14,6 +14,10 @@ namespace Moonlit.Mvc.Html
     {
         public static IHtmlString Render(this HtmlHelper html, Control control)
         {
+            if (control == null)
+            {
+                return MvcHtmlString.Empty;
+            }
             var theme = Theme.Current;
             var template = theme.ResolveControl(control.GetType());
             if (string.IsNullOrEmpty(template))
