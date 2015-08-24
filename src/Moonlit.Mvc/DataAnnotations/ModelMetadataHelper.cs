@@ -11,12 +11,12 @@ namespace Moonlit.Mvc
 {
     public static class ModelMetadataHelper
     {
-        public static string GetMapping(this ModelMetadata metadata)
+        public static MappingAttribute GetMapping(this ModelMetadata metadata)
         {
             object obj;
             if (metadata.AdditionalValues.TryGetValue(MappingAttribute.MetadataAdditionalKey, out obj))
             {
-                return ((MappingAttribute)obj).To;
+                return ((MappingAttribute)obj);
             }
             return null;
         }
@@ -34,7 +34,7 @@ namespace Moonlit.Mvc
             object obj;
             if (metadata.AdditionalValues.TryGetValue(LinkProviderAttribute.MetadataAdditionalKey, out obj))
             {
-                return ((LinkProviderAttribute) obj).MakeUrl(metadata, controllerContext);
+                return ((LinkProviderAttribute)obj).MakeUrl(metadata, controllerContext);
             }
             return null;
         }
@@ -58,7 +58,7 @@ namespace Moonlit.Mvc
             }
             return true;
         }
- 
+
 
         public static string GetGroup(this ModelMetadata metadata)
         {

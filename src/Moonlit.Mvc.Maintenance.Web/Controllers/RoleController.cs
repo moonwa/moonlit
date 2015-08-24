@@ -92,7 +92,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             return RedirectToAction("Create");
         }
 
-        [SitemapNode(Text = "AdminUserEdit", ResourceType = typeof(MaintCultureTextResources), Parent = "roles")]
+        [SitemapNode(Text = "RoleEdit", ResourceType = typeof(MaintCultureTextResources), Parent = "roles")]
         public async Task<ActionResult> Edit(int id)
         {
             var db = MaintDbContext;

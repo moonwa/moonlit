@@ -72,7 +72,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             var user = new User();
 
-            if (!TryUpdateModel(user, model))
+            if (!TryUpdateModel2(user, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
@@ -107,7 +107,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
 
             AdminUserEditModel model = new AdminUserEditModel();
-            model.FromEntity(adminUser, false, ControllerContext);
+            model.FromEntity(adminUser, base.CreateFromContext(false));
 
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -122,9 +122,9 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return HttpNotFound();
             }
 
-            model.FromEntity(user, true, ControllerContext);
+            model.FromEntity(user, CreateFromContext(true));
 
-            if (!TryUpdateModel(user, model))
+            if (!TryUpdateModel2(user, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }

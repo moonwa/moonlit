@@ -36,7 +36,7 @@ namespace Moonlit.Mvc
         }
 
         protected bool ValidateAs<T>(T entity, params  string[] properties)
-        { 
+        {
             var metadata = ModelMetadataProviders.Current.GetMetadataForType((Func<object>)(() => entity), typeof(T));
             var modelValidator = ModelValidator.GetModelValidator(metadata, this.ControllerContext);
             foreach (ModelValidationResult validationResult in modelValidator.Validate((object)null))
@@ -55,15 +55,20 @@ namespace Moonlit.Mvc
             model.ToEntity(entity, ControllerContext);
             return ValidateAs<TValidationAs, T>(entity);
         }
+        protected bool TryUpdateModel2<TValidationAs, T>(T entity, TValidationAs model)
+            where TValidationAs : IToEntity<T>
+        {
+            model.ToEntity(entity, new ToEntityContext()
+            {
+                ControllerContext = ControllerContext,
+            });
+            return ValidateAs<TValidationAs, T>(entity);
+        }
         protected bool ValidateAs<TValidationAs, T>(T entity)
         {
             var properties = ModelMetadataProviders.Current.GetMetadataForProperties(null, typeof(TValidationAs));
 
             return ValidateAs(entity, properties.Where(x => !x.IsReadOnly).Select(x => x.PropertyName).ToArray());
         }
-    }
-    public interface IEntityMapper<T>
-    {
-        void ToEntity(T entity, ControllerContext controllerContext);
     }
 }

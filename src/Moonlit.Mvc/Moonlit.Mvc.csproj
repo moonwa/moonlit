@@ -131,6 +131,7 @@
     <Compile Include="DataAnnotations\LinkAttribute.cs" />
     <Compile Include="DataAnnotations\LiteralAttribute.cs" />
     <Compile Include="DataAnnotations\LiteralCellAttribute.cs" />
+    <Compile Include="DataAnnotations\MappingAttribute.cs" />
     <Compile Include="DataAnnotations\ModelMetadataHelper.cs" />
     <Compile Include="DataAnnotations\MultiLineTextBoxAttribute.cs" />
     <Compile Include="DataAnnotations\MultiSelectListAttribute.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="FormActionAttribute.cs" />
     <Compile Include="HtmlHelperHelper.cs" />
     <Compile Include="IDashboardIconLoader.cs" />
+    <Compile Include="IEntityMapper.cs" />
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="IPrivilegeLoader.cs" />
     <Compile Include="ISitemapsLoader.cs" />
     <Compile Include="ITaskLoader.cs" />
+    <Compile Include="IToEntity.cs" />
     <Compile Include="IUserLoader.cs" />
     <Compile Include="IUserPrincipal.cs" />
     <Compile Include="Properties\MvcCultureTextResources.cs" />

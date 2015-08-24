@@ -29,5 +29,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             base.Dispose(disposing);
         }
+
+        protected FromEntityContext CreateFromContext(bool isPostback)
+        {
+            return new FromEntityContext
+            {
+                ControllerContext = ControllerContext,
+                IsPostback = isPostback,
+            };
+        }
     }
 }

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Moonlit.Mvc.Maintenance.Web</id>
-    <version>1.0.4.9</version>
+    <version>1.0.4.11</version>
     <title>Moonlit.Mvc.Maintenance.Web</title>
     <authors>moon.wa</authors>
     <owners>moon.wa</owners>
@@ -15,8 +15,8 @@
     <copyright>Copyright 2015</copyright>
     <tags>Maint</tags>
     <dependencies>
-      <dependency id="Moonlit.Mvc.Maintenance" version="1.0.4.8" />
-      <dependency id="Moonlit.Mvc" version="1.0.4.5" />
+      <dependency id="Moonlit.Mvc.Maintenance" version="1.0.4.11" />
+      <dependency id="Moonlit.Mvc" version="1.0.4.7" />
     </dependencies>
   </metadata>
 </package>
