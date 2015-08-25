@@ -33,23 +33,22 @@ namespace Moonlit.Mvc.Maintenance
             builder.RegisterFilterProvider();
 
             builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().SingleInstance();
-
-            builder.RegisterType<DbCultureTextLoader>().As<ILanguageLoader>().SingleInstance();
+            builder.RegisterType<DbCultureTextLoader>().As<ILanguageLoader>().InstancePerDependency();
             builder.RegisterType<SessionCachingFlash>().As<IFlash>();
             builder.RegisterType<ReflectionPrivilegeLoader>().As<IPrivilegeLoader>().SingleInstance();
             builder.RegisterType<CacheKeyManager>().AsSelf().SingleInstance();
-            builder.RegisterType<ModuleConfiguration>().AsSelf().SingleInstance();
-            builder.RegisterType<UserLoader>().As<IUserLoader>().InstancePerRequest();
+            builder.RegisterType<ModuleConfiguration>().AsSelf().InstancePerDependency();
+            builder.RegisterType<UserLoader>().As<IUserLoader>().InstancePerDependency();
+            builder.RegisterType<CultureLoader>().As<ICultureLoader>().InstancePerDependency();
             builder.RegisterType<MaintModuleConfiguration>().As<IModuleConfiguration>();
             builder.RegisterType<Authenticate>().As<Authenticate>();
             builder.RegisterType<ReflectionSitemapsLoader>().As<ISitemapsLoader>();
             builder.RegisterType<ReflectionDashboardIconLoader>().As<IDashboardIconLoader>();
             builder.Register(context => new DefaultThemeLoader(_defaultThemeName)).As<IThemeLoader>();
-            builder.RegisterType<DbCultureTextLoader>().As<ILanguageLoader>();
-            builder.RegisterType<MaintDbContextMaintDbRepository>().As<IMaintDbRepository>().InstancePerDependency(); 
+            builder.RegisterType<MaintDbContextMaintDbRepository>().As<IMaintDbRepository>().InstancePerDependency();
             builder.RegisterType<MaintDomainService>().As<IMaintDomainService>().InstancePerDependency();
-             
-            GlobalFilters.Filters.Add(new CultureAttribute());
+
+            MvcConfigure.EnableCulture();
             GlobalFilters.Filters.Add(new ExceptionLogAttribute());
             base.Load(builder);
         }
@@ -64,5 +63,5 @@ namespace Moonlit.Mvc.Maintenance
             }
         }
     }
-     
+
 }

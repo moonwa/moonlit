@@ -5,6 +5,9 @@ using Microsoft.FxCop.Sdk;
 
 namespace Moonlit.FxCopRules
 {
+    /// <summary>
+    /// 如果 DataContract 必须包含
+    /// </summary>
     public class DataContractAttributeIsRequiredForParameterOfOperationContractRule : BaseIntrospectionRule
     {
         public DataContractAttributeIsRequiredForParameterOfOperationContractRule()

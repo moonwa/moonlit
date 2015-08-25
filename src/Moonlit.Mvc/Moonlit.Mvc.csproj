@@ -111,6 +111,7 @@
     <Compile Include="Controls\MultiLineTextBox.cs" />
     <Compile Include="Controls\TableColumn.cs" />
     <Compile Include="Controls\TabTable.cs" />
+    <Compile Include="CultureAtttribute.cs" />
     <Compile Include="DashboardIcon.cs" />
     <Compile Include="DashboardIconAttribute.cs" />
     <Compile Include="DashboardIcons.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
+    <Compile Include="IMvcConfigure.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="IPrivilegeLoader.cs" />
     <Compile Include="ISitemapsLoader.cs" />

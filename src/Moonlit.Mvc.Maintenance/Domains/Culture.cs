@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Moonlit.Mvc.Maintenance.Domains
 {
-    public class Culture
+    public class Culture : ICulture
     {
         public int CultureId { get; set; }
         [StringLength(32)]

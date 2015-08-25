@@ -4,7 +4,7 @@
     <Name>The DataMember Attribute is required for Property of DataContract Class </Name>
     <Description> The DataMember Attribute is required for Property of DataContract Class</Description>
     <Owner> moon.wa </Owner>
-    <Url>http://www.moon.wa</Url>
+    <Url>http://www.hizhanzhang.com</Url>
     <Resolution> The Property {0}::{1} has to add DataMember Attribute </Resolution>
     <Email></Email>
     <MessageLevel Certainty="99">CriticalError</MessageLevel>
@@ -14,7 +14,7 @@
     <Name>The DataContract Attribute is required for Parameters of OperationContract Method </Name>
     <Description> The DataContract Attribute is required for Parameters of OperationContract Method</Description>
     <Owner> moon.wa </Owner>
-    <Url>http://www.moon.wa</Url>
+    <Url>http://www.hizhanzhang.com</Url>
     <Resolution> The Parameter {0} has to add DataContract Attribute </Resolution>
     <Email></Email>
     <MessageLevel Certainty="99">CriticalError</MessageLevel>
@@ -24,7 +24,7 @@
     <Name>The DataContract Attribute is required for Return Type of OperationContract Method </Name>
     <Description>The DataContract Attribute is required for Return Type of OperationContract Method</Description>
     <Owner> moon.wa </Owner>
-    <Url>http://www.moon.wa</Url>
+    <Url>http://www.hizhanzhang.com</Url>
     <Resolution> The Type {0} has to add DataContract Attribute </Resolution>
     <Email></Email>
     <MessageLevel Certainty="99">CriticalError</MessageLevel>
@@ -34,7 +34,7 @@
     <Name>The DataContract Attribute is required for Property Type of DataContract </Name>
     <Description>The DataContract Attribute is required for Property Type of DataContract Type</Description>
     <Owner> moon.wa </Owner>
-    <Url>http://www.moon.wa</Url>
+    <Url>http://www.hizhanzhang.com</Url>
     <Resolution> The Type {0} has to add DataContract Attribute </Resolution>
     <Email></Email>
     <MessageLevel Certainty="99">CriticalError</MessageLevel>
@@ -44,7 +44,7 @@
     <Name>The OperationContract Attribute is required for Method Type of ServiceContract Type </Name>
     <Description>The OperationContract Attribute is required for Method Type of ServiceContract Type</Description>
     <Owner> moon.wa </Owner>
-    <Url>http://www.moon.wa</Url>
+    <Url>http://www.hizhanzhang.com</Url>
     <Resolution> The Method {0} has to add OperationContract Attribute </Resolution>
     <Email></Email>
     <MessageLevel Certainty="99">CriticalError</MessageLevel>
@@ -54,8 +54,28 @@
     <Name>The Method has to be virtual for ServiceContract Svc</Name>
     <Description>The Method has to be virtual for ServiceContract Svc</Description>
     <Owner> moon.wa </Owner>
-    <Url>http://www.moon.wa</Url>
+    <Url>http://www.hizhanzhang.com</Url>
     <Resolution> The Method {0} has to be virtual</Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="FromEntityPropertyMappingRule" Category="Moonlit" CheckId="CA007">
+    <Name>The mapping property has to existing in entity class</Name>
+    <Description>The mapping property has to existing in entity class</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.hizhanzhang.com</Url>
+    <Resolution> The property {0}::{1} is mapping to {3}, but the {2} has not property {3}</Resolution>
+    <Email></Email>
+    <MessageLevel Certainty="99">CriticalError</MessageLevel>
+    <FixCategories>NonBreaking</FixCategories>
+  </Rule>
+  <Rule TypeName="ToEntityPropertyMappingRule" Category="Moonlit" CheckId="CA008">
+    <Name>The mapping property has to existing in entity class</Name>
+    <Description>The mapping property has to existing in entity class</Description>
+    <Owner> moon.wa </Owner>
+    <Url>http://www.hizhanzhang.com</Url>
+    <Resolution> The property {0}::{1} is mapping to {3}, but the {2} has not property {3}</Resolution>
     <Email></Email>
     <MessageLevel Certainty="99">CriticalError</MessageLevel>
     <FixCategories>NonBreaking</FixCategories>

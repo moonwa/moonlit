@@ -92,9 +92,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Caching\CacheInterceptor.cs" />
+    <Compile Include="Caching\CacheQueryProvider.cs" />
     <Compile Include="Caching\CacheRefreshProvider.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
-    <Compile Include="Caching\CacheQueryProvider.cs" />
     <Compile Include="DataServices\ProcedureService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
