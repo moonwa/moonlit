@@ -11,6 +11,7 @@ namespace Moonlit.Mvc.ClipOne
 {
     public class ClipOneTheme : Theme
     {
+        public bool IsAjaxSubmitForm { get; set; }
         public ClipOneTheme()
         {
             this.RegisterControl(typeof(SimpleBoxTemplate), ThemeName + "/Templates/SimpleBox");
@@ -50,6 +51,8 @@ namespace Moonlit.Mvc.ClipOne
                 styles.RegisterStyleLink("fonts:style", new StyleLink() { Href = url.Asset(ThemeName + "/fonts/style.css") });
                 styles.RegisterStyleLink("css:main", new StyleLink() { Href = url.Asset(ThemeName + "/css/main.css") });
                 styles.RegisterStyleLink("css:main-responsive", new StyleLink() { Href = url.Asset(ThemeName + "/css/main-responsive.css") });
+                styles.RegisterStyleLink("plugins:select2", new StyleLink() { Href = url.Asset(ThemeName + "/plugins/select2/dist/css/select2.css") });
+                styles.RegisterStyleLink("plugins:datepicker", new StyleLink() { Href = url.Asset(ThemeName + "/plugins/datepicker/css/datepicker.css") });
                 styles.RegisterStyleLink("plugins:iCheck", new StyleLink() { Href = url.Asset(ThemeName + "/plugins/iCheck/skins/all.css") });
                 styles.RegisterStyleLink("plugins:bootstrap-colorpalette", new StyleLink() { Href = url.Asset(ThemeName + "/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css") });
                 styles.RegisterStyleLink("plugins:perfect-scrollbar", new StyleLink() { Href = url.Asset(ThemeName + "/plugins/perfect-scrollbar/src/perfect-scrollbar.css") });
@@ -75,8 +78,14 @@ namespace Moonlit.Mvc.ClipOne
                 scripts.RegisterScript("plugins:less", new Script() { Src = url.Asset(ThemeName + "/plugins/less/less-1.5.0.min.js") });
                 scripts.RegisterScript("plugins:jquery-cookie", new Script() { Src = url.Asset(ThemeName + "/plugins/jquery-cookie/jquery.cookie.js") });
                 scripts.RegisterScript("plugins:bootstrap-colorpalette", new Script() { Src = url.Asset(ThemeName + "/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js") });
+                scripts.RegisterScript("plugins:icheck", new Script() { Src = url.Asset(ThemeName + "/plugins/iCheck/jquery.icheck.min.js") });
+                scripts.RegisterScript("plugins:datepicker", new Script() { Src = url.Asset(ThemeName + "/plugins/datepicker/js/bootstrap-datepicker.js") });
+                scripts.RegisterScript("plugin:autosize", new Script() { Src = url.Asset(ThemeName + "/plugins/autosize/jquery.autosize.min.js") });
+                scripts.RegisterScript("plugins:select2", new Script() { Src = url.Asset(ThemeName + "/plugins/select2/dist/js/select2.min.js") });
                 scripts.RegisterScript("js:main", new Script() { Src = url.Asset(ThemeName + "/js/main.js") });
+                scripts.RegisterScript("js:start", new Script() { Content = "Main.isAjaxSubmitForm=" + IsAjaxSubmitForm.ToString().ToLowerInvariant() });
             }
+
             base.PreRequest(requestContext);
         }
 

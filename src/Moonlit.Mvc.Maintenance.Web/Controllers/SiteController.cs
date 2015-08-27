@@ -17,7 +17,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _cacheManager = cacheManager;
             _cacheKeyManager = cacheKeyManager;
         }
-         
+
 
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "SiteSettings")]
         public ActionResult Settings()
@@ -26,7 +26,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             model.FromEntity(new SiteModel(MaintDbContext.SystemSettings), false, ControllerContext);
             return Template(model.CreateTemplate(ControllerContext));
         }
-         
+
 
         [SitemapNode(Parent = "Site", ResourceType = typeof(MaintCultureTextResources), Text = "Cache")]
         public ActionResult Cache(CacheIndexModel model)
@@ -65,7 +65,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            return RedirectToAction("Settings");
+            return Settings();
         }
     }
 }

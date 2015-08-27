@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "layout_administration.cshtml";
+    Layout = "layout_administration_inner.cshtml"; 
 }
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
@@ -9,7 +9,7 @@
 @using Control = Moonlit.Mvc.Control
 @model Moonlit.Mvc.Templates.AdministrationSimpleEditTemplate
 
-<form enctype="multipart/form-data" method="POST">
+<form action="@Request.Url" method="POST">
     <div class="row">
         <div class="col-sm-12">
             @Html.Render(new Panel()
@@ -20,8 +20,8 @@
 
                 Control = new Form()
                 {
-                    Type = FormType.Horizontal  ,
-                    Control  =  Model.Fields.Combine()
+                    Type = FormType.Horizontal,
+                    Control = Model.Fields.Combine()
                 }
             })
         </div>

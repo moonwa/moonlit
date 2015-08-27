@@ -1,4 +1,4 @@
 ﻿@model Moonlit.Mvc.Controls.Button
-<button type="submit" class="btn btn-primary" name="form_action" value="@Model.ActionName">
+<button type="button" class="btn btn-primary" onclick="submit_with_action(this, '@Model.ActionName');">
     @Model.Text
 </button>

@@ -2,12 +2,7 @@
 @using Moonlit.Mvc
 @using Moonlit.Mvc.Url
 @model Moonlit.Mvc.Controls.CheckBox
-@{ 
-    Moonlit.Mvc.Scripts.Current.RegisterScript("plugins:icheck", new Script()
-    {
-        Src = Url.Asset("clip-one/plugins/iCheck/jquery.icheck.min.js")
-    });
-}
+ 
 @functions
 {
     private IHtmlString Selected(bool isSelected)

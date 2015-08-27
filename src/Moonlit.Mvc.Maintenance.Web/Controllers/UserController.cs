@@ -93,7 +93,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            return RedirectToAction("Create");
+            return Create();
         }
 
         [SitemapNode(Text = "编辑用户", Parent = "users")]

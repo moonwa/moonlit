@@ -57,13 +57,11 @@ namespace Moonlit.Mvc
                    {
                        Content = @"submit_with_action = function(sender, formAction, name, value) {
                               var button, form;
-                              if (!formAction) {
-                                button = $(""<button style='display:none' />"");
-                              } else {
-                                button = $(""<button style='display:none' name='form_action' value='"" + formAction + ""' />"");
+                              form = $(sender).closest('form');
+                              if (formAction) {
+                                form.append($(""<input type='hidden' name='form_action' value='"" + formAction + ""' />""));
                               }
-                              form = $('body form');
-                              form.append(button);
+                            
                               if (name != null) {
                                 if (name) {
                                   if ($(""[name='"" + name + ""']"", form).length === 0) {
@@ -73,7 +71,7 @@ namespace Moonlit.Mvc
                                   }
                                 }
                               }
-                              return button.click();
+                              return form.submit();
                             };"
                    });
             }

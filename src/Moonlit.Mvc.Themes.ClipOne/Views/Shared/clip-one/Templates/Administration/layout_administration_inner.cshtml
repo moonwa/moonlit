@@ -1,0 +1,122 @@
+﻿@{
+    Layout = "layout_administration.cshtml";
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+@functions{
+
+    private string MakeNodeCss(SiteMapNode node)
+    {
+        string css = "";
+        if (node.InCurrent)
+        {
+
+            css += "open active";
+        }
+        if (node.IsCurrent)
+        {
+            css += "active";
+        }
+        return css;
+    }
+}
+
+@using System.Web.Mvc
+@using Moonlit
+@using Moonlit.Mvc;
+@using Moonlit.Mvc.Properties
+@using Moonlit.Mvc.Url;
+@using Scripts = Moonlit.Mvc.Scripts
+@using SiteMapNode = Moonlit.Mvc.SitemapNode
+@using Styles = Moonlit.Mvc.Styles
+@model Moonlit.Mvc.Templates.Template
+@{
+    var sitemaps = Sitemaps.Current;
+}
+ 
+    <!-- start: PAGE HEADER -->
+<div class="row">
+    <div class="col-sm-12"> 
+        <!-- start: PAGE TITLE & BREADCRUMB -->
+        <ol class="breadcrumb">
+            <li>
+                <i class="clip-home-3"></i>
+                <a href="/">
+                    @MvcCultureTextResources.Get("HomePage")
+                </a>
+            </li>
+            @if (sitemaps != null && sitemaps.Breadcrumb != null)
+            {
+                foreach (var node in sitemaps.Breadcrumb)
+                {
+                    <li class="  ">
+                        @if (node.IsCurrent)
+                        {
+                            @node.Text
+                        }
+                        else
+                        {
+                            <a href="@node.Url">@node.Text</a>
+                        }
+                    </li>
+                }
+            }
+            <li class="search-box">
+                <form class="sidebar-search">
+                    <div class="form-group">
+                        <input type="text" placeholder="@MvcCultureTextResources.Get("StartSearch")">
+                        <button class="submit">
+                            <i class="clip-search-3"></i>
+                        </button>
+                    </div>
+                </form>
+            </li>
+        </ol>
+        <div class="page-header">
+            <h1>@Model.Title <small>@Model.Description </small></h1>
+        </div>
+        <!-- end: PAGE TITLE & BREADCRUMB -->
+    </div>
+</div>
+<!-- end: PAGE HEADER -->
+<!-- start: PAGE CONTENT -->
+<div class="row">
+    <div class="col-sm-12">
+        @{
+            var messageType = "success";
+            var messageIcon = "check-circle";
+            FlashMessage msg = FlashMessage.Current;
+            if (msg != null)
+            {
+                switch (msg.MessageType)
+                {
+                    case FlashMessageType.Message:
+                    case FlashMessageType.Success:
+                        messageType = "success";
+                        messageIcon = "check-circle";
+                        break;
+                    case FlashMessageType.Warning:
+                        messageType = "warning";
+                        messageIcon = "exclamation-triangle";
+                        break;
+                    case FlashMessageType.Error:
+                        messageType = "danger";
+                        messageIcon = "times-circle";
+                        break;
+                }
+
+                <div class="alert alert-@messageType">
+                    <button data-dismiss="alert" class="close">
+                        ×
+                    </button>
+                    <i class="fa fa-@messageIcon"></i>
+                    @msg.Text
+                </div>
+            }
+        }
+    </div>
+</div>
+@RenderBody()

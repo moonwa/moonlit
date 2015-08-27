@@ -61,7 +61,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            return RedirectToAction("Edit");
+            return Template(model.CreateTemplate(ControllerContext));
         }
 
         [ActionName("Index")]

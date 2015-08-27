@@ -156,7 +156,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 MessageType = FlashMessageType.Success,
             });
             _maintDomainService.ClearCultureTextsCache();
-            return RedirectToAction("Create");
+            return Create( );
         }
 
         [SitemapNode(Text = "CultureTextEdit", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]

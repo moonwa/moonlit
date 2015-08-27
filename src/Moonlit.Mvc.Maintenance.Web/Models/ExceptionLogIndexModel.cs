@@ -24,11 +24,11 @@ namespace Moonlit.Mvc.Maintenance.Models
 
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
-        public int PageSize { get; set; }
-        public IMaintDbRepository MaintDbContext { get; set; }
+        public int PageSize { get; set; } 
         private IQueryable GetDataSource(ControllerContext controllerContext)
         {
-            var query = MaintDbContext.ExceptionLogs.AsQueryable();
+            var irepository = DependencyResolver.Current.GetService<IMaintDbRepository>();
+            var query = irepository.ExceptionLogs.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
                 var keyword = Keyword.Trim();
