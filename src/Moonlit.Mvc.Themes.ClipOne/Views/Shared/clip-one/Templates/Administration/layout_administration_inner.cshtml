@@ -24,7 +24,6 @@
     }
 }
 
-@using System.Web.Mvc
 @using Moonlit
 @using Moonlit.Mvc;
 @using Moonlit.Mvc.Properties
@@ -120,3 +119,6 @@
     </div>
 </div>
 @RenderBody()
+<script>
+    document.title = "@Model.Title - @Model.Site.Title";
+</script>
