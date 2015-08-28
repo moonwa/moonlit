@@ -30,6 +30,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             base.Dispose(disposing);
         }
 
+        protected FromEntityContext CreateFromContext()
+        {
+            var isPost = "post".EqualsIgnoreCase(HttpContext.Request.HttpMethod);
+            return CreateFromContext(isPost);
+        }
         protected FromEntityContext CreateFromContext(bool isPostback)
         {
             return new FromEntityContext
