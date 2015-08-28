@@ -14,6 +14,7 @@ namespace Moonlit.FxCopRules
         {
         }
 
+        
         #region Overrides of BaseIntrospectionRule
 
         public override ProblemCollection Check(Member member)
@@ -28,17 +29,17 @@ namespace Moonlit.FxCopRules
             {
                 return Problems;
             }
-            var entityType = fromEntityType.TemplateArguments[0];
+            TypeNode entityType = fromEntityType.TemplateArguments[0];
             string toProperty = member.Name.Name;
             var to = mappingAttr.Expressions.OfType<NamedArgument>().FirstOrDefault(x => x.Name.Name == "To");
             if (to != null)
             {
                 toProperty = to.Value.ToString();
             }
-            var property = entityType.GetProperty(Identifier.For(toProperty));
+            PropertyNode property =Helper. GetPropertyFromParent(Identifier.For(toProperty), entityType);
             if (property == null)
             {
-                var resolution = this.GetResolution(new object[] {member.DeclaringType.FullName,  member.Name.Name, entityType.FullName, toProperty});
+                var resolution = this.GetResolution(new object[] { member.DeclaringType.FullName, member.Name.Name, entityType.FullName, toProperty });
                 Problems.Add(new Problem(resolution, member.SourceContext));
             }
             return Problems;
@@ -74,10 +75,10 @@ namespace Moonlit.FxCopRules
             {
                 toProperty = to.Value.ToString();
             }
-            var property = entityType.GetProperty(Identifier.For(toProperty));
+            PropertyNode property = Helper.GetPropertyFromParent(Identifier.For(toProperty), entityType);
             if (property == null)
             {
-                var resolution = this.GetResolution(new object[] {member.DeclaringType.FullName,  member.Name.Name, entityType.FullName, toProperty});
+                var resolution = this.GetResolution(new object[] { member.DeclaringType.FullName, member.Name.Name, entityType.FullName, toProperty });
                 Problems.Add(new Problem(resolution, member.SourceContext));
             }
             return Problems;

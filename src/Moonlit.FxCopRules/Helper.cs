@@ -15,7 +15,14 @@ namespace Moonlit.FxCopRules
                    && !(typeNode.Template != null && typeNode.Template.FullName == typeof(List<>).FullName)
                    ;
         }
-
+        public static PropertyNode GetPropertyFromParent(Identifier id, TypeNode typeNode)
+        {
+            if (typeNode == null)
+            {
+                return null;
+            }
+            return typeNode.GetProperty(id) ?? GetPropertyFromParent(id, typeNode.BaseType);
+        }
         public static bool IsNullable(TypeNode typeNode)
         {
             return typeNode.Template != null && typeNode.Template.FullName == typeof(Nullable<>).FullName;

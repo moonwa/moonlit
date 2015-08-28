@@ -13,8 +13,7 @@ namespace Moonlit.FxCopRules
         }
 
         public override ProblemCollection Check(Member member)
-        {
-//            Debugger.Launch();
+        { 
             Microsoft.FxCop.Sdk.Method method = member as Microsoft.FxCop.Sdk.Method;
             if (method == null)
             {

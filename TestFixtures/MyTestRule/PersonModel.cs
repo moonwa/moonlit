@@ -11,6 +11,8 @@ namespace MyTestRule
         public string LastName { get; set; }
         [Mapping()]
         public string MiddleName { get; set; }
+        [Mapping()]
+        public string Id { get; set; }
 
         #region Implementation of IFromEntity<PersonEntity>
 
@@ -27,6 +29,8 @@ namespace MyTestRule
         public string FirstName { get; set; }
         [Mapping( )]
         public string LastName { get; set; }
+        [Mapping( )]
+        public string Id { get; set; }
         [Mapping()]
         public string MiddleName { get; set; }
 
