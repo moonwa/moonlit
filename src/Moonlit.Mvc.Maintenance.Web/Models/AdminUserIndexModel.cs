@@ -27,9 +27,9 @@ namespace Moonlit.Mvc.Maintenance.Models
         partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext)
         {
             var urlHelper = new UrlHelper(controllerContext.RequestContext);
-            template.GlobalButtons = new IClickable[]
+            template.GlobalButtons = new List<IClickable>
             {
-                new Button(MaintCultureTextResources.Search, ""),
+                new Button(MaintCultureTextResources.Search),
                 new Link(MaintCultureTextResources.New, urlHelper.Action("Create", "User"), LinkStyle.Button),
                 new Button(MaintCultureTextResources.Disable, "Disable"),
                 new Button(MaintCultureTextResources.Enable, "Enable"),

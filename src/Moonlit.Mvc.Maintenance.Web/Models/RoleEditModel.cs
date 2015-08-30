@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Maintenance.Domains;
@@ -10,9 +11,9 @@ namespace Moonlit.Mvc.Maintenance.Models
     {
         partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
         {
-            template.Buttons = new IClickable[]
+            template.Buttons = new List<IClickable>
             {
-                new Button(MaintCultureTextResources.Save, ""),
+                new Button(MaintCultureTextResources.Save ),
             };
         }
         private string[] MappingPrivilegeArrayFromEntity(Role entity, ControllerContext controllerContext)

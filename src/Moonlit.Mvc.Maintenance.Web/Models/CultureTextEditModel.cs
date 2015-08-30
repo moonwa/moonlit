@@ -16,13 +16,9 @@ namespace Moonlit.Mvc.Maintenance.Models
     {
         partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
         {
-            template.Buttons = new IClickable[]
+            template.Buttons = new List<IClickable>
             {
-                new Button
-                {
-                    Text = MaintCultureTextResources.Save,
-                    ActionName = ""
-                }
+                new Button(MaintCultureTextResources.Save)
             };
         }  
     }

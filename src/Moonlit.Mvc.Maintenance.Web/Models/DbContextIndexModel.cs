@@ -40,8 +40,7 @@ namespace Moonlit.Mvc.Maintenance.Models
             {
                 Title = MaintCultureTextResources.DevToolsDbContextIndex,
                 Description = MaintCultureTextResources.DevToolsDbContextListDescription,
-                QueryPanelTitle = MaintCultureTextResources.PanelQuery,
-                Criteria = new Field[0],
+                QueryPanelTitle = MaintCultureTextResources.PanelQuery, 
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
                 DefaultPageIndex = 1,
@@ -66,23 +65,11 @@ namespace Moonlit.Mvc.Maintenance.Models
                         },
                     }
                 },
-                GlobalButtons = new IClickable[]
+                GlobalButtons = new List<IClickable>
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.ExportAsNode,
-                        ActionName = DbContextController.FormActionNameExportAsNodeJs
-                    }, 
-                },
-                RecordButtons = new IClickable[]
-                {
-                 
-                }
+                    new Button(MaintCultureTextResources.Search),
+                    new Button(MaintCultureTextResources.ExportAsNode, DbContextController.FormActionNameExportAsNodeJs)
+                } 
             };
         }
     }

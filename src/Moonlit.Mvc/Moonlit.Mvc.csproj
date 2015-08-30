@@ -145,6 +145,7 @@
     <Compile Include="DefaultThemeLoader.cs" />
     <Compile Include="Extensions\DependencyResolverExtensions.cs" />
     <Compile Include="Extensions\HttpContextExtensions.cs" />
+    <Compile Include="Extensions\public static class SelectListProviderExtensions.cs" />
     <Compile Include="FlashMessage.cs" />
     <Compile Include="FlashMessageType.cs" />
     <Compile Include="Html\Control.cs" />

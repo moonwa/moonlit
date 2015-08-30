@@ -98,7 +98,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Description = MaintCultureTextResources.AdminUserCreateDescription,
                 FormTitle = MaintCultureTextResources.AdminUserInfo,
                 Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                Buttons = new IClickable[]
+                Buttons = new List<IClickable>
                 {
                     new Button(MaintCultureTextResources.Save, "")
                 },

@@ -27,9 +27,9 @@ namespace Moonlit.Mvc.Maintenance.Models
         { 
             var tableBuilder = new TableBuilder<Culture>();
             var urlHelper = new UrlHelper(controllerContext.RequestContext);
-            template.GlobalButtons = new IClickable[]
+            template.GlobalButtons = new List<IClickable>
             {
-                new Button(MaintCultureTextResources.Search, ""),
+                new Button(MaintCultureTextResources.Search ),
                 new Link(MaintCultureTextResources.New, urlHelper.Action("Create", "Culture"), LinkStyle.Button),
                 new Button(MaintCultureTextResources.Disable, "Disable"),
                 new Button(MaintCultureTextResources.Enable, "Enable"),

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -59,13 +60,9 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Description = MaintCultureTextResources.ProfileSettingsDescription,
                 FormTitle = MaintCultureTextResources.ProfileInfo,
                 Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                Buttons = new IClickable[]
+                Buttons = new List<IClickable>
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
+                    new Button(MaintCultureTextResources.Save)
                 }
             };
         } 

@@ -51,13 +51,9 @@ namespace Moonlit.Mvc.Maintenance.Models
         partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext)
         {
             var tableBuilder = new TableBuilder<ExceptionLog>();
-            template.GlobalButtons = new IClickable[]
+            template.GlobalButtons = new List<IClickable> 
             {
-                new Button
-                {
-                    Text = MaintCultureTextResources.Search,
-                    ActionName = ""
-                },
+                new Button(MaintCultureTextResources.Search),
             };
             template.Table = tableBuilder
               .Add(tableBuilder.Literal(x => x.CreationTime.Format(), controllerContext), MaintCultureTextResources.ExceptionLogCreationTime, "CreationTime")

@@ -39,13 +39,9 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Description = MaintCultureTextResources.CultureTextImportDescription,
                 FormTitle = MaintCultureTextResources.CultureTextInfo,
                 Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                Buttons = new IClickable[]
+                Buttons = new List<IClickable>
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
+                    new Button(MaintCultureTextResources.Save)
                 }
             };
         }

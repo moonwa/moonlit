@@ -122,6 +122,7 @@
     <Compile Include="DefaultFormatter.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\WebNameHelper.cs" />
     <Compile Include="Formatter.cs" />
     <Compile Include="IAuditObject.cs" />
     <Compile Include="Data\DbDataReaderExtensions.cs" />

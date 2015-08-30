@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -39,13 +40,9 @@ namespace Moonlit.Mvc.Maintenance.Models
                 Description = MaintCultureTextResources.ProfileChangePasswordDescription,
                 FormTitle = MaintCultureTextResources.ProfileChangePasswordInfo,
                 Fields = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                Buttons = new IClickable[]
+                Buttons = new List<IClickable>
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Save,
-                        ActionName = ""
-                    }
+                    new Button(MaintCultureTextResources.Save)
                 }
             };
         }

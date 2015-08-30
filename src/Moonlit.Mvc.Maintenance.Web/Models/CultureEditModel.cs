@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -12,9 +13,9 @@ namespace Moonlit.Mvc.Maintenance.Models
     {
         partial void OnTemplate(AdministrationSimpleEditTemplate template, ControllerContext controllerContext)
         {
-            template.Buttons = new IClickable[]
+            template.Buttons = new List<IClickable>
             {
-                new Button(  MaintCultureTextResources.Save, ""),
+                new Button(  MaintCultureTextResources.Save ),
             };
         }
     }

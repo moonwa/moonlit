@@ -2,9 +2,18 @@
     Layout = null;
 }
 
+
+@using Moonlit
+@using Moonlit.Mvc;
+@using Moonlit.Mvc.Properties
+@using Moonlit.Mvc.Url;
+@using Scripts = Moonlit.Mvc.Scripts
+@using SiteMapNode = Moonlit.Mvc.SitemapNode
+@using Styles = Moonlit.Mvc.Styles
+@model Moonlit.Mvc.Templates.Template
 @functions{
 
-    private string MakeNodeCss(SiteMapNode node)
+    public string MakeNodeCss(SiteMapNode node)
     {
         string css = "";
         if (node.InCurrent)
@@ -19,16 +28,6 @@
         return css;
     }
 }
-
-@using Moonlit
-@using Moonlit.Mvc;
-@using Moonlit.Mvc.Properties
-@using Moonlit.Mvc.Url;
-@using Scripts = Moonlit.Mvc.Scripts
-@using SiteMapNode = Moonlit.Mvc.SitemapNode
-@using Styles = Moonlit.Mvc.Styles
-@model Moonlit.Mvc.Templates.Template
-
 
 
 <!DOCTYPE html>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Moonlit.Mvc.Controls;
@@ -22,9 +23,9 @@ namespace Moonlit.Mvc.Maintenance.Models
         partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext)
         {
             var urlHelper = new UrlHelper(controllerContext.RequestContext);
-            template.GlobalButtons = new IClickable[]
+            template.GlobalButtons = new List<IClickable>
             {
-                new Button(MaintCultureTextResources.Search, ""),
+                new Button(MaintCultureTextResources.Search),
                 new Button(MaintCultureTextResources.Abort, "Abort"),
             };
             var tableBuilder = new TableBuilder<SystemJob>();

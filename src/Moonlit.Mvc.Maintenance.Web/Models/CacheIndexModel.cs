@@ -51,18 +51,10 @@ namespace Moonlit.Mvc.Maintenance.Models
                 DefaultSort = "Name",
                 DefaultPageSize = 10,
                 Criteria = new FieldsBuilder().ForEntity(this, controllerContext).Build(),
-                GlobalButtons = new IClickable[]
+                GlobalButtons = new List<IClickable>
                 {
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Search,
-                        ActionName = ""
-                    },
-                    new Button
-                    {
-                        Text = MaintCultureTextResources.Clear,
-                        ActionName = "Clear"
-                    },
+                    new Button(MaintCultureTextResources.Search),
+                    new Button(MaintCultureTextResources.Clear, "Clear"),
                 },
                 Table = new Table
                 {

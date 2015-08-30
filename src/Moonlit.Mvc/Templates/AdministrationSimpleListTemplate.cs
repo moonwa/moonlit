@@ -19,9 +19,9 @@ namespace Moonlit.Mvc.Templates
         {
             Queryable = queryable;
 
-            Criteria = new Field[0];
-            GlobalButtons = new IClickable[0];
-            RecordButtons = new IClickable[0];
+            Criteria = new List<Field>();
+            GlobalButtons = new List<IClickable>();
+            RecordButtons = new List<IClickable>();
             this.DefaultPageIndex = 1;
         }
         public override void OnReadyRender(ControllerContext context)
@@ -33,9 +33,9 @@ namespace Moonlit.Mvc.Templates
             Table.DataSource = GetData(context);
         }
 
-        public Field[] Criteria { get; set; }
-        public IClickable[] GlobalButtons { get; set; }
-        public IClickable[] RecordButtons { get; set; }
+        public List<Field> Criteria { get; set; }
+        public List<IClickable> GlobalButtons { get; set; }
+        public List<IClickable> RecordButtons { get; set; }
         public Table Table { get; set; }
         public int DefaultPageIndex { get; set; }
         public int DefaultPageSize { get; set; }

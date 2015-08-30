@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
@@ -28,12 +29,17 @@ namespace Moonlit.Mvc.Templates
             }
             return this;
         }
-
         public Table Build()
         {
             return _table;
         }
 
+        public TableBuilder<T> DataSource(IEnumerable dataSource)
+        {
+            _table.DataSource = dataSource;
+            return this;
+        }
+  
         public TableBuilder<T> Add(TableColumn column)
         {
             _table.Columns.Add(column);

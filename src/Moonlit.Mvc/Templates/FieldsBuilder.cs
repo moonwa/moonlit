@@ -81,9 +81,9 @@ namespace Moonlit.Mvc.Templates
             return null;
         }
 
-        public Field[] Build()
+        public List<Field>  Build()
         {
-            return _fields.ToArray();
+            return _fields.ToList();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Dynamic;
@@ -19,8 +20,8 @@ namespace Moonlit.Mvc.Templates
         }
         public AdministrationSimpleEditTemplate()
         {
-            Fields = new Field[0];
-            Buttons = new IClickable[0];
+            Fields = new List<Field>();
+            Buttons = new List<IClickable>();
         }
         public override void OnReadyRender(ControllerContext context)
         {
@@ -30,7 +31,7 @@ namespace Moonlit.Mvc.Templates
             }
         }
 
-        public Field[] Fields { get; set; }
-        public IClickable[] Buttons { get; set; }
+        public List<Field> Fields { get; set; }
+        public List<IClickable> Buttons { get; set; }
     }
 }
