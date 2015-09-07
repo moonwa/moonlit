@@ -15,20 +15,25 @@ namespace Moonlit.Mvc
 
         public FormActionAttribute()
         {
-            
+
         }
 
         public override bool IsValidName(ControllerContext controllerContext, string actionName, MethodInfo methodInfo)
         {
             var formActionName = _actionName;
-            if (string.IsNullOrWhiteSpace(formActionName))
-            {
-                formActionName = methodInfo.Name;
-            }
+
             var action = controllerContext.Controller.ValueProvider.GetValue("form_action");
             if (action == null)
             {
+                if (string.IsNullOrWhiteSpace(formActionName))
+                {
+                    return true;
+                }
                 return false;
+            }
+            if (string.IsNullOrWhiteSpace(formActionName) && string.IsNullOrWhiteSpace(action.AttemptedValue))
+            {
+                return true;
             }
             return string.Equals(action.AttemptedValue, formActionName, StringComparison.OrdinalIgnoreCase);
         }

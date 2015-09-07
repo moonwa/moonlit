@@ -35,6 +35,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 .Add(tableBuilder.Literal(x => x.StartTime.Format(), controllerContext), MaintCultureTextResources.SystemJobStartTime, "StartTime")
                 .Add(tableBuilder.Literal(x => x.ExecuteTime.Format(), controllerContext), MaintCultureTextResources.SystemJobExecuteTime, "ExecuteTime")
                 .Add(tableBuilder.Literal(x => x.Status.Format(), controllerContext), MaintCultureTextResources.SystemJobStatus, "Status")
+                .Add(tableBuilder.Literal(x => x.Result.Format(), controllerContext), MaintCultureTextResources.SystemJobResult, "Result")
                 .Add(tableBuilder.Literal(x => x.CreationTime.Format(), controllerContext), MaintCultureTextResources.SystemJobCreationTime, "CreationTime")
                 .Build();
         }
