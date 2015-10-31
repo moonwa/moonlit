@@ -1,10 +1,9 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moonlit.Caching;
-using Moonlit.CastleExtensions.Caching;
+using Moonlit.Proxy.Caching;
 
-namespace Moonlit.CastleExtensions.TextFixtures.Caching
+namespace Moonlit.Proxy.TextFixtures.Caching
 {
     [TestClass]
     public class CachingTests
