@@ -67,7 +67,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Caching\CachingTest.cs" />
+    <Compile Include="Caching\CachingTests.cs" />
     <Compile Include="Caching\Person.cs" />
     <Compile Include="Caching\IPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

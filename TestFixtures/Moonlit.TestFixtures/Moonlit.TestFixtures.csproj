@@ -75,37 +75,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arithmetic\Sort.cs" />
-    <Compile Include="AssemblyDescriptor_Test.cs" />
-    <Compile Include="AttachDataAttributeTest.cs" />
-    <Compile Include="Buffer_Test.cs" />
-    <Compile Include="Arithmetic\Fibonacci.cs" />
-    <Compile Include="Configuration\ParserTest.cs" />
-    <Compile Include="Configuration\ValueArgument_Test.cs" />
-    <Compile Include="DictionaryHelper_Test.cs" />
-    <Compile Include="DynamicDictionaryMapperTest.cs" />
-    <Compile Include="Extensions\DecimalExtensions.cs" />
-    <Compile Include="Helpers\ByteExtensions_Test.cs" />
-    <Compile Include="Helpers\StringHelperTest.cs" />
-    <Compile Include="Helpers\UriBuilderExtensions_Test.cs" />
-    <Compile Include="Linq\Expressions\DynamicMethodExecutorTest.cs" />
+    <Compile Include="Arithmetic\QuickSortTests.cs" />
+    <Compile Include="Arithmetic\SortTest.cs" />
+    <Compile Include="AssemblyDescriptorTests.cs" />
+    <Compile Include="AttachDataAttributeTests.cs" />
+    <Compile Include="BufferTests.cs" />
+    <Compile Include="Arithmetic\FibonacciTests.cs" />
+    <Compile Include="Configuration\ParserTests.cs" />
+    <Compile Include="Configuration\ValueArgumentTests.cs" />
+    <Compile Include="DictionaryHelperTests.cs" />
+    <Compile Include="DynamicDictionaryMapperTests.cs" />
+    <Compile Include="Extensions\DecimalExtensionsTests.cs" />
+    <Compile Include="Helpers\ByteExtensionsTests.cs" />
+    <Compile Include="Helpers\StringExtensionsTests.cs" />
+    <Compile Include="Helpers\StringHelperTests.cs" />
+    <Compile Include="Helpers\UriBuilderExtensionsTests.cs" />
+    <Compile Include="Linq\Expressions\DynamicMethodExecutorTests.cs" />
     <Compile Include="IO\ProtocolAdapter_Test.cs" />
-    <Compile Include="Mef\MefResolvorFixture.cs" />
-    <Compile Include="ObjectTranslators\DictionaryTranslator_Test.cs" />
-    <Compile Include="ObjectTranslators\ObjectTranslatorTest.cs" />
-    <Compile Include="Reflection\Emit\GeneratedObject_Test.cs" />
-    <Compile Include="PatternDesign\Observable_Test.cs" />
-    <Compile Include="PatternDesign\Singleton_Test.cs" />
-    <Compile Include="Diagnostics\Profier_Test.cs" />
+    <Compile Include="Mef\MefResolvorTests.cs" />
+    <Compile Include="ObjectTranslators\DictionaryTranslatorTests.cs" />
+    <Compile Include="ObjectTranslators\ObjectTranslatorTests.cs" />
+    <Compile Include="Reflection\Emit\GeneratedObjectTests.cs" />
+    <Compile Include="PatternDesign\ObservableTests.cs" />
+    <Compile Include="PatternDesign\SingletonTests.cs" />
+    <Compile Include="Diagnostics\ProfierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ObjectTranslators\ReaderTranslator_Test.cs" />
-    <Compile Include="Reflection\ProxyTest.cs" />
-    <Compile Include="Services\Spelling\SpellingExtensionsTest.cs" />
-    <Compile Include="SymmetricAlgorithmExtensionsTest.cs" />
-    <Compile Include="Text\WordEnumeratorTest.cs" />
-    <Compile Include="TypeResolver_Test.cs" />
-    <Compile Include="XmlComparerTest.cs" />
-    <Compile Include="Xml\XmlMergeTest.cs" />
+    <Compile Include="ObjectTranslators\ReaderTranslatorTests.cs" />
+    <Compile Include="Reflection\ProxyTests.cs" />
+    <Compile Include="Services\Spelling\SpellingExtensionsTests.cs" />
+    <Compile Include="SymmetricAlgorithmExtensionsTests.cs" />
+    <Compile Include="Text\WordEnumeratorTests.cs" />
+    <Compile Include="TypeResolverTests.cs" />
+    <Compile Include="XmlComparerTests.cs" />
+    <Compile Include="Xml\XmlMergeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">

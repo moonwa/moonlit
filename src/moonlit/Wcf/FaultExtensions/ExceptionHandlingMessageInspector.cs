@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
@@ -7,7 +7,7 @@ namespace Moonlit.Wcf.FaultExtensions
 {
     public class ExceptionHandlingMessageInspector : IClientMessageInspector
     {
-        public void AfterReceiveReply(ref¡¡Message reply, object correlationState)
+        public void AfterReceiveReply(refã€€Message reply, object correlationState)
         {
             if (!reply.IsFault)
             {
@@ -31,7 +31,7 @@ namespace Moonlit.Wcf.FaultExtensions
             return (Exception)exceptionDetail.DeserializeException();
         }
 
-        public object BeforeSendRequest(ref¡¡Message request, IClientChannel channel)
+        public object BeforeSendRequest(refã€€Message request, IClientChannel channel)
         {
             return null;
         }

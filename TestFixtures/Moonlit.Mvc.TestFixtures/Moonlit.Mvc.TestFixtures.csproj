@@ -80,7 +80,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ToEntityFixture.cs" />
+    <Compile Include="ToEntityTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

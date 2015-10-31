@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.ObjectModel;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -10,7 +10,7 @@ namespace Moonlit.Wcf.FaultExtensions
     public class ExceptionHandlingBehavior  : IOperationBehavior, IContractBehavior, IEndpointBehavior,
                                                       IServiceBehavior
     { 
-        #region¡¡ IOperationBehavior¡¡Members
+        #regionã€€ IOperationBehaviorã€€Members
 
         public void AddBindingParameters(OperationDescription operationDescription,
                                          BindingParameterCollection bindingParameters)
@@ -33,7 +33,7 @@ namespace Moonlit.Wcf.FaultExtensions
 
         #endregion
 
-        #region¡¡ IEndpointBehavior¡¡Members
+        #regionã€€ IEndpointBehaviorã€€Members
 
         public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
         {
@@ -54,7 +54,7 @@ namespace Moonlit.Wcf.FaultExtensions
 
         #endregion
 
-        #region¡¡IServiceBehavior¡¡Members
+        #regionã€€IServiceBehaviorã€€Members
 
         public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase,
                                          Collection<ServiceEndpoint> endpoints,
@@ -64,7 +64,7 @@ namespace Moonlit.Wcf.FaultExtensions
 
         public void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
-            foreach (ChannelDispatcher¡¡ channelDispatcher¡¡in¡¡serviceHostBase.ChannelDispatchers)
+            foreach (ChannelDispatcherã€€ channelDispatcherã€€inã€€serviceHostBase.ChannelDispatchers)
             {
                 channelDispatcher.ErrorHandlers.Add(new ServiceErrorHandler( ));
             }
@@ -76,7 +76,7 @@ namespace Moonlit.Wcf.FaultExtensions
 
         #endregion
 
-        #region¡¡IContractBehavior¡¡Members
+        #regionã€€IContractBehaviorã€€Members
 
         public void AddBindingParameters(ContractDescription contractDescription, ServiceEndpoint endpoint,
                                          BindingParameterCollection bindingParameters)
