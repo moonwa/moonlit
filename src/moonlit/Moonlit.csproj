@@ -120,6 +120,7 @@
     <Compile Include="Caching\CacheManagerExtensions.cs" />
     <Compile Include="Caching\RedisCacheManager.cs" />
     <Compile Include="DefaultFormatter.cs" />
+    <Compile Include="Extensions\DomainExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\WebNameHelper.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="IFlash.cs" />
     <Compile Include="IFormatter.cs" />
     <Compile Include="ILanguageLoader.cs" />
+    <Compile Include="IO\FileInfoHelper.cs" />
     <Compile Include="ITypeResolvor.cs" />
     <Compile Include="IValue.cs" />
     <Compile Include="Properties\MoonlitCultureTextResources.cs" />

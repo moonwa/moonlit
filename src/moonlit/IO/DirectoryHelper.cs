@@ -3,13 +3,7 @@ using System.IO;
 
 namespace Moonlit.IO
 {
-    public static class FileHelper
-    {
-        public static void RemoveAttribute(this FileInfo fi, FileAttributes attributes)
-        {
-            fi.Attributes = (FileAttributes)((ulong)fi.Attributes & (0xFFFFFFFF ^ (ulong)attributes));
-        }
-    }
+  
     public static class DirectoryHelper
     {
         public static void EnsureFromFile(string filename)
