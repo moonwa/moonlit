@@ -7,7 +7,6 @@ namespace Moonlit.Caching
 {
     public class MemoryCacheManager : ICacheManager
     {
-        private Timer _timer;
         private readonly object _itemsLocker = new object();
         /// <summary>
         /// the defautl expired time
@@ -19,35 +18,8 @@ namespace Moonlit.Caching
         public MemoryCacheManager()
         {
             DefaultExpiredTime = TimeSpan.FromMinutes(5);
-            _timer = new Timer(OnTimer, null, TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(60));
-        }
 
-        private void OnTimer(object state)
-        {
-            lock (_itemsLocker)
-            {
-                List<string> removeKeys = new List<string>();
-                foreach (var cacheItem in _cacheItems)
-                {
-                    if (cacheItem.Value.ExpiredTime < DateTime.Now)
-                    {
-                        removeKeys.Add(cacheItem.Key);
-                    }
-                }
-                foreach (var removeKey in removeKeys)
-                {
-                    _cacheItems.Remove(removeKey);
-                }
-            }
         }
-
-        class CacheItem
-        {
-            public object Data { get; set; }
-            public DateTime ExpiredTime { get; set; }
-        }
-
-        readonly IDictionary<string, CacheItem> _cacheItems = new Dictionary<string, CacheItem>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// set a item into cache
@@ -67,17 +39,14 @@ namespace Moonlit.Caching
         {
             return Get(key, typeof(object)) != null;
         }
+        private System.Runtime.Caching.MemoryCache _cacheStore = new System.Runtime.Caching.MemoryCache("aa");
 
         public void Set(string key, object value, TimeSpan? expiredTime)
         {
             expiredTime = expiredTime ?? DefaultExpiredTime;
             lock (_itemsLocker)
             {
-                _cacheItems[key] = new CacheItem
-                {
-                    Data = value,
-                    ExpiredTime = DateTime.Now.Add(expiredTime.Value)
-                };
+                _cacheStore.Set(key, value, DateTimeOffset.Parse(expiredTime.ToString()));
             }
         }
 
@@ -95,17 +64,7 @@ namespace Moonlit.Caching
         {
             lock (_itemsLocker)
             {
-                CacheItem item;
-                if (_cacheItems.TryGetValue(key, out item))
-                {
-                    if (item.ExpiredTime < DateTime.Now)
-                    {
-                        _cacheItems.Remove(key);
-                        return null;
-                    }
-                    return item.Data;
-                }
-                return null;
+                return _cacheStore.Get(key);
             }
         }
 
@@ -124,7 +83,7 @@ namespace Moonlit.Caching
         {
             lock (_itemsLocker)
             {
-                _cacheItems.Remove(key);
+                _cacheStore.Remove(key);
             }
         }
     }
