@@ -1,19 +1,8 @@
-﻿#if !NUNIT
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moonlit.Configuration.ConsoleParameter;
-
-#else
-using NUnit.Framework;
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestContext = Moonlit.Diagnostics.TestContextHelper;
-#endif
+ 
 namespace Moonlit.TestFixtures.Configuration
 {
-    
-    
     /// <summary>
     ///This is a test class for ValueArgument_Test and is intended
     ///to contain all ValueArgument_Test Unit Tests

@@ -14,6 +14,27 @@ namespace Moonlit.Collections
             return collection == null || !collection.Any();
         }
 
+        public static IEnumerable<T> Repeat<T>(this T item, int count = 0)
+        {
+            if (count == 0)
+            {
+                while (true)
+                {
+                    yield return item;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    yield return item;
+                }
+            }
+        }
+        public static IEnumerable<TLocal[]> Matrix<TGenerate, TLocal>(this IEnumerable<IEnumerable<TGenerate>> source, MatrixBuilder<TGenerate, TLocal>.Iterator iterator)
+        {
+            return new MatrixBuilder<TGenerate, TLocal>(source, iterator);
+        }
         public static TResult FirstNotNull<T, TResult>(this IEnumerable<T> collection, Func<T, TResult> selector)
         {
             foreach (var item in collection)
