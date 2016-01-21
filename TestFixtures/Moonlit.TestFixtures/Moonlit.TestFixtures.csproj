@@ -81,6 +81,7 @@
     <Compile Include="AttachDataAttributeTests.cs" />
     <Compile Include="BufferTests.cs" />
     <Compile Include="Arithmetic\FibonacciTests.cs" />
+    <Compile Include="Caching\MemoryCacheManagerTest.cs" />
     <Compile Include="Collections\DimensionIteratorTests.cs" />
     <Compile Include="Configuration\ParserTests.cs" />
     <Compile Include="Configuration\ValueArgumentTests.cs" />

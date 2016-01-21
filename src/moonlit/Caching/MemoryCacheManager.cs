@@ -46,7 +46,7 @@ namespace Moonlit.Caching
             expiredTime = expiredTime ?? DefaultExpiredTime;
             lock (_itemsLocker)
             {
-                _cacheStore.Set(key, value, DateTimeOffset.Parse(expiredTime.ToString()));
+                _cacheStore.Set(key, value, DateTimeOffset.Now.Add(expiredTime.Value));
             }
         }
 
