@@ -17,7 +17,7 @@ namespace Moonlit.Mvc
                 {
                     if (!mappingTo.OnlyNotPostback || !context.IsPostback || propertyMatadata.IsReadOnly)
                     {
-                        if (entityAccessor.HasPropertyGetter(mappingTo.To) && entityAccessor.HasPropertySetter(propertyMatadata.PropertyName))
+                        if (entityAccessor.HasPropertyGetter(mappingTo.To) && modelAccessor.HasPropertySetter(propertyMatadata.PropertyName))
                         {
                             var value = entityAccessor.GetProperty(entity, mappingTo.To ?? propertyMatadata.PropertyName);
                             modelAccessor.SetProperty(model, propertyMatadata.PropertyName, value);
@@ -46,7 +46,11 @@ namespace Moonlit.Mvc
                 var mappingTo = propertyMatadata.GetMapping();
                 if (mappingTo != null)
                 {
-                    entityAccessor.SetProperty(entity, mappingTo.To ?? propertyMatadata.PropertyName, propertyMatadata.Model);
+                    var propertyName = mappingTo.To ?? propertyMatadata.PropertyName;
+                    if (entityAccessor.HasPropertySetter(propertyName))
+                    {
+                        entityAccessor.SetProperty(entity, propertyName, propertyMatadata.Model);
+                    }
                 }
             }
             IToEntity<TEntity> to = model as IToEntity<TEntity>;
