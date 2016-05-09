@@ -148,6 +148,7 @@
     <Compile Include="Extensions\public static class SelectListProviderExtensions.cs" />
     <Compile Include="FlashMessage.cs" />
     <Compile Include="FlashMessageType.cs" />
+    <Compile Include="FromEntityContext.cs" />
     <Compile Include="Html\Control.cs" />
     <Compile Include="Controls\Field.cs" />
     <Compile Include="Controls\IClickable.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="IEntityMapper.cs" />
     <Compile Include="IeVersionCriteria.cs" />
     <Compile Include="IeVersionCriteriaOperator.cs" />
+    <Compile Include="IFromEntity.cs" />
     <Compile Include="IHtmlElementCriteria.cs" />
     <Compile Include="IMvcConfigure.cs" />
     <Compile Include="INamed.cs" />
@@ -220,6 +222,8 @@
     <Compile Include="Theme.cs" />
     <Compile Include="ThemeAttribute.cs" />
     <Compile Include="Themes.cs" />
+    <Compile Include="ToEntityContext.cs" />
+    <Compile Include="ToEntityExtensions.cs" />
     <Compile Include="Url\UrlExtensions.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserPrincipal.cs" />
