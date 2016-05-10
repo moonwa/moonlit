@@ -105,26 +105,6 @@
     <Compile Include="Domains\SystemJobStatus.cs" />
     <Compile Include="Domains\UserLoginFailedLog.cs" />
     <Compile Include="MaintPrivileges.cs" />
-    <Compile Include="Migrations\201507262146584_Init.cs" />
-    <Compile Include="Migrations\201507262146584_Init.Designer.cs">
-      <DependentUpon>201507262146584_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508130935305_ChangeUserRoleM2M.cs" />
-    <Compile Include="Migrations\201508130935305_ChangeUserRoleM2M.Designer.cs">
-      <DependentUpon>201508130935305_ChangeUserRoleM2M.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508131424169_AddLengthOfRoleName.cs" />
-    <Compile Include="Migrations\201508131424169_AddLengthOfRoleName.Designer.cs">
-      <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508200052571_AddSystemJob.cs" />
-    <Compile Include="Migrations\201508200052571_AddSystemJob.Designer.cs">
-      <DependentUpon>201508200052571_AddSystemJob.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508240704569_AddUserLoginFailLogs.cs" />
-    <Compile Include="Migrations\201508240704569_AddUserLoginFailLogs.Designer.cs">
-      <DependentUpon>201508240704569_AddUserLoginFailLogs.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
     <Compile Include="Domains\User.cs" />
@@ -152,21 +132,6 @@
     <None Include="app.config" />
     <None Include="Moonlit.Mvc.Maintenance.nuspec" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Migrations\201507262146584_Init.resx">
-      <DependentUpon>201507262146584_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508130935305_ChangeUserRoleM2M.resx">
-      <DependentUpon>201508130935305_ChangeUserRoleM2M.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508131424169_AddLengthOfRoleName.resx">
-      <DependentUpon>201508131424169_AddLengthOfRoleName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508200052571_AddSystemJob.resx">
-      <DependentUpon>201508200052571_AddSystemJob.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508240704569_AddUserLoginFailLogs.resx">
-      <DependentUpon>201508240704569_AddUserLoginFailLogs.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\languages\zh-cn.lang">
       <RunCustomToolOn>MaintCultureTexts.tt</RunCustomToolOn>
     </EmbeddedResource>

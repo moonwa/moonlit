@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Moonlit.Mvc.Templates;
 
 namespace Moonlit.Mvc.Dojo
 {
@@ -13,31 +14,31 @@ namespace Moonlit.Mvc.Dojo
         public bool IsAjaxSubmitForm { get; set; }
         public DojoTheme()
         {
-//            this.RegisterControl(typeof(SimpleBoxTemplate), ThemeName + "/Templates/SimpleBox");
-//            this.RegisterControl(typeof(AdministrationDashboardTemplate), ThemeName + "/templates/administration/Dashboard");
-//            this.RegisterControl(typeof(AdministrationSimpleEditTemplate), ThemeName + "/templates/administration/SimpleEdit");
-//            this.RegisterControl(typeof(AdministrationSimpleListTemplate), ThemeName + "/templates/administration/SimpleList");
-//
-//            this.RegisterControl(typeof(List), ThemeName + "/Controls/List");
-//            this.RegisterControl(typeof(Hidden), ThemeName + "/Controls/Hidden");
-//            this.RegisterControl(typeof(TextBox), ThemeName + "/Controls/TextBox");
-//            this.RegisterControl(typeof(MultiLineTextBox), ThemeName + "/Controls/MultiLineTextBox");
-//            this.RegisterControl(typeof(PasswordBox), ThemeName + "/Controls/PasswordBox");
-//            this.RegisterControl(typeof(Button), ThemeName + "/Controls/Button");
-//            this.RegisterControl(typeof(Field), ThemeName + "/Controls/Field");
-//            this.RegisterControl(typeof(Link), ThemeName + "/Controls/Link");
-//            this.RegisterControl(typeof(Pager), ThemeName + "/Controls/Pager");
-//            this.RegisterControl(typeof(ControlCollection), ThemeName + "/Controls/ControlCollection");
-//            this.RegisterControl(typeof(Form), ThemeName + "/Controls/Form");
-//            this.RegisterControl(typeof(Panel), ThemeName + "/Controls/Panel");
-//            this.RegisterControl(typeof(Table), ThemeName + "/Controls/Table");
-//            this.RegisterControl(typeof(Literal), ThemeName + "/Controls/Literal");
-//            this.RegisterControl(typeof(SelectList), ThemeName + "/Controls/SelectList");
-//            this.RegisterControl(typeof(CheckBox), ThemeName + "/Controls/CheckBox");
-//            this.RegisterControl(typeof(DatePicker), ThemeName + "/Controls/DatePicker");
-//            this.RegisterControl(typeof(MultiSelectList), ThemeName + "/Controls/MultiSelectList");
+            this.RegisterControl(typeof(SimpleBoxTemplate), ThemeName + "/Templates/SimpleBox");
+            //            this.RegisterControl(typeof(AdministrationDashboardTemplate), ThemeName + "/templates/administration/Dashboard");
+            //            this.RegisterControl(typeof(AdministrationSimpleEditTemplate), ThemeName + "/templates/administration/SimpleEdit");
+            //            this.RegisterControl(typeof(AdministrationSimpleListTemplate), ThemeName + "/templates/administration/SimpleList");
+            //
+            //            this.RegisterControl(typeof(List), ThemeName + "/Controls/List");
+            //            this.RegisterControl(typeof(Hidden), ThemeName + "/Controls/Hidden");
+            //            this.RegisterControl(typeof(TextBox), ThemeName + "/Controls/TextBox");
+            //            this.RegisterControl(typeof(MultiLineTextBox), ThemeName + "/Controls/MultiLineTextBox");
+            //            this.RegisterControl(typeof(PasswordBox), ThemeName + "/Controls/PasswordBox");
+            //            this.RegisterControl(typeof(Button), ThemeName + "/Controls/Button");
+            //            this.RegisterControl(typeof(Field), ThemeName + "/Controls/Field");
+            //            this.RegisterControl(typeof(Link), ThemeName + "/Controls/Link");
+            //            this.RegisterControl(typeof(Pager), ThemeName + "/Controls/Pager");
+            //            this.RegisterControl(typeof(ControlCollection), ThemeName + "/Controls/ControlCollection");
+            //            this.RegisterControl(typeof(Form), ThemeName + "/Controls/Form");
+            //            this.RegisterControl(typeof(Panel), ThemeName + "/Controls/Panel");
+            //            this.RegisterControl(typeof(Table), ThemeName + "/Controls/Table");
+            //            this.RegisterControl(typeof(Literal), ThemeName + "/Controls/Literal");
+            //            this.RegisterControl(typeof(SelectList), ThemeName + "/Controls/SelectList");
+            //            this.RegisterControl(typeof(CheckBox), ThemeName + "/Controls/CheckBox");
+            //            this.RegisterControl(typeof(DatePicker), ThemeName + "/Controls/DatePicker");
+            //            this.RegisterControl(typeof(MultiSelectList), ThemeName + "/Controls/MultiSelectList");
         }
-        private const string ThemeName = "clip-one";
+        private const string ThemeName = "dojo";
         protected override void PreRequest(RequestContext requestContext)
         {
             //UrlHelper url = new UrlHelper(requestContext);
