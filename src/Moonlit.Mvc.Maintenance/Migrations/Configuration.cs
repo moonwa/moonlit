@@ -10,8 +10,8 @@ namespace Moonlit.Mvc.Maintenance.Migrations
     {
         public Configuration()
         {
-//            AutomaticMigrationsEnabled = true;
-//            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationsEnabled = true;
+            //            AutomaticMigrationDataLossAllowed = true;
             SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
         protected override void Seed(MaintDbContext context)
@@ -47,9 +47,9 @@ namespace Moonlit.Mvc.Maintenance.Migrations
                     model.DBVersion = "0.2";
                     model.Save(new MaintDbContextMaintDbRepository(context));
 
-                
-                context.SaveChanges();
-                    tran.Complete(); 
+
+                    context.SaveChanges();
+                    tran.Complete();
                 }
             }
 
@@ -58,9 +58,9 @@ namespace Moonlit.Mvc.Maintenance.Migrations
                 cultureInfo.Import(new MaintDbContextMaintDbRepository(context), LanguageItemConverType.All);
             }
 
-        } 
+        }
     }
 
 
-     
+
 }

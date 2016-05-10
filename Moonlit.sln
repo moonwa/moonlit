@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit", "src\moonlit\Moonlit.csproj", "{318A3070-6896-4E82-B52B-7A1959156DF1}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFixtures", "TestFixtures", "{5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0216D058-FD7E-444D-9012-68848B65E767}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.FxCopRules", "src\Moonlit.FxCopRules\Moonlit.FxCopRules.csproj", "{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B91EF314-A324-4660-A6B8-251E856266A4}"
 	ProjectSection(SolutionItems) = preProject
@@ -37,14 +35,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.TestFixtures", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestRule", "TestFixtures\MyTestRule\MyTestRule.csproj", "{8603F033-823B-4419-980E-075C6A23EC29}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rulesets", "rulesets", "{E3652F98-08E6-4349-9FEC-8F4DBBB7AF98}"
-	ProjectSection(SolutionItems) = preProject
-		rulesets\moonlit.maint.ruleset = rulesets\moonlit.maint.ruleset
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Proxy", "src\Moonlit.Proxy\Moonlit.Proxy.csproj", "{6DBDAC37-0EAA-424A-A343-B38EFA297966}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Proxy.TextFixtures", "TestFixtures\Moonlit.Proxy.TextFixtures\Moonlit.Proxy.TextFixtures.csproj", "{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.Themes.Dojo", "Moonlit.Mvc.Themes.Dojo\Moonlit.Mvc.Themes.Dojo.csproj", "{412D5A86-0B40-41DC-A16E-530FDD412A1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{F5B15C6F-83C1-42D7-BB7C-6DDECD546671}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.Maintenance.Sample", "sample\Moonlit.Mvc.Maintenance.Sample\Moonlit.Mvc.Maintenance.Sample.csproj", "{464F35CD-26AF-461C-97CF-FB3A7C984FCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,14 +77,6 @@ Global
 		{923990DF-2196-48E6-AA68-A5B9452594B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{923990DF-2196-48E6-AA68-A5B9452594B4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{923990DF-2196-48E6-AA68-A5B9452594B4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FD2E4B99-77AA-4956-A1AC-DF275629DA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD2E4B99-77AA-4956-A1AC-DF275629DA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD2E4B99-77AA-4956-A1AC-DF275629DA44}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -166,6 +157,22 @@ Global
 		{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,7 +181,6 @@ Global
 		{318A3070-6896-4E82-B52B-7A1959156DF1} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{D0B87197-7C44-49B1-ADFC-57B50ED6B24D} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{923990DF-2196-48E6-AA68-A5B9452594B4} = {5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}
-		{DD03C69C-6BFE-470F-A53B-A52755A7F7AD} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{FD2E4B99-77AA-4956-A1AC-DF275629DA44} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{182BA41F-7E45-468C-9E3B-0E36763BE579} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{4571D368-2FFC-42C8-8F98-22D79D9AC3B1} = {0216D058-FD7E-444D-9012-68848B65E767}
@@ -185,6 +191,8 @@ Global
 		{8603F033-823B-4419-980E-075C6A23EC29} = {5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}
 		{6DBDAC37-0EAA-424A-A343-B38EFA297966} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17} = {5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}
+		{412D5A86-0B40-41DC-A16E-530FDD412A1D} = {0216D058-FD7E-444D-9012-68848B65E767}
+		{464F35CD-26AF-461C-97CF-FB3A7C984FCD} = {F5B15C6F-83C1-42D7-BB7C-6DDECD546671}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

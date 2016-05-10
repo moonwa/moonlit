@@ -14,7 +14,6 @@ namespace Moonlit.Mvc.Maintenance.Domains
 
         public MaintDbContext()
         {
-
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

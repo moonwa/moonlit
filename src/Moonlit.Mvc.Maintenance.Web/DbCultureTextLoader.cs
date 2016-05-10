@@ -10,8 +10,6 @@ namespace Moonlit.Mvc.Maintenance
 {
     public class DbCultureTextLoader : ILanguageLoader
     {
-
-
         public string Get(string key)
         {
             var culture = GetCulture(Thread.CurrentThread.CurrentUICulture.Name);

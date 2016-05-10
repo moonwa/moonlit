@@ -75,10 +75,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Moonlit.FxCopRules\Moonlit.FxCopRules.csproj">
-      <Project>{dd03c69c-6bfe-470f-a53b-a52755a7f7ad}</Project>
-      <Name>Moonlit.FxCopRules</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Moonlit.Mvc\Moonlit.Mvc.csproj">
       <Project>{FD2E4B99-77AA-4956-A1AC-DF275629DA44}</Project>
       <Name>Moonlit.Mvc</Name>
