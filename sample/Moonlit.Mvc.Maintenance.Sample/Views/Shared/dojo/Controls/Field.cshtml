@@ -10,9 +10,11 @@
 else
 {
     <dl>
-        <label class="col-sm-2 control-label" for="@Model.FieldName">
-            @Model.Label
-        </label>
+        <dt>
+            <label class="col-sm-2 control-label" for="@Model.FieldName">
+                @(Model.Label ?? Model.FieldName)
+            </label>
+        </dt>
         <dd>
             @Html.Render(Model.Control)
         </dd>
