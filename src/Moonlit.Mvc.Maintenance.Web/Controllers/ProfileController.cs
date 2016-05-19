@@ -15,7 +15,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Settings()
         {
             ProfileSettingsModel model = new ProfileSettingsModel();
-            var db = MaintDbContext;
+            var db = Database;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name);
             model.SetInnerObject(user);
             return Template(model.CreateTemplate(ControllerContext));
@@ -27,7 +27,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
+            var db = Database;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name && x.IsEnabled);
             if (user == null)
             {
@@ -51,7 +51,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult ChangePassword()
         {
             var model = new ProfileChangePasswordModel();
-            var db = MaintDbContext;
+            var db = Database;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name);
             model.SetInnerObject(user);
             return Template(model.CreateTemplate(ControllerContext));
@@ -63,7 +63,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
+            var db = Database;
             var user = db.Users.FirstOrDefault(x => x.LoginName == User.Identity.Name && x.IsEnabled);
             if (user == null)
             {

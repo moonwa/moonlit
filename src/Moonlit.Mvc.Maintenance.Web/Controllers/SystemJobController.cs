@@ -18,14 +18,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "SystemJobIndex", Name = "SystemJob", Parent = "Site", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(SystemJobIndexModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext, Database));
         }
 
         [MoonlitAuthorize(Roles = MaintPrivileges.PrivilegeSite)]
         [SitemapNode(Text = "SystemJobEdit", Parent = "SystemJobs", ResourceType = typeof (MaintCultureTextResources))]
         public ActionResult Edit(long id)
         {
-            var entity = MaintDbContext.SystemJobs.FirstOrDefault(x=>x.SystemJobId == id);
+            var entity = Database.SystemJobs.FirstOrDefault(x=>x.SystemJobId == id);
             if (entity == null )
             {
                 return HttpNotFound();
@@ -41,7 +41,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(SystemJobEditModel model, long id)
         {
-            var entity = MaintDbContext.SystemJobs.FirstOrDefault(x => x.SystemJobId == id);
+            var entity = Database.SystemJobs.FirstOrDefault(x => x.SystemJobId == id);
             if (entity == null /*TODO: check entity should be edit*/)
             {
                 return HttpNotFound();
@@ -53,7 +53,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
             using (var trans = new TransactionScope())
             {
-                await MaintDbContext.SaveChangesAsync();
+                await Database.SaveChangesAsync();
                 trans.Complete();
             }
             await SetFlashAsync(new FlashMessage
@@ -69,11 +69,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction("Abort")]
         public async Task<ActionResult> Abort(SystemJobIndexModel model, long[] ids)
         {
-            foreach (var item in MaintDbContext.SystemJobs.Where(x => ids.Contains(x.SystemJobId) && x.Status == SystemJobStatus.Init))
+            foreach (var item in Database.SystemJobs.Where(x => ids.Contains(x.SystemJobId) && x.Status == SystemJobStatus.Init))
             {
                  item.Status = SystemJobStatus.Abort;
             }
-            await MaintDbContext.SaveChangesAsync();
+            await Database.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
                 Text = MaintCultureTextResources.SuccessToSave,

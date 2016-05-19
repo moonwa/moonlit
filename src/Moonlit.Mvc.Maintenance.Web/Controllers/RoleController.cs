@@ -35,11 +35,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var role in MaintDbContext.Roles.Where(x => x.IsEnabled && !x.IsBuildIn && ids.Contains(x.RoleId)).ToList())
+                foreach (var role in Database.Roles.Where(x => x.IsEnabled && !x.IsBuildIn && ids.Contains(x.RoleId)).ToList())
                 {
                     role.IsEnabled = false;
                 }
-                MaintDbContext.SaveChanges();
+                Database.SaveChanges();
             }
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -53,11 +53,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var role in MaintDbContext.Roles.Where(x => !x.IsEnabled && !x.IsBuildIn && ids.Contains(x.RoleId)).ToList())
+                foreach (var role in Database.Roles.Where(x => !x.IsEnabled && !x.IsBuildIn && ids.Contains(x.RoleId)).ToList())
                 {
                     role.IsEnabled = true;
                 }
-                MaintDbContext.SaveChanges();
+                Database.SaveChanges();
             }
             return Template(model.CreateTemplate(ControllerContext));
         }
@@ -80,7 +80,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
+            var db = Database;
 
             db.Roles.Add(role);
             await db.SaveChangesAsync();
@@ -95,7 +95,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "RoleEdit", ResourceType = typeof(MaintCultureTextResources), Parent = "roles")]
         public async Task<ActionResult> Edit(int id)
         {
-            var db = MaintDbContext;
+            var db = Database;
             var role = await db.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
             if (role == null)
             {
@@ -112,7 +112,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost] 
         public async Task<ActionResult> Edit(RoleEditModel model, int id)
         {
-            var role = await MaintDbContext.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
+            var role = await Database.Roles.FirstOrDefaultAsync(x => x.RoleId == id);
             if (role == null) 
             {
                 return HttpNotFound();
@@ -123,7 +123,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(model.CreateTemplate(ControllerContext));
             }
 
-            await MaintDbContext.SaveChangesAsync();
+            await Database.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
                 Text = MaintCultureTextResources.SuccessToSave,

@@ -22,7 +22,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-        public IMaintDbRepository MaintDbContext { get; set; }
+        public MaintDbContext MaintDbContext { get; set; }
         private IQueryable GetDataSource(ControllerContext controllerContext)
         {
             var urlHelper = new UrlHelper(controllerContext.RequestContext);

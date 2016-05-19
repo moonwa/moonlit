@@ -18,11 +18,11 @@ namespace Moonlit.Mvc.Maintenance.Domains
         public string DisplayName { get; set; }
         public bool IsEnabled { get; set; }
 
-        public void Import(MaintDbContextMaintDbRepository repository, List<KeyValuePair<string, string>> cultureTexts, LanguageItemConverType languageItemConverType)
+        public void Import(MaintDbContext database, List<KeyValuePair<string, string>> cultureTexts, LanguageItemConverType languageItemConverType)
         {
             var culture = this;
             var originalCultureTexts =
-                repository.CultureTexts.Where(x => x.CultureId == culture.CultureId).ToList();
+                database.CultureTexts.Where(x => x.CultureId == culture.CultureId).ToList();
             foreach (var cultureText in cultureTexts)
             {
                 var text = (cultureText.Value ?? "").ToString();
@@ -36,7 +36,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
                         CultureId = culture.CultureId,
                         Name= key,
                     };
-                    repository.CultureTexts.Add(originalLanguageItem);
+                    database.CultureTexts.Add(originalLanguageItem);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
             }
         }
 
-        public void Import(MaintDbContextMaintDbRepository repository, LanguageItemConverType languageItemConverType)
+        public void Import(MaintDbContext database, LanguageItemConverType languageItemConverType)
         {
             var stream = typeof(Culture).Assembly.GetManifestResourceStream("Moonlit.Mvc.Maintenance.Properties.languages." + this.Name.ToLower() + ".lang");
             if (stream == null || stream == Stream.Null)
@@ -89,7 +89,7 @@ namespace Moonlit.Mvc.Maintenance.Domains
                 var key = kv.Key;
                 languageItems.Add(new KeyValuePair<string, string>(key, text));
             }
-            Import(repository, languageItems, languageItemConverType);
+            Import(database, languageItems, languageItemConverType);
         }
     }
 

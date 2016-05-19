@@ -3,6 +3,7 @@
 using System.Web.Mvc; 
 using System;  
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using Moonlit.Mvc;
 using Moonlit.Mvc.Templates;
 using Moonlit.Mvc.Maintenance.Domains;
@@ -45,9 +46,9 @@ namespace Moonlit.Mvc.Maintenance.Models
 		public bool? IsEnabled { get; set; }
 		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
 
-		public Template CreateTemplate(ControllerContext controllerContext)
+		public Template CreateTemplate(ControllerContext controllerContext, MaintDbContext database)
         {
-            var query = GetDataSource(controllerContext);
+            var query = GetDataSource(controllerContext, database);
             var template = new AdministrationSimpleListTemplate(query)
             { 
                 Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.AdminUserIndex,
@@ -249,9 +250,9 @@ namespace Moonlit.Mvc.Maintenance.Models
 		public string Name { get; set; }
 		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
 
-		public Template CreateTemplate(ControllerContext controllerContext)
+		public Template CreateTemplate(ControllerContext controllerContext, MaintDbContext db)
         {
-            var query = GetDataSource(controllerContext);
+            var query = GetDataSource(controllerContext, db);
             var template = new AdministrationSimpleListTemplate(query)
             { 
                 Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.CultureIndex,
@@ -417,9 +418,9 @@ namespace Moonlit.Mvc.Maintenance.Models
 		public string Name { get; set; }
 		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
 
-		public Template CreateTemplate(ControllerContext controllerContext)
+		public Template CreateTemplate(ControllerContext controllerContext, MaintDbContext repository)
         {
-            var query = GetDataSource(controllerContext);
+            var query = GetDataSource(controllerContext, repository);
             var template = new AdministrationSimpleListTemplate(query)
             { 
                 Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.CultureTextIndex,
@@ -585,9 +586,9 @@ namespace Moonlit.Mvc.Maintenance.Models
 		public DateTime? EndTime { get; set; }
 		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
 
-		public Template CreateTemplate(ControllerContext controllerContext)
+		public Template CreateTemplate(ControllerContext controllerContext, MaintDbContext database)
         {
-            var query = GetDataSource(controllerContext);
+            var query = GetDataSource(controllerContext, database);
             var template = new AdministrationSimpleListTemplate(query)
             { 
                 Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.ExceptionLogIndex,
@@ -622,9 +623,9 @@ namespace Moonlit.Mvc.Maintenance.Models
 		public SystemJobStatus? Status { get; set; }
 		partial void OnTemplate(AdministrationSimpleListTemplate template, ControllerContext controllerContext);
 
-		public Template CreateTemplate(ControllerContext controllerContext)
+		public Template CreateTemplate(ControllerContext controllerContext, MaintDbContext database)
         {
-            var query = GetDataSource(controllerContext);
+            var query = GetDataSource(controllerContext, database);
             var template = new AdministrationSimpleListTemplate(query)
             { 
                 Title = Moonlit.Mvc.Maintenance.Properties.MaintCultureTextResources.SystemJobIndex,

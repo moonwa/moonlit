@@ -24,7 +24,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [Display(Name = "用户管理", Description = "用户管理描述，这是一段很长的描述")]
         public ActionResult Index(AdminUserIndexModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext, Database));
         }
 
 
@@ -35,13 +35,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var adminUser in MaintDbContext.Users.Where(x => x.IsEnabled && !x.IsBuildIn && ids.Contains(x.UserId)).ToList())
+                foreach (var adminUser in Database.Users.Where(x => x.IsEnabled && !x.IsBuildIn && ids.Contains(x.UserId)).ToList())
                 {
                     adminUser.IsEnabled = false;
                 }
-                MaintDbContext.SaveChanges();
+                Database.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext,Database));
         }
         [FormAction("enable")]
         [ActionName("Index")]
@@ -50,13 +50,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var adminUser in MaintDbContext.Users.Where(x => !x.IsEnabled && !x.IsBuildIn && ids.Contains(x.UserId)).ToList())
+                foreach (var adminUser in Database.Users.Where(x => !x.IsEnabled && !x.IsBuildIn && ids.Contains(x.UserId)).ToList())
                 {
                     adminUser.IsEnabled = true;
                 }
-                MaintDbContext.SaveChanges();
+                Database.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext,Database));
         }
 
 
@@ -77,7 +77,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(model.CreateTemplate(ControllerContext));
             }
 
-            var db = MaintDbContext;
+            var db = Database;
             var loginName = model.LoginName.Trim();
             if (await db.Users.AnyAsync(x => x.LoginName == loginName))
             {
@@ -99,7 +99,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "编辑用户", Parent = "users")]
         public async Task<ActionResult> Edit(int id)
         {
-            var db = MaintDbContext;
+            var db = Database;
             var adminUser = await db.Users.FirstOrDefaultAsync(x => x.UserId == id);
             if (adminUser == null)
             {
@@ -116,7 +116,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(AdminUserEditModel model, int id)
         {
-            var user = MaintDbContext.Users.Include(x => x.Roles).FirstOrDefault(x => x.UserId == id);
+            var user = Database.Users.Include(x => x.Roles).FirstOrDefault(x => x.UserId == id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -130,7 +130,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             }
 
 
-            await MaintDbContext.SaveChangesAsync();
+            await Database.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
                 Text = MaintCultureTextResources.SuccessToSave,
@@ -152,11 +152,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [FormAction("Delete")]
         public async Task<ActionResult> DeleteUserLoginFailedLogIndex(UserLoginFailedLogIndexModel model, long[] ids)
         {
-            foreach (var item in MaintDbContext.UserLoginFailedLogs.Where(x => ids.Contains(x.UserLoginFailedLogId)).ToList())
+            foreach (var item in Database.UserLoginFailedLogs.Where(x => ids.Contains(x.UserLoginFailedLogId)).ToList())
             {
-                MaintDbContext.UserLoginFailedLogs.Remove(item);
+                Database.UserLoginFailedLogs.Remove(item);
             }
-            await MaintDbContext.SaveChangesAsync();
+            await Database.SaveChangesAsync();
             await SetFlashAsync(new FlashMessage
             {
                 Text = MaintCultureTextResources.SuccessToSave,

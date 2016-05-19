@@ -7,9 +7,9 @@ namespace Moonlit.Mvc.Maintenance
     public class UserLoader : IUserLoader
     {
         private readonly IPrivilegeLoader _privilegeLoader;
-        private readonly IMaintDbRepository _maintDbRepository;
+        private readonly MaintDbContext _maintDbRepository;
 
-        public UserLoader(IPrivilegeLoader privilegeLoader, IMaintDbRepository maintDbRepository)
+        public UserLoader(IPrivilegeLoader privilegeLoader, MaintDbContext maintDbRepository)
         {
             _privilegeLoader = privilegeLoader;
             _maintDbRepository = maintDbRepository;

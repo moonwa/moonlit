@@ -40,9 +40,8 @@ namespace Moonlit.Mvc.Maintenance.Models
                 .Build();
         }
 
-        private IQueryable GetDataSource(ControllerContext controllerContext)
-        {
-            var irepository = DependencyResolver.Current.GetService<IMaintDbRepository>();
+        private IQueryable GetDataSource(ControllerContext controllerContext, MaintDbContext irepository)
+        { 
             var query = irepository.SystemJobs.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Keyword))
             {

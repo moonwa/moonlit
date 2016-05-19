@@ -116,7 +116,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 
         public void OnToEntity(User entity, ToEntityContext context)
         {
-            var database = ((MaintControllerBase) context.ControllerContext.Controller).MaintDbContext;
+            var database = ((MaintControllerBase) context.ControllerContext.Controller).Database;
             entity.Roles = Roles.IsNullOrEmpty() ? new List<Role>() : database.Roles.Where(x => x.IsEnabled && Roles.Contains(x.RoleId)).ToList();
 
             if (!string.IsNullOrEmpty(Password))

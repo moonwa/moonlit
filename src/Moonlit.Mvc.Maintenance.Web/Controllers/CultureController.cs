@@ -15,7 +15,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Parent = "BasicData", Name = "Cultures", Text = "CultureIndex", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureIndexModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext, Database));
         }
         [FormAction("Disable")]
         [ActionName("Index")]
@@ -24,13 +24,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var culture in MaintDbContext.Cultures.Where(x => x.IsEnabled && ids.Contains(x.CultureId)).ToList())
+                foreach (var culture in Database.Cultures.Where(x => x.IsEnabled && ids.Contains(x.CultureId)).ToList())
                 {
                     culture.IsEnabled = false;
                 }
-                MaintDbContext.SaveChanges();
+                Database.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext,Database));
         }
         [FormAction("Enable")]
         [ActionName("Index")]
@@ -39,13 +39,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var adminUser in MaintDbContext.Cultures.Where(x => !x.IsEnabled && ids.Contains(x.CultureId)).ToList())
+                foreach (var adminUser in Database.Cultures.Where(x => !x.IsEnabled && ids.Contains(x.CultureId)).ToList())
                 {
                     adminUser.IsEnabled = true;
                 }
-                MaintDbContext.SaveChanges();
+                Database.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext, Database));
         }
 
         [SitemapNode(Text = "CultureTextCreate", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
@@ -63,7 +63,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
+            var db = Database;
             var name = model.Name.Trim(); ;
             if (db.Cultures.Any(x => x.Name == name))
             {
@@ -87,7 +87,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "CultureTextEdit", Parent = "cultures", ResourceType = typeof(MaintCultureTextResources))]
         public async Task<ActionResult> Edit(int id)
         {
-            var db = MaintDbContext;
+            var db = Database;
             var entity = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
             if (entity == null)
             {
@@ -101,7 +101,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(CultureEditModel model, int id)
         {
-            var db = MaintDbContext;
+            var db = Database;
             var entity = await db.Cultures.FirstOrDefaultAsync(x => x.CultureId == id);
             if (entity == null)
             {

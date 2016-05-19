@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using Moonlit.Mvc.Maintenance.Domains;
 using Moonlit.Mvc.Maintenance.Models;
 using Moonlit.Mvc.Maintenance.Properties;
-using Moonlit.Mvc.Maintenance.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,17 +16,10 @@ namespace Moonlit.Mvc.Maintenance.Controllers
     [MoonlitAuthorize(Roles = MaintPrivileges.PrivilegeCultureText)]
     public class CultureTextController : MaintControllerBase
     { 
-        private readonly IMaintDomainService _maintDomainService;
-
-        public CultureTextController(IMaintDomainService maintDomainService)
-        {
-            _maintDomainService = maintDomainService;
-        }
-
         [SitemapNode(Text = "CultureTextIndex", Name = "CultureTexts", Parent = "BasicData", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(CultureTextIndexModel model)
         {
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext, Database));
         }
         [FormAction("Delete")]
         [ActionName("index")]
@@ -36,14 +28,13 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         {
             if (ids != null && ids.Length > 0)
             {
-                foreach (var cultureText in MaintDbContext.CultureTexts.Where(x => ids.Contains(x.CultureTextId)).ToList())
+                foreach (var cultureText in Database.CultureTexts.Where(x => ids.Contains(x.CultureTextId)).ToList())
                 {
-                    MaintDbContext.CultureTexts.Remove(cultureText);
+                    Database.CultureTexts.Remove(cultureText);
                 }
-                MaintDbContext.SaveChanges();
-                _maintDomainService.ClearCultureTextsCache();
+                Database.SaveChanges();
             }
-            return Template(model.CreateTemplate(ControllerContext));
+            return Template(model.CreateTemplate(ControllerContext, Database));
         }
 
         [FormAction("Export")]
@@ -51,7 +42,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public ActionResult Export(CultureTextIndexModel model, int[] ids)
         {
-            var db = MaintDbContext;
+            var db = Database;
 
             var culture = db.Cultures.FirstOrDefault(x => x.CultureId == (int?)model.Culture);
             if (culture == null)
@@ -79,7 +70,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
+            var db = Database;
 
 
             var culture = db.Cultures.FirstOrDefault(x => x.IsEnabled && x.CultureId == (int?)model.Culture);
@@ -106,8 +97,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                     }
                 }
             }
-            await db.SaveChangesAsync();
-            _maintDomainService.ClearCultureTextsCache();
+            await db.SaveChangesAsync(); 
             await SetFlashAsync(new FlashMessage
             {
                 Text = MaintCultureTextResources.SuccessToSave,
@@ -127,7 +117,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CultureTextCreateModel model)
         {
-            var db = MaintDbContext;
+            var db = Database;
             CultureText cultureText= new CultureText();
             if (!TryUpdateModel(cultureText, model))
             {
@@ -155,14 +145,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
             });
-            _maintDomainService.ClearCultureTextsCache();
+ 
             return Create( );
         }
 
         [SitemapNode(Text = "CultureTextEdit", Parent = "culturetexts", ResourceType = typeof(MaintCultureTextResources))]
         public async Task<ActionResult> Edit(int id)
         {
-            var db = MaintDbContext;
+            var db = Database;
             var entity = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id) ;
             if (entity == null)
             {
@@ -177,7 +167,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Text = "编辑词条", Parent = "culturetexts")]
         public async Task<ActionResult> Edit(CultureTextEditModel model, int id)
         {
-            var db = MaintDbContext;
+            var db = Database;
             var entity = await db.CultureTexts.FirstOrDefaultAsync(x => x.CultureTextId == id);
             if (entity == null)
             {
@@ -194,8 +184,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             {
                 Text = MaintCultureTextResources.SuccessToSave,
                 MessageType = FlashMessageType.Success,
-            });
-            _maintDomainService.ClearCultureTextsCache();
+            }); 
             return Template(model.CreateTemplate(ControllerContext));
         }
     }

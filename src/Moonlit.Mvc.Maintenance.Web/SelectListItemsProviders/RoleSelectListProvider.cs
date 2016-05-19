@@ -23,8 +23,8 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {
-            var repository = DependencyResolver.Current.GetService<IMaintDbRepository>();
-            return repository.Cultures.Where(x=>x.IsEnabled).ToList().Select(x => new SelectListItem
+            MaintDbContext repository = new MaintDbContext();
+            return repository.Cultures.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem
             {
                 Text = x.DisplayName,
                 Value = x.CultureId.ToString()
@@ -35,7 +35,7 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {
-            var repository = DependencyResolver.Current.GetService<IMaintDbRepository>();
+            MaintDbContext repository = new MaintDbContext();
             return repository.Roles.Where(x => x.IsEnabled).ToList().Select(x => new SelectListItem
             {
                 Text = x.Name,

@@ -41,7 +41,7 @@ namespace Moonlit.Mvc.Maintenance.Models
 
         private IQueryable GetDataSource(ControllerContext controllerContext)
         {
-            var database = ((MaintControllerBase)controllerContext.Controller).MaintDbContext;
+            var database = ((MaintControllerBase)controllerContext.Controller).Database;
             var query = database.UserLoginFailedLogs.Include(x => x.User);
             if (UserId != null)
             {

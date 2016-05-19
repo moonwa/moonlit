@@ -33,31 +33,25 @@ namespace Moonlit.Mvc.Maintenance.Migrations
                     adminUser.Password = adminUser.HashPassword("123456");
                     context.Users.Add(adminUser);
 
-                    var defaultCulture = new Culture()
-                    {
-                        DisplayName = "简体中文",
-                        IsEnabled = true,
-                        Name = "zh-cn",
-                    };
+                    //var defaultCulture = new Culture()
+                    //{
+                    //    DisplayName = "简体中文",
+                    //    IsEnabled = true,
+                    //    Name = "zh-cn",
+                    //};
 
-                    context.Cultures.Add(defaultCulture);
-                    context.SaveChanges();
+                    //context.Cultures.Add(defaultCulture);
+                    //context.SaveChanges();
 
-                    model.DefaultCulture = defaultCulture.CultureId;
-                    model.DBVersion = "0.2";
-                    model.Save(new MaintDbContextMaintDbRepository(context));
+                    //model.DefaultCulture = defaultCulture.CultureId;
+                    //model.DBVersion = "0.2";
+                    //model.Save(new MaintDbContextMaintDbRepository(context));
 
 
-                    context.SaveChanges();
+                    //context.SaveChanges();
                     tran.Complete();
                 }
             }
-
-            foreach (var cultureInfo in context.Cultures.ToList())
-            {
-                cultureInfo.Import(new MaintDbContextMaintDbRepository(context), LanguageItemConverType.All);
-            }
-
         }
     }
 

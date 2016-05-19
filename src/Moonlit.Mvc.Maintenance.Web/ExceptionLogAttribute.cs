@@ -12,7 +12,7 @@ namespace Moonlit.Mvc.Maintenance
 
             try
             {
-                var db = DependencyResolver.Current.GetService<IMaintDbRepository>();
+                var db = new MaintDbContext();
                 db.ExceptionLogs.Add(new ExceptionLog()
                 {
                     RouteData = JsonConvert.SerializeObject(filterContext.RouteData.Values),

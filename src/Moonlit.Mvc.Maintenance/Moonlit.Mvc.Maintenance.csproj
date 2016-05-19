@@ -98,9 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Daemons\SystemJobDaemon.cs" />
-    <Compile Include="Domains\IMaintDbRepository.cs" />
     <Compile Include="Domains\ISystemJobHandler.cs" />
-    <Compile Include="Domains\MaintDbContextMaintDbRepository.cs" />
     <Compile Include="Domains\SystemJob.cs" />
     <Compile Include="Domains\SystemJobStatus.cs" />
     <Compile Include="Domains\UserLoginFailedLog.cs" />
@@ -126,7 +124,6 @@
     <Compile Include="UserLoader.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\MaintDomainService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

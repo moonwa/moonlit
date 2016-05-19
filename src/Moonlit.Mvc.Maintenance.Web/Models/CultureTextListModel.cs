@@ -25,9 +25,8 @@ namespace Moonlit.Mvc.Maintenance.Models
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; } 
-        private IQueryable GetDataSource(ControllerContext controllerContext)
-        {
-            var repository = DependencyResolver.Current.GetService<IMaintDbRepository>();
+        private IQueryable GetDataSource(ControllerContext controllerContext, MaintDbContext repository)
+        { 
             var query = repository.CultureTexts.Where(x => x.CultureId == Culture);
             if (!string.IsNullOrWhiteSpace(Keyword))
             {

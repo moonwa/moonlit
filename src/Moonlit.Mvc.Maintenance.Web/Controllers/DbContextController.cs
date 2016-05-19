@@ -22,7 +22,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [SitemapNode(Parent = "DevTools", Text = "DevToolsDbContextIndex", ResourceType = typeof(MaintCultureTextResources))]
         public ActionResult Index(DbContextIndexModel model)
         {
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(Request.RequestContext, Database));
         }
 
         public const string FormActionNameExportAsNodeJs = "ExportAsNodeJs";
@@ -101,7 +101,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 ZipFile.CreateFromDirectory(zipSrcFolder, zipFileName);
                 return File(System.IO.File.ReadAllBytes(zipFileName), "application/zip", "dbcontext.zip");
             }
-            return Template(model.CreateTemplate(Request.RequestContext, MaintDbContext));
+            return Template(model.CreateTemplate(Request.RequestContext, Database));
         }
 
         private string BuildBoundedType(Type boundedType)

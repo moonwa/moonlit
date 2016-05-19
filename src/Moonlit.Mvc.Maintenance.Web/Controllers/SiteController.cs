@@ -23,7 +23,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Settings()
         {
             SiteSettingsModel model = new SiteSettingsModel();
-            model.FromEntity(new SiteModel(MaintDbContext.SystemSettings), false, ControllerContext);
+            model.FromEntity(new SiteModel(Database.SystemSettings), false, ControllerContext);
             return Template(model.CreateTemplate(ControllerContext));
         }
 
@@ -50,16 +50,15 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public async Task<ActionResult> Settings(SiteSettingsModel model)
         {
-            var siteModel = new SiteModel(MaintDbContext.SystemSettings);
+            var siteModel = new SiteModel(Database.SystemSettings);
             model.FromEntity(siteModel, true, ControllerContext);
             if (!TryUpdateModel(siteModel, model))
             {
                 return Template(model.CreateTemplate(ControllerContext));
             }
-            var db = MaintDbContext;
+            var db = Database;
             siteModel.Save(db);
-            await db.SaveChangesAsync();
-            MaintDomainService.ClearSystemSettingsCache();
+            await db.SaveChangesAsync(); 
             await SetFlashAsync(new FlashMessage
             {
                 Text = MaintCultureTextResources.SuccessToSave,

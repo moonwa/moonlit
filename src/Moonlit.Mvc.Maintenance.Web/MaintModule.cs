@@ -4,9 +4,7 @@ using System.Web.Compilation;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Moonlit.Caching;
-using Moonlit.Mvc.Maintenance.Domains;
-using Moonlit.Mvc.Maintenance.Services;
+using Moonlit.Caching; 
 using Module = Autofac.Module;
 
 namespace Moonlit.Mvc.Maintenance
@@ -32,21 +30,17 @@ namespace Moonlit.Mvc.Maintenance
             // OPTIONAL: Enable property injection into action filters.
             builder.RegisterFilterProvider();
 
-            builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().SingleInstance();
-            builder.RegisterType<DbCultureTextLoader>().As<ILanguageLoader>().InstancePerDependency();
+            builder.RegisterType<MemoryCacheManager>().As<ICacheManager>().SingleInstance(); 
             builder.RegisterType<SessionCachingFlash>().As<IFlash>();
             builder.RegisterType<ReflectionPrivilegeLoader>().As<IPrivilegeLoader>().SingleInstance();
             builder.RegisterType<CacheKeyManager>().AsSelf().SingleInstance();
             builder.RegisterType<ModuleConfiguration>().AsSelf().InstancePerDependency();
-            builder.RegisterType<UserLoader>().As<IUserLoader>().InstancePerDependency();
-            builder.RegisterType<CultureLoader>().As<ICultureLoader>().InstancePerDependency();
+            builder.RegisterType<UserLoader>().As<IUserLoader>().InstancePerDependency(); 
             builder.RegisterType<MaintModuleConfiguration>().As<IModuleConfiguration>();
             builder.RegisterType<Authenticate>().As<Authenticate>();
             builder.RegisterType<ReflectionSitemapsLoader>().As<ISitemapsLoader>();
             builder.RegisterType<ReflectionDashboardIconLoader>().As<IDashboardIconLoader>();
-            builder.Register(context => new DefaultThemeLoader(_defaultThemeName)).As<IThemeLoader>();
-            builder.RegisterType<MaintDbContextMaintDbRepository>().As<IMaintDbRepository>().InstancePerDependency();
-            builder.RegisterType<MaintDomainService>().As<IMaintDomainService>().InstancePerDependency();
+            builder.Register(context => new DefaultThemeLoader(_defaultThemeName)).As<IThemeLoader>(); 
 
             MvcConfigure.EnableCulture();
             GlobalFilters.Filters.Add(new ExceptionLogAttribute());

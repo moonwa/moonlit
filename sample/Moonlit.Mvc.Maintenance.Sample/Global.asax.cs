@@ -27,8 +27,7 @@ namespace Moonlit.Mvc.Maintenance.Sample
             ngmaModule.AddTheme(new DojoTheme() { IsAjaxSubmitForm = true }, true);
             builder.RegisterModule(ngmaModule);
             builder.RegisterType<ReflectionDashboardIconLoader>().As<IDashboardIconLoader>();
-            //builder.RegisterModule(new EcardModule());
-
+           
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             container.Resolve<ModuleConfiguration>().Configure(container);

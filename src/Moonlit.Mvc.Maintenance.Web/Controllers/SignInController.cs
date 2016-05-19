@@ -27,7 +27,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         [HttpPost]
         public ActionResult Index(SignInModel model, string returnUrl)
         {
-            var siteModel = new SiteModel(MaintDbContext.SystemSettings);
+            var siteModel = new SiteModel(Database.SystemSettings);
 
 
 
@@ -36,7 +36,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 return Template(model.CreateTemplate());
             }
 
-            var db = MaintDbContext;
+            var db = Database;
             var adminUser = db.Users.FirstOrDefault(x => x.LoginName == model.UserName);
             if (adminUser == null)
             {

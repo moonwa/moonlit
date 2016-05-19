@@ -26,7 +26,7 @@ namespace Moonlit.Mvc.Maintenance.Models
         public string OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-        public Template CreateTemplate(RequestContext requestContext, IMaintDbRepository db)
+        public Template CreateTemplate(RequestContext requestContext, MaintDbContext db)
         {
             var urlHelper = new UrlHelper(requestContext);
             var query = BuildManager.GetReferencedAssemblies()

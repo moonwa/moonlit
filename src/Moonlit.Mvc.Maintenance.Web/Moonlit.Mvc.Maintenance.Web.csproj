@@ -144,8 +144,6 @@
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\SystemJobController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="CultureAttribute.cs" />
-    <Compile Include="DbCultureTextLoader.cs" />
     <Compile Include="EnumAttribute.cs" />
     <Compile Include="ExceptionLogAttribute.cs" />
     <Compile Include="IInjectModel.cs" />

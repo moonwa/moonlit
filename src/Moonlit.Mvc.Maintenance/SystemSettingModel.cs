@@ -69,13 +69,13 @@ namespace Moonlit.Mvc.Maintenance.Models
                 setting.Value = value;
             }
         }
-        public void Save(IMaintDbRepository db)
+        public void Save(MaintDbContext database)
         {
             foreach (var settings in Settings)
             {
                 if (settings.SystemSettingId == 0)
                 {
-                    db.SystemSettings.Add(settings);
+                    database.SystemSettings.Add(settings);
                 }
             }
         }
