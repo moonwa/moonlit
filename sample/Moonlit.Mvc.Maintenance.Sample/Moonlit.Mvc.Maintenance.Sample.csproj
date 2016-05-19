@@ -283,6 +283,13 @@
     <Content Include="Views\Shared\dojo\templates\simplebox.cshtml" />
     <Content Include="Views\Shared\dojo\templates\_html.cshtml" />
     <Content Include="Views\Shared\dojo\templates\_layout.cshtml" />
+    <Content Include="Views\Shared\dojo\templates\simplebox - Copy.cshtml" />
+    <Content Include="Views\Shared\dojo\Controls\Form.cshtml" />
+    <Content Include="Views\Shared\dojo\Controls\ControlCollection.cshtml" />
+    <Content Include="Views\Shared\dojo\Controls\Field.cshtml" />
+    <Content Include="Views\Shared\dojo\Controls\TextBox.cshtml" />
+    <Content Include="Views\Shared\dojo\Controls\PasswordBox.cshtml" />
+    <Content Include="Views\Shared\dojo\Controls\Button.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

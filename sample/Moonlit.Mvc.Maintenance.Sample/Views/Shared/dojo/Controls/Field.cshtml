@@ -1,0 +1,20 @@
+﻿@using Moonlit.Mvc
+@using Moonlit.Mvc.Controls
+@using Moonlit.Mvc.Html
+@model Moonlit.Mvc.Controls.Field
+
+@if (!string.IsNullOrWhiteSpace(Model.Label) && !(Model.Control is IHidden))
+{
+    @Html.Render(Model.Control)
+}
+else
+{
+    <dl>
+        <label class="col-sm-2 control-label" for="@Model.FieldName">
+            @Model.Label
+        </label>
+        <dd>
+            @Html.Render(Model.Control)
+        </dd>
+    </dl>
+} 

@@ -1,0 +1,15 @@
+﻿@model Moonlit.Mvc.Controls.Button
+@functions{
+    private string Properties()
+    {
+        List<string> props = new List<string>();
+        props.Add("trim:true");
+        props.Add("selectOnClick:true");
+         
+        return string.Join(",", props);
+    }
+}
+<button data-dojo-type="dijit/form/Button"
+       data-dojo-props="@Properties()" name="@Model.Name" id="@Model.Id" >
+    @Model.Text
+</button>
