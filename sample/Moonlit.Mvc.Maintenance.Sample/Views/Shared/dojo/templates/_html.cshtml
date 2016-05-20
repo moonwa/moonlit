@@ -1,14 +1,15 @@
 ﻿@{
     Layout = null;
 }
+@model Moonlit.Mvc.Templates.Template
 <!DOCTYPE html>
 <html>
 <head>
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>@ViewBag.Title</title>
-
     <link rel="stylesheet" href="//src.cdn.hizhanzhang.com/libs/dojo/1.11.1/dijit/themes/nihilo/nihilo.css">
+    <link href="~/Content/dojo/main.min.css" rel="stylesheet" />
     <style type="text/css">
         html, body {
             width: 100%;
@@ -25,7 +26,7 @@
     <script>dojoConfig = {parseOnLoad: true}</script>
     <script src='//src.cdn.hizhanzhang.com/libs/dojo/1.11.1/dojo/dojo.js'></script>
 </head>
-<body class="nihilo">
+<body class="nihilo" id="@(ViewBag.TemplateName.ToString().ToLower())-template">
 @RenderBody()
 </body>
 </html>
