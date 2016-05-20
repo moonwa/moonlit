@@ -15,5 +15,6 @@ namespace Moonlit.Mvc.Maintenance.Domains
         [StringLength(4000)]
         public string Text { get; set; }
         public bool IsEdited { get; set; }
+        public virtual Culture Culture { get; set; }
     }
 }

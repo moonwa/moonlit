@@ -154,7 +154,6 @@
     <Compile Include="Models\AdminUserCreateModel.cs" />
     <Compile Include="Models\AdminUserEditModel.cs" />
     <Compile Include="Models\AdminUserIndexModel.cs" />
-    <Compile Include="Models\CacheIndexModel.cs" />
     <Compile Include="Models\CultureCreateModel.cs" />
     <Compile Include="Models\CultureEditModel.cs" />
     <Compile Include="Models\CultureIndexModel.cs" />

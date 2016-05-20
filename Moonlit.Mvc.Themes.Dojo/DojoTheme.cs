@@ -14,7 +14,6 @@ namespace Moonlit.Mvc.Dojo
 {
     public class DojoTheme : Theme
     {
-        public bool IsAjaxSubmitForm { get; set; }
         public DojoTheme()
         {
             this.RegisterControl(typeof(SimpleBoxTemplate), ThemeName + "/Templates/SimpleBox");

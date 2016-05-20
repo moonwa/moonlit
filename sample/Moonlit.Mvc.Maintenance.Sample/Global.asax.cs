@@ -24,7 +24,7 @@ namespace Moonlit.Mvc.Maintenance.Sample
             var builder = new ContainerBuilder();
 
             var ngmaModule = new MaintModule();
-            ngmaModule.AddTheme(new DojoTheme() { IsAjaxSubmitForm = true }, true);
+            ngmaModule.AddTheme(new DojoTheme() , true);
             builder.RegisterModule(ngmaModule);
             builder.RegisterType<ReflectionDashboardIconLoader>().As<IDashboardIconLoader>();
            

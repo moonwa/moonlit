@@ -18,7 +18,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             _privilegeLoader = privilegeLoader;
         }
 
-
         public ActionResult Index()
         {
             SignInModel model = new SignInModel();
@@ -28,8 +27,6 @@ namespace Moonlit.Mvc.Maintenance.Controllers
         public ActionResult Index(SignInModel model, string returnUrl)
         {
             var siteModel = new SiteModel(Database.SystemSettings);
-
-
 
             if (!ModelState.IsValid)
             {
