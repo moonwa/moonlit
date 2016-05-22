@@ -14,7 +14,7 @@ namespace Moonlit.Mvc
                 Messages messages = HttpContext.Current.GetObject<Messages>();
                 if (messages == null)
                 {
-                    var loader = DependencyResolver.Current.GetService<IMessageLoader>(false);
+                    var loader = MoonlitDependencyResolver.Current.Resolve<IMessageLoader>(false);
                     if (loader == null)
                     {
                         return null;

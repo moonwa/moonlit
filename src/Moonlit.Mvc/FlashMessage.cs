@@ -1,4 +1,3 @@
-using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
@@ -10,7 +9,7 @@ namespace Moonlit.Mvc
         {
             get
             {
-                var flash = DependencyResolver.Current.GetService<IFlash>();
+                var flash = MoonlitDependencyResolver.Current.Resolve<IFlash>();
                 if (flash == null)
                 {
                     return null;

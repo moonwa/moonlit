@@ -14,7 +14,7 @@ namespace Moonlit.Mvc
                 Notices notices = HttpContext.Current.GetObject<Notices>();
                 if (notices == null)
                 {
-                    var loader = DependencyResolver.Current.GetService<INoticeLoader>(false);
+                    var loader = MoonlitDependencyResolver.Current.Resolve<INoticeLoader>(false);
                     if (loader == null)
                     {
                         return null;

@@ -21,7 +21,7 @@ namespace Moonlit.Mvc
                 var dashboardIcons = HttpContext.Current.GetObject<DashboardIcons>();
                 if (dashboardIcons == null)
                 {
-                    var loader = DependencyResolver.Current.GetService<IDashboardIconLoader>(false);
+                    var loader = MoonlitDependencyResolver.Current.Resolve<IDashboardIconLoader>(false);
                     if (loader == null)
                     {
                         return null;

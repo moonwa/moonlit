@@ -38,7 +38,7 @@ namespace Moonlit.Mvc
                 {
                     return theme;
                 }
-                var themeLoader = DependencyResolver.Current.GetService<IThemeLoader>(false);
+                var themeLoader = MoonlitDependencyResolver.Current.Resolve<IThemeLoader>(false);
                 if (themeLoader == null)
                 {
                     return null;

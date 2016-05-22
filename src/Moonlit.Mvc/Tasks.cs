@@ -14,7 +14,7 @@ namespace Moonlit.Mvc
                 Tasks tasks = HttpContext.Current.GetObject<Tasks>();
                 if (tasks == null)
                 {
-                    var loader = DependencyResolver.Current.GetService<ITaskLoader>(false);
+                    var loader = MoonlitDependencyResolver.Current.Resolve<ITaskLoader>(false);
                     if (loader == null)
                     {
                         return null;

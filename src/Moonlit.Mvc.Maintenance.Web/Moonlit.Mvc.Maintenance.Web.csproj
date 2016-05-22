@@ -164,11 +164,7 @@
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\DbContextIndexModel.cs" />
     <Compile Include="Models\ExceptionLogIndexModel.cs" />
-    <Compile Include="Models\ModelGenerator1.cs">
-      <DependentUpon>ModelGenerator.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <Compile Include="Models\Models.cs" />
     <Compile Include="Models\ProfileChangePasswordModel.cs" />
     <Compile Include="Models\ProfileSettingsModel.cs" />
     <Compile Include="Models\RoleCreateModel.cs" />
@@ -184,18 +180,8 @@
     <Compile Include="SelectListItemsProviders\RoleSelectListProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\ModelGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelGenerator1.cs</LastGenOutput>
-    </Content>
     <None Include="app.config" />
-    <Content Include="Models\models.xsd">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Moonlit.Mvc.Maintenance.Web.nuspec" />
-    <None Include="Models\models.xml">
-      <RunCustomToolOn>ModelGenerator.tt</RunCustomToolOn>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

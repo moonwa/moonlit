@@ -13,7 +13,7 @@ namespace Moonlit.Mvc
                 var privileges = HttpContext.Current.GetObject<Privileges>();
                 if (privileges == null)
                 {
-                    var loader = DependencyResolver.Current.GetService<IPrivilegeLoader>(false);
+                    var loader = MoonlitDependencyResolver.Current.Resolve<IPrivilegeLoader>(false);
                     if (loader == null)
                     {
                         return null;

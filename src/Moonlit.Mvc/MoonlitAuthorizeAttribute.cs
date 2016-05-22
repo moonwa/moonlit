@@ -2,13 +2,10 @@ using System;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Net;
-using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Filters;
 
 namespace Moonlit.Mvc
 {
@@ -38,39 +35,6 @@ namespace Moonlit.Mvc
         }
     }
 
-    public class MoonlitAuthenticationAttribute : FilterAttribute, IAuthenticationFilter
-    {
-        private readonly Authenticate _authenticate;
-        public MoonlitAuthenticationAttribute(Authenticate authenticate)
-        {
-            _authenticate = authenticate;
-        }
-        public void OnAuthentication(AuthenticationContext filterContext)
-        {
-            var session = _authenticate.GetSession();
-            if (session != null)
-            {
-                var _userLoader = DependencyResolver.Current.GetService<IUserLoader>();
-                var userPrincipal = _userLoader.GetUserPrincipal(session.UserName);
-
-                if (userPrincipal != null)
-                {
-                    userPrincipal.Privileges =
-                        (userPrincipal.Privileges ?? new string[0]).Intersect(session.Privileges ?? new string[0])
-                            .ToArray();
-                    filterContext.HttpContext.User = userPrincipal;
-                }
-            }
-            else
-            {
-                filterContext.HttpContext.User = new GenericPrincipal(new GenericIdentity(""), new string[0]);
-            }
-        }
-
-        public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
-        {
-        }
-    }
     //    public class MoonlitAuthorizeAttribute : AuthorizeAttribute
     //    {
     //        private readonly Authenticate _authenticate;

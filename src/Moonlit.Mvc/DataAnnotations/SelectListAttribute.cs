@@ -29,7 +29,7 @@ namespace Moonlit.Mvc
 
         public override Control CreateControl(ModelMetadata metadata, object model, ControllerContext controllerContext)
         {
-            var selectListItemsProvider = (DependencyResolver.Current.GetService(this._providerType) ?? Activator.CreateInstance(_providerType)) as ISelectListProvider;
+            var selectListItemsProvider = (MoonlitDependencyResolver.Current.Resolve(this._providerType) ?? Activator.CreateInstance(_providerType)) as ISelectListProvider;
             var selectListItems = selectListItemsProvider.GetSelectList(metadata, controllerContext.Controller.ViewData.Model);
             selectListItems.Insert(0, new SelectListItem() { Text = "", Value = "" });
             var selectedValue = ObjectToString(model);

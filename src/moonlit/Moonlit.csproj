@@ -129,6 +129,7 @@
     <Compile Include="IO\FileInfoHelper.cs" />
     <Compile Include="ITypeResolvor.cs" />
     <Compile Include="IValue.cs" />
+    <Compile Include="MoonlitDependencyResolver.cs" />
     <Compile Include="Properties\MoonlitCultureTextResources.cs" />
     <Compile Include="Linq\DefaultMetadateAnalyzer.cs" />
     <Compile Include="Linq\ColumnMetadate.cs" />
@@ -369,8 +370,6 @@
     <Compile Include="Windows\ConsoleEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Windows\DesktopIni\ShellClassInfo.cs" />
-    <Compile Include="Xml\XmlComparer.cs" />
-    <Compile Include="Xml\XmlMerge.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

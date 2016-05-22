@@ -16,7 +16,7 @@ namespace Moonlit.Mvc
         {
             try
             {
-                var cultureLoader = DependencyResolver.Current.GetService<ICultureLoader>();
+                var cultureLoader = MoonlitDependencyResolver.Current.Resolve<ICultureLoader>();
 
                 ICulture culture = cultureLoader.Load(filterContext.HttpContext.User.Identity as IUser);
 

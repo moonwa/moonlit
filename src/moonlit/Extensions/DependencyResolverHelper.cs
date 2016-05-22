@@ -6,10 +6,21 @@ namespace Moonlit
 {
     public static class DependencyResolverHelper
     {
-        public static T Resolve<T>(this IDependencyResolver container)
+        public static T Resolve<T>(this IDependencyResolver container, bool throwError= true)
         {
             if (container == null) throw new ArgumentNullException("container");
-            return (T)container.Resolve(typeof(T));
+            try
+            {
+                return (T) container.Resolve(typeof (T));
+            }
+            catch 
+            {
+                if (throwError)
+                {
+                    throw;
+                }
+                return default(T);
+            }
         }
         public static T Resolve<T>(this IDependencyResolver container, string key)
         {

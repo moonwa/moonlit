@@ -9,7 +9,7 @@ namespace Moonlit.Mvc.Maintenance.SelectListItemsProviders
     {
         public List<SelectListItem> GetSelectList(ModelMetadata modelMetadata, object model)
         {
-            var privilegeLoader = DependencyResolver.Current.GetService<IPrivilegeLoader>();
+            var privilegeLoader = MoonlitDependencyResolver.Current.Resolve<IPrivilegeLoader>();
             var allPrivileges = privilegeLoader.Load();
 
             return allPrivileges.Items.Select(x => new SelectListItem

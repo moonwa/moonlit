@@ -1,12 +1,12 @@
 namespace Moonlit.Properties
 {
     public static class MoonlitCultureTextResources
-    {
-        static MoonlitCultureTextResources()
+    { 
+        public static ILanguageLoader LanguageLoader
         {
-            LanguageLoader = new NullLanguageLoader();
+            get { return MoonlitDependencyResolver.Current.Resolve<ILanguageLoader>(); }
         }
-        public static ILanguageLoader LanguageLoader { get; set; }
+
         public static string FriendlyTimeInMunites
         {
             get { return LanguageLoader.Get("FriendlyTime.InMunites"); }

@@ -108,8 +108,6 @@
     <Compile Include="SymmetricAlgorithmExtensionsTests.cs" />
     <Compile Include="Text\WordEnumeratorTests.cs" />
     <Compile Include="TypeResolverTests.cs" />
-    <Compile Include="XmlComparerTests.cs" />
-    <Compile Include="Xml\XmlMergeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -118,8 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />
-    <EmbeddedResource Include="Xml\Xmls\merge2.xml" />
-    <EmbeddedResource Include="Xml\Xmls\merge1.xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

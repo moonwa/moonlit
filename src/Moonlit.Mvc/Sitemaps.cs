@@ -25,7 +25,7 @@ namespace Moonlit.Mvc
                 var sitemaps = HttpContext.Current.GetObject<Sitemaps>();
                 if (sitemaps == null)
                 {
-                    var loader = DependencyResolver.Current.GetService<ISitemapsLoader>(false);
+                    var loader = MoonlitDependencyResolver.Current.Resolve<ISitemapsLoader>(false);
                     if (loader == null)
                     {
                         return null;
