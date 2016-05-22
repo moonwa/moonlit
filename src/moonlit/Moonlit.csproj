@@ -195,7 +195,7 @@
     <Compile Include="Net\Web\WebContainer.cs" />
     <Compile Include="Net\Web\WebParameter.cs" />
     <Compile Include="Net\Web\WebParameterType.cs" />
-    <Compile Include="NullLanguageLoader.cs" />
+    <Compile Include="LanguageLoaders\NullLanguageLoader.cs" />
     <Compile Include="ObjectConverts\ObjectConverters\DictionaryObjectConverter.cs" />
     <Compile Include="ObjectConverts\ObjectConverters\ArrayObjectConverter.cs" />
     <Compile Include="ObjectConverts\ObjectConverters\BooleanObjectConverter.cs" />
