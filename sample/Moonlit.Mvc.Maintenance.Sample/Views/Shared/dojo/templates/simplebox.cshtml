@@ -1,4 +1,4 @@
-﻿@using Moonlit.Mvc 
+﻿@using Moonlit.Mvc
 @using Moonlit.Mvc.Html
 @using Control = Moonlit.Mvc.Control
 @using Form = Moonlit.Mvc.Controls.Form
@@ -9,8 +9,8 @@
     ViewBag.TemplateName = "simplebox";
     Layout = "_html.cshtml";
 }
- 
-<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:true" id="borderContainer">
+
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:true" id="mainContainer">
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'top'" class="region-header">
         <div class="container" id="navbar">
             <div class="logo"></div>
@@ -20,20 +20,21 @@
             </div>
         </div>
     </div>
-     
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" >
-        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:true" id="bodyContainer"  class="container">
+
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:true" id="bodyContainer" class="container">
+
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'left'" style="width: 70%;">
-                
+
             </div>
 
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 
                 <form class="form-horizontal">
-                   @Html.Render(new Form()
-                   {
-                       Control = Model.Fields.Combine()
-                   })
+                    @Html.Render(new Form()
+                  {
+                      Control = Model.Fields.Combine()
+                  })
                     <div class="form-actions">
                         @foreach (Control button in Model.Buttons)
                         {
