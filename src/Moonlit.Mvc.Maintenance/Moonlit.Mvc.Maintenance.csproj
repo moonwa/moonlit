@@ -102,6 +102,7 @@
     <Compile Include="Domains\SystemJob.cs" />
     <Compile Include="Domains\SystemJobStatus.cs" />
     <Compile Include="Domains\UserLoginFailedLog.cs" />
+    <Compile Include="Loaders\MaintainLanguageLoader.cs" />
     <Compile Include="MaintPrivileges.cs" />
     <Compile Include="Properties\MaintCultureTextResources.cs" />
     <Compile Include="Domains\ExceptionLog.cs" />
@@ -121,7 +122,7 @@
     <Compile Include="Domains\SystemSetting.cs" />
     <Compile Include="SiteModel.cs" />
     <Compile Include="SystemSettingModel.cs" />
-    <Compile Include="UserLoader.cs" />
+    <Compile Include="Loaders\UserLoader.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

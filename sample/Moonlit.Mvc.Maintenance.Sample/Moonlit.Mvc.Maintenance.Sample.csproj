@@ -285,6 +285,10 @@
       <Project>{FD2E4B99-77AA-4956-A1AC-DF275629DA44}</Project>
       <Name>Moonlit.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\moonlit\Moonlit.csproj">
+      <Project>{318A3070-6896-4E82-B52B-7A1959156DF1}</Project>
+      <Name>Moonlit</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

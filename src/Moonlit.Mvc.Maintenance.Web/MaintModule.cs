@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Web.Compilation;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Moonlit.Caching;
-using Moonlit.Mvc.Maintenance.Domains;
+using Moonlit.Mvc.Maintenance.Loaders;
 using Module = Autofac.Module;
 
 namespace Moonlit.Mvc.Maintenance
@@ -57,43 +55,6 @@ namespace Moonlit.Mvc.Maintenance
             {
                 _defaultThemeName = theme.Name;
             }
-        }
-    }
-
-    public class MaintainLanguageLoader : ILanguageLoader
-    {
-        private readonly ICacheManager _cacheManager;
-
-        public MaintainLanguageLoader(ICacheManager cacheManager)
-        {
-            _cacheManager = cacheManager;
-        }
-
-        public string Get(string key)
-        {
-            var cultureName = Thread.CurrentThread.CurrentUICulture.Name;
-            var cacheKey = $"languages-{cultureName.ToLower()}";
-            var languages = _cacheManager.Get<LanguageItem[]>(cacheKey);
-            if (languages == null)
-            {
-                var db = new MaintDbContext();
-                languages = db.CultureTexts.Where(x => x.Culture.Name == cultureName)
-                    .Select(x => new LanguageItem()
-                    {
-                        CultureName = cultureName,
-                        Key = x.Name,
-                        Text = x.Text,
-                    }).ToArray();
-                _cacheManager.Set(cacheKey, languages, TimeSpan.MaxValue);
-            }
-            return languages.FirstOrDefault(x => key.EqualsIgnoreCase(x.Key) && cultureName.EqualsIgnoreCase(x.CultureName))?.Text ?? key;
-        }
-
-        public class LanguageItem
-        {
-            public string Key { get; set; }
-            public string Text { get; set; }
-            public string CultureName { get; set; }
         }
     }
 }
