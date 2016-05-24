@@ -14,7 +14,7 @@
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'top'" class="region-header">
         <div class="container" id="navbar">
             <div class="logo"></div>
-            <a href="/">@Model.Site.Title</a>
+            <a href="" class="logo-title">@Model.Site.Title</a>
             <div class="links">
                 <a href="/">首页</a>
             </div>
@@ -24,17 +24,18 @@
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
         <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:true" id="bodyContainer" class="container">
 
-            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'left'" style="width: 70%;">
-
+            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="splitter:false, region:'left'" style="width: 60%;">
+                <div style="background:url(http://cdn.hizhanzhang.com/apps/maint/images/loginbg.jpg)" class="welcome-image"></div>
             </div>
 
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 
                 <form class="form-horizontal">
+                    <div>请输入用户和密码登录</div>
                     @Html.Render(new Form()
-                  {
-                      Control = Model.Fields.Combine()
-                  })
+                    {
+                        Control = Model.Fields.Combine()
+                    })
                     <div class="form-actions">
                         @foreach (Control button in Model.Buttons)
                         {

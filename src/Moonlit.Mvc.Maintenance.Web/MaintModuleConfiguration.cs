@@ -24,7 +24,7 @@ namespace Moonlit.Mvc.Maintenance
             Formatter.Register((x, v) => (x == typeof(DateTime) || x == typeof(DateTime?)) && v != null && ((DateTime)v).Date == ((DateTime)v), new DateFormatter());
             Formatter.Register((x, v) => (x == typeof(DateTime) || x == typeof(DateTime?)), new DateTimeFormatter());
             Formatter.Register((x, v) => x.ToWithoutNullableType().IsEnum, new EnumFormatter());
-            LanguageUpdater languageUpdater = new LanguageUpdater("http://cdn.hizhanzhang.com/apps/sample/zh-cn.lang", "zh-cn");
+            LanguageUpdater languageUpdater = new LanguageUpdater("http://cdn.hizhanzhang.com/apps/maint/l10n/zh-cn.json", "zh-cn");
             languageUpdater.Update();
         }
     }

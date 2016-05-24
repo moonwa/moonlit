@@ -39,7 +39,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field()
                     {
                         FieldName = "Password",
-                        Label = MaintCultureTextResources.SignInUserName,
+                        Label = MaintCultureTextResources.SignInPassword,
                         Control = new PasswordBox()
                         {
                             Icon = "lock",
