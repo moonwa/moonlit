@@ -3,7 +3,7 @@
 @using Moonlit.Mvc.Html
 @model Moonlit.Mvc.Controls.Field
 
-@if (!string.IsNullOrWhiteSpace(Model.Label) && !(Model.Control is IHidden))
+@if (!string.IsNullOrWhiteSpace(Model.Label) && (Model.Control is IHidden))
 {
     @Html.Render(Model.Control)
 }

@@ -28,6 +28,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field
                     {
                         FieldName = "UserName",
+                        Label = MaintCultureTextResources.SignInUserName,
                         Control = new TextBox()
                         {
                             Value = UserName,
@@ -38,6 +39,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                     new Field()
                     {
                         FieldName = "Password",
+                        Label = MaintCultureTextResources.SignInUserName,
                         Control = new PasswordBox()
                         {
                             Icon = "lock",

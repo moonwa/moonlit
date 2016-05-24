@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -15,6 +17,10 @@ namespace Moonlit.Mvc.Maintenance.Sample
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        protected void Application_BeginRequest()
+        {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+        }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
