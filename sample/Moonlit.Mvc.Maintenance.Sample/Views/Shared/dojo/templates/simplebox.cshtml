@@ -30,7 +30,7 @@
 
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 
-                <form class="form-horizontal">
+                <form class="form-horizontal" data-dojo-type="dojox/form/Manager" id="myForm">
                     <div>请输入用户和密码登录</div>
                     @Html.Render(new Form()
                     {
@@ -51,5 +51,24 @@
     </div>
 </div>
 <script>
-
+    function submit_form(value, name) {
+        if (name) {
+            // first time this method is called with no parameters
+            // show the name and the value otherwise
+            console.log("name = ", name, " value = ", value);
+        }
+    }
+    require(["dojo/request", "dijit/registry"], function (request, registry) {
+        request.post("@Request.Url", {
+            data: {
+                color: "blue",
+                answer: 42
+            },
+            headers: {
+                "X-Something": "A value"
+            }
+        }).then(function (text) {
+            console.log("The server returned: ", text);
+        });
+    });
 </script>

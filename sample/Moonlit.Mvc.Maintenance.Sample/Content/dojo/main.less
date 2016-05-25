@@ -1,6 +1,7 @@
 ﻿@fontcolor : #4d4d4d;
 @bordercolor: #d4d4d4;
-
+@buttonbgcolor: #00a2ca;
+@buttontextcolor: #fff;
 html, body {
     width: 100%;
     height: 100%;
@@ -38,11 +39,22 @@ html, body {
             font-size: 12px;
             background: transparent;
         }
+        .dijitButton{
+            border-radius: 3px;
+            width:100%;
+            .dijitButtonNode{
+                border-radius: 3px;
+                padding: 8px  0 ;
+                background:@buttonbgcolor;
+                color: @buttontextcolor;
+            }
+        }
         label {
             line-height:18px;
             height: 18px;
             font-weight: 700;
         }
+
 
     }
     .dijitButtonNode{

@@ -46,6 +46,16 @@ body select {
   font-size: 12px;
   background: transparent;
 }
+#simplebox-template .form-horizontal .dijitButton {
+  border-radius: 3px;
+  width: 100%;
+}
+#simplebox-template .form-horizontal .dijitButton .dijitButtonNode {
+  border-radius: 3px;
+  padding: 8px  0 ;
+  background: #00a2ca;
+  color: #fff;
+}
 #simplebox-template .form-horizontal label {
   line-height: 18px;
   height: 18px;
