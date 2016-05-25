@@ -30,7 +30,8 @@
 
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 
-                <form class="form-horizontal" data-dojo-type="dojox/form/Manager" id="myForm">
+                <form class="form-horizontal" data-dojo-type="dojox/form/Manager" id="form">
+
                     <div>请输入用户和密码登录</div>
                     @Html.Render(new Form()
                     {
@@ -58,17 +59,26 @@
             console.log("name = ", name, " value = ", value);
         }
     }
-    require(["dojo/request", "dijit/registry"], function (request, registry) {
-        request.post("@Request.Url", {
-            data: {
-                color: "blue",
-                answer: 42
-            },
-            headers: {
-                "X-Something": "A value"
-            }
-        }).then(function (text) {
-            console.log("The server returned: ", text);
+    require(["dojo/parser", "dojo/query", "dojo/request", "dojox/form/Manager", "dijit/registry", "dojo/dom", "dojo/on", "dojo/domReady!", "dijit/form/Button", "dijit/form/TextBox", "dojo/ready",
+          "dojox/layout/ContentPane", "dijit/layout/BorderContainer"],
+        function (parser, query, request, Manager, registry, dom, on) {
+            parser.parse();
+            var form = registry.byId(dom.byId("form"));
+            on(form, "submit", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log("Submit");
+            });
+            request.post("@Request.Url", {
+                data: {
+                    color: "blue",
+                    answer: 42
+                },
+                headers: {
+                    "X-Something": "A value"
+                }
+            }).then(function (text) {
+                console.log("The server returned: ", text);
+            });
         });
-    });
 </script>
