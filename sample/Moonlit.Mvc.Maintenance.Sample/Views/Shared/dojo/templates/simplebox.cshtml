@@ -33,24 +33,26 @@
             </div>
 
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+                <div class="form-horizontal" >
+                    <form data-dojo-type="dojox/form/Manager" id="form">
+                        <div>请输入用户和密码登录</div>
+                        @Html.Render(new Form()
+                       {
+                           Control = Model.Fields.Combine()
+                       })
+                        <div class="form-actions">
+                            @foreach (Control button in Model.Buttons)
+                            {
+                                @Html.Render(button)
+                            }
+                        </div>
+                        <div class="new-account">
+                            @Html.Render(Model.Additional)
+                        </div>
+                    </form>
 
-                <form class="form-horizontal" data-dojo-type="dojox/form/Manager" id="form">
-
-                    <div>请输入用户和密码登录</div>
-                    @Html.Render(new Form()
-                    {
-                        Control = Model.Fields.Combine()
-                    })
-                    <div class="form-actions">
-                        @foreach (Control button in Model.Buttons)
-                        {
-                            @Html.Render(button)
-                        }
-                    </div>
-                    <div class="new-account">
-                        @Html.Render(Model.Additional)
-                    </div>
-                </form>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -64,15 +66,18 @@
         }
     }
 
-    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/request", "dijit/registry", "dojo/domReady!" })],
-        function (parser, request, registry, on) {
+    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/request", "dijit/registry","dojo/query", "dojo/domReady!" })],
+        function (parser, request, registry, query) {
             parser.parse();
-            var form = registry.byId("form");
-            form.on("submit", function (event) {
+            query("form").on("submit", function (event) {
                 event.preventDefault();
                 event.stopPropagation();
+                var form = registry.byNode(this);
+                var data = form.gatherFormValues();
+                debugger;
                 console.log("Submit");
             });
+            
             request.post("@Request.Url", {
                 data: {
                     color: "blue",
@@ -82,7 +87,7 @@
                     "X-Something": "A value"
                 }
             }).then(function (text) {
-                console.log("The server returned: ", text);
+                // console.log("The server returned: ", text);
             });
         });
 </script>
