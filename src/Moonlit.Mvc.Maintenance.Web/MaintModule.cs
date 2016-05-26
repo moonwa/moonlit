@@ -12,7 +12,7 @@ namespace Moonlit.Mvc.Maintenance
 {
     public class MaintModule : Module
     {
-        private Themes _themes = Themes.Current;
+        private ThemeCollection _themes = ThemeCollection.Current;
         protected override void Load(ContainerBuilder builder)
         {
             var assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>().Where(x => x.GetCustomAttribute<MvcAttribute>() != null).ToArray();

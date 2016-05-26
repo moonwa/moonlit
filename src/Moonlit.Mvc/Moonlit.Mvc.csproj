@@ -222,7 +222,7 @@
     <Compile Include="Templates\ControlBuilderCriteria.cs" />
     <Compile Include="Theme.cs" />
     <Compile Include="ThemeAttribute.cs" />
-    <Compile Include="Themes.cs" />
+    <Compile Include="ThemeCollection.cs" />
     <Compile Include="ToEntityContext.cs" />
     <Compile Include="ToEntityExtensions.cs" />
     <Compile Include="Url\UrlExtensions.cs" />

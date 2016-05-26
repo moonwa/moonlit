@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Routing;
 using Moonlit.Mvc.Controls;
 using Moonlit.Mvc.Templates;
 using MultiSelectList = Moonlit.Mvc.Controls.MultiSelectList;
 using SelectList = Moonlit.Mvc.Controls.SelectList;
 
-namespace Moonlit.Mvc.Dojo
+namespace Moonlit.Mvc.Themes.Dojo
 {
     public class DojoTheme : Theme
     {

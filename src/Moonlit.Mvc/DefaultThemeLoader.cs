@@ -3,14 +3,14 @@ namespace Moonlit.Mvc
     public class DefaultThemeLoader : IThemeLoader
     {
         private readonly string _themeName;
-        private readonly Themes _themes;
+        private readonly ThemeCollection _themes;
 
         public DefaultThemeLoader(string themeName)
-            : this(themeName, Themes.Current)
+            : this(themeName, ThemeCollection.Current)
         {
 
         }
-        public DefaultThemeLoader(string themeName, Themes themes)
+        public DefaultThemeLoader(string themeName, ThemeCollection themes)
         {
             _themeName = themeName;
             _themes = themes;

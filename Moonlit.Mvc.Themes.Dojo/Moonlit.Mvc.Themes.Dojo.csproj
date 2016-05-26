@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DojoHelper.cs" />
+    <Compile Include="DojoHelperExtensions.cs" />
     <Compile Include="DojoTheme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

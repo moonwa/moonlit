@@ -1,5 +1,5 @@
 ﻿@using Moonlit.Mvc
-@using Moonlit.Mvc.Html
+@using Moonlit.Mvc.Html 
 @using Control = Moonlit.Mvc.Control
 @using Form = Moonlit.Mvc.Controls.Form
 @model Moonlit.Mvc.Templates.SimpleBoxTemplate
@@ -8,6 +8,10 @@
     ViewBag.Title = "登录";
     ViewBag.TemplateName = "simplebox";
     Layout = "_html.cshtml";
+    this.GetDojo()
+        .AddRequire("dojox/form/Manager")
+        .AddRequire("dojox/layout/ContentPane")
+        .AddRequire("dijit/layout/BorderContainer");
 }
 
 <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:true" id="mainContainer">
@@ -51,7 +55,7 @@
         </div>
     </div>
 </div>
-<script>  
+<script>
     function submit_form(value, name) {
         if (name) {
             // first time this method is called with no parameters
@@ -59,12 +63,12 @@
             console.log("name = ", name, " value = ", value);
         }
     }
-    require(["dojo/parser", "dojo/query", "dojo/request", "dojox/form/Manager", "dijit/registry", "dojo/dom", "dojo/on", "dojo/domReady!", "dijit/form/Button", "dijit/form/TextBox", "dojo/ready",
-          "dojox/layout/ContentPane", "dijit/layout/BorderContainer"],
-        function (parser, query, request, Manager, registry, dom, on) {
+
+    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/request", "dijit/registry", "dojo/domReady!" })],
+        function (parser, request, registry, on) {
             parser.parse();
-            var form = registry.byId(dom.byId("form"));
-            on(form, "submit", function (event) {
+            var form = registry.byId("form");
+            form.on("submit", function (event) {
                 event.preventDefault();
                 event.stopPropagation();
                 console.log("Submit");

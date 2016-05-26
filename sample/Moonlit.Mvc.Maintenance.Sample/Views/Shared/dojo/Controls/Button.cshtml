@@ -8,6 +8,11 @@
          
         return string.Join(",", props);
     }
+
+}
+
+@{
+    this.GetDojo().AddRequire("dijit/form/Button");
 }
 <button type="submit" data-dojo-type="dijit/form/Button"
        data-dojo-props="@Properties()" name="@Model.Name" id="@Model.Id" data-dojo-observer="submit_form" >

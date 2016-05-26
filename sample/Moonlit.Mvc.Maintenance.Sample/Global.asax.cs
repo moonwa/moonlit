@@ -11,7 +11,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Moonlit.Mvc.Dojo;
+using Moonlit.Mvc.Themes.Dojo;
 
 namespace Moonlit.Mvc.Maintenance.Sample
 {

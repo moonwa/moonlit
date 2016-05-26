@@ -3,13 +3,13 @@ using System.Web.Mvc;
 
 namespace Moonlit.Mvc
 {
-    public class Themes
+    public class ThemeCollection
     {
         private Dictionary<string, Theme> _themes = new Dictionary<string, Theme>();
-        public static Themes Current { get; private set; }
-        static Themes()
+        public static ThemeCollection Current { get; private set; }
+        static ThemeCollection()
         {
-            Current = new Themes();
+            Current = new ThemeCollection();
             GlobalFilters.Filters.Add(new ThemeAttribute());
         }
         public void Register(Theme theme)

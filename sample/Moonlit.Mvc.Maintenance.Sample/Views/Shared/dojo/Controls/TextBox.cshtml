@@ -16,6 +16,10 @@
         }
         return string.Join(",", props);
     }
+
+}
+@{
+    this.GetDojo().AddRequire("dijit/form/TextBox");
 }
  
 <input type="text" value="@Model.Value"
