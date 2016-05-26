@@ -18,9 +18,15 @@ namespace Moonlit.Mvc.Controls
         {
             Text = text;
             ActionName = actionName;
+            Name = actionName;
         }
 
-        public string ActionName { get; set; }
+        public string ActionName
+        {
+            get { return this.Name; }
+            set { Name = value; }
+        }
+
         public string Text { get; set; }
 
     }
