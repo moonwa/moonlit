@@ -20,6 +20,10 @@ namespace Moonlit.Mvc
 
         public override void ExecuteResult(ControllerContext context)
         {
+            if (context.RequestContext.HttpContext.Request.IsAjaxRequest())
+            {
+                this.MasterName = null;
+            }
             var theme = Theme.Current;
             if (theme == null)
             {

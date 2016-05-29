@@ -8,6 +8,10 @@
     ViewBag.Title = "登录";
     ViewBag.TemplateName = "simplebox";
     Layout = "_html.cshtml";
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
     this.GetDojo()
         .AddRequire("dojox/form/Manager")
         .AddRequire("dojox/layout/ContentPane")
@@ -36,6 +40,10 @@
                 <div class="form-horizontal" >
                     <form data-dojo-type="dojox/form/Manager" id="form" action="@Request.Url">
                         <div>请输入用户和密码登录</div>
+                        <div id="error-msg" >
+                            <span class="dijitIconError"></span>
+                            <span class="notice-descript" id="error-panel">登录名或登录密码不正确</span>
+                        </div>
                         @Html.Render(new Form()
                        {
                            Control = Model.Fields.Combine()
@@ -50,9 +58,7 @@
                             @Html.Render(Model.Additional)
                         </div>
                     </form>
-
                 </div>
-                
             </div>
         </div>
     </div>
@@ -66,22 +72,27 @@
         }
     }
 
-    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/json", "dojo/request", "dijit/registry","dojo/query", "dojo/domReady!" })],
-        function (parser, JSON, request, registry, query) {
+    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/json", "dojo/request", "dijit/registry", "dojo/dom", "dojo/dom-style", "dojo/query", "dojo/domReady!" })],
+        function (parser, JSON, request, registry, dom, style, query) {
             parser.parse();
             query("form").on("submit", function (event) {
                 event.preventDefault();
                 event.stopPropagation();
                 var form = registry.byNode(this);
                 var data = form.gatherFormValues();
-                debugger
+                var msg = dom.byId("error-msg");
+                style.set(msg, {
+                    "display": "none"
+                });
                 request.post(form.attr("action"), {
-                    data: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
+                    data: data,
+                    handleAs: "mauto"
                 }).then(function (data) {
-                    
+                    if (data.Error) {
+                        style.set(msg, {
+                            "display": "block"
+                        });
+                    } 
                 });
             });
             

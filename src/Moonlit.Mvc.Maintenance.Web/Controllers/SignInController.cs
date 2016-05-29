@@ -31,15 +31,14 @@ namespace Moonlit.Mvc.Maintenance.Controllers
 
             if (!ModelState.IsValid)
             {
-                return Template(model.CreateTemplate());
+                return Error("用户名或密码错");
             }
 
             var db = Database;
             var adminUser = db.Users.FirstOrDefault(x => x.LoginName == model.UserName);
             if (adminUser == null)
             {
-                this.ModelState.AddModelError("UserName", "用户名错");
-                return Template(model.CreateTemplate());
+                return Error("用户名或密码错");
             }
 
 
