@@ -34,7 +34,7 @@
 
             <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
                 <div class="form-horizontal" >
-                    <form data-dojo-type="dojox/form/Manager" id="form">
+                    <form data-dojo-type="dojox/form/Manager" id="form" action="@Request.Url">
                         <div>请输入用户和密码登录</div>
                         @Html.Render(new Form()
                        {
@@ -66,29 +66,25 @@
         }
     }
 
-    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/request", "dijit/registry","dojo/query", "dojo/domReady!" })],
-        function (parser, request, registry, query) {
+    require([@this.GetDojo().Requires(new [] { "dojo/parser", "dojo/json", "dojo/request", "dijit/registry","dojo/query", "dojo/domReady!" })],
+        function (parser, JSON, request, registry, query) {
             parser.parse();
             query("form").on("submit", function (event) {
                 event.preventDefault();
                 event.stopPropagation();
                 var form = registry.byNode(this);
                 var data = form.gatherFormValues();
-                console.log(data);
-                debugger;
-                console.log("Submit");
+                debugger
+                request.post(form.attr("action"), {
+                    data: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(function (data) {
+                    
+                });
             });
             
-            request.post("@Request.Url", {
-                data: {
-                    color: "blue",
-                    answer: 42
-                },
-                headers: {
-                    "X-Something": "A value"
-                }
-            }).then(function (text) {
-                // console.log("The server returned: ", text);
-            });
+            
         });
 </script>

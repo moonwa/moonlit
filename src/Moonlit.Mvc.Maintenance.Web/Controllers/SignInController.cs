@@ -23,6 +23,7 @@ namespace Moonlit.Mvc.Maintenance.Controllers
             SignInModel model = new SignInModel();
             return Template(model.CreateTemplate());
         }
+        [FormAction("SignIn")]
         [HttpPost]
         public ActionResult Index(SignInModel model, string returnUrl)
         {

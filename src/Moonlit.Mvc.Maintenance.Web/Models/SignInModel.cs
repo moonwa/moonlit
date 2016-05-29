@@ -51,7 +51,7 @@ namespace Moonlit.Mvc.Maintenance.Models
                 {
                     new Button
                     {
-                        ActionName = "",
+                        ActionName = "SignIn",
                         Text = MaintCultureTextResources.SignIn 
                     }
                 },
