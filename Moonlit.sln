@@ -43,6 +43,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{F5B1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Mvc.Maintenance.Sample", "sample\Moonlit.Mvc.Maintenance.Sample\Moonlit.Mvc.Maintenance.Sample.csproj", "{464F35CD-26AF-461C-97CF-FB3A7C984FCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "joinme", "joinme", "{B07102A1-63C9-4965-A8E6-AC7EDA97B594}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joinme.Passport.Web", "Joinme.Passport.Web\Joinme.Passport.Web.csproj", "{4786F022-003B-4475-AD31-71CD825C2AE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +167,14 @@ Global
 		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{464F35CD-26AF-461C-97CF-FB3A7C984FCD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4786F022-003B-4475-AD31-71CD825C2AE4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +194,7 @@ Global
 		{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17} = {5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}
 		{412D5A86-0B40-41DC-A16E-530FDD412A1D} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{464F35CD-26AF-461C-97CF-FB3A7C984FCD} = {F5B15C6F-83C1-42D7-BB7C-6DDECD546671}
+		{4786F022-003B-4475-AD31-71CD825C2AE4} = {B07102A1-63C9-4965-A8E6-AC7EDA97B594}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
