@@ -271,6 +271,7 @@
     <Compile Include="Reflection\ITypeMapper.cs" />
     <Compile Include="Reflection\PrimitiveTypeMapper.cs" />
     <Compile Include="TextValuePair.cs" />
+    <Compile Include="Timers\ContinuousTimer.cs" />
     <Compile Include="TypeResolverBase.cs" />
     <Compile Include="Extensions\UriBuilderHelper.cs" />
     <Compile Include="Guards\SupportInitializeGuard.cs" />
