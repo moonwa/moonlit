@@ -12,7 +12,7 @@ namespace Moonlit.Mvc
             //            var moonlitAuthorizeAttribute = new MoonlitAuthorizeAttribute(new Authenticate(cacheManager), userLoader)
             //            {
             //                Order = 100,
-            //            };
+            //            }; 
             GlobalFilters.Filters.Add(new MoonlitAuthenticationAttribute(new Authenticate(cacheManager)));
         }
     }
