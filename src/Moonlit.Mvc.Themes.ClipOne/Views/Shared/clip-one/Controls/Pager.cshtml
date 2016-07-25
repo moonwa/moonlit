@@ -2,6 +2,7 @@
 @using Moonlit.Mvc
 @using Moonlit.Mvc.Properties
 @model Moonlit.Mvc.Controls.Pager
+ 
 <ul class="pagination ">
     @if (Model.PageIndex != 1)
     {
@@ -25,7 +26,7 @@
     }
 
     <li>
-        <span>@string.Format(MvcCultureTextResources.Get("Pagination.Status"), Model.ItemCount, Model.PageIndex, Model.PageCount)</span>
+        <span>@string.Format(MvcCultureTextResources.Get("Pagination.Status"), Model.ItemCount, Model.PageIndex, Model.PageCount) 每页共 <input style="border: none; margin: 0; padding: 0; width: 40px;text-align: center" class="page-size" type="text" onchange="submit_with_action(this, null, 'pageSize', $(this).val())"  value="@Model.PageSize"/>条记录</span>
     </li>
 </ul>
 
