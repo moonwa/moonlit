@@ -1,0 +1,20 @@
+﻿@model Moonlit.Mvc.Controls.ButtonGroup
+ 
+<div class="btn-group">
+    <button type="button" class="btn btn-primary">
+        @Model.Text
+    </button>
+    <button type="button" class="btn btn-green dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        @foreach (var button in Model.Buttons)
+        {
+            <li>
+                <a href="#" onclick="submit_with_action(this, '@button.ActionName','@button.ParameterName', '@button.ParameterValue');">
+                    @button.Text
+                </a>
+            </li>
+        }
+    </ul>
+</div>

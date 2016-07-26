@@ -113,6 +113,7 @@
     <Content Include="Views\Shared\clip-one\Templates\SimpleBox.cshtml" />
     <Content Include="Views\Shared\clip-one\Templates\Administration\Dashboard.cshtml" />
     <Content Include="Views\Shared\clip-one\Controls\Hidden.cshtml" />
+    <Content Include="Views\Shared\clip-one\Controls\ButtonGroup.cshtml" />
     <None Include="Views\Shared\clip-one\Templates\Administration\layout_administration_inner.cshtml" />
     <None Include="Views\Shared\clip-one\Templates\SimpleBox_layout.cshtml" />
   </ItemGroup>

@@ -91,6 +91,7 @@
     <Compile Include="AuthorizeManager.cs" />
     <Compile Include="ConstUrl.cs" />
     <Compile Include="Controls\Button.cs" />
+    <Compile Include="Controls\ButtonGroup.cs" />
     <Compile Include="Controls\CheckBox.cs" />
     <Compile Include="Controls\ColumnDirection.cs" />
     <Compile Include="Controls\ControlCollection.cs" />

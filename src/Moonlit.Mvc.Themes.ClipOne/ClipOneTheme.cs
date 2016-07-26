@@ -37,6 +37,7 @@ namespace Moonlit.Mvc.ClipOne
             this.RegisterControl(typeof(CheckBox), ThemeName + "/Controls/CheckBox");
             this.RegisterControl(typeof(DatePicker), ThemeName + "/Controls/DatePicker");
             this.RegisterControl(typeof(MultiSelectList), ThemeName + "/Controls/MultiSelectList");
+            RegisterControl(typeof(ButtonGroup), "clip-one/Controls/ButtonGroup");
         }
         private const string ThemeName = "clip-one";
         protected override void PreRequest(RequestContext requestContext)
