@@ -56,7 +56,7 @@
                     cssClass += " " + SortDirectionToClass(column.SortDirection);
                 }
                 <th class="@cssClass" @Html.Raw(onclick)>
-                    @column.Header
+                    @column.RenderHeader(Html)
                 </th>
             }
         </tr>

@@ -39,13 +39,13 @@ namespace Moonlit.Mvc.Templates
             _table.DataSource = dataSource;
             return this;
         }
-  
+
         public TableBuilder<T> Add(TableColumn column)
         {
             _table.Columns.Add(column);
             return this;
         }
-  
+
         public TableBuilder<T> Add(Func<RowBoundItem<T>, Control> cellTemplate, string header, string sort = null)
         {
             var tableColumn = new TableColumn()
@@ -61,10 +61,25 @@ namespace Moonlit.Mvc.Templates
             return this.Add(tableColumn);
         }
 
+        public TableBuilder<T> Add(Func<RowBoundItem<T>, Control> cellTemplate, Func<Control> headerTemplate, string sort = null)
+        {
+            var tableColumn = new TableColumn()
+            {
+                HeaderTemplate = headerTemplate,
+                Sort = sort,
+                CellTemplate = (x) => cellTemplate(new RowBoundItem<T>
+                {
+                    Target = (T)x.Target,
+                }),
+            };
+
+            return this.Add(tableColumn);
+        }
+
         public Func<RowBoundItem<T>, Control> CheckBox<TResult>(Func<T, TResult> func, ControllerContext controllerContext, string name = null)
         {
             return x =>
-            { 
+            {
                 return new CheckBox
                 {
                     Value = func(x.Target).IfNotNull(a => a.ToString()),
@@ -72,7 +87,7 @@ namespace Moonlit.Mvc.Templates
                 };
             };
         }
- 
+
         public Func<RowBoundItem<T>, Control> Literal<TResult>(Func<T, TResult> func, ControllerContext controllerContext)
         {
             return x =>
@@ -82,6 +97,6 @@ namespace Moonlit.Mvc.Templates
                     Text = func(x.Target).IfNotNull(a => a.ToString())
                 };
             };
-        } 
+        }
     }
 }

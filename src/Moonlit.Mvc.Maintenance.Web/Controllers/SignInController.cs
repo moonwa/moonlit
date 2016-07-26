@@ -66,11 +66,11 @@ namespace Moonlit.Mvc.Maintenance.Controllers
                 count--;
                 if (count > 0)
                 {
-                    this.ModelState.AddModelError("Password", "密码错, 您还剩" + count + " 次");
+                    this.ModelState.AddModelError("Password", "密码错, 您还剩" + count + "次机会");
                 }
                 else
                 {
-                    this.ModelState.AddModelError("Password", "密码错, 已经失败" + siteModel.MaxSignInFailTimes + " 次，请明天再试");
+                    this.ModelState.AddModelError("Password", "密码错, 已经登录失败" + siteModel.MaxSignInFailTimes + " 次，请明天再试");
                 }
                 return Template(model.CreateTemplate());
             }

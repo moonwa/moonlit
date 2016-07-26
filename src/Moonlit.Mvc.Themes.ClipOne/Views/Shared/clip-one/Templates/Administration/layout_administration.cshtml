@@ -753,6 +753,24 @@
                 layouts.style = $("#style_selector_container").css("display") === "block";
                 saveLayout();
             });
+            $("body").on("ifChecked", 'thead th :checkbox', function () {
+                var th = $(this).closest("th");
+                var index = $(this).index();
+                var table = $(this).closest("table");
+                $("tbody tr", table).each(function () {
+                    var td = $("td", this)[index];
+                    $(":checkbox", td).iCheck('check')
+                })
+            });
+            $("body").on("ifUnchecked", 'thead th :checkbox', function () {
+                var th = $(this).closest("th");
+                var index = $(this).index();
+                var table = $(this).closest("table");
+                $("tbody tr", table).each(function () {
+                    var td = $("td", this)[index];
+                    $(":checkbox", td).iCheck('uncheck')
+                })
+            });
         }); 
 
     </script>
