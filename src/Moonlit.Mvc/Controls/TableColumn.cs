@@ -17,7 +17,11 @@ namespace Moonlit.Mvc.Controls
             {
                 return MvcHtmlString.Create(Header);
             }
-            return html.Render(HeaderTemplate());
+            if (HeaderTemplate != null)
+            {
+                return html.Render(HeaderTemplate());
+            }
+            return MvcHtmlString.Empty;
         }
         public string Sort { get; set; }
         public ColumnDirection Direction { get; set; }
