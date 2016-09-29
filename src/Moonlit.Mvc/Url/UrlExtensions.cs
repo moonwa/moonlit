@@ -11,7 +11,7 @@ namespace Moonlit.Mvc.Url
     {
         public static string Asset(this System.Web.Mvc.UrlHelper urlHelper, string url)
         {
-            return "http://121.42.41.232:8033/" + url;
+            return "http://assets.chihank.com/" + url;
         }
     }
 }
