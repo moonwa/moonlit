@@ -110,6 +110,7 @@
     <Compile Include="Caching\CacheManagerExtensions.cs" />
     <Compile Include="Caching\RedisCacheManager.cs" />
     <Compile Include="Collections\MatrixBuilder.cs" />
+    <Compile Include="Configuration\Hosts.cs" />
     <Compile Include="DefaultFormatter.cs" />
     <Compile Include="Extensions\DomainExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />

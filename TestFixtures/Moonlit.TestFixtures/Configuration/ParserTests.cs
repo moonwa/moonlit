@@ -5,8 +5,6 @@ using Moonlit.Configuration.ConsoleParameter;
 
 namespace Moonlit.TestFixtures.Configuration
 {
-
-
     /// <summary>
     ///这是 ParserTest 的测试类，旨在
     ///包含所有 ParserTest 单元测试
