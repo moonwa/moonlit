@@ -13,9 +13,6 @@
     <description>Moonlit Mvc</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>Tag1 Tag2</tags>
-    <dependencies>
-      <dependency id="Moonlit" version="1.1.6.21" />
-    </dependencies>
+    <tags>Tag1 Tag2</tags> 
   </metadata>
 </package>
