@@ -48,6 +48,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Proxy.TextFixtures"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.RabbitMQ", "src\Moonlit.RabbitMQ\Moonlit.RabbitMQ.csproj", "{386240CA-ECC0-4712-A53D-C28F713BD632}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Weixin", "src\Moonlit.Weixin\Moonlit.Weixin.csproj", "{CC2760FE-D90C-4529-95BD-9AF80A9CA336}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moonlit.Weixin.TestFixtures", "TestFixtures\Moonlit.Weixin.TestFixtures\Moonlit.Weixin.TestFixtures.csproj", "{4B73B24E-07C9-4232-B26D-67E23A88D308}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,6 +180,22 @@ Global
 		{386240CA-ECC0-4712-A53D-C28F713BD632}.Release|Any CPU.Build.0 = Release|Any CPU
 		{386240CA-ECC0-4712-A53D-C28F713BD632}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{386240CA-ECC0-4712-A53D-C28F713BD632}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4B73B24E-07C9-4232-B26D-67E23A88D308}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +216,8 @@ Global
 		{6DBDAC37-0EAA-424A-A343-B38EFA297966} = {0216D058-FD7E-444D-9012-68848B65E767}
 		{3C79F5B3-FEA6-42DC-840A-3AE9B3BC4B17} = {5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}
 		{386240CA-ECC0-4712-A53D-C28F713BD632} = {0216D058-FD7E-444D-9012-68848B65E767}
+		{CC2760FE-D90C-4529-95BD-9AF80A9CA336} = {0216D058-FD7E-444D-9012-68848B65E767}
+		{4B73B24E-07C9-4232-B26D-67E23A88D308} = {5E6B18B3-7E8C-4B0A-8192-F6E11CDAC128}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

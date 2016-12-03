@@ -122,10 +122,9 @@
     <EmbeddedResource Include="Xml\Xmls\merge2.xml" />
     <EmbeddedResource Include="Xml\Xmls\merge1.xml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\src\moonlit\Moonlit.csproj">
-      <Project>{318A3070-6896-4E82-B52B-7A1959156DF1}</Project>
+      <Project>{318a3070-6896-4e82-b52b-7a1959156df1}</Project>
       <Name>Moonlit</Name>
     </ProjectReference>
   </ItemGroup>
