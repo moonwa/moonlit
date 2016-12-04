@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Moonlit.RabbitMQ</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>moon.wa</authors>
     <owners>moon.wa</owners>
     <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
